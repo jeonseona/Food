@@ -130,22 +130,17 @@ CREATE TABLE MEMBER(
 CREATE TABLE mypage (
     m_id VARCHAR2(30),     
     m_pw VARCHAR(30),
-    m_email VARCHAR2(60),  
-    m_name VARCHAR2(20),   
+    m_email VARCHAR2(60),
+    m_nickname VARCHAR2(30),
     m_height VARCHAR(30),
     m_weight VARCHAR(30), 
     m_gender VARCHAR2(20), 
     m_goal VARCHAR2(300),  
     bmi NUMBER PRIMARY KEY,
+    food_preference CHAR(1) DEFAULT 'y',      -- 음식선호도 : 'y'는 선호 | 'n'은 불호
+    allergy_food CHAR(1) DEFAULT 'n',       -- 알레르기 음식 : 'n'은 없음 | 'y'는 있음
     
-    CONSTRAINT fk_id5 FOREIGN KEY(m_id) REFERENCES MEMBER(ID),
-    CONSTRAINT fk_pw1 FOREIGN KEY(m_pw) REFERENCES MEMBER(PASSWORD),
-    CONSTRAINT fk_email2 FOREIGN KEY(m_email) REFERENCES MEMBER(email),
-    CONSTRAINT fk_name2 FOREIGN KEY(m_name) REFERENCES MEMBER(NAME),
-    CONSTRAINT fk_height1 FOREIGN KEY(m_height) REFERENCES MEMBER(height),
-    CONSTRAINT fk_weight1 FOREIGN KEY(m_weight) REFERENCES MEMBER(weight),
-    CONSTRAINT fk_gender1 FOREIGN KEY(m_gender) REFERENCES MEMBER(gender),
-    CONSTRAINT fk_goal1 FOREIGN KEY(m_goal) REFERENCES MEMBER(goal)
+    CONSTRAINT fk_id5 FOREIGN KEY(m_id) REFERENCES MEMBER(ID)
 );
 
 
