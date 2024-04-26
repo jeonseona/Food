@@ -121,7 +121,7 @@ CREATE TABLE inquiries (
     CONSTRAINT fk_inquiry_id FOREIGN KEY (inquiry_id) REFERENCES Member_data(no_data)
 );
 
-create sequence inquiriesSEQ start with 1 increment by 1;
+create sequence inq_SEQ start with 1 increment by 1;
 
 
 
