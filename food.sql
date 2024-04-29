@@ -147,6 +147,41 @@ CREATE TABLE mypage (
 
 
 
+-- 여기서부터 추천시스템 페이지 DB입니다. 모두 실행시켜주세요
+ALTER TABLE food_recipe ADD CONSTRAINT pk_food_recipe PRIMARY KEY (idx);
+
+---  추천시스템 목록 페이지
+create table recommend_list(
+    food_number number primary key,
+    food_title varchar2(128),
+    food_img varchar2(4000),
+    CONSTRAINT fk_foodnum FOREIGN KEY(food_number) REFERENCES food_recipe(idx)
+);
+
+
+--  추천시스템 상세페이지
+create table recommend_detail(
+    food_seq	NUMBER,
+    NAME	VARCHAR2(128),
+    IMAGES	VARCHAR2(4000),
+    RECIPECATEGORY	VARCHAR2(26),
+    KEYWORDS	VARCHAR2(256),
+    RECIPEINGREDIENTPARTS	VARCHAR2(1024),
+    CALORIES	NUMBER(38,1),
+    FATCONTENT	NUMBER(38,1),
+    SATURATEDFATCONTENT	NUMBER(38,1),
+    CHOLESTEROLCONTENT	NUMBER(38,1),
+    SODIUMCONTENT	NUMBER(38,1),
+    CARBOHYDRATECONTENT	NUMBER(38,1),
+    FIBERCONTENT	NUMBER(38,1),
+    SUGARCONTENT	NUMBER(38,1),
+    PROTEINCONTENT	NUMBER(38,1),
+    RECIPEINSTRUCTIONS	VARCHAR2(4000),
+    CONSTRAINT fk_foodseq FOREIGN KEY(food_seq) REFERENCES food_recipe(idx)
+);
+
+
+
 
 
 
