@@ -27,8 +27,8 @@ import lombok.ToString;
 public class Mypage {
 	@Id
 	private int bmi;	// bmi
-	private double height;	// 회원 키(소수점이하1자리)
-	private double weight;	// 회원 몸무게(소수점이하1자리)	
+	private String height;	// 회원 키(소수점이하1자리)
+	private String weight;	// 회원 몸무게(소수점이하1자리)	
 	private String goal;	// 회원 목표(input radio를 이용해서 하나의 선택지만 선택)
 	
 	@Column(columnDefinition = "char(1) default 'y'")
