@@ -8,7 +8,7 @@
 </head>
 <body>
     <!-- 헤더 -->
-    <th:block th:insert="~{/includes/header}"></th:block>
+    <th:block th:replace="includes/header"></th:block>
 
     <section class="hero">
         <div class="container">
@@ -23,6 +23,6 @@
     </section>
 
     <!-- 푸터 -->
-    <th:block th:insert="~{/includes/footer}"></th:block>
+    <th:block th:replace="includes/footer"></th:block>
 </body>
 </html>
