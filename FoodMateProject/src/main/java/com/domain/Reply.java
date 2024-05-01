@@ -2,6 +2,8 @@ package com.demo.domain;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.demo.dto.MemberData;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -35,15 +37,8 @@ public class Reply {
 	
 	@ManyToOne
     @JoinColumn(name="no_data", nullable=false)
-	private Member_Data member_data;
+	private MemberData member_data;
 
-	public Reply(int replynum, String content, Com_Board_Detail com_board_detail, Member_Data member_data) {
-		super();
-		this.replynum = replynum;
-		this.content = content;
-		this.com_board_detail = com_board_detail;
-		this.member_data = member_data;
-	}
 	
 	public Reply() {}
 	
