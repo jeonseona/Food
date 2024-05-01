@@ -39,7 +39,7 @@ public class Com_Board_Detail {
 		    
 		    @OneToOne
 		    @JoinColumn(name="no_data", nullable=false)
-		    private MemberData memberData; //회원번호
+		    private MemberData member_data; //회원번호
 		    
 		    @Temporal(value=TemporalType.TIMESTAMP)
 		    @ColumnDefault("sysdate")
