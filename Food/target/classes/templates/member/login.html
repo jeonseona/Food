@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>로그인</title>
+	</head>
+	<body>
+    	<form action ="/Login" method="post">
+        	<div class="login">
+  <div class="form">
+    <h2>Hello User</h2>
+    <div class="form-field">
+      <label for="login-mail"><i class="fa fa-user"></i></label>
+      <input id="login-mail" type="text" name="mail" placeholder="E-Mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+      <svg>
+        <use href="#svg-check" />
+      </svg>
+    </div>
+    <div class="form-field">
+      <label for="login-password"><i class="fa fa-lock"></i></label>
+      <input id="login-password" type="password" name="password" placeholder="Password" pattern=".{6,}" required>
+      <svg>
+        <use href="#svg-check" />
+      </svg>
+    </div>
+    <button type="submit" class="button">
+      <div class="arrow-wrapper">
+        <span class="arrow"></span>
+      </div>
+      <p class="button-text">로그인</p>
+    </button>
+  </div>
+  <div class="finished">
+    <svg>
+      <use href="#svg-check" />
+    </svg>
+  </div>
+</div>
+
+
+<!-- //--- ## SVG SYMBOLS ############# -->
+<svg style="display:none;">
+  <symbol id="svg-check" viewBox="0 0 130.2 130.2">
+    <polyline points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+  </symbol>
+</svg>
+    	</form>
+	</body>
+</html>
