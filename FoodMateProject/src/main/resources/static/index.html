@@ -1,27 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FoodMate - 다이어트 식단 추천</title>
-    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>FoodMate</h1>
-            <nav>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Admin</a></li> <!-- 관리자 -->
-                    <li><a href="#">Login</a></li>   <!-- 로그인 -->
-                    <li><a href="#">Community</a></li> <!-- 커뮤니티 페이지 -->
-                    <li><a href="#">MyPage</a> <!--  마이 페이지 -->
-                    <li><a href="#">Customer Service</a> <!-- 고객센터 -->
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <!-- 헤더 -->
+    <header th:replace="includes/header :: header"></header>
 
     <section class="hero">
         <div class="container">
@@ -35,10 +22,7 @@
         </div>
     </section>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 FoodMate. All rights reserved.</p>
-        </div>
-    </footer>
+    <!-- 푸터 -->
+    <footer th:replace="includes/footer :: footer"></footer>
 </body>
 </html>
