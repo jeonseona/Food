@@ -27,12 +27,11 @@ import lombok.ToString;
 public class Mypage {
 	@Id
 	private int bmi;	// bmi
-	private String height;	// 회원 키(소수점이하1자리)
-	private String weight;	// 회원 몸무게(소수점이하1자리)	
 	private String goal;	// 회원 목표(input radio를 이용해서 하나의 선택지만 선택)
-	
-	@Column(columnDefinition = "char(1) default 'y'")
-	private String food_preference;		// 음식선호도 : 'y'는 선호 | 'n'은 불호
+
+	// 아직 어떻게 쓸지 구성을 못해서 수정 할 것 같음..
+//	@Column(columnDefinition = "char(1) default 'y'")
+//	private String food_preference;		// 음식선호도 : 'y'는 선호 | 'n'은 불호
 	
 	@Column(columnDefinition = "char(1) default 'n'")
 	private String allergy_food;		// 알레르기 음식 : 'n'은 없음 | 'y'는 있음
@@ -40,9 +39,10 @@ public class Mypage {
 	@ManyToOne
 	@JoinColumn(name="id", nullable=false)
 	private Member member;		// 회원테이블 (개인정보 보기 및 수정)
-	
-	@ManyToOne
-	@JoinColumn(name = "seq", nullable = false)
-	private Com_Board comBoard; // 커뮤니티게시글 (작성한 레시피목록 보기)
+
+	// 고민중..
+//	@ManyToOne
+//	@JoinColumn(name = "seq", nullable = false)
+//	private Com_Board comBoard; // 커뮤니티게시글 (작성한 레시피목록 보기)
 
 }
