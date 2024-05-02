@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Food Preferences</title>
+<link rel="stylesheet" th:href="@{/css/mypage.css}">
+</head>
+<th:block th:insert="~{/includes/header}"></th:block>
+<body>
+    <form action="food_choice" id="food_choice" method="post" name="formm">
+        <h3>음식 선호도 및 알레르기</h3>
+        <div>
+            <h4>1. 선호하는 음식을 체크하는 곳 (복수 선택 가능)</h4>
+            <label><input type="checkbox" name="preferredFood" value="Apple">사과</label>
+            <label><input type="checkbox" name="preferredFood" value="Banana">바나나</label>
+            <label><input type="checkbox" name="preferredFood" value="Carrot">당근</label>
+        </div>
+        <div>
+            <h4>2. 불호하는 음식을 선택하는 곳 (복수 선택 가능)</h4>
+            <label><input type="checkbox" name="dislikedFood" value="Onion">양파</label>
+            <label><input type="checkbox" name="dislikedFood" value="Garlic">마늘</label>
+            <label><input type="checkbox" name="dislikedFood" value="Pepper">고추</label>
+        </div>
+        <div>
+            <h4>3. 알레르기 재료를 선택하는 곳 (복수 선택 가능)</h4>
+            <label><input type="checkbox" name="allergyFood" value="Peanuts">땅콩</label>
+            <label><input type="checkbox" name="allergyFood" value="Shellfish">조개류</label>
+            <label><input type="checkbox" name="allergyFood" value="Eggs">계란</label>
+        </div>
+        <div>
+            <input type="button" value="저장하기" onclick="food_choice()">
+            <input type="button" value="취소" onclick="location.href='/MypageMain';">
+        </div>
+    </form>
+<th:block th:insert="~{/includes/footer}"></th:block>
+</body>
+</html>

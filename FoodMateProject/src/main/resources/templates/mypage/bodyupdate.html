@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>BodyData Update</title>
+<link rel="stylesheet" th:href="@{/css/mypage.css}">
+</head>
+<th:block th:insert="~{/includes/header}"></th:block>
+<body>
+	<article>
+	<h3>바디데이터 수정하기</h3>
+	<form action="update_body" id="update_body" method="post" name="formm">
+		<fieldset>
+			<label>키</label>
+			<input type="text" name="height" id="height"><br>
+			<label>몸무게</label>
+			<input type="text" name="weight" id="weight"><br>
+			<label>목표</label>
+			<select name="goal" id="goal">
+				<option value="maintenance" selected>유지</option>
+				<option value="diet">다이어트</option>
+				<option value="health" >헬스</option>
+			</select>
+		</fieldset>
+	</form>
+	<div>
+		<input type="button" value="수정완료" onclick="body_save()">
+		<input type="button" value="취소" onclick="location.href='/MypageMain';">
+	</div>
+	</article>
+<th:block th:insert="~{/includes/footer}"></th:block>
+</body>
+</html>

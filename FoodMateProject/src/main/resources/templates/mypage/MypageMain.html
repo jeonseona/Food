@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>마이페이지</title>
+<link rel="stylesheet" th:href="@{/css/mypage.css}">
+<script type="text/javascript" th:src="@{/mypage.js}"></script>
+</head>
+<body>
+<th:block th:insert="~{/includes/header}">헤더영역</th:block>
+<div class="container">
+        <!-- 개인 정보 -->
+        <div class="section">
+            <h3>개인 정보</h3>
+            <div>
+                <p>이름 : <span th:text="${loginUser.name}"></span></p>
+                <p>닉네임 : <span th:text="${loginUser.nickname}"></span></p>
+                <p>아이디 : <span th:text="${loginUser.id}"></span></p>
+                <p>비밀번호 : <span th:text="${loginUser.password}"></span></p>
+                <p>이메일 : <span th:text="${loginUser.email}"></span></p>
+            </div>
+            <input class="btn" type="button" value="수정하기" onclick="location.href='/infoupdate';">
+        </div>
+        
+        <!-- 바디 데이터 -->
+        <div class="section">
+            <h3>바디 데이터</h3>
+            <div>
+                <p>키 : <span th:text="${loginUser.height}"></span></p>
+                <p>몸무게 : <span th:text="${loginUser.weight}"></span></p>
+                <p>BMI : <span th:text="${loginUser.bmi}"></span></p>
+            </div>
+            <input class="btn" type="button" value="수정하기" onclick="location.href='/bodyupdate';">
+        </div>
+
+        <!-- 음식 선호도 및 알레르기 -->
+        <!-- 더 ㄱ=생각해보고 구성해야함. -->
+        <div class="full-width">
+		    <h3>음식 선호도 및 알레르기</h3>
+		    <div>
+		        <h4>1. 선호하는 음식:</h4>
+		        <ul>
+		            <li th:each="food : ${foods}" th:if="${mypage.food_preference == 'y'}" th:text="${food.name}"></li>
+		        </ul>
+		    </div>
+		    <div>
+		        <h4>2. 불호하는 음식:</h4>
+		        <ul>
+		            <li th:each="food : ${foods}" th:if="${mypage.food_preference == 'n'}" th:text="${food.name}"></li>
+		        </ul>
+		    </div>
+		    <div>
+		        <h4>3. 알레르기 음식:</h4>
+		        <ul>
+		            <li th:each="food : ${foods}" th:if="${mypage.allergy_food == 'y'}" th:text="${food.name}"></li>
+		        </ul>
+		    </div>
+		    <input class="btn" type="button" value="수정하기" onclick="location.href='/foodchoice';">
+		</div>
+
+        <!-- 내 레시피 목록 -->
+        <div class="full-width">
+            <h3>내가 작성한 레시피</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>제목</th>
+                        <th>내용</th>
+                        <th>작성일</th>
+                        <th>조회하기</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="myRecipe : ${recipeList}">
+                        <td th:text="${myRecipe.title}"></td>
+                        <td th:text="${myRecipe.content}"></td>
+                        <td th:text="${myRecipe.regdate}"></td>
+                        <td><a th:href="@{recipe_detail(seq=${myRecipe.seq})}">조회</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<th:block th:insert="~{/includes/footer}">푸터영역</th:block>
+</body>
+</html>
