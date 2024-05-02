@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Top Recipes</title>
-    <!-- Chart.js를 불러오기 위한 코드 -->
-    <script th:src="@{/js/chart.js}"></script>
+   
+   
 </head>
 <body>
     <!-- 헤더 -->
@@ -13,10 +13,14 @@
 
     <h1>가장 많이 조회된 레시피 Top 10</h1>
     <div style="width: 50%;">
-        <canvas id="myChart"></canvas>
+        <canvas th:id="myChart" width="400" height="400"></canvas>
     </div>
 
     <!-- 푸터 -->
     <th:block th:replace="~{includes/footer}"></th:block>
+    
+      <!-- Chart.js를 불러오기 위한 코드 -->
+   <script th:src="@{/js/Chart.js}"></script>
+    
 </body>
 </html>
