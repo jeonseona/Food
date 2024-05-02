@@ -1,5 +1,7 @@
 package com.demo.domain;
 
+import com.demo.dto.QnADTO;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,7 +30,7 @@ public class QnA_Detail {
 
     @OneToOne
     @JoinColumn(name = "qseq", nullable = false)
-    private QnA qna; // 해당 질문(QnA)에 대한 정보
+    private QnADTO qna; // 해당 질문(QnA)에 대한 정보
     private String questionDetail; // 질문의 상세 내용
     private String answerDetail; // 질문에 대한 답변
     
