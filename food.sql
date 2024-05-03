@@ -159,8 +159,27 @@ create table recommend_detail(
     CONSTRAINT fk_foodseq FOREIGN KEY(food_seq) REFERENCES food_recipe(idx)
 );
 
+-- -- 이 테이블들은 추가사항이긴한데 아직 실행시키지 말아주세요 !! 
+-- CREATE TABLE qna_detail (
+--     id INT PRIMARY KEY,
+--     admin_board_id INT NOT NULL,
+--     questionDetail VARCHAR(255),
+--     answerDetail VARCHAR(255),
+--     FOREIGN KEY (admin_board_id) REFERENCES admin_board (boardnum)
+-- );
 
+-- -- 1:1 문의 게시글 목록 테이블 생성
+-- CREATE TABLE inquiry_list (
+--     inquiry_id NUMBER(5) PRIMARY KEY,
+--     name VARCHAR(50), 
+--     email VARCHAR(100), 
+--     subject VARCHAR(100),
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     status VARCHAR(20)
+-- );
 
+-- -- inquiry_id 시퀀스 생성
+-- CREATE SEQUENCE inquiry_list_SEQ START WITH 1 INCREMENT BY 1;  --
 
 
 
