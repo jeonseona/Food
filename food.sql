@@ -55,7 +55,6 @@ CREATE SEQUENCE replyseq START WITH 1 INCREMENT BY 1;
 CREATE TABLE com_board(
     board_num NUMBER primary key, -- com_board_detail 참고1
     recipe_num number ,
-    writer_ID NUMBER(20),   -- com_board_detail > Member_data 참조1
     CONSTRAINT fk_id_11 FOREIGN KEY(board_num) REFERENCES com_board_detail(seq),
     CONSTRAINT fk_idx_1 FOREIGN KEY(recipe_num) REFERENCES COM_RECIPE(IDX)   
 );
