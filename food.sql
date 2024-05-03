@@ -44,6 +44,13 @@ CREATE TABLE FOOD_RECIPE (
     F_MANUAL VARCHAR2(500)
 );
 
+-- 테이블들은 추가사항
+-- 수정사항 적용 / QnA_detail -> qna보드페이지로 수정
+CREATE TABLE admin_qna_board (
+    q_id NUMBER PRIMARY KEY,
+    questionDetail VARCHAR(255),
+    answerDetail VARCHAR(255),
+);
 
 
 -- 커뮤니티 페이지
@@ -134,13 +141,6 @@ create table recommend_detail(
     CONSTRAINT fk_foodseq FOREIGN KEY(food_seq) REFERENCES food_recipe(idx)
 );
 
--- 테이블들은 추가사항
--- 수정사항 적용 / QnA_detail -> qna보드페이지로 수정
-CREATE TABLE admin_qna_board (
-    q_id NUMBER PRIMARY KEY,
-    questionDetail VARCHAR(255),
-    answerDetail VARCHAR(255),
-);
 
 CREATE TABLE inquiries (
     inquiry_id NUMBER(5) PRIMARY KEY,
