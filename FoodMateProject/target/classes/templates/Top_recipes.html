@@ -9,9 +9,10 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-	<header th:include="includes/header"></header>
+	<header th:insert="~{includes/header}"></header>
 
-    <h1>가장 많이 조회된 레시피 Top 10</h1>
+
+    <h1 style ="text-align: center;">가장 많이 조회된 레시피 Top 10</h1>
     <div style="width: 80%; margin: auto;">
         <canvas id="myChart" width="400" height="400"></canvas>
     </div>
@@ -42,6 +43,7 @@
             }
         });
     </script>
-    <footer th:include="includes/footer"></footer>
+    <footer th:insert="~{includes/footer}"></footer>
+
 </body>
 </html>
