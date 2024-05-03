@@ -153,3 +153,12 @@ CREATE TABLE inquiries (
 
 -- inquiry_id 시퀀스 생성
 CREATE SEQUENCE inquiry_list_SEQ START WITH 1 INCREMENT BY 1; 
+
+CREATE TABLE recommend_history(
+    history_id VARCHAR(100) PRIMARY KEY,
+    recommend_food VARCHAR(10),    -- 추천받은 음식(food_seq)에서 NAME, IMAGES, CALORIES 조회
+    recommend_date DATE DEFAULT SYSDATE,
+    
+    CONSTRAINT fk_history_id FOREIGN KEY history_id REFERENCES Member_data(no_data),
+    CONSTRAINT fk_recommend_food FOREIGN KEY recommend_food REFERENCES recommend_detail(food_seq)
+);
