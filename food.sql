@@ -9,16 +9,16 @@ ALTER TABLE member_data ADD CONSTRAINT pk_member_id unique (id);
 
 -- 관리자 페이지
 -- 관리자 게시판(음식레시피, Q&A, 1:1문의)
--- ERD작성용은 IMAGE칼럼 삭제
-CREATE TABLE admin_board (
+-- 수정 사항 적용 / BoardCode컬럼 삭제, 
+CREATE TABLE admin_recipe_board (
     USERID VARCHAR2(255) NOT NULL,     -- USERID를 통해서 USERCODE, NICKNAME 참조
     BOARDNUM NUMBER PRIMARY KEY,
-    BOARDCODE NUMBER(1) DEFAULT 0,
     FB_INDEX NUMBER,  -- FB_INDEX를 통해서 F_IMAGE 참조
     TITLE VARCHAR2(30) NOT NULL,
     CONTENT VARCHAR2(500) NOT NULL,
     TAG VARCHAR2(100),
     COUNT NUMBER(30) DEFAULT 0,
+    IMAGES VARCHAR2(500),
     REGDATE DATE DEFAULT SYSDATE,
     EDITDATE DATE DEFAULT SYSDATE,
     CONSTRAINT fk_id_3 FOREIGN KEY(USERID) REFERENCES MEMBER_data(id),
@@ -135,12 +135,11 @@ create table recommend_detail(
 );
 
 -- 테이블들은 추가사항
-CREATE TABLE qna_detail (
-    id INT PRIMARY KEY,
-    admin_board_id INT NOT NULL,
+-- 수정사항 적용 / QnA_detail -> qna보드페이지로 수정
+CREATE TABLE admin_qna_board (
+    q_id NUMBER PRIMARY KEY,
     questionDetail VARCHAR(255),
     answerDetail VARCHAR(255),
-    FOREIGN KEY (admin_board_id) REFERENCES admin_board (boardnum)
 );
 
 CREATE TABLE inquiries (
