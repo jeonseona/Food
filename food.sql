@@ -48,8 +48,8 @@ CREATE TABLE FOOD_RECIPE (
 -- 수정사항 적용 / QnA_detail -> qna보드페이지로 수정
 CREATE TABLE admin_qna_board (
     qna_boardnum NUMBER PRIMARY KEY,
-    questionDetail VARCHAR(255),
-    answerDetail VARCHAR(255),
+    question VARCHAR(255),
+    answer VARCHAR(255),
 );
 
 
