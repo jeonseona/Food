@@ -1,59 +1,28 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodMate - 다이어트 식단 추천</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" href="/css/main.css">
 </head>
-
 <body>
-	<!-- ~은 현재위치라는뜻. -->
-	<th:block th:insert="~{/includes/header}"></th:block>
+    <!-- 헤더 -->
+    <th:block th:replace="includes/header"></th:block>
 
-	<!--메인 이미지 들어가는 곳 시작 -->
-	<div class="clear"></div>
-	<div id="main_img">
-		<img src="images/main_img.jpg">
-	</div>                                       
+    <section class="hero">
+        <div class="container">
+            <h2 th:text="${welcomeMessage}"></h2>
+            <p>다이어트 식단 추천을 통해 건강한 삶을 시작하세요.</p>
+            <a href="#" class="btn">시작하기</a>
+            <div class='mainPage-images'>
+            	<img th:src="@{/images/mainPage-image1.PNG}" src="images/mainPage-image1.PNG">
+            	<img th:src="@{/images/mainPage-image2.PNG}" src="images/mainPage-image2.PNG">
+            </div>
+        </div>
+    </section>
 
-	<!--메인 이미지 들어가는 곳 끝-->
-
-	<div class="clear"></div>
-
-	<div id="front">
-		<h2> New Item</h2>
-		<div id="bestProduct">
-			<th:block th:each="productVO: ${newProductList}">
-				<div id="item">
-					<a th:href="@{product_detail(pseq=${productVO.pseq})}">
-						<img th:src="@{/product_images/} + ${productVO.image}" />
-						<h3 th:text="${productVO.name}"></h3>
-						<p th:text="${productVO.price2}"></p>
-					</a>
-				</div>
-			</th:block>
-
-		</div>
-		<div class="clear"></div>
-
-		<h2> Best Item</h2>
-		<div id="bestProduct">
-			<th:block th:each="productVO: ${bestProductList}">
-				<div id="item">
-					<a th:href="@{product_detail(pseq=${productVO.pseq})}">
-						<img th:src="@{/product_images/} + ${productVO.image}" />
-						<h3 th:text="${productVO.name}"></h3>
-						<p th:text="${productVO.price2}"></p>
-					</a>
-				</div>
-			</th:block>
-
-		</div>
-		<div class="clear"></div>
-	</div>
-
-	<th:block th:insert="~{/includes/footer}"></th:block>
-
+    <!-- 푸터 -->
+    <th:block th:replace="includes/footer"></th:block>
 </body>
-
 </html>

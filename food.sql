@@ -1,43 +1,56 @@
-
 -- 로그인 페이지
-ALTER TABLE member_data ADD (no_data NUMBER); 
-UPDATE member_data SET no_data = ROWNUM;
-ALTER TABLE member_data ADD CONSTRAINT pk_member_data PRIMARY KEY (no_data);
+-- member_data 테이블에 code 컬럼과 goal 컬럼 추가
+ALTER TABLE member_data ADD (code CHAR(1) DEFAULT '0', goal VARCHAR2(30));
+-- 멤버테이블 삭제해주세요!
+drop table member;
 
-CREATE TABLE MEMBER(
-    member_num number,
-    ID VARCHAR(30)  PRIMARY KEY,
-    NAME VARCHAR(50)  NOT NULL ,
-    nickname VARCHAR(50) NOT NULL unique ,
-    email VARCHAR(50) NOT NULL ,
-    PASSWORD VARCHAR(30) NOT NULL,
-    code CHAR(1) DEFAULT 0 ,   -- 0 : 일반회원, 1 : 관리자
-    height VARCHAR2(30) ,   -- 키
-    weight VARCHAR2(30) ,   -- 몸무게
-    gender VARCHAR2(20),        -- input-radio : 성별
-    goal VARCHAR2(30),           -- checkbox : 목표
-CONSTRAINT fk_id1 FOREIGN KEY(member_num) REFERENCES Member_data(no_data)
-);
 
+ALTER TABLE member_data ADD CONSTRAINT pk_member_id unique (id);
 
 -- 관리자 페이지
 -- 관리자 게시판(음식레시피, Q&A, 1:1문의)
-CREATE TABLE admin_board (
-    userid VARCHAR2(30),     -- 회원게시판 외래키
-    usercode CHAR(1) DEFAULT 1 NOT NULL,
-    boardcode CHAR(1) NOT NULL,    -- 코드0 : 레시피, 코드1:Q&A     
-    nickname VARCHAR2(20), 
-    boardnum NUMBER(30) NOT NULL, -- 기본키
-    title VARCHAR2(30) NOT NULL,
-    content VARCHAR2(500) NOT NULL,
-    image VARCHAR2(500),
-    tag VARCHAR2(500),
-    regdate DATE DEFAULT SYSDATE,
-    count NUMBER(30) DEFAULT 0,  
-    PRIMARY KEY (boardnum),
-    CONSTRAINT fk_id4 FOREIGN KEY (userid) REFERENCES MEMBER(ID)
+-- 수정 사항 적용 / BoardCode컬럼 삭제, 
+CREATE TABLE admin_recipe_board (
+    USERID VARCHAR2(255) NOT NULL,     -- USERID를 통해서 USERCODE, NICKNAME 참조
+    RECIPE_BOARDNUM NUMBER PRIMARY KEY,
+    FB_INDEX NUMBER,  -- FB_INDEX를 통해서 F_IMAGE 참조
+    TITLE VARCHAR2(30) NOT NULL,
+    CONTENT VARCHAR2(500) NOT NULL,
+    TAG VARCHAR2(100),
+    COUNT NUMBER(30) DEFAULT 0,
+    IMAGES VARCHAR2(500),
+    REGDATE DATE DEFAULT SYSDATE,
+    EDITDATE DATE DEFAULT SYSDATE,
+    CONSTRAINT fk_id_3 FOREIGN KEY(USERID) REFERENCES MEMBER_data(id),
+    CONSTRAINT fk_f_index FOREIGN KEY(FB_INDEX) REFERENCES FOOD_RECIPE(IDX)
 );
 
+-- 관리자 음식DB  -----실행 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+-- ERD 작성용 예시 테이블입니다.(실제 테이블은 .CSV파일 임포트해서 사용)
+CREATE TABLE FOOD_RECIPE (
+    F_INDEX NUMBER PRIMARY KEY,
+    F_NAME VARCHAR2(50) NOT NULL,
+    F_IMAGE VARCHAR2(500),
+    F_CATEGORY VARCHAR2(300),
+    F_KEYWORDS VARCHAR2(300) NOT NULL,
+    F_INGREDIENT VARCHAR2(500),
+    F_CALORIES NUMBER NOT NULL,
+    F_FAT NUMBER,
+    F_CHOLESTEROL NUMBER,
+    F_CARBOHYDRATE NUMBER,
+    F_FIBER NUMBER,
+    F_SUGAR NUMBER,
+    F_PROTEIN NUMBER,
+    F_MANUAL VARCHAR2(500)
+);
+
+-- 테이블들은 추가사항
+-- 수정사항 적용 / QnA_detail -> qna보드페이지로 수정
+CREATE TABLE admin_qna_board (
+    qna_boardnum NUMBER PRIMARY KEY,
+    question VARCHAR(255),
+    answer VARCHAR(255),
+);
 
 
 -- 커뮤니티 페이지
@@ -52,58 +65,37 @@ CREATE SEQUENCE boardseq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE replyseq START WITH 1 INCREMENT BY 1;
 
 
--- 커뮤니티 게시글목록
 CREATE TABLE com_board(
-    seq NUMBER PRIMARY KEY,
-    title VARCHAR2(200),
-    writer VARCHAR2(20),
-    writer_ID NUMBER(20),
-    regdate DATE DEFAULT sysdate,
-    cnt NUMBER DEFAULT 0,
-    image VARCHAR2(500),
-    CONSTRAINT fk_id_1 FOREIGN KEY(writer_ID) REFERENCES Member_data(no_data),
-    CONSTRAINT fk_idx_1 FOREIGN KEY(seq) REFERENCES COM_RECIPE(IDX)   
+    board_num NUMBER primary key, -- com_board_detail 참고1
+    recipe_num number ,
+    CONSTRAINT fk_id_11 FOREIGN KEY(board_num) REFERENCES com_board_detail(seq),
+    CONSTRAINT fk_idx_1 FOREIGN KEY(recipe_num) REFERENCES COM_RECIPE(IDX)   
 );
+
 
 -- 커뮤니티 게시글 클릭시 상세정보
 CREATE TABLE com_board_detail(
-    board_num NUMBER PRIMARY KEY,
-    RECIPE_NUM NUMBER,
-    d_title VARCHAR2(200),
-    d_writer VARCHAR2(20),
-    ingredient VARCHAR2(500),
-    d_category varchar2(100),
+    seq NUMBER PRIMARY KEY	,
+    RECIPE_NUM NUMBER, -- com_recipe 참고1
+    d_writer_no   number,  --meber_data 참고1
     d_regdate DATE DEFAULT sysdate,
-    d_cnt NUMBER DEFAULT 0,
-    d_image VARCHAR2(500),
-    d_manual01 varchar2(500),
-    d_manual02 varchar2(500),
-    d_manual03 varchar2(500),
-    d_manual04 varchar2(500),
-    d_manual05 varchar2(500),
-    d_manual06 varchar2(500),
-    d_manual_img01 varchar2(500),
-    d_manual_img02 varchar2(500),
-    d_manual_img03 varchar2(500),
-    d_manual_img04 varchar2(500),
-    d_manual_img05 varchar2(500),
-    d_manual_img06 varchar2(500),
-    CONSTRAINT fk_seq1 FOREIGN KEY(board_num) REFERENCES com_board(seq),  
+    cnt NUMBER DEFAULT 0,
+    CONSTRAINT fk_seq1 FOREIGN KEY(d_writer_no) REFERENCES Member_Data(no_data),  
     CONSTRAINT fk_idx2 FOREIGN KEY(RECIPE_NUM) REFERENCES COM_RECIPE(IDX)
 );
+
+
 
 
 -- 커뮤니티 게시글의 댓글
 CREATE TABLE reply (
     replynum NUMBER PRIMARY KEY,
-    boardnum NUMBER NOT NULL,
-    reply_name VARCHAR2(50) NOT NULL, 
+    boardnum NUMBER, --com_board_Detail 참고
     CONTENT VARCHAR2(2000) NOT NULL,
-    userid NUMBER NOT NULL,
+    userid NUMBER NOT NULL, -- Member_data 참고
     CONSTRAINT fk_id3 FOREIGN KEY(userid) REFERENCES Member_data(no_data),
-    CONSTRAINT fk_seq_3 FOREIGN KEY(boardnum) REFERENCES com_board(seq)
+    CONSTRAINT fk_seq_3 FOREIGN KEY(boardnum) REFERENCES com_board_detail(seq)
 );
-
 
 
 
@@ -112,8 +104,6 @@ CREATE TABLE reply (
 -- 1:1 문의 테이블 생성
 CREATE TABLE inquiries (
     inquiry_id NUMBER(5) PRIMARY KEY,
-    NAME VARCHAR(50), 
-    email VARCHAR(100), 
     subject VARCHAR(100),
     message VARCHAR(100),
     created_at TIMESTAMP DEFAULT current_timestamp,
@@ -123,43 +113,14 @@ CREATE TABLE inquiries (
 
 create sequence inq_SEQ start with 1 increment by 1;
 
-
-
-
--- 마이페이지 MyPage 
-CREATE TABLE mypage (
-    m_seq NUMBER,       -- 마이페이지에서 내가쓴 게시글목록 조회
-    m_num number, 
-    m_id VARCHAR2(30),     
-    m_pw VARCHAR(30),
-    m_email VARCHAR2(60),
-    m_nickname VARCHAR2(30),
-    m_height VARCHAR(30),
-    m_weight VARCHAR(30), 
-    m_gender VARCHAR2(20), 
-    m_goal VARCHAR2(300),  
-    bmi NUMBER PRIMARY KEY,
-    food_preference CHAR(1) DEFAULT 'y',      -- 음식선호도 : 'y'는 선호 | 'n'은 불호
-    allergy_food CHAR(1) DEFAULT 'n',       -- 알레르기 음식 : 'n'은 없음 | 'y'는 있음
-    CONSTRAINT fk_seq9 FOREIGN KEY(m_seq) REFERENCES com_board(seq), 
-    CONSTRAINT fk_id5 FOREIGN KEY(m_num) REFERENCES Member_data(no_data)
-);
-
-
+-- 마이페이지(삭제) : 외래키로 받아오는 정보뿐이라 삭제했어요.
 
 -- 여기서부터 추천시스템 페이지 DB입니다. 모두 실행시켜주세요
 ALTER TABLE food_recipe ADD CONSTRAINT pk_food_recipe PRIMARY KEY (idx);
 
----  추천시스템 목록 페이지
-create table recommend_list(
-    food_number number primary key,
-    food_title varchar2(128),
-    food_img varchar2(4000),
-    CONSTRAINT fk_foodnum FOREIGN KEY(food_number) REFERENCES food_recipe(idx)
-);
+--추천시스템 목록페이지 삭제 
 
-
---  추천시스템 상세페이지
+--  추천시스템 상세페이지   -------실행 XXXXXXXXXXXXXXXXXXXX
 create table recommend_detail(
     food_seq	NUMBER,
     NAME	VARCHAR2(128),
@@ -181,17 +142,14 @@ create table recommend_detail(
 );
 
 
+CREATE TABLE inquiries (
+    inquiry_id NUMBER(5) PRIMARY KEY,
+    subject VARCHAR(100),
+    message VARCHAR(100),
+    created_at TIMESTAMP DEFAULT current_timestamp,
+    comments VARCHAR(200),
+    CONSTRAINT fk_inquiry_id FOREIGN KEY (inquiry_id) REFERENCES Member_data(no_data)
+);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+-- inquiry_id 시퀀스 생성
+CREATE SEQUENCE inquiry_list_SEQ START WITH 1 INCREMENT BY 1; 
