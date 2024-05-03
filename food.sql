@@ -50,6 +50,7 @@ CREATE TABLE admin_qna_board (
     qna_boardnum NUMBER PRIMARY KEY,
     question VARCHAR(255),
     answer VARCHAR(255),
+    regdate DATE DEFAULT SYSDATE
 );
 
 
