@@ -52,58 +52,38 @@ CREATE SEQUENCE boardseq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE replyseq START WITH 1 INCREMENT BY 1;
 
 
--- 커뮤니티 게시글목록
 CREATE TABLE com_board(
-    seq NUMBER PRIMARY KEY,
-    title VARCHAR2(200),
-    writer VARCHAR2(20),
-    writer_ID NUMBER(20),
-    regdate DATE DEFAULT sysdate,
-    cnt NUMBER DEFAULT 0,
-    image VARCHAR2(500),
-    CONSTRAINT fk_id_1 FOREIGN KEY(writer_ID) REFERENCES Member_data(no_data),
-    CONSTRAINT fk_idx_1 FOREIGN KEY(seq) REFERENCES COM_RECIPE(IDX)   
+    board_num NUMBER primary key, -- com_board_detail 참고1
+    recipe_num number ,
+    writer_ID NUMBER(20),   -- com_board_detail > Member_data 참조1
+    CONSTRAINT fk_id_11 FOREIGN KEY(board_num) REFERENCES com_board_detail(seq),
+    CONSTRAINT fk_idx_1 FOREIGN KEY(recipe_num) REFERENCES COM_RECIPE(IDX)   
 );
+
 
 -- 커뮤니티 게시글 클릭시 상세정보
 CREATE TABLE com_board_detail(
-    board_num NUMBER PRIMARY KEY,
-    RECIPE_NUM NUMBER,
-    d_title VARCHAR2(200),
-    d_writer VARCHAR2(20),
-    ingredient VARCHAR2(500),
-    d_category varchar2(100),
+    seq NUMBER PRIMARY KEY	,
+    RECIPE_NUM NUMBER, -- com_recipe 참고1
+    d_writer_no   number,  --meber_data 참고1
     d_regdate DATE DEFAULT sysdate,
-    d_cnt NUMBER DEFAULT 0,
-    d_image VARCHAR2(500),
-    d_manual01 varchar2(500),
-    d_manual02 varchar2(500),
-    d_manual03 varchar2(500),
-    d_manual04 varchar2(500),
-    d_manual05 varchar2(500),
-    d_manual06 varchar2(500),
-    d_manual_img01 varchar2(500),
-    d_manual_img02 varchar2(500),
-    d_manual_img03 varchar2(500),
-    d_manual_img04 varchar2(500),
-    d_manual_img05 varchar2(500),
-    d_manual_img06 varchar2(500),
-    CONSTRAINT fk_seq1 FOREIGN KEY(board_num) REFERENCES com_board(seq),  
+    cnt NUMBER DEFAULT 0,
+    CONSTRAINT fk_seq1 FOREIGN KEY(d_writer_no) REFERENCES MemberData(no_data),  
     CONSTRAINT fk_idx2 FOREIGN KEY(RECIPE_NUM) REFERENCES COM_RECIPE(IDX)
 );
+
+
 
 
 -- 커뮤니티 게시글의 댓글
 CREATE TABLE reply (
     replynum NUMBER PRIMARY KEY,
-    boardnum NUMBER NOT NULL,
-    reply_name VARCHAR2(50) NOT NULL, 
+    boardnum NUMBER, --com_board_Detail 참고
     CONTENT VARCHAR2(2000) NOT NULL,
-    userid NUMBER NOT NULL,
-    CONSTRAINT fk_id3 FOREIGN KEY(userid) REFERENCES Member_data(no_data),
-    CONSTRAINT fk_seq_3 FOREIGN KEY(boardnum) REFERENCES com_board(seq)
+    userid NUMBER NOT NULL, -- Member_data 참고
+    CONSTRAINT fk_id3 FOREIGN KEY(userid) REFERENCES Memberdata(no_data),
+    CONSTRAINT fk_seq_3 FOREIGN KEY(boardnum) REFERENCES com_board_detail(seq)
 );
-
 
 
 
