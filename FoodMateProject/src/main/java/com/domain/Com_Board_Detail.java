@@ -7,6 +7,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import com.demo.dto.Com_Recipe;
 import com.demo.dto.MemberData;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,6 +18,7 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -24,6 +26,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @DynamicInsert 
 @DynamicUpdate
@@ -37,7 +40,7 @@ public class Com_Board_Detail {
 		    @JoinColumn(name="idx", nullable=false)
 		    private Com_Recipe com_recipe; //레시피번호
 		    
-		    @OneToOne
+		    @OneToOne(cascade = CascadeType.ALL)
 		    @JoinColumn(name="no_data", nullable=false)
 		    private MemberData member_data; //회원번호
 		    

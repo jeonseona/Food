@@ -15,7 +15,6 @@ public class MemberData {
     private String name;
     private String gender;
     private String email;
-   @Id
+    @Id
     private int no_data;
-  
 }

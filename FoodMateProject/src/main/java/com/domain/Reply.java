@@ -10,7 +10,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,7 +30,7 @@ public class Reply {
 	
 	private String content;
 	
-	@OneToOne
+	@ManyToOne
     @JoinColumn(name="seq", nullable=false)
 	private Com_Board_Detail com_board_detail;
 	
