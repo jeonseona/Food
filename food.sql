@@ -1,18 +1,17 @@
-
 -- 로그인 페이지
 -- member_data 테이블에 code 컬럼과 goal 컬럼 추가
 ALTER TABLE member_data ADD (code CHAR(1) DEFAULT '0', goal VARCHAR2(30));
 -- 멤버테이블 삭제해주세요!
 drop table member;
-);
 
 
+ALTER TABLE member_data ADD CONSTRAINT pk_member_id unique (id);
 
 -- 관리자 페이지
 -- 관리자 게시판(음식레시피, Q&A, 1:1문의)
 -- ERD작성용은 IMAGE칼럼 삭제
 CREATE TABLE admin_board (
-    USERID VARCHAR2(30) NOT NULL,     -- USERID를 통해서 USERCODE, NICKNAME 참조
+    USERID VARCHAR2(255) NOT NULL,     -- USERID를 통해서 USERCODE, NICKNAME 참조
     BOARDNUM NUMBER PRIMARY KEY,
     BOARDCODE NUMBER(1) DEFAULT 0,
     FB_INDEX NUMBER,  -- FB_INDEX를 통해서 F_IMAGE 참조
@@ -22,12 +21,11 @@ CREATE TABLE admin_board (
     COUNT NUMBER(30) DEFAULT 0,
     REGDATE DATE DEFAULT SYSDATE,
     EDITDATE DATE DEFAULT SYSDATE,
-    
-    CONSTRAINT fk_id FOREIGN KEY(USERID) REFERENCES MEMBER(ID)
-    CONSTRAINT fk_f_index FOREIGN KEY(FB_INDEX) REFERENCES FOOD_RECEIPE(F_INDEX)
+    CONSTRAINT fk_id_3 FOREIGN KEY(USERID) REFERENCES MEMBER_data(id),
+    CONSTRAINT fk_f_index FOREIGN KEY(FB_INDEX) REFERENCES FOOD_RECIPE(IDX)
 );
 
--- 관리자 음식DB
+-- 관리자 음식DB  -----실행 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 -- ERD 작성용 예시 테이블입니다.(실제 테이블은 .CSV파일 임포트해서 사용)
 CREATE TABLE FOOD_RECIPE (
     F_INDEX NUMBER PRIMARY KEY,
@@ -75,7 +73,7 @@ CREATE TABLE com_board_detail(
     d_writer_no   number,  --meber_data 참고1
     d_regdate DATE DEFAULT sysdate,
     cnt NUMBER DEFAULT 0,
-    CONSTRAINT fk_seq1 FOREIGN KEY(d_writer_no) REFERENCES MemberData(no_data),  
+    CONSTRAINT fk_seq1 FOREIGN KEY(d_writer_no) REFERENCES Member_Data(no_data),  
     CONSTRAINT fk_idx2 FOREIGN KEY(RECIPE_NUM) REFERENCES COM_RECIPE(IDX)
 );
 
@@ -88,7 +86,7 @@ CREATE TABLE reply (
     boardnum NUMBER, --com_board_Detail 참고
     CONTENT VARCHAR2(2000) NOT NULL,
     userid NUMBER NOT NULL, -- Member_data 참고
-    CONSTRAINT fk_id3 FOREIGN KEY(userid) REFERENCES Memberdata(no_data),
+    CONSTRAINT fk_id3 FOREIGN KEY(userid) REFERENCES Member_data(no_data),
     CONSTRAINT fk_seq_3 FOREIGN KEY(boardnum) REFERENCES com_board_detail(seq)
 );
 
@@ -113,16 +111,9 @@ create sequence inq_SEQ start with 1 increment by 1;
 -- 여기서부터 추천시스템 페이지 DB입니다. 모두 실행시켜주세요
 ALTER TABLE food_recipe ADD CONSTRAINT pk_food_recipe PRIMARY KEY (idx);
 
----  추천시스템 목록 페이지
-create table recommend_list(
-    food_number number primary key,
-    food_title varchar2(128),
-    food_img varchar2(4000),
-    CONSTRAINT fk_foodnum FOREIGN KEY(food_number) REFERENCES food_recipe(idx)
-);
+--추천시스템 목록페이지 삭제 
 
-
---  추천시스템 상세페이지
+--  추천시스템 상세페이지   -------실행 XXXXXXXXXXXXXXXXXXXX
 create table recommend_detail(
     food_seq	NUMBER,
     NAME	VARCHAR2(128),
@@ -152,28 +143,14 @@ CREATE TABLE qna_detail (
     FOREIGN KEY (admin_board_id) REFERENCES admin_board (boardnum)
 );
 
--- 1:1 문의 게시글 목록 테이블 생성
-CREATE TABLE inquiry_list (
+CREATE TABLE inquiries (
     inquiry_id NUMBER(5) PRIMARY KEY,
-    name VARCHAR(50), 
-    email VARCHAR(100), 
     subject VARCHAR(100),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    status VARCHAR(20)
+    message VARCHAR(100),
+    created_at TIMESTAMP DEFAULT current_timestamp,
+    comments VARCHAR(200),
+    CONSTRAINT fk_inquiry_id FOREIGN KEY (inquiry_id) REFERENCES Member_data(no_data)
 );
 
 -- inquiry_id 시퀀스 생성
-CREATE SEQUENCE inquiry_list_SEQ START WITH 1 INCREMENT BY 1;  
-
-
-
-
-
-
-
-
-
-
-
-
-
+CREATE SEQUENCE inquiry_list_SEQ START WITH 1 INCREMENT BY 1; 
