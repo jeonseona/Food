@@ -23,19 +23,17 @@ CONSTRAINT fk_id1 FOREIGN KEY(member_num) REFERENCES Member_data(no_data)
 -- 관리자 페이지
 -- 관리자 게시판(음식레시피, Q&A, 1:1문의)
 CREATE TABLE admin_board (
-    userid VARCHAR2(30),     -- 회원게시판 외래키
-    usercode CHAR(1) DEFAULT 1 NOT NULL,
-    boardcode CHAR(1) NOT NULL,    -- 코드0 : 레시피, 코드1:Q&A     
-    nickname VARCHAR2(20), 
-    boardnum NUMBER(30) NOT NULL, -- 기본키
-    title VARCHAR2(30) NOT NULL,
-    content VARCHAR2(500) NOT NULL,
-    image VARCHAR2(500),
-    tag VARCHAR2(500),
-    regdate DATE DEFAULT SYSDATE,
-    count NUMBER(30) DEFAULT 0,  
-    PRIMARY KEY (boardnum),
-    CONSTRAINT fk_id4 FOREIGN KEY (userid) REFERENCES MEMBER(ID)
+    USERID VARCHAR2(30) NOT NULL,     -- USERID를 통해서 USERCODE, NICKNAME 참조
+    BOARDNUM NUMBER PRIMARY KEY,
+    BOARDCODE NUMBER(1) DEFAULT 0,
+    TITLE VARCHAR2(30) NOT NULL,
+    CONTENT VARCHAR2(500) NOT NULL,
+    IMAGE VARCHAR2(500),
+    TAG VARCHAR2(100),
+    COUNT NUMBER(30) DEFAULT 0,
+    REGDATE DATE DEFAULT SYSDATE,
+    
+    CONSTRAINT fk_id FOREIGN KEY(USERID) REFERENCES MEMBER
 );
 
 
