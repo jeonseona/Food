@@ -107,21 +107,14 @@ create sequence inq_SEQ start with 1 increment by 1;
 
 -- 마이페이지 MyPage 
 CREATE TABLE mypage (
-    m_seq NUMBER,       -- 마이페이지에서 내가쓴 게시글목록 조회
-    m_num number, 
-    m_id VARCHAR2(30),     
-    m_pw VARCHAR(30),
-    m_email VARCHAR2(60),
-    m_nickname VARCHAR2(30),
-    m_height VARCHAR(30),
-    m_weight VARCHAR(30), 
-    m_gender VARCHAR2(20), 
-    m_goal VARCHAR2(300),  
+    m_seq NUMBER,       -- com_board_detail 참고
+    m_id VARCHAR2(30),  -- MemberData 참고
+    goal VARCHAR2(300),  
     bmi NUMBER PRIMARY KEY,
     food_preference CHAR(1) DEFAULT 'y',      -- 음식선호도 : 'y'는 선호 | 'n'은 불호
-    allergy_food CHAR(1) DEFAULT 'n',       -- 알레르기 음식 : 'n'은 없음 | 'y'는 있음
-    CONSTRAINT fk_seq9 FOREIGN KEY(m_seq) REFERENCES com_board(seq), 
-    CONSTRAINT fk_id5 FOREIGN KEY(m_num) REFERENCES Member_data(no_data)
+    allergy CHAR(1) DEFAULT 'n',       -- 알레르기 음식 : 'n'은 없음 | 'y'는 있음
+    CONSTRAINT fk_seq9 FOREIGN KEY(m_seq) REFERENCES com_board_detail(seq), 
+    CONSTRAINT fk_id9 FOREIGN KEY(m_num) REFERENCES Member_data(no_data)
 );
 
 
