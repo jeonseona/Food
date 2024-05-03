@@ -17,4 +17,6 @@ public class MemberData {
     private String gender;
     private String email;
     private int nodata;
+    private char code = '0';
+    private String goal;
 }

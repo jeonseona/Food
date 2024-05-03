@@ -29,7 +29,7 @@ import lombok.ToString;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-public class AdminBoard {
+public class Admin_Board {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "boardnum_generator")
     @SequenceGenerator(name="boardnum_generator", sequenceName = "BOARDNUM_SEQ", allocationSize = 1)

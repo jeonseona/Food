@@ -3,6 +3,8 @@ package com.demo.domain;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.demo.dto.MemberData;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -39,7 +41,7 @@ public class Mypage {
 	
 	@ManyToOne
 	@JoinColumn(name="id", nullable=false)
-	private Member member;		// 회원테이블 (개인정보 보기 및 수정)
+	private MemberData memberData;		// 회원테이블 (개인정보 보기 및 수정)
 	
 	@ManyToOne
 	@JoinColumn(name = "seq", nullable = false)
