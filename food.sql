@@ -1,15 +1,11 @@
 
 -- 로그인 페이지
-ALTER TABLE member_data ADD (no_data NUMBER); 
-UPDATE member_data SET no_data = ROWNUM;
-ALTER TABLE member_data ADD CONSTRAINT pk_member_data PRIMARY KEY (no_data);
-
-CREATE TABLE MEMBER(
-    member_num number,
-    code CHAR(1) DEFAULT 0 ,   -- 0 : 일반회원, 1 : 관리자
-    goal VARCHAR2(30),           -- checkbox : 목표
-CONSTRAINT fk_id1 FOREIGN KEY(member_num) REFERENCES Member_data(no_data)
+-- member_data 테이블에 code 컬럼과 goal 컬럼 추가
+ALTER TABLE member_data ADD (code CHAR(1) DEFAULT '0', goal VARCHAR2(30));
+-- 멤버테이블 삭제해주세요!
+drop table member;
 );
+
 
 
 -- 관리자 페이지
