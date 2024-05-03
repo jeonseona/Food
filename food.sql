@@ -47,7 +47,7 @@ CREATE TABLE FOOD_RECIPE (
 -- 테이블들은 추가사항
 -- 수정사항 적용 / QnA_detail -> qna보드페이지로 수정
 CREATE TABLE admin_qna_board (
-    q_id NUMBER PRIMARY KEY,
+    qna_boardnum NUMBER PRIMARY KEY,
     questionDetail VARCHAR(255),
     answerDetail VARCHAR(255),
 );
