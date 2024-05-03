@@ -100,22 +100,7 @@ CREATE TABLE inquiries (
 
 create sequence inq_SEQ start with 1 increment by 1;
 
-
-
-
--- 마이페이지 MyPage 
-CREATE TABLE mypage (
-    m_seq NUMBER,       -- com_board_detail 참고
-    m_id VARCHAR2(30),  -- MemberData 참고
-    goal VARCHAR2(300),  
-    bmi NUMBER PRIMARY KEY,
-    food_preference CHAR(1) DEFAULT 'y',      -- 음식선호도 : 'y'는 선호 | 'n'은 불호
-    allergy CHAR(1) DEFAULT 'n',       -- 알레르기 음식 : 'n'은 없음 | 'y'는 있음
-    CONSTRAINT fk_seq9 FOREIGN KEY(m_seq) REFERENCES com_board_detail(seq), 
-    CONSTRAINT fk_id9 FOREIGN KEY(m_num) REFERENCES Member_data(no_data)
-);
-
-
+-- 마이페이지(삭제) : 외래키로 받아오는 정보뿐이라 삭제했어요.
 
 -- 여기서부터 추천시스템 페이지 DB입니다. 모두 실행시켜주세요
 ALTER TABLE food_recipe ADD CONSTRAINT pk_food_recipe PRIMARY KEY (idx);
