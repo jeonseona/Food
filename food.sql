@@ -6,15 +6,7 @@ ALTER TABLE member_data ADD CONSTRAINT pk_member_data PRIMARY KEY (no_data);
 
 CREATE TABLE MEMBER(
     member_num number,
-    ID VARCHAR(30)  PRIMARY KEY,
-    NAME VARCHAR(50)  NOT NULL ,
-    nickname VARCHAR(50) NOT NULL unique ,
-    email VARCHAR(50) NOT NULL ,
-    PASSWORD VARCHAR(30) NOT NULL,
     code CHAR(1) DEFAULT 0 ,   -- 0 : 일반회원, 1 : 관리자
-    height VARCHAR2(30) ,   -- 키
-    weight VARCHAR2(30) ,   -- 몸무게
-    gender VARCHAR2(20),        -- input-radio : 성별
     goal VARCHAR2(30),           -- checkbox : 목표
 CONSTRAINT fk_id1 FOREIGN KEY(member_num) REFERENCES Member_data(no_data)
 );
