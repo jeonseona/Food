@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <meta charset="UTF-8">
-<th:block th:insert="~{/admin/header}"></th:block>
-<th:block th:insert="~{/admin/sub_menu}"></th:block>
 <Script type="text/javascript">
 function go_save() {	
 	if ($("#title").val() == "") {
@@ -147,6 +145,5 @@ function go_list()
 <input class="btn" type="button" value="취소" onClick="go_list()">
 </form> 
 </article>
-<th:block th:insert="~{/admin/footer}"></th:block>
 </body>
 </html>

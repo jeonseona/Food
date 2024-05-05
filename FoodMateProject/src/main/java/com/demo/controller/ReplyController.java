@@ -6,9 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.demo.domain.Com_Board_Detail;
 import com.demo.domain.Reply;
+import com.demo.service.Com_Board_DetailService;
 import com.demo.service.ReplyService;
 
 import jakarta.servlet.http.HttpSession;
@@ -19,11 +22,19 @@ public class ReplyController {
 	@Autowired
 	ReplyService replyService;
 	
+	@Autowired
+	Com_Board_DetailService comBoardDetailService;
+	
 	//댓글 출력
-	@GetMapping("/reply_list")
-	public String getboard_list(int seq, Model model) {
-		List<Reply> ReplyList = replyService.getReplyList();
-		model.addAttribute("replyList", ReplyList);
+	@PostMapping("/reply_list")
+	public String getReply_list(@RequestParam("seq") int seq, Model model) {
+		List<Reply> ReplyList = replyService.getReplyBySeq(seq);
+		Com_Board_Detail comBoardDetailVO = comBoardDetailService.getCom_Board_Datail(seq);
+		model.addAttribute("ReplyList", ReplyList);
+		model.addAttribute("Com_Board_DetailVO", comBoardDetailVO);
+		
+		System.out.println("********************댓글 목록 = " + ReplyList);
+		System.out.println("********************게시글상세 목록 = " + comBoardDetailVO);
 		return "comboard/BoardDetail";
 		}
 	

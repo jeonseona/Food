@@ -1,5 +1,7 @@
 package com.demo.domain;
 
+import java.util.Date;
+
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -9,8 +11,6 @@ import com.demo.dto.MemberData;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -33,7 +33,6 @@ import lombok.ToString;
 public class Com_Board_Detail {
 
 			@Id
-			@GeneratedValue(strategy = GenerationType.IDENTITY)
 			private int seq; //게시글번호
 			
 			@OneToOne
@@ -46,7 +45,7 @@ public class Com_Board_Detail {
 		    
 		    @Temporal(value=TemporalType.TIMESTAMP)
 		    @ColumnDefault("sysdate")
-		    private String d_regdate; //작성일자 
+		    private Date d_regdate; //작성일자 
 		    
 		    private int cnt;
 

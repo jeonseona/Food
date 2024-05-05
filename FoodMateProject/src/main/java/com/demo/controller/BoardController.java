@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.demo.domain.Com_Board_Detail;
 import com.demo.service.Com_BoardService;
@@ -17,8 +18,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class BoardController {
 	
-	@Autowired
-	Com_BoardService BoardService;
+
 	@Autowired
 	Com_Board_DetailService Board_DetailService;	
 	
@@ -30,12 +30,15 @@ public class BoardController {
 		return "comboard/BoardList";
 		}
 	
-	
 	//게시글 상세정보 조회
 	@PostMapping("/com_board_detail")
-	public String getCom_Board_DetailView(Com_Board_Detail vo, Model model) {
-		Com_Board_Detail com_board = Board_DetailService.getCom_Board_Datail(vo.getSeq());
+	public String getCom_Board_DetailView(@RequestParam("seq") int seq,Com_Board_Detail vo, Model model) {
+		Com_Board_Detail com_board = Board_DetailService.getCom_Board_Datail(seq);
 		model.addAttribute("Com_Board_DetailVO" , com_board);
+		model.addAttribute("seq" , com_board.getSeq());
+		
+//		System.out.println("com_board = " + com_board);
+//		System.out.println("seq = " + seq);
 		return "comboard/BoardDetail";
 	}
 	
@@ -98,6 +101,17 @@ public class BoardController {
 	}
 	
 	// 제목으로 검색
+	@GetMapping("/search")
+	public String getSearchResult(String searchKeyword, @RequestParam("searchType.value") String type) {
+		
+		if (type == "title") {
+			Board_DetailService.
+		}else {
+			
+		}
+		
+		return;
+	}
 	// 글쓴이로 검색
 	
 }

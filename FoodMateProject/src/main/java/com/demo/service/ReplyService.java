@@ -14,7 +14,7 @@ public interface ReplyService {
 	
 	public void deleteReply(Reply vo);
 	
-	public List<Reply> getReplyList();
+	public List<Reply> getReplyBySeq(int seq);
 	
 	public Page<Reply> getReplyList_paging(int replynum , int page, int size);
 	

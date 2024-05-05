@@ -1,5 +1,7 @@
 package com.demo.persistence;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,7 +16,6 @@ public interface ReplyRepository extends JpaRepository<Reply, Integer> {
 	Page<Reply> findReplyByreplynumContainingOrderByReplynum(int replynum, Pageable pageable);
 	
 	// 댓글 출력
-	@Query(value="SELECT * FROM Reply r WHERE r.com_board_detail.seq = ?1 ", nativeQuery=true)
-	Reply getReplyList(int seq); // 상세페이지 정보 출력
-
+	@Query(value="SELECT r.* FROM Reply r JOIN Com_Board_Detail cbd ON (r.seq = cbd.seq) WHERE cbd.seq = ?1 ", nativeQuery=true)
+	List<Reply> getReplyList(int seq); // 상세페이지 정보 출력
 }

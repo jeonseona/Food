@@ -38,8 +38,8 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 
 	@Override
-	public List<Reply> getReplyList() {
-		return ReplyRepo.findAll();
+	public List<Reply> getReplyBySeq(int seq) {
+		return ReplyRepo.getReplyList(seq);
 	}
 	
 	/*
