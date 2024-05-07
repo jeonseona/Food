@@ -43,8 +43,6 @@ public class Mypage {
 	@JoinColumn(name="id", nullable=false)
 	private MemberData memberData;		// 회원테이블 (개인정보 보기 및 수정)
 	
-	@ManyToOne
-	@JoinColumn(name = "seq", nullable = false)
-	private Com_Board comBoard; // 커뮤니티게시글 (작성한 레시피목록 보기)
+	
 
 }

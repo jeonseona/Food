@@ -10,12 +10,16 @@
     <div class="container">
         <h1>식단 추천</h1>
         <!-- BMI, BMR, 하루 권장 칼로리 결과를 표시할 섹션 -->
-        <div id="result-section">
-            <h2>ㅇㅇㅇ님의</h2>
-            <p><strong>BMI:</strong> <span id="bmi-result"></span></p>
-            <p><strong>BMR:</strong> <span id="bmr-result"></span></p>
-            <p><strong>하루 권장 칼로리:</strong> <span id="calories-result"></span></p>
-        </div>
+    <div id="result-section">
+    <h2>계산 결과</h2>
+    <p><strong>BMI:</strong> <span th:text="${String.format('%1$.2f', result.bmi)}"></span></p>
+    <p><strong>BMR:</strong> <span th:text="${String.format('%1$.2f', result.bmr)}"></span> kcal</p>
+    <p><strong>하루 권장 칼로리:</strong> <span th:text="${String.format('%1$.2f', result.dailyCalories)}"></span> kcal</p>
+</div>
+
+
+
+
         <!-- 식단 추천 내용을 표시할 섹션 -->
         <div id="recommendation-section">
             <h2>식단 추천:</h2>
@@ -24,6 +28,6 @@
             </ul>
         </div>
     </div>
-    <script src="/js/Required_calories.js"></script>
+    
 </body>
 </html>
