@@ -66,7 +66,6 @@ ALTER TABLE com_recipe ADD CONSTRAINT pk_com_recipe PRIMARY KEY (idx); -- 인덱
 --게시글과 댓글 번호 시퀀스
 CREATE SEQUENCE boardseq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE replyseq START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE com_recipeseq START WITH 44 INCREMENT BY 1;
 
 CREATE TABLE com_board(
     board_num NUMBER primary key, -- com_board_detail 참고1
@@ -165,3 +164,6 @@ CREATE TABLE recommend_history(
     CONSTRAINT fk_history_id FOREIGN KEY (h_no_data) REFERENCES Member_data(no_data),
     CONSTRAINT fk_recommend_food FOREIGN KEY (recommend_food) REFERENCES food_recipe(idx)
 );
+
+-- 5/7 커뮤니티 시퀀스추가
+CREATE SEQUENCE com_recipeseq START WITH 44 INCREMENT BY 1;
