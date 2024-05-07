@@ -66,7 +66,7 @@ ALTER TABLE com_recipe ADD CONSTRAINT pk_com_recipe PRIMARY KEY (idx); -- 인덱
 --게시글과 댓글 번호 시퀀스
 CREATE SEQUENCE boardseq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE replyseq START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE com_recipeseq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE com_recipeseq START WITH 44 INCREMENT BY 1;
 
 CREATE TABLE com_board(
     board_num NUMBER primary key, -- com_board_detail 참고1
