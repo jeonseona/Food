@@ -1,6 +1,8 @@
 -- 로그인 페이지
 -- member_data 테이블에 code 컬럼과 goal 컬럼 추가
 ALTER TABLE member_data ADD (code CHAR(1) DEFAULT '0', goal VARCHAR2(30));
+-- member_data 테이블에 BMI 컬럼 추가
+ALTER TABLE member_data ADD BMI FLOAT DEFAULT O;
 -- 멤버테이블 삭제해주세요!
 drop table member;
 
