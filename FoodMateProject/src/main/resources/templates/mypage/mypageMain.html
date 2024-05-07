@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <title>My Page</title>
-<link rel="stylesheet" th:href="@{/css/style.css}">
+<link rel="stylesheet" th:href="@{/css/mypage.css}">
 <script th:src="@{/js/mypage.js}" defer></script>
 <th:block th:insert="~{/includes/header}"></th:block>
-<th:block th:insert="~{mypage/menu}"></th:block>
+<th:block th:insert="~{mypage/mymenu}"></th:block>
 </head>
 <body>
     <div class="container">
@@ -18,7 +18,7 @@
                 <!-- 개인정보 수정 페이지 내용 -->
             </div>
             <div id="Preferences" class="tabcontent">
-                <!-- 음식 호불호 및 알레르기 페이지 내용 -->
+                <!-- 음식선호도 페이지 내용 -->
             </div>
             <div id="MyRecipeList" class="tabcontent">
                 <!-- 내가 작성한 레시피 목록 페이지 내용 -->

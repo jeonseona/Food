@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Info View</title>
-<link rel="stylesheet" th:href="@{/css/style.css}">
+<link rel="stylesheet" th:href="@{/css/mypage.css}">
 <script th:src="@{/js/mypage.js}" defer></script>
 <th:block th:insert="~{/includes/header}"></th:block>
-<th:block th:insert="~{mypage/menu}"></th:block>
+<th:block th:insert="~{mypage/mymenu}"></th:block>
 </head>
 <body>
 <div id="container">
 	<div>
 		<h3>내 정보</h3>
-		<p>이름 : <span th:text="${loginUser.name}">Name</span></p>
-        <p>아이디 : <span th:text="${loginUser.id}">ID</span></p>
+		<p>이름 : <span th:text="${loginUser.name} ?: '정보 없음'">Name</span></p>
+        <p>아이디 : <span th:text="${loginUser.id} ?: '정보 없음'">ID</span></p>
         <p>비밀번호 : <span th:text="${'********'}">Password</span></p> <!-- 비밀번호는 보안상 보여주지 않음 -->
-        <p>이메일 : <span th:text="${loginUser.email}">Email</span></p>
+        <p>이메일 : <span th:text="${loginUser.email} ?: '정보 없음'">Email</span></p>
         <p>성별 : <span th:text="${loginUser.gender} ?: '정보 없음'">Gender</span></p>
         <p>키 : <span th:text="${loginUser.height} ?: '정보 없음'">Height</span></p>
         <p>몸무게 : <span th:text="${loginUser.weight} ?: '정보 없음'">Weight</span></p>

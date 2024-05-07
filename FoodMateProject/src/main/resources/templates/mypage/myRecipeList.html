@@ -6,13 +6,14 @@
 <link rel="stylesheet" th:href="@{/css/mypage.css}">
 </head>
 <th:block th:insert="~{/includes/header}"></th:block>
-<th:block th:insert="~{mypage/menu}"></th:block>   
+<th:block th:insert="~{mypage/mymenu}"></th:block>   
 <body>
 	<article>
-		<h3>내가 작성한 레시피</h3>
+		<h3>나만의 레시피</h3>
 		<form name="formm" id="theform" method="post">
 	    <th:block th:if="${#lists.size(recipeList) == 0}">
-	      <h3 style="color: red;text-align: center;"> 작성한 레시피가 없습니다.. </h3> 
+	      <h3 style="color: red;text-align: center;"> 작성한 레시피가 없습니다.. </h3>
+	      <button value="작성하러 가기" onclick="location.href='/getRecommendations'">링크 수정 필요</button>
 	    </th:block>
 	    <th:block th:unless="${#lists.size(recipeList) == 0}">
 			<table id="recipeList">
@@ -24,13 +25,14 @@
 				<th:block th:each="myRecipe : ${recipeList}">
 					<tr>
 						<td> [[${myRecipe.seq}]]
-						<td> [[${myRecipe.title}]] </td>
-						<td> [[${myRecipe.regdate}]] </td>
+						<td> [[${myRecipe.com_recipe.rcp_nm}]] </td>
+						<td> [[${myRecipe.d_regdate}]] </td>
 					</tr>
 				</th:block>
 			</table>
 		</th:block>
 		<div id="buttons" style="float: right">
+			<!-- 나중에 링크 재설정-->
 			<input type="button" value="작성하기" class="cancel" onclick="location.href='main'">
 		</div>
 		</form>

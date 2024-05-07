@@ -9,27 +9,29 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.demo.domain.Com_Board_Detail;
+import com.demo.domain.Recommend_History;
 import com.demo.dto.MemberData;
 import com.demo.service.Com_Board_DetailService;
 import com.demo.service.MemberDataService;
+import com.demo.service.Recommend_HistoryService;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class MypageController {
 
-	@Autowired
+	@Autowired	// 정보 수정
 	private MemberDataService mdService;
 	
-	@Autowired
+	@Autowired	// 작성한 글 보기
 	private Com_Board_DetailService cbdService;
 	
-//	@Autowired
-//	private 추천기록	// 나의 추천받은 기록 목록용
+	@Autowired	// 추천받은 기록 보기
+	private Recommend_HistoryService rhService;
 	
 	
 	// 마이페이지 메인화면
-	@GetMapping("/t_mypage")
+	@GetMapping("/mypage")
 	public String mypageView(HttpSession session, Model model) {
 		MemberData loginUser = (MemberData)session.getAttribute("loginUser");
 		
@@ -123,9 +125,9 @@ public class MypageController {
 		if(loginUser == null) {
 			return "member/login";
 		} else {
-			//List<> recommend = Service.getRecommendHistory(loginUser.getId());
+			List<Recommend_History> recommend = rhService.getMyRecommendHistoy(loginUser.getId());
 			
-			//model.addAttribute("recommend", recommend);
+			model.addAttribute("recommend", recommend);
 			
 			return "mypage/recommendHistory";
 		}
