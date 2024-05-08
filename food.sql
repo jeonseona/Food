@@ -125,19 +125,6 @@ create table recommend_detail(
     CONSTRAINT fk_foodseq FOREIGN KEY(food_seq) REFERENCES food_recipe(idx)
 );
 
-
-CREATE TABLE inquiries (
-    inquiry_id NUMBER(5) PRIMARY KEY,
-    subject VARCHAR(100),
-    message VARCHAR(100),
-    created_at TIMESTAMP DEFAULT current_timestamp,
-    comments VARCHAR(200),
-    CONSTRAINT fk_inquiry_id FOREIGN KEY (inquiry_id) REFERENCES Member_data(no_data)
-);
-
--- inquiry_id 시퀀스 생성
-CREATE SEQUENCE inquiry_list_SEQ START WITH 1 INCREMENT BY 1; 
-
 CREATE TABLE recommend_history(
     history_id VARCHAR(100) PRIMARY KEY,
     recommend_food number,    -- 추천받은 음식(food_seq)에서 NAME, IMAGES, CALORIES 조회
@@ -162,3 +149,11 @@ CREATE TABLE com_board_detail(
     CONSTRAINT fk_seq1 FOREIGN KEY(d_writer_no) REFERENCES Member_Data(no_data),  
     CONSTRAINT fk_idx2 FOREIGN KEY(RECIPE_NUM) REFERENCES COM_RECIPE(IDX)
 );
+
+-- 5/8 1:1 문의 테이블 수정 (이름, 이메일, 답변 상태 컬럼추가)
+ALTER TABLE inquiries
+ADD name VARCHAR(100)
+ADD email VARCHAR(100);
+
+ALTER TABLE inquiries
+ADD status VARCHAR(100);
