@@ -37,7 +37,7 @@ public class Recommend_History {
 	
 	@ManyToOne
 	@JoinColumn(name = "idx", nullable=false)
-	private FoodRecipe recommend_food;
+	private foodRecipe recommend_food;
 	
 	@ManyToOne
 	@JoinColumn(name = "no_data", nullable=false)
