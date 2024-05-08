@@ -67,24 +67,6 @@ ALTER TABLE com_recipe ADD CONSTRAINT pk_com_recipe PRIMARY KEY (idx); -- 인덱
 CREATE SEQUENCE boardseq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE replyseq START WITH 1 INCREMENT BY 1;
 
-CREATE TABLE com_board(
-    board_num NUMBER primary key, -- com_board_detail 참고1
-    recipe_num number ,
-    CONSTRAINT fk_id_11 FOREIGN KEY(board_num) REFERENCES com_board_detail(seq),
-    CONSTRAINT fk_idx_1 FOREIGN KEY(recipe_num) REFERENCES COM_RECIPE(IDX)   
-);
-
-
--- 커뮤니티 게시글 클릭시 상세정보
-CREATE TABLE com_board_detail(
-    seq NUMBER PRIMARY KEY	,
-    RECIPE_NUM NUMBER, -- com_recipe 참고1
-    d_writer_no   number,  --meber_data 참고1
-    d_regdate DATE DEFAULT sysdate,
-    cnt NUMBER DEFAULT 0,
-    CONSTRAINT fk_seq1 FOREIGN KEY(d_writer_no) REFERENCES Member_Data(no_data),  
-    CONSTRAINT fk_idx2 FOREIGN KEY(RECIPE_NUM) REFERENCES COM_RECIPE(IDX)
-);
 
 
 
@@ -167,3 +149,16 @@ CREATE TABLE recommend_history(
 
 -- 5/7 커뮤니티 시퀀스추가
 CREATE SEQUENCE com_recipeseq START WITH 44 INCREMENT BY 1;
+
+--5/8 커뮤니티 테이블 수정 ( 추천수 컬럼추가)
+-- 커뮤니티 게시글 클릭시 상세정보
+CREATE TABLE com_board_detail(
+    seq NUMBER PRIMARY KEY	,
+    RECIPE_NUM NUMBER, -- com_recipe 참고1
+    d_writer_no   number,  --meber_data 참고1
+    d_regdate DATE DEFAULT sysdate,
+    cnt NUMBER DEFAULT 0,
+    goodpoint number DEFAULT 0,
+    CONSTRAINT fk_seq1 FOREIGN KEY(d_writer_no) REFERENCES Member_Data(no_data),  
+    CONSTRAINT fk_idx2 FOREIGN KEY(RECIPE_NUM) REFERENCES COM_RECIPE(IDX)
+);
