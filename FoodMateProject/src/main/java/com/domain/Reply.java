@@ -13,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
@@ -32,7 +33,8 @@ import lombok.ToString;
 public class Reply {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "replyseq")
+    @SequenceGenerator(name = "replyseq", sequenceName = "replyseq", allocationSize = 1)
 	private int replynum;
 	
 	private String content;
@@ -48,6 +50,8 @@ public class Reply {
 	@Temporal(value=TemporalType.TIMESTAMP)
     @ColumnDefault("sysdate")
     private Date r_regdate;
+
+	
 
 
 }
