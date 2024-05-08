@@ -48,7 +48,7 @@ public class ReplyController {
 			return "member/login"; // 로그인페이지 넣기 (아직 안넣음!)
 		}else {
 			replyService.insertReply(vo);			
-			return "redirect:BoardDetail";
+			return "redirect:com_board_detail";
 			}
 	}
 	
@@ -63,7 +63,7 @@ public class ReplyController {
 			return "본인이 작성한 댓글만 수정가능합니다.";
 		}else {
 			replyService.updateReply(vo);			
-			return "redirect:BoardDetail";
+			return "redirect:com_board_detail";
 	}
 	}
 	
@@ -78,10 +78,10 @@ public class ReplyController {
 			return "본인이 작성한 댓글만 삭제가능합니다.";
 		}else {
 			replyService.deleteReply(vo);			
-			return "redirect:BoardDetail";
+			return "redirect:com_board_detail";
 	}
 	}
-	
+
 	
 
 }
