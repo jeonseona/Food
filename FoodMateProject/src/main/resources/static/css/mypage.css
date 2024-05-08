@@ -1,0 +1,339 @@
+/*아직 ing 입니다...*/
+/* mypage.css */
+
+/* 전체 페이지에 적용되는 스타일 */
+body {
+    font-family: 'Arial', sans-serif;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* mypage의 스타일 */
+.mypage {
+    width: 80%; /* 중앙에 위치 */
+    margin: 20px auto; /* 상하 20px, 자동으로 중앙 정렬 */
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* 그림자 효과 */
+}
+
+/* 탭 내용 스타일 */
+.tabcontent {
+    margin-top: 20px;
+    padding: 20px;
+    border-top: 1px solid #eee;
+}
+
+/* 헤더 및 푸터 공통 스타일 */
+header, footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* 헤더 특정 스타일 */
+header {
+    border-bottom: 4px solid #444;
+}
+
+/* 푸터 특정 스타일 */
+footer {
+    border-top: 4px solid #444;
+}
+
+/* 링크 스타일 */
+a {
+    color: #06c;
+    text-decoration: none; /* 밑줄 제거 */
+}
+
+a:hover {
+    text-decoration: underline; /* 호버 시 밑줄 */
+}
+
+/* infoView 스타일 */
+#infoView {
+    width: 80%; /* 너비 설정 */
+    margin: 40px auto; /* 상하 마진 40px, 좌우 자동으로 중앙 정렬 */
+    background: #f9f9f9; /* 배경색 설정 */
+    padding: 20px; /* 내부 패딩 */
+    border-radius: 10px; /* 테두리 둥글기 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+}
+
+#infoView div {
+    border-bottom: 1px solid #e1e1e1; /* 각 정보 항목 사이에 선 추가 */
+    padding-bottom: 15px; /* 하단 패딩 */
+    margin-bottom: 15px; /* 하단 마진 */
+}
+
+#infoView h3 {
+    color: #333; /* 제목 색상 */
+    font-size: 26px; /* 글꼴 크기 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    margin-bottom: 20px; /* 제목 아래 마진 */
+}
+
+#infoView p {
+    font-size: 18px; /* 내용 글꼴 크기 */
+    line-height: 1.6; /* 줄 간격 */
+    color: #666; /* 글자 색상 */
+    display: flex; /* Flexbox 레이아웃 사용 */
+    justify-content: space-between; /* 좌우에 내용 정렬 */
+    padding: 5px 0; /* 패딩 설정 */
+}
+
+#infoView span {
+    font-weight: bold; /* 굵은 글씨 */
+    color: #444; /* 글자 색상 변경 */
+}
+
+/* 링크 스타일 */
+#infoView a {
+    color: #06C;
+    text-decoration: underline; /* 링크에 밑줄 */
+}
+
+#infoView a:hover {
+    color: #f90; /* 호버 시 색상 변경 */
+    text-decoration: none; /* 호버 시 밑줄 제거 */
+}
+
+/* infoUpdate 스타일 */
+#infoUpdate {
+    width: 80%; /* 너비 설정 */
+    margin: 40px auto; /* 중앙 정렬 */
+    background: #f9f9f9; /* 배경색 */
+    padding: 20px; /* 내부 패딩 */
+    border-radius: 8px; /* 모서리 둥글기 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* 그림자 효과 */
+}
+
+#infoUpdate fieldset {
+    border: 1px solid #ccc; /* 테두리 설정 */
+    padding: 15px; /* 패딩 설정 */
+    margin-bottom: 20px; /* 하단 마진 */
+}
+
+#infoUpdate label {
+    display: block; /* 레이블 블록 표시 */
+    margin-bottom: 10px; /* 레이블 아래 마진 */
+    color: #333; /* 글자 색상 */
+    font-weight: bold; /* 글자 굵기 */
+}
+
+#infoUpdate input[type="text"],
+#infoUpdate input[type="password"],
+#infoUpdate select {
+    width: 100%; /* 너비 100% */
+    padding: 8px; /* 패딩 */
+    margin-bottom: 10px; /* 요소 아래 마진 */
+    border: 1px solid #ccc; /* 테두리 색상 */
+    border-radius: 4px; /* 테두리 둥글기 */
+}
+
+#infoUpdate input[type="button"] {
+    background-color: #007BFF; /* 배경색 */
+    color: white; /* 글자색 */
+    border: none; /* 테두리 제거 */
+    padding: 10px 20px; /* 패딩 */
+    text-transform: uppercase; /* 대문자 변환 */
+    letter-spacing: 0.05em; /* 글자 간격 */
+    margin-right: 10px; /* 오른쪽 마진 */
+    cursor: pointer; /* 커서 포인터 */
+    transition: background-color 0.3s; /* 배경색 변화 애니메이션 */
+}
+
+#infoUpdate input[type="button"]:hover {
+    background-color: #0056b3; /* 호버 시 배경색 */
+}
+
+/* 스타일 추가 */
+#infoUpdate div {
+    text-align: right; /* 오른쪽 정렬 */
+}
+
+#myRecipeList {
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#myRecipeList h3 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#recipeList {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+#recipeList th, #recipeList td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#recipeList th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#recipeList tr:nth-child(even){background-color: #f2f2f2;}
+
+#recipeList tr:hover {background-color: #ddd;}
+
+#buttons {
+    margin-top: 20px;
+    text-align: right;
+}
+
+#buttons input[type="button"] {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+#buttons input[type="button"]:hover {
+    background-color: #45a049;
+}
+
+/* 버튼 링크 수정 필요 */
+button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    display: block;
+    margin: 20px auto;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#recommendHistory {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#recommendHistory th {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 14px;
+}
+
+#recommendHistory td {
+    padding: 10px 15px;
+    border-bottom: 1px solid #ddd;
+    color: #333;
+}
+
+#recommendHistory tr:hover {
+    background-color: #f5f5f5;
+}
+
+#recommendHistory img {
+    width: auto;
+    height: 100px; /* Adjusted to maintain aspect ratio */
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+button {
+    display: block;
+    width: 200px;
+    padding: 10px;
+    margin: 20px auto;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+article h3 {
+    text-align: center;
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+#recommendHisoty {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 90%;
+    margin: 0 auto;
+}
+
+#recommendHisoty form {
+    width: 100%;
+}
+
+/* 사이드 메뉴 */
+/* 서브메뉴 전체 스타일 */
+#mymenu {
+    width: 250px; /* 메뉴의 너비 설정 */
+    float: left; /* 메뉴를 왼쪽에 부유시킴 */
+    margin: 20px 0; /* 상단과 하단의 여백 */
+    background-color: #333; /* 배경색 */
+    border-radius: 8px; /* 테두리 둥글게 */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* 그림자 효과 */
+}
+
+/* 서브메뉴 리스트 스타일 */
+#mymenu ul {
+    list-style: none; /* 리스트 기본 스타일 제거 */
+    padding: 0; /* 내부 여백 제거 */
+    margin: 0; /* 외부 여백 제거 */
+}
+
+/* 서브메뉴 내 각 항목 스타일 */
+#mymenu a {
+    text-decoration: none; /* 링크 밑줄 제거 */
+    color: white; /* 텍스트 색상 */
+    font-family: Arial, Helvetica, sans-serif; /* 폰트 스타일 */
+    font-size: 16px; /* 폰트 크기 */
+    font-weight: bold; /* 폰트 굵기 */
+    display: block; /* 블록 레벨 요소로 만듦 */
+    padding: 10px 20px; /* 내부 여백 */
+    border-bottom: 1px solid #444; /* 하단 경계선 */
+    background-color: #333; /* 배경 색상 */
+    transition: background-color 0.3s; /* 배경색 변경 애니메이션 */
+}
+
+/* 서브메뉴 내 각 항목에 마우스를 올렸을 때의 스타일 */
+#mymenu a:hover {
+    background-color: #555; /* 배경색 변경 */
+    color: #FFA500; /* 텍스트 색상 변경 */
+}
