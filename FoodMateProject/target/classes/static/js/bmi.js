@@ -12,15 +12,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // 사용자의 BMI에 따라 해당하는 칸에 표시 추가
    if (userBMI < 18.5) {
-    underweightBar.innerHTML += "<p>" + userName + "님의 BMI</p>";
+    underweightBar.innerHTML += userName;
 } else if (userBMI < 23) {
-    normalBar.innerHTML += "<p>" + userName + "님의 BMI</p>";
+    normalBar.innerHTML += userName;
 } else if (userBMI < 25) {
-    overweightBar.innerHTML += "<p>" + userName + "님의 BMI</p>";
+    overweightBar.innerHTML += userName;
 } else if (userBMI < 30) {
-    obeseBar.innerHTML += "<p>" + userName + "님의 BMI</p>";
+    obeseBar.innerHTML += userName;
 } else {
-    severelyObeseBar.innerHTML += "<p>" + userName + "님의 BMI</p>";
+    severelyObeseBar.innerHTML +=  userName;
 }
 
 });
