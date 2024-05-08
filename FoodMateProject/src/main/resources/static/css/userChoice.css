@@ -1,6 +1,6 @@
 /* calculate.css */
 
-/* ��ü �� ��Ÿ�ϸ� */
+/* 전체 폼 스타일링 */
 form {
     margin: 20px;
     padding: 20px;
@@ -9,7 +9,7 @@ form {
     background-color: #f9f9f9;
 }
 
-/* ��� ��Ÿ�ϸ� */
+/* 헤더 스타일링 */
 h1 {
     text-align: center;
     margin-bottom: 20px;
@@ -19,12 +19,12 @@ h2 {
     margin-top: 20px;
 }
 
-/* üũ�ڽ� ��Ÿ�ϸ� */
+/* 체크박스 스타일링 */
 input[type="checkbox"] {
     margin-right: 10px;
 }
 
-/* ���� ��ư ��Ÿ�ϸ� */
+/* 제출 버튼 스타일링 */
 button[type="submit"] {
     margin-top: 20px;
     padding: 10px 20px;
@@ -35,13 +35,51 @@ button[type="submit"] {
     cursor: pointer;
 }
 
-/* ���� ��ư ȣ�� ȿ�� */
+/* 제출 버튼 호버 효과 */
 button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-/* Ǫ�� ��Ÿ�ϸ� */
+/* 푸터 스타일링 */
 footer {
     margin-top: 50px;
     text-align: center;
 }
+
+/* userChoice.css */
+
+#bmiGraphic {
+  width: auto; /* 막대의 전체 너비 */
+  height: 30px; /* 막대의 높이 */
+  border: 1px solid black; /* 막대 테두리 */
+  margin-top: 20px; /* 막대와 상단 간격 */
+  display: flex; /* 내부 요소들을 수평으로 배치하기 위해 flex 속성 추가 */
+}
+
+/* 각 카테고리의 스타일 지정 */
+.bmiCategory {
+  height: 100%; /* 각 카테고리의 높이를 막대 높이와 동일하게 설정하여 막대 내부에 꽉 차게 함 */
+  text-align: center; /*각 칸에 입력되는 글자 가운데로*/
+}
+
+/* 각 카테고리별 색상 설정 및 동일한 너비 지정 */
+#underweight { background-color: blue; flex-grow: 1; } /* 저체중 */
+#normal { background-color: green; flex-grow: 1; } /* 정상 */
+#overweight { background-color: yellow; flex-grow: 1; } /* 과체중 */
+#obese { background-color: orange; flex-grow: 1; } /* 비만 */
+#severelyObese { background-color: red; flex-grow: 1; } /* 고도비만 */
+
+/* 라벨 스타일 지정 */
+.bmiLabels {
+    display: flex;
+    justify-content: space-between; /* 라벨을 동일한 간격으로 분산 정렬 */
+    margin-top: 5px; /* 막대와 라벨 간격 조정 */
+    font-size: 12px; /* 라벨의 폰트 크기 */
+}
+
+.bmiLabels span {
+    flex: 1; /* 각 라벨이 동일한 너비를 가지도록 설정 */
+    text-align: center; /* 라벨 가운데 정렬 */
+}
+
+

@@ -16,6 +16,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
@@ -35,10 +36,11 @@ import lombok.ToString;
 public class Com_Board_Detail {
 
 			@Id
-			@GeneratedValue(strategy = GenerationType.IDENTITY)
+			@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "boardseq")
+		    @SequenceGenerator(name = "boardseq", sequenceName = "boardseq", allocationSize = 1)
 			private int seq; //게시글번호
 			
-			@OneToOne
+			@OneToOne(cascade = CascadeType.ALL)
 		    @JoinColumn(name="idx", nullable=false)
 		    private Com_Recipe com_recipe; //레시피번호
 		    
