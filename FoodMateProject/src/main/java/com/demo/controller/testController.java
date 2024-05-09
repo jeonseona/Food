@@ -34,6 +34,6 @@ public class testController {
         model.addAttribute("loginUser", loginUser);
 
         // main.do로 리다이렉트합니다.
-        return "redirect:/";
+        return "redirect:/main.do";
     }
 }
