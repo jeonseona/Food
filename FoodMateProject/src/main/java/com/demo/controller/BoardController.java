@@ -30,6 +30,7 @@ public class BoardController {
 	@Value("${com.demo.upload.path}")
 	private String uploadPath;
 
+
 	// 게시글 목록 조회
 	@GetMapping("/board_list")
 	public String getboard_list(@RequestParam(value = "seq", defaultValue = "1") int seq,
