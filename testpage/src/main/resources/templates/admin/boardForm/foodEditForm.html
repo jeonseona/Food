@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<script>
+   function resetForm() {
+       const form = document.forms['BoardForm'];
+       form['title'].value = ''; // 제목 초기화
+       form['content'].value = ''; // 본문 초기화
+       form['image'].value = ''; // 이미지 초기화
+       form['tag'].value = ''; // 태그 초기화
+   }
+</script>
+
+<title>Insert title here</title>
+</head>
+<body>
+<form name="BoardForm" method="post" action="foodUpdate.do">
+	<input type="hidden" name="foodNum" th:value="${food.boardnum}">
+       <table border="1" width="100%">
+        <tr>
+            <td>제목</td>
+            <td>
+                <input type="text" name="title" id="title" placeholder="여기에 입력" th:value="${food.title}">
+            </td>
+        </tr>
+        <tr>
+            <td>본문</td>
+            <td>
+                <textarea name="content" id="content" placeholder="여기에 입력">[[${food.content}]]</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>이미지</td>
+            <td>
+                <input type="text" name="image" id="image" placeholder="여기에 URL 입력" th:value="${food.image}">
+            </td>
+        </tr>
+        <tr>
+            <td>태그</td>
+            <td>
+                <input type="text" name="tag" id="tag" placeholder="여기에 입력" th:value="${food.tag}">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <button type="submit">수정 완료</button>
+                <button type="button" onclick="resetForm()">다시 입력</button>
+                <button type="button" onclick="window.location.href='/admin_food.do'">목록 보기</button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

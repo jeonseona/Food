@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script type="text/javascript">
 	function go_list() {
 		var theForm = document.frm;
@@ -94,6 +95,41 @@
 		theForm.submit();
 
 	}
+
+	/**
+	 **********************************************************************
+	API 테스트 중입니다 
+	 */
+
+	function displaySimilarRecipes(data) {
+		console.log("Received data:", data); // 받은 데이터 로그 출력
+		const recipesTable = document.getElementById('similar_recipes');
+		const noDataMessage = document.getElementById('no_data_message');
+
+		// 데이터가 없거나 잘못된 데이터 구조를 처리
+		if (!data || !data.results || data.results.length === 0) {
+			console.log("No data available, showing no data message.");
+			recipesTable.style.display = 'none';
+			noDataMessage.style.display = 'block'; // 데이터가 없을 때 메시지 보여주기
+			return;
+		}
+
+		// 테이블에 데이터를 채우는 로직
+		let htmlContent = '<tr><th>비슷한 요리 제목</th></tr>';
+		data.results.forEach(function(recipe) {
+			if (recipe.title) {
+				htmlContent += `<tr><td>${recipe.title}</td></tr>`;
+			} else {
+				console.log("Missing 'title' field in recipe data:", recipe);
+			}
+		});
+
+		recipesTable.innerHTML = htmlContent;
+		recipesTable.style.display = 'table';
+		noDataMessage.style.display = 'none'; // 데이터가 있을 때는 메시지 숨기기
+		console.log("Table updated with new data."); // 데이터 테이블 업데이트 로그
+	}
+	//*********************************************************************************************
 </script>
 </head>
 <body>
@@ -217,6 +253,14 @@
 				</tr>
 			</table>
 		</form>
+		<!--  API 테스트부분 
+		<h3>같은 유형의 레시피입니다</h3>
+		<div id="similar_recipes_container">
+			<table id="similar_recipes">
+			</table>
+			<div id="no_data_message" style="display: none;">데이터가 없습니다.</div>
+		</div> -->
+
 		<form name="replyfrm" method="post">
 			<table id="Board_deatail_List">
 				<tr>

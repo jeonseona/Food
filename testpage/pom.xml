@@ -8,10 +8,10 @@
 		<version>3.2.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.Here</groupId>
-	<artifactId>DietFood</artifactId>
+	<groupId>com.demo</groupId>
+	<artifactId>FoodMate2</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>FoodMateProject</name>
+	<name>FoodMate2</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
@@ -51,11 +51,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-    <groupId>org.json</groupId>
-    <artifactId>json</artifactId>
-    <version>20210307</version>
-</dependency>
 	</dependencies>
 
 	<build>
