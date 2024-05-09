@@ -30,10 +30,6 @@ public class BoardController {
 	@Value("${com.demo.upload.path}")
 	private String uploadPath;
 
-	@GetMapping("/")
-	public String Home() {
-		return "main";
-	}
 
 	// 게시글 목록 조회
 	@GetMapping("/board_list")
