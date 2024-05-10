@@ -12,6 +12,8 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.demo.domain.MemberData;
 import com.demo.service.MemberService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @SessionAttributes("loginUser")
 public class MemberController {
@@ -91,26 +93,29 @@ public class MemberController {
   	
     
     // 로그인
-    @PostMapping("/login")
-    public String loginAction(MemberData vo, Model model) {
-    	int result = memberService.loginID(vo);
-        String url = "";        
-        if (result == 1) { 
-        	MemberData user = memberService.getMember(vo.getId());
-        	long usercode = user.getUsercode();
-        	if(usercode == 1) {
-        		model.addAttribute("loginUser", user);
-                url = "redirect:main.do";
-        	} else {
-        		model.addAttribute("loginUser", user.getNo_data());
-                url = "redirect:/";
-        	}
-            
-        } else {
-            url = "member/login_fail";
-        }
-        return url;
-    }
+ 	@PostMapping("/login")
+ 	public String loginAction(MemberData vo, Model model, HttpSession session) {
+ 	    int result = memberService.loginID(vo);
+ 	    String url = "";        
+ 	    if (result == 1) { 
+ 	        MemberData user = memberService.getMember(vo.getId());
+ 	        long usercode = user.getUsercode();
+ 	        if(usercode == 1) {
+ 	            model.addAttribute("loginUser", user);
+ 	            session.setAttribute("loginUser", user); // 세션에 사용자 정보 저장
+ 	            url = "redirect:main.do";
+ 	        } else {
+ 	            model.addAttribute("loginUser", user); // 여기도 수정
+ 	            url = "redirect:/";
+ 	        }
+ 	        
+ 	    } else {
+ 	        url = "member/login_fail";
+ 	    }
+ 	    return url;
+ 	}
+
+
 
     // 로그아웃 처리
     @GetMapping("/logout")
