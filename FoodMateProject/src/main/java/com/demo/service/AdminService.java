@@ -8,16 +8,16 @@ import org.springframework.data.domain.Pageable;
 import com.demo.domain.AdminQnaBoard;
 import com.demo.domain.AdminRecipeBoard;
 import com.demo.domain.askBoard;
-import com.demo.domain.Member;
+import com.demo.domain.MemberData;
 import com.demo.domain.foodRecipe;
 
 public interface AdminService {
 	
 	// 관리자인지 체크(id 및 유저코드)
-	int adminCheck(Member vo);
+	int adminCheck(MemberData vo);
 	
 	// 관리자인 경우 모든 멤버의 정보조회
-	public List<Member> getAllMemberList();
+	public List<MemberData> getAllMemberList();
 	
 	// 관리자인 경우 모든 음식게시판 정보조회
 	public Page<AdminRecipeBoard> getAllFoodBoardList(Pageable pageable);

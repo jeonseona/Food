@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.demo.dto.CalculationResult;
-import com.demo.dto.MemberData;
+import com.demo.domain.MemberData;
 import com.demo.service.CalculatorServiceImpl;
 import com.demo.persistence.MemberDataRepository;
 import java.util.Optional;
@@ -32,7 +32,7 @@ public class CalculatorController {
 
 //    @GetMapping("/UserChoice")
 //    public String showUserChoicePage(Model model) {
-//        Optional<MemberData> optionalMemberData = memberDataRepository.findById("cosherin0");
+//        Optional<MemberData> optionalMemberData = memberDataRepository.findById();
 //        if (optionalMemberData.isPresent()) {
 //            MemberData memberData = optionalMemberData.get();
 //            CalculationResult result = calculatorServiceImpl.calculate(memberData);
@@ -40,7 +40,7 @@ public class CalculatorController {
 //            model.addAttribute("result", result);
 //            return "foodRecommend/UserChoice";
 //        } else {
-//            // 사용자 정보를 찾을 수 없는 경우 에러 처리
+//             사용자 정보를 찾을 수 없는 경우 에러 처리
 //            model.addAttribute("error", "해당 회원 정보를 찾을 수 없습니다.");
 //            return "foodRecommend/ErrorPage";
 //        }
