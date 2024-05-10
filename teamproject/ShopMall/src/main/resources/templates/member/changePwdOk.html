@@ -1,0 +1,39 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>비번 변경결과</title>
+<link href="CSS/subpage.css" rel="stylesheet">
+<script type="text/javascript" th:src="@{js/member.js}"></script>
+<style type="text/css">
+body{   
+  background-color:#B96DB5;
+  font-family: Verdana;
+}
+#wrap{     
+  margin: 0 20px;
+}
+h1 {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 45px;
+  color: #CCC;
+  font-weight: normal;
+}
+input[type=button], input[type=submit] {
+  float: right;
+}
+</style>
+<script type="text/javascript">
+function idok(){
+  self.close();
+}
+</script>
+</head>
+<body>
+<div id="wrap">
+  <h1>비번변경</h1>
+	비밀번호가 변경되었습니다.
+    <input type="button" value="확인" class="cancel" onclick="idok()">
+</div>  
+
+</body>
+</html>

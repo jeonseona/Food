@@ -1,0 +1,66 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>비밀번호 찾기</title>
+	  <link href="css/shopping.css" rel="stylesheet"> 
+	  <script src="https://code.jquery.com/jquery-3.6.2.min.js" integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
+	  <script type="text/javascript" th:src="@{js/member.js}"></script>
+<style type="text/css">
+body{   
+  background-color:#B96DB5;
+  font-family: Verdana;
+}
+#wrap{     
+  margin: 0 20px;
+}
+h1 {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 45px;
+  color: #CCC;
+  font-weight: normal;
+}
+input[type=button], input[type=submit] {
+  float: right;
+}
+</style>
+<script type="text/javascript">
+function idok(){
+  self.close();
+}
+</script>
+</head>
+<body>
+<div id="wrap">
+  <h1>비밀번호 찾기 결과</h1>
+  <form method=post name=formm style="margin-right:0 "
+  		action="pwd_check_form" >
+    User 비밀번호 <input type=text name="pwd" th:value="${pwd}">   
+    <div style="margin-top: 20px">   
+      <th:block th:if="${message == 1}">
+        <script type="text/javascript">
+          opener.document.formm.pwd.value="";
+        </script>
+             요청하신 비밀번호는 [[${pwd}]]입니다.<br><br>
+              <input type="button" value="확인" onclick="idok()" style="float:left">
+      </th:block>
+      <th:block th:if="${message == -1}">
+             가입하지 않은 ID입니다.<br>
+              <input type="button" value="확인" onclick="idok()" style="float:left">
+      </th:block>
+      </div>
+  </form>
+  <br><br>
+  
+	<h1> 비밀번호 변경 </h1>
+	<form name="Pwd_change" id="Pwd_change" action="new_pwd" method="post" >
+	<input type="hidden" name="id" id="id2" th:value="${id}"> 
+	<table>
+	<tr>
+		<td align="right"><label>변경할 비밀번호</label></td>
+		<td><input type="text" name="pwd" id="pwd2" value=""></td>
+	<td><input type="button" value="변경" onclick="changepwd()"></td></tr>
+	</table>
+	</form>
+</div>  
+</body>
+</html>
