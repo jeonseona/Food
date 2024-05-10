@@ -13,4 +13,7 @@ public interface CustomerService {
     List<askBoard> getInquiriesBySubject(String subject);
     List<askBoard> getInquiriesBySubjectNamedQuery(String subject);
     List<AdminQnaBoard> getAllQnaBoards();
+    
+    // 마이페이지용(내 질문)
+//  List<askBoard> getMyInquiry(String id);  
 }

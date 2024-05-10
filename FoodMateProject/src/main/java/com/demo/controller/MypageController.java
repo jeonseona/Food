@@ -12,6 +12,7 @@ import com.demo.domain.Com_Board_Detail;
 import com.demo.domain.MemberData;
 import com.demo.domain.Recommend_History;
 import com.demo.service.Com_Board_DetailService;
+import com.demo.service.CustomerService;
 import com.demo.service.MemberService;
 import com.demo.service.Recommend_HistoryService;
 
@@ -23,9 +24,11 @@ public class MypageController {
 	@Autowired
 	private MemberService memberService;
 	@Autowired
-	private Com_Board_DetailService cbdService;
+	private Com_Board_DetailService boardService;
 	@Autowired
-	private Recommend_HistoryService rhService;
+	private Recommend_HistoryService recommendService;
+	@Autowired
+	private CustomerService customerService;
 
 	
 	// 마이페이지 메인화면
@@ -92,7 +95,7 @@ public class MypageController {
 		if(loginUser == null) {
 			return "redirect:/login";
 		} else {
-			List<Com_Board_Detail> recipeList = cbdService.getMyRecipe(loginUser.getId());
+			List<Com_Board_Detail> recipeList = boardService.getMyRecipe(loginUser.getId());
 			
 			model.addAttribute("recipeList", recipeList);
 			
@@ -108,7 +111,7 @@ public class MypageController {
 		if(loginUser == null) {
 			return "redirect:/login";
 		} else {
-			List<Recommend_History> recommend = rhService.getMyRecommendHistory(loginUser.getId());
+			List<Recommend_History> recommend = recommendService.getMyRecommendHistory(loginUser.getId());
 			model.addAttribute("recommend", recommend);
 			
 			return "mypage/recommendHistory";
@@ -123,8 +126,9 @@ public class MypageController {
 		if(loginUser == null) {
 			return "redirect:/login";
 		} else {
+//			List<askBoard> inquiry = customerService.getMyInquiry(loginUser.getId());
 			
-			
+//			model.addAttribute("myInquiry", inquiry);
 			return "mypage/myInquiry";
 		}
 	}

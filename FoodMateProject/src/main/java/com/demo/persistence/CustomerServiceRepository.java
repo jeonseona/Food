@@ -18,4 +18,8 @@ public interface CustomerServiceRepository extends JpaRepository<askBoard, Long>
 	
     @Query(value="SELECT * FROM ask_board ORDER BY regdate", nativeQuery = true)
     List<askBoard> getInquiryList();
+    
+    // 마이페이지용(내 질문)
+ //   @Query("SELECT ask FROM ask_board ask JOIN ask.member m WHERE m.id =:id")
+ //   public List<askBoard> myInquiryList(@Param("id") String id);
 }
