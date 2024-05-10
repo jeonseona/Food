@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Food Preferences</title>
+<link rel="stylesheet" th:href="@{/css/mypage.css}">
+<script th:src="@{js/mypage.js}" defer></script>
+</head>
+<th:block th:insert="~{/includes/header}"></th:block>
+<th:block th:insert="~{mypage/menu}"></th:block>
+<body>
+	<div class="container">
+		<div class="preferences-section">
+			<h2>Your Preferences</h2>
+			<div class="selected-foods">
+				<ul>
+					<li th:each="food : ${selectedFoods}" th:text="${food.name}">Sample
+						Food</li>
+				</ul>
+			</div>
+		</div>
+		<div class="options-section">
+			<h2>Choose Preferences</h2>
+			<form th:action="@{/mypage/savePreferences}" method="post">
+				<label for="newFood">Add New Preference:</label> <input type="text"
+					id="newFood" name="foodName" required>
+				<button type="submit">Add</button>
+			</form>
+			<form th:action="@{/mypage/saveAllergies}" method="post">
+				<label for="newAllergy">Add New Allergy:</label> <input type="text"
+					id="newAllergy" name="allergyName" required>
+				<button type="submit">Add</button>
+			</form>
+		</div>
+	</div>
+	<th:block th:insert="~{/includes/footer}"></th:block>
+</body>
+</html>
