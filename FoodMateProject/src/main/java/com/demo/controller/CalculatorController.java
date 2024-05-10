@@ -30,20 +30,20 @@ public class CalculatorController {
         return "main"; // 여기서 "main"는 타임리프 템플릿 파일의 이름입니다.
     }
 
-    @GetMapping("/UserChoice")
-    public String showUserChoicePage(Model model) {
-        Optional<MemberData> optionalMemberData = memberDataRepository.findById("cosherin0");
-        if (optionalMemberData.isPresent()) {
-            MemberData memberData = optionalMemberData.get();
-            CalculationResult result = calculatorServiceImpl.calculate(memberData);
-            model.addAttribute("member", memberData);
-            model.addAttribute("result", result);
-            return "foodRecommend/UserChoice";
-        } else {
-            // 사용자 정보를 찾을 수 없는 경우 에러 처리
-            model.addAttribute("error", "해당 회원 정보를 찾을 수 없습니다.");
-            return "foodRecommend/ErrorPage";
-        }
-    }
+//    @GetMapping("/UserChoice")
+//    public String showUserChoicePage(Model model) {
+//        Optional<MemberData> optionalMemberData = memberDataRepository.findById("cosherin0");
+//        if (optionalMemberData.isPresent()) {
+//            MemberData memberData = optionalMemberData.get();
+//            CalculationResult result = calculatorServiceImpl.calculate(memberData);
+//            model.addAttribute("member", memberData);
+//            model.addAttribute("result", result);
+//            return "foodRecommend/UserChoice";
+//        } else {
+//            // 사용자 정보를 찾을 수 없는 경우 에러 처리
+//            model.addAttribute("error", "해당 회원 정보를 찾을 수 없습니다.");
+//            return "foodRecommend/ErrorPage";
+//        }
+//    }
 
 }

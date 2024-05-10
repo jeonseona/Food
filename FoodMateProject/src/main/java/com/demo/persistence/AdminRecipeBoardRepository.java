@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.demo.domain.AdminRecipeBoard;
 import com.demo.domain.Member;
 
-public interface AdminRecipeBoardRepository extends JpaRepository<AdminRecipeBoard, Integer> {
+public interface AdminRecipeBoardRepository extends JpaRepository<AdminRecipeBoard, Long> {
 	
 	@Query(value="SELECT * FROM member", nativeQuery = true)
 	List<Member> getAllMember();
@@ -17,6 +17,6 @@ public interface AdminRecipeBoardRepository extends JpaRepository<AdminRecipeBoa
 	List<AdminRecipeBoard> getAllRecipeListMain();
 	
 	@Query(value="SELECT * FROM admin_recipe_board WHERE recipe_boardnum = :boardnum ORDER BY regdate DESC", nativeQuery = true)
-	AdminRecipeBoard findByRecipeBoardnum(int boardnum);
+	AdminRecipeBoard findByRecipeBoardnum(long boardnum);
 	
 }

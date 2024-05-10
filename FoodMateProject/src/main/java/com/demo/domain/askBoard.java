@@ -26,11 +26,11 @@ import lombok.ToString;
 @AllArgsConstructor
 @DynamicInsert
 @DynamicUpdate
-public class Inquiry {
+public class askBoard {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long inquiry_id;
+    private long inquiry_id;
     private String name;
     private String email;
     private String message;

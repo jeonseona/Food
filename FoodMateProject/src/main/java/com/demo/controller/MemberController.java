@@ -24,7 +24,7 @@ public class MemberController {
     }
 
     // 회원가입 화면 표시 (GET 요청)
-    @GetMapping("/join_form")
+    @PostMapping("/join_form")
     public String joinView() {
         return "member/join";
     }
@@ -36,7 +36,7 @@ public class MemberController {
     }
 
     // 사용자 인증(로그인)
-    @PostMapping("/login1")
+    @PostMapping("/login")
     public String loginAction(MemberData vo, Model model) {
         String url = "";
         
@@ -50,7 +50,7 @@ public class MemberController {
     }
     
     // 초기 로그인화면
-    @GetMapping("/login1")
+    @GetMapping("/login")
     public String loginPage() {
         return "member/login";
     }
@@ -80,10 +80,11 @@ public class MemberController {
         return "member/emailcheck";
     }
     
-    // 회원가입 처리 (POST 요청)
+ // 회원가입 처리 (POST 요청)
     @PostMapping("/join")
-    public String joinAction(Member vo) {
-        memberService.insertMember(vo);
+    public String joinAction(@ModelAttribute("member") Member member, Model model) {
+        // 회원가입 처리 로직
+        memberService.insertMember(member);
         return "redirect:/main"; // 회원가입 후 메인 페이지로 리다이렉트
     }
     

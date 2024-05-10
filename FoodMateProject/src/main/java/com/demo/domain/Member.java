@@ -23,7 +23,8 @@ import lombok.ToString;
 @DynamicUpdate
 @Entity
 public class Member {
-    @Id
+	@Id
+	private String no_data;
     private String id;
     @ColumnDefault("0")
     private int usercode;

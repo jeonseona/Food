@@ -19,7 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.demo.domain.AdminQnaBoard;
 import com.demo.domain.AdminRecipeBoard;
-import com.demo.domain.Inquiry;
+import com.demo.domain.askBoard;
 import com.demo.domain.Member;
 import com.demo.domain.foodRecipe;
 import com.demo.service.AdminService;
@@ -48,7 +48,7 @@ public class AdminController {
         
         List<AdminRecipeBoard> foodBoardList = adminService.getAllFoodBoardListMain();
         List<AdminQnaBoard> qnaBoardList= adminService.getAllQnaBoardListMain();
-        List<Inquiry> askBoardList = adminService.getAllAskBoardListMain();
+        List<askBoard> askBoardList = adminService.getAllAskBoardListMain();
         
         model.addAttribute("askBoardList", askBoardList);
         model.addAttribute("foodBoardList", foodBoardList);
@@ -256,10 +256,48 @@ public class AdminController {
         	return "main.do";    // 초기 로그인 화면으로 이동 **********************(수정필요)
         }
 		
-		Page<Inquiry> askBoardPage = adminService.getAllAskBoardList(PageRequest.of(pageable.getPageNumber(), 10));
+		Page<askBoard> askBoardPage = adminService.getAllAskBoardListWait(PageRequest.of(pageable.getPageNumber(), 10));
+		
 	    model.addAttribute("askBoardPage", askBoardPage);
 			
 		return "admin/boardPage/admin_askboard";  // 관리자 1:1문의 게시판으로 이동
+	}
+	
+	@PostMapping("/admin_ask.do")
+	public String AskBoardFinish(@ModelAttribute("loginUser") Member loginUser, RedirectAttributes redirectAttributes, Pageable pageable, Model model) {
+		if (loginUser != null) {
+            adminService.adminCheck(loginUser);
+        } else {
+        	return "main.do";    // 초기 로그인 화면으로 이동 **********************(수정필요)
+        }
+		
+		Page<askBoard> askBoardPage = adminService.getAllAskBoardListFinish(PageRequest.of(pageable.getPageNumber(), 10));
+		
+		model.addAttribute("askBoardPage", askBoardPage);
+		redirectAttributes.addFlashAttribute("askBoardPage", askBoardPage);
+			
+		return "redirect:/admin_ask_board.do";
+	}
+	
+	@GetMapping("/admin_ask_board.do")
+	public String showFinishAsk(@ModelAttribute("loginUser") Member loginUser) {
+	    // 필요한 경우 추가 로직을 구현
+	    return "admin/boardPage/admin_askboardEnd";  // 관리자 1:1문의 게시판 종료된 문의를 보여주는 페이지
+	}
+	
+	@GetMapping("/askDetail.do")
+	public String askDetail(@ModelAttribute("loginUser") Member loginUser, @RequestParam("askNum") int askNum, Model model) {
+		if (loginUser != null) {
+            adminService.adminCheck(loginUser);
+        } else {
+        	return "redirect:/admin/admin_main";    // 초기 로그인 화면으로 이동 **********************(수정필요)
+        }
+		
+		askBoard ask = adminService.getByAskBoardnum(askNum);
+		model.addAttribute("ask", ask);
+		model.addAttribute("end_view", "view");
+		
+		return "admin/boardForm/askEditForm";
 	}
 	
 	@GetMapping("/askEdit.do")
@@ -270,7 +308,7 @@ public class AdminController {
         	return "redirect:/admin/admin_main";    // 초기 로그인 화면으로 이동 **********************(수정필요)
         }
 		
-		Inquiry ask = adminService.getByAskBoardnum(askNum);
+		askBoard ask = adminService.getByAskBoardnum(askNum);
 		model.addAttribute("ask", ask);
 		
 		return "admin/boardForm/askEditForm";
@@ -279,13 +317,13 @@ public class AdminController {
 	
 	@PostMapping("/askUpdate.do")
 	public void askUpdate(@ModelAttribute("loginUser") Member loginUser, @RequestParam("askNum") Long boardnum, 
-			Inquiry vo) {
-		Inquiry ask = adminService.getByAskBoardnum(boardnum);
+			askBoard vo) {
+		askBoard ask = adminService.getByAskBoardnum(boardnum);
 		vo.setRegdate(ask.getRegdate());
 		vo.setInquiry_id(boardnum);
 		vo.setEmail(ask.getEmail());
 		vo.setName(ask.getName());
-		vo.setStatus("답변완료");
+		vo.setStatus("답변 완료");
 		
 		adminService.adminCheck(loginUser);
 		adminService.updateAdminInquiry(vo);

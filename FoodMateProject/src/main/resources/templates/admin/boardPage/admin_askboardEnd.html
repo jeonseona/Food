@@ -37,10 +37,16 @@ function go_update(button) {
 function go_resultCheck() {
     const url = 'admin_ask.do';
     const form = document.createElement('form');
-    form.method = 'POST';
+    form.method = 'GET';
     form.action = url;
     document.body.appendChild(form);
     form.submit();
+}
+
+function openInquiryDetail(askNum) {
+    var url = `/askDetail.do?askNum=${askNum}`;
+    var newWindow = window.open(url, '_blank', 'width=600,height=400');
+    
 }
 
 </script>
@@ -100,7 +106,7 @@ function go_resultCheck() {
 					<div class="card mb-4">
 						<div class="card-header">
 							<i class="fas fa-table me-1"></i> 게시판 목록
-							<input type="button" onclick="go_resultCheck()" value="완료된 문의확인">
+							<input type="button" onclick="go_resultCheck()" value="대기중인 문의확인">
 						</div>
 						<div class="card-body">
 							<form method="post" id="edit_form">
@@ -111,18 +117,16 @@ function go_resultCheck() {
 											<th>제 목</th>
 											<th>등록날짜</th>
 											<th>답변여부</th>
-											<th>답변등록</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr th:each="ask : ${askBoardPage.content}">
 											<td th:text="${ask.inquiry_id}"></td>
-											<td th:text="${ask.subject}"></td>
+											<td><a href="#" th:onclick="openInquiryDetail([[${ask.inquiry_id}]]);" th:text="${ask.subject}"></a></td>
 											<td th:text="${ask.regdate}"></td>
 											<td th:text="${ask.status}"></td>
 											<td>
 												<input type="hidden" class="askBoard" th:value="${ask.inquiry_id}">
-												<input type="button" value="답변등록" onclick="go_update(this)">
 											</td>
 										</tr>
 									</tbody>

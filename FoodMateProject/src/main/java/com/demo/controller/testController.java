@@ -13,7 +13,7 @@ import com.demo.domain.Member;
 @SessionAttributes("loginUser")
 public class testController {
 
-	@GetMapping("/login")
+	@GetMapping("/login1")
 	public String testdo() {
 		return "admin/logintest";
 	}
