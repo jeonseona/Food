@@ -87,6 +87,44 @@ public class MypageController {
 		}
 	}
 	
+	// 닉네임 중복 확인 처리
+	@GetMapping("/nickname_check_form")
+	public String nicknameCheckView(MemberData vo, Model model) {
+		int result = memberService.confirmNickname(vo.getNickname());
+		
+		model.addAttribute("message", result);
+		model.addAttribute("nickname", vo.getNickname());
+		
+		return "mypage/nickcheck";
+	}
+	
+	// 바디데이터 수정 화면
+	@GetMapping("bodyUpdate")
+	public String bodyUpdateView(HttpSession session) {
+		MemberData loginUser = (MemberData)session.getAttribute("loginUser");
+		
+		if(loginUser == null) {
+			return "redirect:/login";
+		} else {
+			return "mypage/bodyUpdate";
+		}
+	}
+	
+	// 바디데이터 수정
+	@PostMapping("/update_body")
+	public String bodyUpdateAction(HttpSession session, MemberData vo) {
+		MemberData loginUser = (MemberData)session.getAttribute("loginUser");
+		
+		if(loginUser == null) {
+			return "redirect:/login";
+		} else {
+			// 로그인한 회원 바디데이터 수정
+			memberService.changeBodyData(vo);
+			
+			return "member/mypageMain";
+		}
+	}
+	
 	// 나의 레시피 화면
 	@GetMapping("/myRecipeList")
 	public String myRecipeListView(HttpSession session, Model model) {
