@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-<script type="text/javascript">
+<script type="text/javascript" th:inline="javascript">
 	function go_list() {
 		var theForm = document.frm;
 		theForm.method = "get";
@@ -13,38 +13,24 @@
 
 	function board_update() {
 		var theForm = document.frm;
+		theForm.method = "post";
 		theForm.action = "board_update";
 		theForm.submit();
 	}
 
 	function board_delete() {
 		var theForm = document.frm;
-		theForm.method = "get";
+		theForm.method = "post";
 		theForm.action = "board_delete";
 		theForm.submit();
+
 	}
 
 	//댓글등록	
-	function reply_save(qseq) {
-		var theForm = document.frm;
-		//theForm.qseq.value=qseq;
-		console.log
-		theForm.action = "reply_save";
-		theForm.submit();
-	}
-
-	function reply_update(qseq) {
-		var theForm = document.frm;
-		//theForm.qseq.value=qseq;
-		console.log
-		theForm.action = "reply_update";
-		theForm.submit();
-	}
-
-	function reply_delete(qseq) {
-		var theForm = document.frm;
+	function reply_save() {
+		var theForm = document.replyfrm;
 		theForm.method = "post";
-		theForm.action = "reply_delete";
+		theForm.action = "reply_save";
 		theForm.submit();
 	}
 
@@ -89,7 +75,7 @@
 	//추천
 	function goodpoint_plus(button) {
 		var theForm = document.frm;
-		theForm.method = "get";
+		theForm.method = "post";
 		theForm.action = "goodpoint";
 		theForm.submit();
 
@@ -99,7 +85,7 @@
 <body>
 	<article>
 		<h1>유저 레시피 상세페이지</h1>
-		<form name="frm" method="get">
+		<form name="frm" method="post">
 			<input type="hidden" name="seq" id="seq"
 				th:value="${Com_Board_DetailVO.seq}">
 			<table id="Board_deatail_List">
@@ -218,13 +204,16 @@
 			</table>
 		</form>
 		<form name="replyfrm" method="post">
+			<input type="hidden" name="seq" id="seq"
+				th:value="${Com_Board_DetailVO.seq}">
 			<table id="Board_deatail_List">
 				<tr>
 					<td colspan="2"><img src="images/opinionimg01.gif"></td>
 				</tr>
 				<tr>
-					<td colspan="2"><textarea name="reply" rows="3" cols="50"></textarea>
-						<input type="button" class="btn" value="저장"></td>
+					<td colspan="2"><textarea name="reply_content" rows="3"
+							cols="50"></textarea> <input type="submit" class="btn" value="저장"
+						th:onClick="reply_save()"></td>
 				</tr>
 			</table>
 			<br>
@@ -232,21 +221,39 @@
 				<tr>
 					<th>댓글</th>
 				</tr>
-				<th:block th:each="ReplyVO : ${ReplyList}">
+				<th:block th:each="replyVO, idx : ${ReplyList}">
 					<tr>
-						<td>[[${ReplyVO.member_data.id}]]</td>
-						<td>[[${ReplyVO.content}]]</td>
+						<td>[[${replyVO.member_data.id}]]</td>
+						<td>[[${replyVO.content}]]</td>
+						<td><th:block
+								th:if="${session.loginUser != null and (replyVO.member_data.id).equals(session.loginUser.id)}">
+								<form method="Post" action="/reply_update">
+									<input type="hidden" name="seq" 
+										th:value="${Com_Board_DetailVO.seq}" /> 
+										<input type="hidden"
+										name="replynum" th:value="${replyVO.replynum}" /> <input
+										type="submit" class="btn" value="수정" >
+								</form>
+								<form method="post" action="/reply_delete">
+									<input type="hidden" name="seq"
+										th:value="${Com_Board_DetailVO.seq}" /> 
+										<input type="hidden"
+										name="replynum" th:value="${replyVO.replynum}" /> <input
+										type="submit" class="btn" value="삭제">
+								</form>
+							</th:block></td>
 					</tr>
 				</th:block>
-				<!--       <th:block th:if="${ReplyVO.member_data.id == session.loginUser.id }"> 
-    	 <input type="button" class="btn" value="수정" onClick="reply_update()">
-		 <input type="button" class="btn" value="삭제" onClick="reply_delete()">
-     		</th:block>-->
+				</td>
+				</tr>
+				</th:block>
 			</table>
 		</form>
 		<form name="buttonfrm" method="post">
-			<input type="button" class="btn" value="목록" onClick="go_list()">
-			<!-- <th:block th:if="${Com_Board_DetailVO.member_data.id == session.loginUser.id }">  -->
+			<input type="hidden" name="seq" id="seq"
+				th:value="${Com_Board_DetailVO.seq}"> <input type="button"
+				class="btn" value="목록" onClick="go_list()">
+			<th:block th:if="${session.loginUser != null and (Com_Board_DetailVO.member_data.id).equals(session.loginUser.id)}">
 			<input type="button" class="btn" value="수정" onClick="board_update()">
 			<input type="button" class="btn" value="삭제" onClick="board_delete()">
 			</th:block>
