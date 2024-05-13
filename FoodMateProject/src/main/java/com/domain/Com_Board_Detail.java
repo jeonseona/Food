@@ -7,7 +7,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import com.demo.dto.Com_Recipe;
-import com.demo.dto.MemberData;
+import com.demo.domain.MemberData;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -40,13 +40,13 @@ public class Com_Board_Detail {
 		    @SequenceGenerator(name = "boardseq", sequenceName = "boardseq", allocationSize = 1)
 			private int seq; //게시글번호
 			
-			@OneToOne(cascade = CascadeType.ALL)
+			@OneToOne(cascade = CascadeType.REMOVE)
 		    @JoinColumn(name="idx", nullable=false)
 		    private Com_Recipe com_recipe; //레시피번호
 		    
-		    @OneToOne(cascade = CascadeType.ALL)
+		    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})// save, update만 가능 (del불가)
 		    @JoinColumn(name="no_data", nullable=false)
-		    private MemberData member_data; //회원번호
+		    private MemberData member_data; //회원아이디
 		    
 		    @Temporal(value=TemporalType.TIMESTAMP)
 		    @ColumnDefault("sysdate")
