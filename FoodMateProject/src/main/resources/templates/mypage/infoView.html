@@ -14,7 +14,8 @@
 <th:block th:insert="~{mypage/menu}"></th:block>
 
 <!-- 내 정보 내용 -->
-        <section id="infoview">
+    <main class="container">
+        <div id="infoview">
             <h3>내 정보</h3>
             <p>이름 : <span th:text="${memberData?.name} ?: '정보 없음'"></span></p>
             <p>아이디 : <span th:text="${memberData?.id} ?: '정보 없음'"></span></p>
@@ -27,8 +28,9 @@
             <p>나이 : <span th:text="${memberData?.age} ?: '정보 없음'"></span></p>
             <p>BMI : <span th:text="${memberData?.bmi} ?: '정보 없음'"></span></p>
             <!-- 목표 -->
-            <p>목표 체중: <span th:text="${memberData?.goal} ?: '정보 없음'"></span></p>
-        </section>
+            <p>목표 : <span th:text="${memberData?.goal} ?: '정보 없음'"></span></p>
+        </div>
+    </main>
 
 <!-- 푸터 -->
 <th:block th:insert="~{/includes/footer}"></th:block>
