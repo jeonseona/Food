@@ -5,12 +5,18 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 
 import com.demo.domain.Com_Board_Detail;
+import com.demo.domain.Reply;
+import com.demo.dto.Com_Recipe;
 
 public interface Com_Board_DetailService {
 	
 	public void insertBoard(Com_Board_Detail vo);
 	
+	public void insertRecipe(Com_Recipe vo); //레시피 글저장
+	
 	public void updateBoard(Com_Board_Detail vo);
+	
+	public void updateRecipe(Com_Recipe vo); //레시피 글수정
 	
 	public void deleteBoard(Com_Board_Detail vo);
 
@@ -44,6 +50,8 @@ public interface Com_Board_DetailService {
 	public List<Reply> getReplyBySeq(int seq);
 	
 	public Page<Reply> getReplyList_paging(int replynum , int page, int size);
+	
+	public Reply findReplyByreplynum(int replynum);
 	
 
 }
