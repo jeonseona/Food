@@ -13,14 +13,14 @@
 
 	function board_update() {
 		var theForm = document.frm;
-		theForm.method = "post";
+		theForm.method = "get";
 		theForm.action = "board_update";
 		theForm.submit();
 	}
 
 	function board_delete() {
 		var theForm = document.frm;
-		theForm.method = "post";
+		theForm.method = "get";
 		theForm.action = "board_delete";
 		theForm.submit();
 
@@ -80,6 +80,124 @@
 		theForm.submit();
 
 	}
+
+	//댓글 수정버튼
+	function enableEditMode(button) {
+    event.preventDefault();  // 기본 이벤트 중단
+    var idx = button.getAttribute('data-edit-button');
+    var contentView = document.querySelector('[data-content-view="' + idx + '"]');
+    var contentEdit = document.querySelector('[data-content-edit="' + idx + '"]');
+    var editForm = document.querySelector('[data-edit-form="' + idx + '"]');
+    var saveButton = editForm.querySelector('input[type="submit"]');
+    var cancelButton = editForm.querySelector('button[type="button"]');
+
+    contentView.style.display = 'none';
+    contentEdit.style.display = 'block';
+    editForm.style.display = 'block';
+    saveButton.style.display = 'inline';
+    cancelButton.style.display = 'inline';
+}
+
+// 댓글 수정 취소 함수
+function cancelEditMode(button) {
+    event.preventDefault();  // 기본 이벤트 중단
+    var idx = button.getAttribute('data-cancel-button');
+    var contentView = document.querySelector('[data-content-view="' + idx + '"]');
+    var contentEdit = document.querySelector('[data-content-edit="' + idx + '"]');
+    var editForm = document.querySelector('[data-edit-form="' + idx + '"]');
+    var saveButton = editForm.querySelector('input[type="submit"]');
+    var cancelButton = editForm.querySelector('button[type="button"]');
+
+    contentView.style.display = 'block';
+    contentEdit.style.display = 'none';
+    editForm.style.display = 'none';
+    saveButton.style.display = 'none';
+    cancelButton.style.display = 'none';
+}
+
+function deleteReply(replynum, event) {
+    event.preventDefault(); // 기본 이벤트 방지
+
+    if (confirm('이 댓글을 삭제하시겠습니까?')) {
+        fetch(`/reply_delete/${replynum}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ replynum: replynum })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`네트워크 응답이 올바르지 않습니다. 상태 코드: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                alert('댓글이 삭제되었습니다.');
+                reply_list(); // 댓글 목록을 새로 고침
+            } else {
+                throw new Error(data.message); // 서버에서 처리 실패 시
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert(`댓글 삭제 중 오류가 발생하였습니다: ${error.message}`);
+        });
+    }
+}
+
+function toggleEditMode(button) {
+    event.preventDefault(); // 기본 이벤트 방지
+    const replynum = button.dataset.replynum; // data-replynum 속성 값 가져오기
+    const isEditing = button.getAttribute('data-editing') === 'true';
+    const contentEdit = document.querySelector(`textarea[data-content-edit="${replynum}"]`);
+    const contentView = document.querySelector(`span[data-content-view="${replynum}"]`);
+
+    if (!contentEdit || !contentView) {
+        console.error("Unable to find the textarea or content view.");
+        return; // 요소를 찾지 못하면 함수 종료
+    }
+
+    if (!isEditing) {
+        contentView.style.display = 'none';
+        contentEdit.style.display = 'block';
+        contentEdit.focus();
+        button.textContent = '저장';
+        button.setAttribute('data-editing', 'true');
+    } else {
+        saveChanges(replynum, contentEdit.value);
+        contentView.textContent = contentEdit.value;
+        contentEdit.style.display = 'none';
+        contentView.style.display = 'block';
+        button.textContent = '수정';
+        button.setAttribute('data-editing', 'false');
+    }
+}
+
+
+function saveChanges(replynum, content) {
+	event.preventDefault();
+    // AJAX 요청으로 서버에 데이터 저장
+    fetch(`/reply_update/${replynum}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ content: content, replynum: replynum })
+    }).then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('변경 사항이 저장되었습니다.');
+        } else {
+            alert('저장 실패: ' + data.message);
+        }
+    }).catch(error => {
+        console.error('Error:', error);
+        alert('저장 중 오류 발생: ' + error.message);
+    });
+}
+
 </script>
 </head>
 <body>
@@ -203,7 +321,7 @@
 				</tr>
 			</table>
 		</form>
-		<form name="replyfrm" method="post">
+		<form name="replyfrm" method="get">
 			<input type="hidden" name="seq" id="seq"
 				th:value="${Com_Board_DetailVO.seq}">
 			<table id="Board_deatail_List">
@@ -221,41 +339,45 @@
 				<tr>
 					<th>댓글</th>
 				</tr>
-				<th:block th:each="replyVO, idx : ${ReplyList}">
+				<th:block th:each="replyVO : ${ReplyList}">
 					<tr>
-						<td>[[${replyVO.member_data.id}]]</td>
-						<td>[[${replyVO.content}]]</td>
+						<td th:text="${replyVO.member_data.id}"></td>
+						<td><span th:text="${replyVO.content}"
+							data-content-view="${replyVO.replynum}"></span> <textarea
+								data-content-edit="${replyVO.replynum}" style="display: none;"
+								th:name="content" th:text="${replyVO.content}"></textarea></td>
 						<td><th:block
-								th:if="${session.loginUser != null and (replyVO.member_data.id).equals(session.loginUser.id)}">
-								<form method="Post" action="/reply_update">
-									<input type="hidden" name="seq" 
-										th:value="${Com_Board_DetailVO.seq}" /> 
-										<input type="hidden"
-										name="replynum" th:value="${replyVO.replynum}" /> <input
-										type="submit" class="btn" value="수정" >
-								</form>
-								<form method="post" action="/reply_delete">
+								th:if="${session.loginUser != null and replyVO.member_data.id.equals(session.loginUser.id)}">
+								<button data-edit-button="${replyVO.replynum}" onclick="toggleEditMode(this)" data-replynum="${replyVO.replynum}">수정</button>
+								<textarea data-content-edit="${replyVO.replynum}"
+									style="display: none;"></textarea>
+								<button data-delete-button="${replyVO.replynum}"
+									th:onclick="deleteReply('${replyVO.replynum}', event)">삭제</button>
+								<form data-edit-form="${replyVO.replynum}"
+									style="display: none;" method="post"
+									th:action="@{/reply_update}">
 									<input type="hidden" name="seq"
-										th:value="${Com_Board_DetailVO.seq}" /> 
-										<input type="hidden"
-										name="replynum" th:value="${replyVO.replynum}" /> <input
-										type="submit" class="btn" value="삭제">
+										th:value="${Com_Board_DetailVO.seq}" /> <input type="hidden"
+										name="replynum" th:value="${replyVO.replynum}" />
 								</form>
 							</th:block></td>
 					</tr>
 				</th:block>
+
+
 				</td>
 				</tr>
 				</th:block>
 			</table>
 		</form>
-		<form name="buttonfrm" method="post">
+		<form name="buttonfrm" method="get">
 			<input type="hidden" name="seq" id="seq"
 				th:value="${Com_Board_DetailVO.seq}"> <input type="button"
 				class="btn" value="목록" onClick="go_list()">
-			<th:block th:if="${session.loginUser != null and (Com_Board_DetailVO.member_data.id).equals(session.loginUser.id)}">
-			<input type="button" class="btn" value="수정" onClick="board_update()">
-			<input type="button" class="btn" value="삭제" onClick="board_delete()">
+			<th:block
+				th:if="${session.loginUser != null and (Com_Board_DetailVO.member_data.id).equals(session.loginUser.id)}">
+				<input type="button" class="btn" value="수정" onClick="board_update()">
+				<input type="button" class="btn" value="삭제" onClick="board_delete()">
 			</th:block>
 		</form>
 	</article>

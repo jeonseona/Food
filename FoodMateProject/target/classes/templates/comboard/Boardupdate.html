@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <Script type="text/javascript">
 function go_mov() {
-    var theForm = document.getElementById('update_form');
+    var theForm = document.frm
+    theForm.method = "get";
     theForm.action = "board_list";
     theForm.submit();
 }   
@@ -33,9 +35,14 @@ function go_mod_save() {
      <th>분류</th>
     <td colspan="5">
         <select name="kind" id="kind">
-            <th:block th:each="kind, status : ${kindList}">
-            <option th:value="${status.count}" th:selected="${status.count == com_boardVO.com_recipe.kind}">[[${kind}]]</option>
+            <th:block th:each=" kind, status : ${kindList}">
+            <th:block th:if="${kind==status.count}">
+            <option th:value="${status.count}" selected="selected">[[${kind}]]</option>
             </th:block>
+            <th:block th:unless="${kind==status.count}">
+            <option th:value="${status.count}">[[${kind}]]</option>
+          </th:block>
+          </th:block>
         </select>      
     </td>
 </tr>
@@ -61,7 +68,7 @@ function go_mod_save() {
 <tr>
     <th>첫번째 조리법</th>
     <td colspan="5">
-        <textarea name="manual01" id="manual01" rows="8" cols="70" th:text="${com_boardVO.com_recipe.manual01}"></textarea>
+        <textarea name="manual01" id="manual01" rows="8" cols="70"> [[${com_boardVO.com_recipe.manual01}]]</textarea>
         <input type="file" name="manualImg1" id="manualImg1">
         <input type="hidden" name="image_h1" th:value="${com_boardVO.com_recipe.manual_img01}">
     </td>
@@ -69,7 +76,7 @@ function go_mod_save() {
 <tr>
     <th>두번째 조리법</th>
     <td colspan="5">
-        <textarea name="manual02" id="manual02" rows="8" cols="70" th:text="${com_boardVO.com_recipe.manual02}"></textarea>
+        <textarea name="manual02" id="manual02" rows="8" cols="70" >[[${com_boardVO.com_recipe.manual02}]]</textarea>
         <input type="file" name="manualImg2" id="manualImg2">
         <input type="hidden" name="image_h2" th:value="${com_boardVO.com_recipe.manual_img02}">
     </td>
@@ -77,7 +84,7 @@ function go_mod_save() {
 <tr>
     <th>세번째 조리법</th>
     <td colspan="5">
-        <textarea name="manual03" id="manual03" rows="8" cols="70" th:text="${com_boardVO.com_recipe.manual03}"></textarea>
+        <textarea name="manual03" id="manual03" rows="8" cols="70"> [[${com_boardVO.com_recipe.manual03}]]</textarea>
         <input type="file" name="manualImg3" id="manualImg3">
         <input type="hidden" name="image_h3" th:value="${com_boardVO.com_recipe.manual_img03}">
     </td>
@@ -85,7 +92,7 @@ function go_mod_save() {
 <tr>
     <th>네번째 조리법</th>
     <td colspan="5">
-        <textarea name="manual04" id="manual04" rows="8" cols="70" th:text="${com_boardVO.com_recipe.manual04}"></textarea>
+        <textarea name="manual04" id="manual04" rows="8" cols="70"> [[${com_boardVO.com_recipe.manual04}]]</textarea>
         <input type="file" name="manualImg4" id="manualImg4">
         <input type="hidden" name="image_h4" th:value="${com_boardVO.com_recipe.manual_img04}">
     </td>
@@ -93,7 +100,7 @@ function go_mod_save() {
 <tr>
     <th>다섯번째 조리법</th>
     <td colspan="5">
-        <textarea name="manual05" id="manual05" rows="8" cols="70" th:text="${com_boardVO.com_recipe.manual05}"></textarea>
+        <textarea name="manual05" id="manual05" rows="8" cols="70"> [[${com_boardVO.com_recipe.manual05}]]</textarea>
         <input type="file" name="manualImg5" id="manualImg5">
         <input type="hidden" name="image_h5" th:value="${com_boardVO.com_recipe.manual_img05}">
     </td>
@@ -101,7 +108,7 @@ function go_mod_save() {
 <tr>
     <th>여섯번째 조리법</th>
     <td colspan="5">
-        <textarea name="manual06" id="manual06" rows="8" cols="70" th:text="${com_boardVO.com_recipe.manual06}"></textarea>
+        <textarea name="manual06" id="manual06" rows="8" cols="70">[[${com_boardVO.com_recipe.manual06}]]</textarea>
         <input type="file" name="manualImg6" id="manualImg6">
         <input type="hidden" name="image_h6" th:value="${com_boardVO.com_recipe.manual_img06}">
     </td>

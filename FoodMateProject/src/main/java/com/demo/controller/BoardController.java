@@ -2,6 +2,7 @@ package com.demo.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -15,8 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -155,19 +154,27 @@ public class BoardController {
         
         String[] kindList = { "반찬", "국&찌개", "후식", "일품" }; // 카테고리
         String kindName = kindList[kind];
-		
-		
-		 // 이미지 파일 저장 및 DB 경로 설정
-		saveUploadedFile(manualImg01, vo, 1);
-	    saveUploadedFile(manualImg02, vo, 2);
-	    saveUploadedFile(manualImg03, vo, 3);
-	    saveUploadedFile(manualImg04, vo, 4);
-	    saveUploadedFile(manualImg05, vo, 5);
-	    saveUploadedFile(manualImg06, vo, 6);
-	    saveUploadedFile(mainuploadFile, vo, 7);
-	    
+        
 	    //레시피에 저장
 	    Com_Recipe recipe = new Com_Recipe();  
+		
+		
+
+		 // 이미지 파일 저장 및 DB 경로 설정
+		saveUploadedFile(manualImg01, recipe , 1);
+	    saveUploadedFile(manualImg02, recipe, 2);
+	    saveUploadedFile(manualImg03, recipe, 3);
+	    saveUploadedFile(manualImg04, recipe, 4);
+	    saveUploadedFile(manualImg05, recipe, 5);
+	    saveUploadedFile(manualImg06, recipe, 6);
+	    saveUploadedFile(mainuploadFile, recipe, 7);	    
+
+	    
+//	    if (recipe != null) { // idx가 번호를 자동으로 생성하게 했음에도 저장순서가 빨라서 null값으로 판정되어 에러가남. 수동으로 저장을 먼저해주기로함
+//	    	recipe = entityManager.merge(recipe); 
+//            entityManager.persist(recipe);
+//        }
+	    
 	    recipe.setRcp_nm(title);
 	    recipe.setHash_tag(maingredient);
 	    recipe.setManual01(manual01);
@@ -193,54 +200,60 @@ public class BoardController {
 	}
 	
 	//이미지등록
-		private void saveUploadedFile(MultipartFile file, Com_Board_Detail vo, int manualNumber) {
-			if (file != null && !file.isEmpty()) {
-		        try {
-		            String fileName = file.getOriginalFilename();
-		            String fileExtension = fileName.substring(fileName.lastIndexOf("."));
-		            String uuid = UUID.randomUUID().toString();
-		            String saveName = uuid + fileExtension;
-		            
-		            File directory = new File(uploadPath);
-		            if (!directory.exists()) {
-		                directory.mkdirs();  // 디렉토리 생성
-		            }
+	private void saveUploadedFile(MultipartFile file, Com_Recipe vo, int manualNumber) {
+	    if (file != null && !file.isEmpty()) {
+	        try {
+	            String fileName = file.getOriginalFilename();
+	            String fileExtension = fileName.substring(fileName.lastIndexOf("."));
+	            String uuid = UUID.randomUUID().toString();
+	            String saveName = uuid + fileExtension;
 
-		            File saveFile = new File(directory, saveName);
-		            file.transferTo(saveFile);
+	            // 프로젝트의 작업 경로 확인
+	            String workingDir = System.getProperty("user.dir");
+	            File directory = new File(workingDir + "/uploads");
+	            if (!directory.exists()) {
+	                boolean created = directory.mkdirs();
+	                System.out.println("Directory creation " + (created ? "succeeded" : "failed") + " at " + directory.getAbsolutePath());
+	            }
 
-		            String filePath = "/images/" + saveName;
-		            switch (manualNumber) {
-		                case 1:
-		                    vo.getCom_recipe().setManual_img01(filePath);
-		                    break;
-		                case 2:
-		                    vo.getCom_recipe().setManual_img02(filePath);
-		                    break;
-		                case 3:
-		                    vo.getCom_recipe().setManual_img03(filePath);
-		                    break;
-		                case 4:
-		                    vo.getCom_recipe().setManual_img04(filePath);
-		                    break;
-		                case 5:
-		                    vo.getCom_recipe().setManual_img05(filePath);
-		                    break;
-		                case 6:
-		                    vo.getCom_recipe().setManual_img06(filePath);
-		                    break;
-		                case 7:
-		                    vo.getCom_recipe().setAtt_file_no_mk(filePath);
-		                    break;
-		            }
-		        } catch (IOException e) {
-		            e.printStackTrace();
-		        }
-		    }
-		}
+	            File saveFile = new File(directory, saveName);
+	            file.transferTo(saveFile);
+	            System.out.println("File saved to " + saveFile.getAbsolutePath());
+
+	            String filePath = "uploads/" + saveName; // 확장자를 포함한 전체 파일 경로를 저장
+	            switch (manualNumber) {
+	                case 1:
+	                    vo.setManual_img01(filePath);
+	                    break;
+	                case 2:
+	                    vo.setManual_img02(filePath);
+	                    break;
+	                case 3:
+	                    vo.setManual_img03(filePath);
+	                    break;
+	                case 4:
+	                    vo.setManual_img04(filePath);
+	                    break;
+	                case 5:
+	                    vo.setManual_img05(filePath);
+	                    break;
+	                case 6:
+	                    vo.setManual_img06(filePath);
+	                    break;
+	                case 7:
+	                    vo.setAtt_file_no_mk(filePath);
+	                    break;
+	            }
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	            System.err.println("Failed to save file: " + e.getMessage());
+	            throw new RuntimeException("File upload failed", e);
+	        }
+	    }
+	}
 		
 		// 글수정 페이지로 이동
-		@PostMapping("/board_update")
+		@GetMapping("/board_update")
 		public String getCom_Board_DetailUpdateView(HttpSession session, Model model, @RequestParam("seq") int seq) {
 			MemberData loginUser =  (MemberData)session.getAttribute("loginUser");
 			Com_Board_Detail board = Board_DetailService.getCom_Board_Datail(seq);
@@ -253,7 +266,8 @@ public class BoardController {
 
 					model.addAttribute("kindList", kindList);
 					model.addAttribute("com_boardVO", board);
-			return "comboard/Boardupdate";
+					
+					return "comboard/Boardupdate";
 				}
 		}
 		
@@ -289,19 +303,21 @@ public class BoardController {
 			
 			String[] kindList = { "반찬", "국&찌개", "후식", "일품" }; // 카테고리
 	        String kindName = kindList[kind];
+	        
+		    //레시피에 저장
+		    Com_Recipe recipe = new Com_Recipe();  
 			
 			
 			 // 이미지 파일 저장 및 DB 경로 설정
-			saveUploadedFile(manualImg01, board, 1);
-		    saveUploadedFile(manualImg02,  board, 2);
-		    saveUploadedFile(manualImg03,  board, 3);
-		    saveUploadedFile(manualImg04,  board, 4);
-		    saveUploadedFile(manualImg05,  board, 5);
-		    saveUploadedFile(manualImg06,  board, 6);
-		    saveUploadedFile(mainuploadFile,  board, 7);
+			saveUploadedFile(manualImg01, recipe , 1);
+		    saveUploadedFile(manualImg02, recipe, 2);
+		    saveUploadedFile(manualImg03, recipe, 3);
+		    saveUploadedFile(manualImg04, recipe, 4);
+		    saveUploadedFile(manualImg05, recipe, 5);
+		    saveUploadedFile(manualImg06, recipe, 6);
+		    saveUploadedFile(mainuploadFile, recipe, 7);	
 		    
-		    //레시피에 저장
-		    Com_Recipe recipe = new Com_Recipe();  
+
 		    recipe.setRcp_nm(title);
 		    recipe.setHash_tag(maingredient);
 		    recipe.setManual01(manual01);
@@ -323,7 +339,7 @@ public class BoardController {
 	}
 
 	// 글 삭제
-	@PostMapping("/board_delete")
+	@GetMapping("/board_delete")
 	public String deleteCom_Board(@RequestParam(value = "seq") int seq, Com_Board_Detail vo, HttpSession session) {
 		MemberData loginUser = (MemberData) session.getAttribute("loginUser");
 		Com_Board_Detail board = Board_DetailService.getCom_Board_Datail(seq);
@@ -332,7 +348,7 @@ public class BoardController {
 			return "member/login"; 
 		}else if(!(loginUser.getId()).equals(board.getMember_data().getId())){
 			return "본인이 작성한 글만 삭제가능합니다.";
-		}else {
+		}else {	
 		Board_DetailService.deleteBoard(board);
 		return "redirect:/board_list";
 	}
@@ -431,25 +447,28 @@ public class BoardController {
 				@RequestParam("reply_content") String reply_content, Reply vo) {
 			
 			MemberData loginUser = (MemberData) session.getAttribute("loginUser");
-			Com_Board_Detail board = (Com_Board_Detail) session.getAttribute("Com_Board_DetailVO");
+			Com_Board_Detail board = Board_DetailService.getCom_Board_Datail(seq);
 			Reply reply = new Reply();
 			
 			if (loginUser == null) { 
 				return "member/login"; 
 			}else {
-				reply.setContent(reply_content);
+				reply.setCom_board_detail(board);
 				reply.setMember_data(loginUser);
+				reply.setContent(reply_content);
+				reply.getMember_data().setNo_data(loginUser.getNo_data());
 				reply.setCom_board_detail(Board_DetailService.getCom_Board_Datail(seq));
+				
 				Board_DetailService.insertReply(reply);
 				return "redirect:/com_board_detail?seq=" + seq;
 				}
 		}
 		
 		//댓글 수정
-		@RequestMapping(value="/reply_update", method = {RequestMethod.POST, RequestMethod.GET})
+		@PostMapping(value="/reply_update")
 		public String updateReply(@RequestParam("replynum") int replynum,
 				@RequestParam("seq") int seq, HttpSession session) {
-			System.out.println("Updating reply: seq=" + seq + ", replynum=" + replynum);
+			
 			MemberData loginUser = (MemberData) session.getAttribute("loginUser");
 			Reply reply = Board_DetailService.findReplyByreplynum(replynum);
 			

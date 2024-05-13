@@ -40,7 +40,7 @@ public class Com_Board_Detail {
 		    @SequenceGenerator(name = "boardseq", sequenceName = "boardseq", allocationSize = 1)
 			private int seq; //게시글번호
 			
-			@OneToOne(cascade = CascadeType.ALL)
+			@OneToOne(cascade = CascadeType.REMOVE)
 		    @JoinColumn(name="idx", nullable=false)
 		    private Com_Recipe com_recipe; //레시피번호
 		    
