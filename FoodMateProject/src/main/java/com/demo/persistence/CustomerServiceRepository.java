@@ -20,6 +20,6 @@ public interface CustomerServiceRepository extends JpaRepository<askBoard, Long>
     List<askBoard> getInquiryList();
     
     // 마이페이지용(내 질문)
- //   @Query("SELECT ask FROM ask_board ask JOIN ask.member m WHERE m.id =:id")
- //   public List<askBoard> myInquiryList(@Param("id") String id);
+    @Query("SELECT ask FROM askBoard ask JOIN ask.member m WHERE m.id =:id")
+    public List<askBoard> myInquiryList(@Param("id") String id);
 }

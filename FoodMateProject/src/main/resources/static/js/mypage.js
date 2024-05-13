@@ -1,11 +1,11 @@
 /**
  * 마이페이지 스크립트
- */
+*/
 
 /**
  * 개인정보 수정 (닉네임, 비밀번호, 이메일) 
  */
-function info_save() {
+function change_info() {
 	if ($("#pwd").val() == "") {
 		alert("변경할 비밀번호를 입력하세요.");
 		$("#pwd").focus();
@@ -27,12 +27,11 @@ function info_save() {
 		$("#email").focus();
 		return false;
 	} else {
-		$("#update_info").attr("action", "update_info");
-		document.getElementById("update_info").submit();
+		$("#update_info").attr("action", "update_info").submit();
 	}
 }
 /*
-** id 중복확인 화면 출력요청
+** 닉네임 중복확인 화면 출력요청
 */
 function nickcheck() {
 	if ($("#nickname").val() == "") {
@@ -41,15 +40,15 @@ function nickcheck() {
 		return false;
 	}
 
-	// id 중복확인 창 오픈
+	// 닉네임 중복확인 창 오픈
 	var url = "nickname_check_form?nickname=" + $("#nickname").val();
 	window.open(url, "_blank_", "toolbar=no, menubar=no, scrollbars=no, " +
-		"resizable=yes, width=350, height=200");
+		"resizable=yes, width=400, height=250");
 }
 /**
  * 바디데이터 수정
  */
-function body_save() {
+function change_bodydata() {
 	if ($("#age").val() == "") {
 		alert("나이를 입력해 주세요.");
 		$("#age").focus();
@@ -71,10 +70,10 @@ function body_save() {
 		$("#goal").focus();
 		return false;
 	} else {
-		$("#update_body").attr("action", "update_body");
-		document.getElementById("update_body").submit();
+		$("#update_body").attr("action", "update_body").submit();
 	}
 }
+
 /*
 ** bmi 계산 버튼
 */

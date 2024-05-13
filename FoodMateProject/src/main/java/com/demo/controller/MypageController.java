@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.demo.domain.Com_Board_Detail;
 import com.demo.domain.MemberData;
 import com.demo.domain.Recommend_History;
+import com.demo.domain.askBoard;
 import com.demo.service.Com_Board_DetailService;
 import com.demo.service.CustomerService;
 import com.demo.service.MemberService;
@@ -119,9 +120,10 @@ public class MypageController {
 			return "redirect:/login";
 		} else {
 			// 로그인한 회원 바디데이터 수정
+			vo.setId(loginUser.getId());
 			memberService.changeBodyData(vo);
 			
-			return "member/mypageMain";
+			return "mypage/mypageMain";
 		}
 	}
 	
@@ -157,16 +159,16 @@ public class MypageController {
 	}
 	
 	// 1:1문의 관련
-	@PostMapping("/myInquiry")
+	@GetMapping("/myInquiry")
 	public String myInquiryView(HttpSession session, Model model) {
 		MemberData loginUser = (MemberData)session.getAttribute("loginUser");
 		
 		if(loginUser == null) {
 			return "redirect:/login";
 		} else {
-//			List<askBoard> inquiry = customerService.getMyInquiry(loginUser.getId());
+			List<askBoard> inquiry = customerService.getMyInquiry(loginUser.getId());
 			
-//			model.addAttribute("myInquiry", inquiry);
+			model.addAttribute("InquiryList", inquiry);
 			return "mypage/myInquiry";
 		}
 	}

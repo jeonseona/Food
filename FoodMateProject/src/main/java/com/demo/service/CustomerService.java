@@ -15,5 +15,5 @@ public interface CustomerService {
     List<AdminQnaBoard> getAllQnaBoards();
     
     // 마이페이지용(내 질문)
-//  List<askBoard> getMyInquiry(String id);  
+  List<askBoard> getMyInquiry(String id);  
 }

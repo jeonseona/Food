@@ -59,9 +59,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
     
     // 마이페이지용
-//    @Override
-//    public List<askBoard> getMyInquiry(String id) {
-//    	
-//    	return customerServiceRepo.myInquiryList(id);
-//    }
+    @Override
+    public List<askBoard> getMyInquiry(String id) {
+    	
+    	return customerServiceRepository.myInquiryList(id);
+    }
 }
