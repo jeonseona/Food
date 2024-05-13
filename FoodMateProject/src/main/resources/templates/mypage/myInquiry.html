@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>My Inquiry</title>
+<link rel="stylesheet" th:href="@{/css/mypage.css}">
+<script th:src="@{/js/mypage.js}" defer></script>
+</head>
+<body>
+	<!-- 헤더 -->
+	<th:block th:insert="~{/includes/header}"></th:block>
+	<!-- 메뉴 -->
+	<th:block th:insert="~{mypage/menu}"></th:block>
+	<!-- 내 질문 -->
+	<h1>아직 구상중입니다... (_ _)</h1>
+	<section id="myInquiry" class="container">
+		<h3>내 질문</h3>
+		<div class="tbl-header">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<thead>
+					<tr>
+						<th>질문 제목</th>
+						<th>질문 날짜</th>
+						<th>답변 상태</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		<div class="tbl-content">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<tbody th:if="${#lists.size(InquiryList) != 0}">
+					<tr th:each="myInquiry : ${InquiryList}">
+						<td th:text="${myInquiry.subject}"></td>
+						<td
+							th:text="${#dates.format(myInquiry.regdaye,'yyyy-MM-dd HH:mm:ss')}"></td>
+						<td th:text="${myInquiry.status}">이거 status 인가...?</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<th:block th:if="${#lists.size(InquiryList) == 0}">
+			<h3 style="color: red; text-align: center;">1:1 질문이 없습니다.</h3>
+		</th:block>
+	</section>
+
+	<input type="button" value="질문하기" class="btn"
+		onclick="location.href='/inquiry/inquiryForm'"
+		style="position: relative; left: 50%; transform: translateX(-50%);">
+
+	<!-- 푸터 -->
+	<th:block th:insert="~{/includes/footer}"></th:block>
+</body>
+</html>
