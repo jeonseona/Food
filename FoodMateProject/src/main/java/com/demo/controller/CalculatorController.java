@@ -45,11 +45,11 @@ public class CalculatorController {
             model.addAttribute("result", result);
             return "foodRecommend/UserChoice";
         } else {
-            // 사용자 정보를 찾을 수 없는 경우 에러 처리
-            model.addAttribute("error", "로그인된 사용자 정보를 찾을 수 없습니다.");
-            return "foodRecommend/ErrorPage";
+            // 로그인 페이지로 리다이렉트합니다.
+            return "redirect:/login"; 
         }
     }
+
 
 
 }
