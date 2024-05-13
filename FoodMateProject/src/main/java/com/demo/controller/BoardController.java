@@ -2,10 +2,10 @@ package com.demo.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.demo.domain.Com_Board_Detail;
@@ -485,23 +486,34 @@ public class BoardController {
 		
 		//댓글 삭제 
 		@PostMapping("/reply_delete")
-		public String deleteReply(@RequestParam("replynum") int replynum, 
-				@RequestParam("seq") int seq, HttpSession session) {
-			
-			MemberData loginUser = (MemberData) session.getAttribute("loginUser");
-			Reply reply = Board_DetailService.findReplyByreplynum(replynum);
-			
-			if (loginUser == null) { 
-				return "member/login"; 
-			}else if(!(loginUser.getId()).equals(reply.getMember_data().getId())){
-				return "본인이 작성한 댓글만 삭제가능합니다.";
-			}else {
+		@ResponseBody
+		public Map<String, Object> deleteReply(@RequestParam("replynum") int replynum, HttpSession session) {
+		    Map<String, Object> response = new HashMap<>();
+		    try {
+		        MemberData loginUser = (MemberData) session.getAttribute("loginUser");
+		        Reply reply = Board_DetailService.findReplyByreplynum(replynum);
 
-				Board_DetailService.deleteReply(reply);			
-				return "redirect:/com_board_detail?seq=" + seq;
+		        if (loginUser == null) {
+		            response.put("success", false);
+		            response.put("message", "로그인이 필요합니다.");
+		            return response;
+		        }
+
+		        if (!loginUser.getId().equals(reply.getMember_data().getId())) {
+		            response.put("success", false);
+		            response.put("message", "본인이 작성한 댓글만 삭제 가능합니다.");
+		            return response;
+		        }
+
+		        Board_DetailService.deleteReply(reply);
+		        response.put("success", true);
+		        response.put("message", "댓글이 삭제되었습니다.");
+		    } catch (Exception e) {
+		        response.put("success", false);
+		        response.put("message", "서버 오류가 발생했습니다.");
+		    }
+		    return response;
 		}
-		}
-		
 
 		
 
