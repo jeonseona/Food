@@ -10,16 +10,23 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.demo.domain.Com_Board_Detail;
-import com.demo.persistence.Com_Board_DetailReposiotry;
+import com.demo.domain.Reply;
+import com.demo.dto.Com_Recipe;
+import com.demo.persistence.Com_Board_DetailRepository;
+import com.demo.persistence.Com_RecipeRepository;
+import com.demo.persistence.ReplyRepository;
 
 @Service
 public class Com_Board_DetailServiceImpl implements Com_Board_DetailService {
 
 	@Autowired
-	Com_Board_DetailReposiotry BoardDetailRepo;
+	Com_Board_DetailRepository BoardDetailRepo;
 
 	@Autowired
 	ReplyRepository ReplyRepo;
+	
+	@Autowired
+	Com_RecipeRepository recipe;
 
 	// 게시글 목록
 	@Override
@@ -32,11 +39,18 @@ public class Com_Board_DetailServiceImpl implements Com_Board_DetailService {
 	public Com_Board_Detail getCom_Board_Datail(int seq) {
 		return BoardDetailRepo.getCom_Board_Detail(seq);
 	}
-
+	//게시글 정보 저장
 	@Override
 	public void insertBoard(Com_Board_Detail vo) {
 		BoardDetailRepo.save(vo);
 
+	}
+	
+	//레시피저장
+	@Override
+	public void insertRecipe(Com_Recipe vo) {
+		recipe.save(vo);
+		
 	}
 
 	@Override
@@ -46,6 +60,15 @@ public class Com_Board_DetailServiceImpl implements Com_Board_DetailService {
 		vo.setCnt(p.getCnt());
 		BoardDetailRepo.save(vo);
 
+	}
+	
+	//레시피수정
+	@Override
+	public void updateRecipe(Com_Recipe vo) {
+		Com_Recipe p = recipe.findCom_RecipeByIdx(vo.getIdx());
+		vo.setIdx(p.getIdx());
+		recipe.save(vo);
+		
 	}
 
 	@Override
@@ -110,7 +133,8 @@ public class Com_Board_DetailServiceImpl implements Com_Board_DetailService {
 	@Override
 	public void updateReply(Reply vo) {
 		Reply p = ReplyRepo.findById(vo.getReplynum()).get();
-		ReplyRepo.save(vo);
+		p.setContent(vo.getContent());
+		ReplyRepo.save(p);
 
 	}
 
@@ -119,7 +143,7 @@ public class Com_Board_DetailServiceImpl implements Com_Board_DetailService {
 		ReplyRepo.delete(vo);
 
 	}
-
+	//해당게시물 댓글찾기
 	@Override
 	public List<Reply> getReplyBySeq(int seq) {
 		return ReplyRepo.getReplyList(seq);
@@ -134,6 +158,14 @@ public class Com_Board_DetailServiceImpl implements Com_Board_DetailService {
 		Pageable pageable = PageRequest.of(page-1, size, Direction.DESC, "replynum");
 		return ReplyRepo.findReplyByreplynumContainingOrderByReplynum(replynum, pageable);
 	}
+	// 선택댓글만
+	@Override
+	public Reply findReplyByreplynum(int replynum) {
+		return ReplyRepo.getReplyByReplynum(replynum);
+	}
+
+	
+
 
 	
 }
