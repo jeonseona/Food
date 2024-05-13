@@ -115,25 +115,30 @@ function cancelEditMode(button) {
     cancelButton.style.display = 'none';
 }
 
-function deleteReply(button) {
-    var idx = button.getAttribute('data-delete-button');
-    var form = document.createElement('form');
-    document.body.appendChild(form);
-    form.action = '/reply_delete';
-    var seqInput = document.createElement('input');
-    var replynumInput = document.createElement('input');
-
-    seqInput.type = 'hidden';
-    seqInput.name = 'seq';
-    seqInput.value = document.querySelector('[data-edit-form="' + idx + '"] input[name="seq"]').value;
-    form.appendChild(seqInput);
-
-    replynumInput.type = 'hidden';
-    replynumInput.name = 'replynum';
-    replynumInput.value = document.querySelector('[data-edit-form="' + idx + '"] input[name="replynum"]').value;
-    form.appendChild(replynumInput);
-
-    form.submit();
+function deleteReply(replynum, event) {
+    event.preventDefault(); // 기본 이벤트 중지
+    if (confirm('이 댓글을 삭제하시겠습니까?')) {
+        // AJAX 요청으로 서버에 삭제 요청
+        fetch(`/reply_delete/${replynum}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'  },
+            body: JSON.stringify({ replynum: replynum })
+        })
+        .then(response => response.json()) // 서버 응답을 JSON 형식으로 파싱
+        .then(data => {
+            if (data.success) {
+                alert('댓글이 삭제되었습니다.');
+                location.reload(); // 성공 시 페이지를 새로고침
+            } else {
+                alert('댓글 삭제에 실패하였습니다. 오류: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('댓글 삭제 중 오류가 발생하였습니다.');
+        });
+    }
 }
 
 </script>
@@ -277,27 +282,29 @@ function deleteReply(button) {
 				<tr>
 					<th>댓글</th>
 				</tr>
-<th:block th:each="replyVO, idx : ${ReplyList}">
+<th:block th:each="replyVO : ${ReplyList}">
     <tr>
-        <td>[[${replyVO.member_data.id}]]</td>
+        <td th:text="${replyVO.member_data.id}"></td>
         <td>
-            <span data-content-view="${idx.index}" th:text="${replyVO.content}"></span>
-            <textarea data-content-edit="${idx.index}" style="display:none;" th:name="content" th:text="${replyVO.content}"></textarea>
+            <span th:text="${replyVO.content}" data-content-view="${replyVO.replynum}"></span>
+            <textarea data-content-edit="${replyVO.replynum}" style="display:none;" th:name="content" th:text="${replyVO.content}"></textarea>
         </td>
         <td>
-            <th:block th:if="${session.loginUser != null and (replyVO.member_data.id).equals(session.loginUser.id)}">
-                <button data-edit-button="${idx.index}" onclick="enableEditMode(this)">수정</button>
-                <button data-delete-button="${idx.index}" onclick="deleteReply(this)">삭제</button>
-                   <form data-edit-form="${idx.index}" style="display:none;" method="post" th:action="@{/reply_update}">
+            <th:block th:if="${session.loginUser != null and replyVO.member_data.id.equals(session.loginUser.id)}">
+                <button data-edit-button="${replyVO.replynum}" th:onclick="enableEditMode(this)">수정</button>
+                <button data-delete-button="${replyVO.replynum}" th:onclick="deleteReply('${replyVO.replynum}', event)">삭제</button>
+                   <form data-edit-form="${replyVO.replynum}" style="display:none;" method="post" th:action="@{/reply_update}">
                     <input type="hidden" name="seq" th:value="${Com_Board_DetailVO.seq}" />
                     <input type="hidden" name="replynum" th:value="${replyVO.replynum}" />
                     <input type="submit" value="저장" style="display:none;" />
-                    <button type="button" onclick="cancelEditMode(this)" data-cancel-button="${idx.index}" style="display:none;">취소</button>
+                    <button type="button" onclick="cancelEditMode(this)" data-cancel-button="${replyVO.replynum}" style="display:none;">취소</button>
                 </form>
             </th:block>
         </td>
     </tr>
 </th:block>
+
+
 				</td>
 				</tr>
 				</th:block>

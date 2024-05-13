@@ -4,13 +4,13 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-import com.demo.dto.Com_Recipe;
 import com.demo.domain.Com_Board_Detail;
 import com.demo.domain.Reply;
+import com.demo.dto.Com_Recipe;
 
 public interface Com_Board_DetailService {
 	
-public void insertBoard(Com_Board_Detail vo);
+	public void insertBoard(Com_Board_Detail vo);
 	
 	public void insertRecipe(Com_Recipe vo); //레시피 글저장
 	
@@ -19,7 +19,7 @@ public void insertBoard(Com_Board_Detail vo);
 	public void updateRecipe(Com_Recipe vo); //레시피 글수정
 	
 	public void deleteBoard(Com_Board_Detail vo);
-	
+
 	public Com_Board_Detail getCom_Board_Datail(int seq); //seq로 해당글 찾기
 	
 	public List<Com_Board_Detail> getCom_Board();
@@ -37,7 +37,8 @@ public void insertBoard(Com_Board_Detail vo);
 	public Page<Com_Board_Detail> getCom_Board_DetailByGoodpoint(int seq, int page, int size); // 추천순 정렬
 	
 	// 회원별 작성한 레시피 목록(마이페이지용)
-	public List<Com_Board_Detail> getMyRecipe(String id);
+		public List<Com_Board_Detail> getMyRecipe(String id);
+		
 	
 	/**
 	 * 
@@ -55,7 +56,6 @@ public void insertBoard(Com_Board_Detail vo);
 	public Page<Reply> getReplyList_paging(int replynum , int page, int size);
 	
 	public Reply findReplyByreplynum(int replynum);
+	
 
-	
-	
 }

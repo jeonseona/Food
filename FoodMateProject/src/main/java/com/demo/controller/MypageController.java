@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.demo.domain.Com_Board_Detail;
 import com.demo.domain.MemberData;
 import com.demo.domain.Recommend_History;
+import com.demo.domain.askBoard;
 import com.demo.service.Com_Board_DetailService;
 import com.demo.service.CustomerService;
 import com.demo.service.MemberService;

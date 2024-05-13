@@ -161,7 +161,7 @@ public class BoardController {
 		
 
 		 // 이미지 파일 저장 및 DB 경로 설정
-		saveUploadedFile(manualImg01, recipe , 1);
+		saveUploadedFile(manualImg01, recipe, 1);
 	    saveUploadedFile(manualImg02, recipe, 2);
 	    saveUploadedFile(manualImg03, recipe, 3);
 	    saveUploadedFile(manualImg04, recipe, 4);
