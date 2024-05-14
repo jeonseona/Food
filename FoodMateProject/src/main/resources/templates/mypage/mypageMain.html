@@ -1,67 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>My Page</title>
-<link rel="stylesheet" th:href="@{/css/mypage.css}">
-<script th:src="@{/js/mypage.js}" defer></script>
-<style>
-/* 컨텐츠 스타일 */
-.content {
-	float: left;
-	width: 80%;
-	padding: 20px;
-}
-/* 탭 컨텐츠 스타일 */
-.tabcontent {
-	display: none;
-	border: 1px solid #ccc;
-	padding: 20px;
-}
-</style>
-<script>
-        function openTab(tabName) {
-            var i, tabcontent;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-            document.getElementById(tabName).style.display = "block";
-        }
-    </script>
+    <meta charset="UTF-8">
+    <title>My Page</title>
+    <link rel="stylesheet" th:href="@{/css/mypage.css}">
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script th:src="@{/js/mypage.js}" defer></script>
 </head>
 <body>
-	<!-- 헤더 -->
-	<th:block th:insert="~{/includes/header}"></th:block>
-
+    <!-- 헤더 -->
+    <th:block th:insert="~{includes/header}"></th:block>
+    
 	<!-- 메뉴 -->
-	<th:block th:insert="~{mypage/menu}"></th:block>
+    <th:block th:insert="~{mypage/menu}"></th:block>
+    
+    <!-- 메인 -->
+    <div class="container">
+        <main>
+            <h3>메뉴에서 선택하면 보여지는 화면은 여기에요.</h3>
+        </main>
+    </div>
 
-	<!-- 마이페이지 컨텐츠 -->
-	<section class="mypage">
-		<div class="content">
-			<div id="InfoView" class="tabcontent">
-				<!-- 개인정보 열람 페이지 내용 -->
-			</div>
-			<div id="InfoUpdate" class="tabcontent">
-				<!-- 개인정보 수정 페이지 내용 -->
-			</div>
-			<div id="BodyUpdate" class="tabcontent">
-				<!-- 바디데이터 수정 페이지 내용 -->
-			</div>
-			<div id="MyInquiry" class="tabcontent">
-				<!-- 1:1 내 질문 보기 페이지 내용 -->
-			</div>
-			<div id="MyRecipeList" class="tabcontent">
-				<!-- 내가 작성한 레시피 목록 페이지 내용 -->
-			</div>
-			<div id="FoodRecommend" class="tabcontent">
-				<!-- 추천받은 음식 페이지 내용 -->
-			</div>
-		</div>
-	</section>
-
-	<!-- 푸터 -->
-	<th:block th:insert="~{/includes/footer}"></th:block>
+    <!-- 푸터 -->
+    <th:block th:insert="~{includes/footer}"></th:block>
 </body>
 </html>

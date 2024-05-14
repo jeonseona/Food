@@ -6,13 +6,13 @@
  * 개인정보 수정 (닉네임, 비밀번호, 이메일) 
  */
 function change_info() {
-	if ($("#pwd").val() == "") {
+	if ($("#password").val() == "") {
 		alert("변경할 비밀번호를 입력하세요.");
-		$("#pwd").focus();
+		$("#password").focus();
 		return false;
-	} else if ($("#pwd").val() != $("#pwdcheck").val()) {
+	} else if ($("#password").val() != $("#pwdcheck").val()) {
 		alert("비밀번호가 일치하지 않습니다.");
-		$("#pwd").focus();
+		$("#password").focus();
 		return false;
 	} else if ($("#nickname").val() == "") {
 		alert("변경할 닉네임을 입력하세요.");
@@ -103,3 +103,17 @@ function my_bmi() {
 		alert('키와 몸무게, 나이, 성별을 올바르게 입력하세요.');
 	}
 }
+
+
+
+
+
+
+
+$(document).ready(function() {
+    $('.menu-link').on('click', function(event) {
+        event.preventDefault();
+        var url = $(this).data('url');
+        $('#content').load(url);
+    });
+});

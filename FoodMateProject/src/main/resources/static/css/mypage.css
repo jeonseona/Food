@@ -1,341 +1,196 @@
 /* 전체 스타일 */
-
-/* 마이페이지 스타일 */
-.mypage {
-    padding-right: 0;
-    text-align: center;
-    background: linear-gradient(to right, rgb(40, 234, 6), rgb(194, 252, 180)); /* 배경 그라디언트 */
-    color: #fff; /* 텍스트 색상 */
+/* 전체 컨테이너 */
+#footer .container {
+    display: flex;
+    justify-content: space-between; /* 왼쪽과 오른쪽으로 정렬 */
+    align-items: flex-start;
+}
+.container {
+    width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 2em 1em;
+	text-align: center;
+    flex-direction: column; /* 아이템을 세로로 배치 */
 }
 
-.content {
+/* 오른쪽 컨텐츠 */
+main {
+    flex-grow: 1; /* 남은 공간을 모두 차지하도록 설정 */
+    text-align: center;
+}
+
+main h3 {
+    color: black;
+    text-align: center;
+}
+
+/* 메뉴 스타일 */
+#menu {
+    background: #8FBC8F;
+    overflow: hidden;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
-}
-
-.tabcontent {
-    display: none;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-top: none;
-}
-
-#menu {
-    background-color: #4CAF50;
-    color: white;
-    padding: 20px;
-    width: 20%; /* 네비게이션의 폭을 조정합니다. */
-    float: left;
-    box-sizing: border-box; /* 요소의 패딩 및 테두리를 포함하여 크기를 계산하도록 설정합니다. */
 }
 
 #menu ul {
     list-style-type: none;
+    margin: 0;
     padding: 0;
 }
 
 #menu li {
-    padding: 10px 0;
-    border-bottom: 1px solid white; /* 각 li 요소 사이에 흰색 구분선 추가 */
+    float: left;
 }
 
-#menu a {
-    color: white;
+#menu li a {
+    display: block;
+    color: #333;
+    text-align: center;
+    padding: 14px 16px;
     text-decoration: none;
+}
+
+#menu li a:hover {
+    background-color: #ddd;
+}
+
+/* Info Update 페이지 */
+#infoUpdate {
+    background: #f4f4f4;
+    padding: 20px;
+    box-sizing: border-box;
+    max-width: 800px;
+    margin: 20px auto;
+    text-align: center; /* 수정된 부분 */
+}
+
+#infoUpdate h3 {
+    color: #4CAF50;
+}
+
+#infoUpdate span {
     font-weight: bold;
-    transition: color 0.3s; /* 링크 텍스트 색상 변경 애니메이션을 추가합니다. */
 }
 
-#menu a:hover {
-    color: #ffcc00; /* hover 시 색상을 변경합니다. */
+#infoUpdate input[type="text"],
+#infoUpdate input[type="password"],
+#infoUpdate input[type="email"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
-/* 개인정보 열람 스타일 */
-#infoview {
-	background-color: #fff;
-	padding: 20px;
-	margin-left: 20%; /* 네비게이션의 폭 만큼 왼쪽으로 이동합니다. */
-	box-sizing: border-box; /* 요소의 패딩 및 테두리를 포함하여 크기를 계산하도록 설정합니다. */
+#infoUpdate input[type="button"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
 }
 
-#infoview h3 {
-	color: #4CAF50; /* 섹션 제목의 색상을 초록색 계열로 설정합니다. */
+#infoUpdate input[type="button"]:hover {
+    background-color: #45a049;
 }
 
-#infoview p {
-	margin: 10px 0; /* 단락의 위아래 여백을 설정합니다. */
+/* Body Update 페이지 */
+#bodyUpdate {
+    background: #f4f4f4;
+    padding: 20px;
+    box-sizing: border-box;
+    max-width: 800px;
+    margin: 20px auto;
+    text-align: center; /* 수정된 부분 */
 }
 
-#infoview span {
-	font-weight: bold; /* 정보가 표시되는 스팬 요소의 글꼴을 굵게 설정합니다. */
+#bodyUpdate h3 {
+    color: #4CAF50;
 }
 
-#infoupdate {
-	background-color: #fff;
-	padding: 20px;
-	margin-left: 20%; /* 네비게이션의 폭 만큼 왼쪽으로 이동합니다. */
-	box-sizing: border-box; /* 요소의 패딩 및 테두리를 포함하여 크기를 계산하도록 설정합니다. */
+#bodyUpdate input[type="text"],
+#bodyUpdate select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    
 }
 
-#infoupdate h3 {
-	color: #4CAF50; /* 섹션 제목의 색상을 초록색 계열로 설정합니다. */
+#bodyUpdate input[type="button"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+    
 }
 
-#infoupdate label {
-	display: block;
-	margin-top: 10px;
-	font-weight: bold;
+#bodyUpdate input[type="button"]:hover {
+    background-color: #45a049;
 }
 
-#infoupdate input[type="text"], #infoupdate input[type="password"],
-	#infoupdate input[type="email"] {
-	width: 100%;
-	padding: 8px;
-	margin-top: 6px;
-	margin-bottom: 16px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	box-sizing: border-box;
+/* 내 질문 섹션 */
+#main {
+    position: relative;
+    max-width: 800px;
+    margin: 20px auto;
 }
 
-#infoupdate input[type="button"] {
-	background-color: #4CAF50;
-	color: white;
-	padding: 10px 20px;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
+#main .tbl-header {
+    overflow-x: auto;
 }
 
-#infoupdate input[type="button"]:hover {
-	background-color: #45a049;
+#main .tbl-content {
+    overflow-y: auto;
+    max-height: 300px;
 }
 
-/* 바디데이터 수정 스타일 */
-#bodyupdate {
-	background-color: #fff;
-	padding: 20px;
-	margin-left: 20%; /* 네비게이션의 폭 만큼 왼쪽으로 이동합니다. */
-	box-sizing: border-box; /* 요소의 패딩 및 테두리를 포함하여 크기를 계산하도록 설정합니다. */
+#main table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-#bodyupdate h3 {
-	color: #4CAF50; /* 섹션 제목의 색상을 초록색 계열로 설정합니다. */
+#main th,
+#main td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
 }
 
-#bodyupdate label {
-	display: block;
-	margin-top: 10px;
-	font-weight: bold;
+#main th {
+    background-color: #f2f2f2;
 }
 
-#bodyupdate input[type="text"], #bodyupdate select {
-	width: 100%;
-	padding: 8px;
-	margin-top: 6px;
-	margin-bottom: 16px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	box-sizing: border-box;
+#main input[type="button"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-#bodyupdate input[type="button"] {
-	background-color: #4CAF50;
-	color: white;
-	padding: 10px 20px;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
+#main input[type="button"]:hover {
+    background-color: #45a049;
 }
 
-#bodyupdate input[type="button"]:hover {
-	background-color: #45a049;
-}
-
-/* 1:1 내 질문 스타일 */
-#myInquiry {
-	background-color: #fff;
-	padding: 20px;
-	margin-left: 20%; /* 네비게이션의 폭 만큼 왼쪽으로 이동합니다. */
-	box-sizing: border-box; /* 요소의 패딩 및 테두리를 포함하여 크기를 계산하도록 설정합니다. */
-	overflow-x: auto; /* 테이블이 너무 크면 가로 스크롤이 생기도록 설정합니다. */
-	max-width: 100%; /* 최대 너비를 설정하여 테이블이 너무 넓어지지 않도록 합니다. */
-	position: relative; /* 질문하기 버튼을 테이블 아래에 배치하기 위해 상대 위치를 설정합니다. */
-}
-
-#myInquiry h3 {
-	color: #4CAF50; /* 섹션 제목의 색상을 초록색 계열로 설정합니다. */
-}
-
-#myInquiry .container {
-	position: relative; /* 버튼을 테이블 아래에 위치시키기 위해 상대적 위치를 설정합니다. */
-}
-
-#myInquiry .tbl-header {
-	overflow-x: auto; /* 가로 스크롤이 생길 경우를 대비하여 가로 스크롤을 추가합니다. */
-}
-
-#myInquiry .tbl-content {
-	overflow-y: auto; /* 세로 스크롤이 생길 경우를 대비하여 세로 스크롤을 추가합니다. */
-	max-height: 300px; /* 테이블의 최대 높이를 설정합니다. */
-}
-
-#myInquiry table {
-	width: 100%; /* 테이블이 부모 요소에 꽉 차게 설정합니다. */
-	border-collapse: collapse; /* 테이블 셀의 경계를 합칩니다. */
-}
-
-#myInquiry th, #myInquiry td {
-	padding: 8px;
-	border: 1px solid #ddd; /* 셀의 테두리를 지정합니다. */
-	text-align: left; /* 텍스트를 왼쪽으로 정렬합니다. */
-}
-
-#myInquiry th {
-	background-color: #f2f2f2; /* 테이블 헤더의 배경색을 설정합니다. */
-}
-
-#myInquiry input[type="button"] {
-	background-color: #4CAF50;
-	color: white;
-	padding: 10px 20px;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-	margin-top: 20px; /* 버튼과 테이블 사이의 간격을 설정합니다. */
-	position: absolute; /* 버튼을 절대 위치로 설정합니다. */
-	left: 50%; /* 부모 요소의 가운데로 버튼을 이동합니다. */
-	transform: translateX(-50%); /* 가운데 정렬을 위해 왼쪽으로 50% 이동시킵니다. */
-}
-
-#myInquiry input[type="button"]:hover {
-	background-color: #45a049;
-}
-
-/* 내 레시피 목록 스타일 */
-#myrecipe {
-	background-color: #fff;
-	padding: 20px;
-	margin-left: 20%; /* 네비게이션의 폭 만큼 왼쪽으로 이동합니다. */
-	box-sizing: border-box; /* 요소의 패딩 및 테두리를 포함하여 크기를 계산하도록 설정합니다. */
-	overflow-x: auto; /* 테이블이 너무 크면 가로 스크롤이 생기도록 설정합니다. */
-	max-width: 100%; /* 최대 너비를 설정하여 테이블이 너무 넓어지지 않도록 합니다. */
-	position: relative; /* 질문하기 버튼을 테이블 아래에 배치하기 위해 상대 위치를 설정합니다. */
-}
-
-#myrecipe h3 {
-	color: #4CAF50; /* 섹션 제목의 색상을 초록색 계열로 설정합니다. */
-}
-
-#myrecipe .container {
-	position: relative; /* 버튼을 테이블 아래에 위치시키기 위해 상대적 위치를 설정합니다. */
-}
-
-#myrecipe .tbl-header {
-	overflow-x: auto; /* 가로 스크롤이 생길 경우를 대비하여 가로 스크롤을 추가합니다. */
-}
-
-#myrecipe .tbl-content {
-	overflow-y: auto; /* 세로 스크롤이 생길 경우를 대비하여 세로 스크롤을 추가합니다. */
-	max-height: 300px; /* 테이블의 최대 높이를 설정합니다. */
-}
-
-#myrecipe table {
-	width: 100%; /* 테이블이 부모 요소에 꽉 차게 설정합니다. */
-	border-collapse: collapse; /* 테이블 셀의 경계를 합칩니다. */
-}
-
-#myrecipe th, #myrecipe td {
-	padding: 8px;
-	border: 1px solid #ddd; /* 셀의 테두리를 지정합니다. */
-	text-align: left; /* 텍스트를 왼쪽으로 정렬합니다. */
-}
-
-#myrecipe th {
-	background-color: #f2f2f2; /* 테이블 헤더의 배경색을 설정합니다. */
-}
-
-#myrecipe input[type="button"] {
-	background-color: #4CAF50;
-	color: white;
-	padding: 10px 20px;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-	margin-top: 20px; /* 버튼과 테이블 사이의 간격을 설정합니다. */
-	position: absolute; /* 버튼을 절대 위치로 설정합니다. */
-	left: 50%; /* 부모 요소의 가운데로 버튼을 이동합니다. */
-	transform: translateX(-50%); /* 가운데 정렬을 위해 왼쪽으로 50% 이동시킵니다. */
-}
-
-#myrecipe input[type="button"]:hover {
-	background-color: #45a049;
-}
-
-/* 추천 기록 스타일 */
-#recommend {
-	background-color: #fff;
-	padding: 20px;
-	margin-left: 20%; /* 네비게이션의 폭 만큼 왼쪽으로 이동합니다. */
-	box-sizing: border-box; /* 요소의 패딩 및 테두리를 포함하여 크기를 계산하도록 설정합니다. */
-	overflow-x: auto; /* 테이블이 너무 크면 가로 스크롤이 생기도록 설정합니다. */
-	max-width: 100%; /* 최대 너비를 설정하여 테이블이 너무 넓어지지 않도록 합니다. */
-	position: relative; /* 추천받으러 가기 버튼을 테이블 아래에 배치하기 위해 상대 위치를 설정합니다. */
-}
-
-#recommend h3 {
-	color: #4CAF50; /* 섹션 제목의 색상을 초록색 계열로 설정합니다. */
-}
-
-#recommend .container {
-	position: relative; /* 버튼을 테이블 아래에 위치시키기 위해 상대적 위치를 설정합니다. */
-}
-
-#recommend .tbl-header {
-	overflow-x: auto; /* 가로 스크롤이 생길 경우를 대비하여 가로 스크롤을 추가합니다. */
-}
-
-#recommend .tbl-content {
-	overflow-y: auto; /* 세로 스크롤이 생길 경우를 대비하여 세로 스크롤을 추가합니다. */
-	max-height: 300px; /* 테이블의 최대 높이를 설정합니다. */
-}
-
-#recommend table {
-	width: 100%; /* 테이블이 부모 요소에 꽉 차게 설정합니다. */
-	border-collapse: collapse; /* 테이블 셀의 경계를 합칩니다. */
-}
-
-#recommend th, #recommend td {
-	padding: 8px;
-	border: 1px solid #ddd; /* 셀의 테두리를 지정합니다. */
-	text-align: left; /* 텍스트를 왼쪽으로 정렬합니다. */
-}
-
-#recommend th {
-	background-color: #f2f2f2; /* 테이블 헤더의 배경색을 설정합니다. */
-}
-
-#recommend input[type="button"] {
-	background-color: #4CAF50;
-	color: white;
-	padding: 10px 20px;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-	margin-top: 20px; /* 버튼과 테이블 사이의 간격을 설정합니다. */
-	position: absolute; /* 버튼을 절대 위치로 설정합니다. */
-	left: 50%; /* 부모 요소의 가운데로 버튼을 이동합니다. */
-	transform: translateX(-50%); /* 가운데 정렬을 위해 왼쪽으로 50% 이동시킵니다. */
-}
-
-#recommend input[type="button"]:hover {
-	background-color: #45a049;
-}
 /* 스크롤바 스타일 */
-#myInquiry .tbl-content,
-#myrecipe .tbl-content,
-#recommend .tbl-content {
+#main .tbl-content {
     ::-webkit-scrollbar {
         width: 6px;
     } 
@@ -346,54 +201,8 @@
         -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
     }
 }
-#myInquiry .tbl-content,
-#myrecipe .tbl-content,
-#recommend .tbl-content {
-    overflow-y: auto;
-    max-height: 300px;
-    position: relative;
+
+.readonly-text {
+    color: red;
 }
 
-#myInquiry .tbl-content::after,
-#myrecipe .tbl-content::after,
-#recommend .tbl-content::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 20px; /* 그라데이션의 높이를 조정합니다. */
-    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%); /* 그라데이션을 적용합니다. */
-}
-
-.readonly-text{
-	color: red;
-}
-
-.btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    cursor: pointer;
-}
-
-.btn:hover {
-    background-color: #0056b3;
-}
-
-
-/* Footer Styles */
-footer {
-    background-color: #f8f9fa;
-    color: #333;
-    padding: 20px 0;
-    text-align: center;
-}
-
-footer p {
-    font-size: 14px;
-}
