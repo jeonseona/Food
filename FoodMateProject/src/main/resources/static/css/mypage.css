@@ -1,11 +1,5 @@
 /* 전체 스타일 */
-/* 전체 컨테이너 */
-#footer .container {
-    display: flex;
-    justify-content: space-between; /* 왼쪽과 오른쪽으로 정렬 */
-    align-items: flex-start;
-}
-.container {
+.container1 {
     width: 100%;
 	max-width: 1200px;
 	margin: 0 auto;
