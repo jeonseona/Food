@@ -16,7 +16,7 @@ public interface Com_Board_DetailService {
 	
 	public void updateBoard(Com_Board_Detail vo);
 	
-	public void updateRecipe(Com_Recipe vo); //레시피 글수정
+	public Com_Recipe updateRecipe(Com_Recipe vo); //레시피 글수정
 	
 	public void deleteBoard(Com_Board_Detail vo);
 

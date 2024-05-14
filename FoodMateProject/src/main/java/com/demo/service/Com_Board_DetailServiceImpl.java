@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.demo.domain.Com_Board_Detail;
 import com.demo.domain.Reply;
@@ -52,7 +53,8 @@ public class Com_Board_DetailServiceImpl implements Com_Board_DetailService {
 		recipe.save(vo);
 		
 	}
-
+	
+	@Transactional
 	@Override
 	public void updateBoard(Com_Board_Detail vo) {
 		Com_Board_Detail p = BoardDetailRepo.findById(vo.getSeq()).get();
@@ -63,11 +65,12 @@ public class Com_Board_DetailServiceImpl implements Com_Board_DetailService {
 	}
 	
 	//레시피수정
+	@Transactional
 	@Override
-	public void updateRecipe(Com_Recipe vo) {
+	public Com_Recipe updateRecipe(Com_Recipe vo) {
 		Com_Recipe p = recipe.findCom_RecipeByIdx(vo.getIdx());
 		vo.setIdx(p.getIdx());
-		recipe.save(vo);
+		return recipe.save(vo);
 		
 	}
 

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="assets/css/main.css">
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <Script type="text/javascript">
 function go_save() {	
@@ -36,6 +37,7 @@ function go_list()
 </Script>
 
 <article>
+<div id="main">
 <h1>유저 레시피 글쓰기</h1>  
 <form name="frm" id="write_form" method="post" enctype="multipart/form-data">
 <table id="Board_List">
@@ -73,7 +75,7 @@ function go_list()
   </tr>
   	<tr>
   		<th><br></th>
-  		<td><br><h3><조리법></h3><br><hr></td>
+  		<td><br><h3><조리법></h3><hr></td>
   	</tr>
   <tr>
     <th>첫번째 조리법</th>
@@ -156,9 +158,13 @@ function go_list()
 </table>
 <hr>
 <br>
-<button class="btn" type="submit" onClick="go_save()">등록</button>           
-<button class="btn" type="button" onClick="go_list()">취소</button>
+<div class="writebtn">
+<p/>
+<button class="btn" type="submit" onClick="go_save()">등록</button><p/>           
+<button class="btn" type="button" onClick="go_list()">취소</button><p/>
+</div>
 </form> 
+</div>
 </article>
 </body>
 </html>

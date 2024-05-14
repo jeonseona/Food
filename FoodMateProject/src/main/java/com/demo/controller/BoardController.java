@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -171,10 +172,6 @@ public class BoardController {
 	    saveUploadedFile(mainuploadFile, recipe, 7);	    
 
 	    
-//	    if (recipe != null) { // idx가 번호를 자동으로 생성하게 했음에도 저장순서가 빨라서 null값으로 판정되어 에러가남. 수동으로 저장을 먼저해주기로함
-//	    	recipe = entityManager.merge(recipe); 
-//            entityManager.persist(recipe);
-//        }
 	    
 	    recipe.setRcp_nm(title);
 	    recipe.setHash_tag(maingredient);
@@ -219,7 +216,6 @@ public class BoardController {
 
 	            File saveFile = new File(directory, saveName);
 	            file.transferTo(saveFile);
-	            System.out.println("File saved to " + saveFile.getAbsolutePath());
 
 	            String filePath = "uploads/" + saveName; // 확장자를 포함한 전체 파일 경로를 저장
 	            switch (manualNumber) {
@@ -267,14 +263,17 @@ public class BoardController {
 
 					model.addAttribute("kindList", kindList);
 					model.addAttribute("com_boardVO", board);
+					model.addAttribute("com_boardVO.seq", board.getSeq());
+			        }
 					
 					return "comboard/Boardupdate";
-				}
+				
 		}
 		
 	// 글 수정
 	@PostMapping("/board_update_t")
 	public String updateCom_Board(HttpSession session, @RequestParam("seq") int seq,
+			@RequestParam("idx") int idx,
 			@RequestParam("title") String title,
 	        @RequestParam("gredient") String gredient,
 	        @RequestParam("maingredient") String maingredient,
@@ -318,7 +317,8 @@ public class BoardController {
 		    saveUploadedFile(manualImg06, recipe, 6);
 		    saveUploadedFile(mainuploadFile, recipe, 7);	
 		    
-
+		    
+		    recipe.setIdx(idx);
 		    recipe.setRcp_nm(title);
 		    recipe.setHash_tag(maingredient);
 		    recipe.setManual01(manual01);
@@ -328,13 +328,15 @@ public class BoardController {
 		    recipe.setManual05(manual05);
 		    recipe.setManual06(manual06);
 		    recipe.setRcp_parts_dtls(gredient);
-		    recipe.setRcp_pat2(kindName);
+		    recipe.setRcp_pat2(kindName);	    
 		    
 		    
-		    board.setCom_recipe(recipe);
+		    Com_Recipe svrecipe = Board_DetailService.updateRecipe(recipe);
+		    board.setCom_recipe(svrecipe);
+		    board.setMember_data(loginUser);
+		    
 		    
 		Board_DetailService.updateBoard(board);
-		Board_DetailService.updateRecipe(recipe);
 		return "redirect:/com_board_detail?seq=" + seq;
 	}
 	}
@@ -467,22 +469,31 @@ public class BoardController {
 		
 		//댓글 수정
 		@PostMapping(value="/reply_update")
-		public String updateReply(@RequestParam("replynum") int replynum,
-				@RequestParam("seq") int seq, HttpSession session) {
-			
-			MemberData loginUser = (MemberData) session.getAttribute("loginUser");
-			Reply reply = Board_DetailService.findReplyByreplynum(replynum);
-			
-			if (loginUser == null) { 
-				return "member/login"; 
-			}else if(!(loginUser.getId()).equals(reply.getMember_data().getId())){
-				return "본인이 작성한 댓글만 수정가능합니다.";
-			}else {
-				
-				Board_DetailService.updateReply(reply);			
-				return "redirect:/com_board_detail?seq=" + seq;
-		}
-		}
+		@ResponseBody
+			public Map<String, Object> updateReply(@RequestBody Map<String, Object> payload, HttpSession session) {
+			    Map<String, Object> response = new HashMap<>();
+			    int replynum = Integer.parseInt(payload.get("replynum").toString());
+			    String content = payload.get("content").toString();
+			    try {
+			        MemberData loginUser = (MemberData) session.getAttribute("loginUser");
+			        Reply reply = Board_DetailService.findReplyByreplynum(replynum);
+
+			        if (loginUser == null || !loginUser.getId().equals(reply.getMember_data().getId())) {
+			            response.put("success", false);
+			            response.put("message", "본인이 작성한 댓글만 수정 가능합니다.");
+			            return response;
+			        }
+
+			        reply.setContent(content);
+			        Board_DetailService.updateReply(reply);
+			        response.put("success", true);
+			        response.put("message", "댓글이 수정되었습니다.");
+			    } catch (Exception e) {
+			        response.put("success", false);
+			        response.put("message", "서버 오류가 발생했습니다.");
+			    }
+			    return response;
+			}
 		
 		//댓글 삭제 
 		@PostMapping("/reply_delete")

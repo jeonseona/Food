@@ -2,6 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script type="text/javascript" th:inline="javascript">
 	function go_list() {
@@ -81,39 +84,7 @@
 
 	}
 
-	//댓글 수정버튼
-	function enableEditMode(button) {
-    event.preventDefault();  // 기본 이벤트 중단
-    var idx = button.getAttribute('data-edit-button');
-    var contentView = document.querySelector('[data-content-view="' + idx + '"]');
-    var contentEdit = document.querySelector('[data-content-edit="' + idx + '"]');
-    var editForm = document.querySelector('[data-edit-form="' + idx + '"]');
-    var saveButton = editForm.querySelector('input[type="submit"]');
-    var cancelButton = editForm.querySelector('button[type="button"]');
-
-    contentView.style.display = 'none';
-    contentEdit.style.display = 'block';
-    editForm.style.display = 'block';
-    saveButton.style.display = 'inline';
-    cancelButton.style.display = 'inline';
-}
-
-// 댓글 수정 취소 함수
-function cancelEditMode(button) {
-    event.preventDefault();  // 기본 이벤트 중단
-    var idx = button.getAttribute('data-cancel-button');
-    var contentView = document.querySelector('[data-content-view="' + idx + '"]');
-    var contentEdit = document.querySelector('[data-content-edit="' + idx + '"]');
-    var editForm = document.querySelector('[data-edit-form="' + idx + '"]');
-    var saveButton = editForm.querySelector('input[type="submit"]');
-    var cancelButton = editForm.querySelector('button[type="button"]');
-
-    contentView.style.display = 'block';
-    contentEdit.style.display = 'none';
-    editForm.style.display = 'none';
-    saveButton.style.display = 'none';
-    cancelButton.style.display = 'none';
-}
+	
 
 function deleteReply(replynum, event) {
     event.preventDefault(); // 기본 이벤트 방지
@@ -148,58 +119,66 @@ function deleteReply(replynum, event) {
 }
 
 
-//댓글 수정버튼
-function toggleEditMode(button) {
-    event.preventDefault();  // 기본 이벤트 중단
-    const replynum = button.dataset.replynum;
+     // 댓글 수정/저장 토글 버튼
 
-    const contentView = document.querySelector(`[data-content-view="${replynum}"]`);
-    const contentEdit = document.querySelector(`[data-content-edit="${replynum}"]`);
-    const cancelButton = document.querySelector(`button[data-cancel-button="${replynum}"]`);
+function toggleEditMode(button, event) {
+    event.preventDefault();
 
-    if (!contentEdit || !contentView || !cancelButton) {
-        console.error("One or more elements could not be found for reply number: " + replynum);
+    const replynum = button.getAttribute('data-replynum');
+    console.log("Reply Number: ", replynum); // 로그 출력
+
+    const contentView = document.querySelector(`span[data-content-view='${replynum}']`);
+    const contentEdit = document.querySelector(`textarea[data-content-edit='${replynum}']`);
+    console.log("Content View Element: ", contentView);
+    console.log("Content Edit Element: ", contentEdit);
+
+    if (!contentView || !contentEdit) {
+        console.error('Error: Unable to find the necessary HTML elements.');
         return;
     }
 
-    // 상태 토글
     if (contentView.style.display === 'none') {
         contentView.style.display = 'block';
         contentEdit.style.display = 'none';
         button.textContent = '수정';
-        cancelButton.style.display = 'none';
+        button.nextElementSibling.style.display = 'none';
     } else {
         contentView.style.display = 'none';
         contentEdit.style.display = 'block';
         button.textContent = '저장';
-        cancelButton.style.display = 'inline';
+        button.nextElementSibling.style.display = 'inline';
     }
 }
 
 
+// 댓글 내용 저장
+function saveChanges(button, event) {
+    event.preventDefault(); // 기본 이벤트 방지
 
+    const replynum = button.getAttribute('data-replynum');
+    const content = document.querySelector(`textarea[data-content-edit="${replynum}"]`).value;
 
-function saveChanges(replynum, content) {
-	event.preventDefault();
-    // AJAX 요청으로 서버에 데이터 저장
-    fetch(`/reply_update/${replynum}`, {
+    fetch(`/reply_update`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ content: content, replynum: replynum })
-    }).then(response => response.json())
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({replynum: replynum, content: content})
+    })
+    .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert('변경 사항이 저장되었습니다.');
+            alert('댓글이 수정되었습니다.');
+            document.querySelector(`span[data-content-view="${replynum}"]`).textContent = content;
+            toggleEditMode(button.previousElementSibling, new Event('click')); // 편집 모드 종료
         } else {
-            alert('저장 실패: ' + data.message);
+            throw new Error(data.message);
         }
-    }).catch(error => {
+    })
+    .catch(error => {
         console.error('Error:', error);
-        alert('저장 중 오류 발생: ' + error.message);
+        alert('댓글 수정 중 오류가 발생했습니다: ' + error.message);
     });
 }
+
 
 </script>
 </head>
@@ -213,28 +192,24 @@ function saveChanges(replynum, content) {
 				<tr>
 					<td><img
 						th:src="${Com_Board_DetailVO.com_recipe.att_file_no_mk}"
-						style="width: 200px; height: 180px;" /></td>
+						style="width: 400px; height: 300px;" /></td>
+						<td><a onclick="copyboard()">
+								<span class="material-symbols-outlined">share</span>공유하기
+								</a>
+					<th:block th:if="${session.goodPointStatusMap != null and session.goodPointStatusMap[Com_Board_DetailVO.seq] == 'on'}">
+						<a style="color:red"
+								th:attr="data-seq=${Com_Board_DetailVO.seq}"
+								onclick="goodpoint_plus(this)"><span class="material-symbols-outlined" id="symbol_red">
+								recommend</span>추천해제</a>
+							</th:block>
+					<th:block th:if="${session.goodPointStatusMap == null or session.goodPointStatusMap[Com_Board_DetailVO.seq] != 'on'}">
+						<a th:attr="data-seq=${Com_Board_DetailVO.seq}" onclick="goodpoint_plus(this)"><span class="material-symbols-outlined">
+								recommend</span>추천하기</a></td>
+					</th:block>
 				</tr>
 				<tr>
 					<th width="20%">요리명</th>
 					<td>[[${Com_Board_DetailVO.com_recipe.rcp_nm}]]</td>
-				</tr>
-				<tr>
-					<th></th>
-					<th></th>
-					<td><button type="button" onclick="copyboard()">공유하기</button></td>
-					<th:block
-						th:if="${session.goodPointStatusMap != null and session.goodPointStatusMap[Com_Board_DetailVO.seq] == 'on'}">
-						<td><button type="button"
-								th:attr="data-seq=${Com_Board_DetailVO.seq}"
-								onclick="goodpoint_plus(this)">추천하셨습니다</button></td>
-					</th:block>
-					<th:block
-						th:if="${session.goodPointStatusMap == null or session.goodPointStatusMap[Com_Board_DetailVO.seq] != 'on'}">
-						<td><button type="button"
-								th:attr="data-seq=${Com_Board_DetailVO.seq}"
-								onclick="goodpoint_plus(this)">추천하기</button></td>
-					</th:block>
 				</tr>
 				<tr>
 					<th>등록일</th>
@@ -324,54 +299,52 @@ function saveChanges(replynum, content) {
 				</tr>
 			</table>
 		</form>
+		<h3>Comment</h3>
 		<form name="replyfrm" method="get">
 			<input type="hidden" name="seq" id="seq"
 				th:value="${Com_Board_DetailVO.seq}">
 			<table id="Board_deatail_List">
 				<tr>
-					<td colspan="2"><img src="images/opinionimg01.gif"></td>
-				</tr>
-				<tr>
-					<td colspan="2"><textarea name="reply_content" rows="3"
-							cols="50"></textarea> <input type="submit" class="btn" value="저장"
-						th:onClick="reply_save()"></td>
+					<td colspan="2"><textarea name="reply_content" id="reply_content" rows="3"
+							cols="50"></textarea> <input type="button" class="btn" value="저장"
+						onClick="reply_save()"></td>
 				</tr>
 			</table>
-			<br>
 			<table id="reply_list">
 				<tr>
-					<th>댓글</th>
+					<th></th>
 				</tr>
-<th:block th:each="replyVO : ${ReplyList}">
-    <tr>
-        <td th:text="${replyVO.member_data.id}"></td>
-        <td>
-            <span th:text="${replyVO.content}" th:attr="data-content-view=${replyVO.replynum}"></span>
-            <textarea th:attr="data-content-edit=${replyVO.replynum}" style="display: none;" th:text="${replyVO.content}"></textarea>
-        </td>
-        <td>
-            <th:block th:if="${session.loginUser != null and replyVO.member_data.id.equals(session.loginUser.id)}">
-                <button th:onclick="'toggleEditMode(this);'" th:attr="data-replynum=${replyVO.replynum}">수정</button>
-                <button th:onclick="'cancelEditMode(this);'" th:attr="data-replynum=${replyVO.replynum}" style="display: none;">취소</button>
-                <button th:onclick="'deleteReply(' + ${replyVO.replynum} + ', event)'">삭제</button>
-                <form style="display: none;" method="post" th:action="@{/reply_update}">
-                    <input type="hidden" name="seq" th:value="${Com_Board_DetailVO.seq}" />
-                    <input type="hidden" name="replynum" th:value="${replyVO.replynum}" />
-                </form>
-            </th:block>
-        </td>
-    </tr>
-</th:block>
-
-
-				</td>
-				</tr>
+				<th:block th:each="replyVO : ${ReplyList}">
+					<td th:text="${replyVO.member_data.id}">User ID</td>
+					<td><span th:text="${replyVO.content}"
+						th:attr="data-content-view='${replyVO.replynum}'">Reply
+							Content</span> <textarea
+							th:attr="data-content-edit='${replyVO.replynum}'"
+							style="display: none;" th:text="${replyVO.content}"></textarea></td>
+					<td
+						th:if="${session.loginUser != null and replyVO.member_data.id.equals(session.loginUser.id)}">
+						<button onclick="toggleEditMode(this, event);"
+							th:attr="data-replynum='${replyVO.replynum}'">수정</button>
+						<button onclick="saveChanges(this, event);"
+							th:attr="data-replynum='${replyVO.replynum}'"
+							style="display: none;">저장</button>
+						<button
+							th:onclick="'deleteReply(' + ${replyVO.replynum} + ', event)'">삭제</button>
+					</td>
+					<tr>
+						<form style="display: none;" method="post" action="/reply_update">
+							<input type="hidden" name="seq"
+								th:value="${Com_Board_DetailVO.seq}" /> <input type="hidden"
+								name="replynum" th:value="${replyVO.replynum}" />
+							<textarea style="display: none;" rows="3" cols="10"></textarea>
+						</form>
+					</tr>
 				</th:block>
 			</table>
 		</form>
 		<form name="buttonfrm" method="get">
 			<input type="hidden" name="seq" id="seq"
-				th:value="${Com_Board_DetailVO.seq}"> <input type="button"
+				value="[[${Com_Board_DetailVO.seq}]]"> <input type="button"
 				class="btn" value="목록" onClick="go_list()">
 			<th:block
 				th:if="${session.loginUser != null and (Com_Board_DetailVO.member_data.id).equals(session.loginUser.id)}">
