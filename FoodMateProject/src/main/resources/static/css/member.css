@@ -1,0 +1,180 @@
+@charset "utf-8";
+
+/* 로그인 페이지 */
+#login table {
+    width: 280px;
+    height: 250px;
+    margin: auto;
+    font-size: 15px;
+}
+
+#login input[type="text"], #login input[type="password"] {
+    width: 250px;
+    height: 32px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding-left: 10px;
+    background-color: rgb(233, 233, 233);
+}
+
+#login .btn {
+    width: 263px;
+    height: 32px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding-left: 10px;
+    background-color: rgb(164, 199, 255);
+}
+
+#login .btn:active {
+    width: 263px;
+    height: 32px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding-left: 10px;
+    background-color: rgb(61, 135, 255);
+}
+
+#login a {
+    font-size: 12px;
+    color: darkgray;
+    text-decoration-line: none;
+}
+
+#login .join {
+    text-align: center;
+}
+
+/* 회원가입 페이지 */
+#join table {
+    width: 280px;
+    height: 550px;
+    margin: auto;
+}
+
+#join .email {
+    width: 250px;
+    height: 32px;
+    font-size: 15px;
+    border: 0;
+    border-color: lightgray;
+    border-radius: 15px;
+    outline: none;
+    padding-left: 10px;
+    background-color: rgb(233, 233, 233);
+}
+
+#join .text {
+    width: 250px;
+    height: 32px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding-left: 10px;
+    background-color: rgb(233, 233, 233);
+}
+
+#join select {
+    width: 100px;
+    height: 32px;
+    font-size: 15px;
+    border: 1;
+    border-color: lightgray;
+    border-radius: 15px;
+    outline: none;
+    padding-left: 10px;
+}
+
+#join .btn {
+    width: 262px;
+    height: 32px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding-left: 10px;
+    background-color: rgb(164, 199, 255);
+}
+
+#join .btn:active {
+    width: 262px;
+    height: 32px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding-left: 10px;
+    background-color: rgb(61, 135, 255);
+}
+
+
+/* 약관동의 페이지 */
+#contract {
+	text-align: center;
+}
+/* 약관 텍스트 스타일 */
+#contract article textarea {
+    width: 90%; /* 텍스트 영역의 너비를 조정할 수 있습니다. */
+    height: 300px; /* 텍스트 영역의 높이를 조정할 수 있습니다. */
+    padding: 10px;
+    margin: 0 auto 20px auto; /* 가운데 정렬 및 아래쪽 여백 추가 */
+    display: block; /* 텍스트 영역을 블록 요소로 지정하여 가로 영역을 차지하도록 설정 */
+    font-size: 14px;
+    border: 1px solid #ccc;
+}
+
+/* 동의 라디오 버튼 스타일 */
+#contract article .form-group {
+    text-align: center; /* 내용을 가운데로 정렬 */
+    margin-bottom: 20px; /* 아래쪽 여백 추가 */
+}
+
+#contract article .form-group input[type="radio"] {
+    display: inline-block; /* 인라인 블록 요소로 설정하여 같은 줄에 표시 */
+    margin-right: 10px;
+}
+
+/* 제출 버튼 스타일 */
+#contract article .form-group input[type="button"] {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#contract article .form-group input[type="button"]:hover {
+    background-color: #0056b3;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

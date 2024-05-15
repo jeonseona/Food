@@ -2,7 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>이메일 중복 체크</title>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script type="text/javascript" th:src="@{js/member.js}" ></script>
+<title>아이디 찾기</title>
 <style>
 body {
 	font-family: Arial, sans-serif;
@@ -47,6 +49,8 @@ input[type="button"] {
 	padding: 10px 20px;
 	cursor: pointer;
 	transition: background-color 0.3s;
+	display: block;
+	margin: 0 auto; /* 가운데 정렬 */
 }
 
 input[type="button"]:hover {
@@ -58,30 +62,34 @@ input[type="button"]:hover {
 	text-align: center;
 	color: #ff0000;
 }
+
+label {
+	display: inline-block;
+	width: 100px;
+	text-align: right;
+	margin-right: 10px;
+}
 </style>
-<script type="text/javascript" th:inline="javascript" th:src="@{js/member.js}" >
-</script>
 </head>
 <body>
 <div id="wrap">
-  <h1>이메일 중복확인</h1>
-  <form method=get name=formm id="theform" style="margin-right:0 "
-  		action="email_check_form" >
-    Email <input type="email" name="email" th:value="${email}"> 
-            <input type="submit" value="검색" class="submit"><br>     
-    <div style="margin-top: 20px">   
-      <th:block th:if="${message == 1}">
-        <script type="text/javascript">
-          opener.document.formm.email.value="";
-        </script>
-        [[${email}]]은(는) 이미 사용중인 이메일입니다.
-      </th:block>
-      <th:block th:if="${message==-1}">
-        [[${email}]]은(는) 사용 가능한 이메일입니다.
-        <input type="button" value="사용" class="cancel" onclick="emailOk()">
-      </th:block>
-    </div>
-  </form>
-</div>  
+  	<h1>아이디 찾기</h1>
+  	<br>
+	<form name="findId" id="findId" action="find_id" method="post">
+	<table>
+	<tr>
+		<td><label for="name">이름</label></td>
+		<td><input type="text" name="name" id="name" value=""></td>
+	</tr>	
+	<tr>
+		<td><label for="email">이메일</label></td>
+		<td><input type="text" name="email" id="email" value=""></td>
+	</tr>
+	<tr>
+		<td colspan="2"><input type="button" value="아이디 찾기" onclick="findMemberId()"></td>
+	</tr>
+	</table>
+	</form>
+</div>
 </body>
 </html>

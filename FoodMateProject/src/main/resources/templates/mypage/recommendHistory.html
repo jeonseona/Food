@@ -18,7 +18,10 @@
         <!-- 내가 추천받은 음식기록 내용 -->
         <section id="main">
             <div id="content">
-                <h3>내가 추천받은 음식기록</h3>
+            	<div style="display: flex; justify-content: space-between; align-items: center;">
+                	<h3>내가 추천받은 음식기록</h3>
+                	<input type="button" value="추천받기" class="btn" onclick="location.href='/recommend'">
+                </div>
                 <div class="tbl-header">
                     <table cellpadding="0" cellspacing="0" border="0">
                         <thead>
@@ -42,9 +45,6 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
-                <div style="text-align: center; margin-top: 20px;">
-                    <input type="button" value="추천하기" class="btn" onclick="location.href='/recommend'">
                 </div>
                 <th:block th:if="${#lists.size(recommend) == 0}">
                     <h3 style="color: red; text-align: center;">추천받은 음식이 없습니다.</h3>
