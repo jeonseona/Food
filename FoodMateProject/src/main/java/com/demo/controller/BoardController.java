@@ -467,33 +467,39 @@ public class BoardController {
 				}
 		}
 		
-		//댓글 수정
-		@PostMapping(value="/reply_update")
+		//***** 댓글 수정 *****
+		@PostMapping(value = "/reply_update")
 		@ResponseBody
-			public Map<String, Object> updateReply(@RequestBody Map<String, Object> payload, HttpSession session) {
-			    Map<String, Object> response = new HashMap<>();
-			    int replynum = Integer.parseInt(payload.get("replynum").toString());
-			    String content = payload.get("content").toString();
-			    try {
-			        MemberData loginUser = (MemberData) session.getAttribute("loginUser");
-			        Reply reply = Board_DetailService.findReplyByreplynum(replynum);
+		public Map<String, Object> updateReply(@RequestBody Map<String, Object> payload, HttpSession session) {
+		    Map<String, Object> response = new HashMap<>();
+		    try {
+		        int replynum = Integer.parseInt(payload.get("replynum").toString());
+		        String content = payload.get("content").toString();
+		        MemberData loginUser = (MemberData) session.getAttribute("loginUser");
+		        Reply reply = Board_DetailService.findReplyByreplynum(replynum);
+		        
+		        System.out.println("Reply Number controller: " + replynum);
+		        System.out.println("Content controller: " + content);
 
-			        if (loginUser == null || !loginUser.getId().equals(reply.getMember_data().getId())) {
-			            response.put("success", false);
-			            response.put("message", "본인이 작성한 댓글만 수정 가능합니다.");
-			            return response;
-			        }
+		        if (loginUser == null || !loginUser.getId().equals(reply.getMember_data().getId())) {
+		            response.put("success", false);
+		            response.put("message", "본인이 작성한 댓글만 수정 가능합니다.");
+		            return response;
+		        }
 
-			        reply.setContent(content);
-			        Board_DetailService.updateReply(reply);
-			        response.put("success", true);
-			        response.put("message", "댓글이 수정되었습니다.");
-			    } catch (Exception e) {
-			        response.put("success", false);
-			        response.put("message", "서버 오류가 발생했습니다.");
-			    }
-			    return response;
-			}
+		        reply.setContent(content);
+		        Board_DetailService.updateReply(reply);
+		        response.put("success", true);
+		        response.put("message", "댓글이 수정되었습니다.");
+		    } catch (Exception e) {
+		        // 예외 메시지를 로그에 출력
+		        e.printStackTrace();
+		        response.put("success", false);
+		        response.put("message", "서버 오류가 발생했습니다. 오류 메시지: " + e.getMessage());
+		    }
+		    return response;
+		}
+
 		
 		//댓글 삭제 
 		@PostMapping("/reply_delete")

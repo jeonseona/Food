@@ -136,8 +136,8 @@ public class Com_Board_DetailServiceImpl implements Com_Board_DetailService {
 	@Override
 	public void updateReply(Reply vo) {
 		Reply p = ReplyRepo.findById(vo.getReplynum()).get();
-		p.setContent(vo.getContent());
-		ReplyRepo.save(p);
+		vo.setR_regdate(p.getR_regdate());
+		ReplyRepo.save(vo);
 
 	}
 
