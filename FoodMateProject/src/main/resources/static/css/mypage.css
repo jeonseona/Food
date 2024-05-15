@@ -21,7 +21,7 @@ main h3 {
 
 /* 메뉴 스타일 */
 #menu {
-    background: #8FBC8F;
+    background: #8FBC8F; /* 배경색 변경 */
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -31,22 +31,25 @@ main h3 {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    display: flex; /* 메뉴 항목을 가로로 배치하기 위해 추가 */
 }
 
 #menu li {
-    float: left;
+    /* float: left; */
+    margin: 0 10px; /* 좌우 여백 추가 */
 }
 
 #menu li a {
     display: block;
-    color: #333;
+    color: #fff; /* 텍스트 색상 변경 */
     text-align: center;
-    padding: 14px 16px;
+    padding: 10px 20px; /* 패딩 조정 */
     text-decoration: none;
+    transition: background-color 0.3s; /* 호버 효과를 위한 전환 효과 추가 */
 }
 
 #menu li a:hover {
-    background-color: #ddd;
+    background-color: #a0d8a0; /* 호버 시 배경색 변경 */
 }
 
 /* 내 정보 섹션 스타일 */

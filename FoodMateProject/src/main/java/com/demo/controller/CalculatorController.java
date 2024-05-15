@@ -1,19 +1,23 @@
 package com.demo.controller;
 
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.demo.dto.CalculationResult;
 import com.demo.domain.MemberData;
+import com.demo.dto.CalculationResult;
 import com.demo.service.CalculatorServiceImpl;
-import java.util.Optional;
+import com.demo.service.MemberService;
 
 @Controller
 public class CalculatorController {
 
+	@Autowired
+	MemberService memberService;
+	
     private final CalculatorServiceImpl calculatorServiceImpl;
 
     public CalculatorController(CalculatorServiceImpl calculatorServiceImpl) {
@@ -29,7 +33,7 @@ public class CalculatorController {
 
 //    @GetMapping("/UserChoice")
 //    public String showUserChoicePage(Model model) {
-//        Optional<MemberData> optionalMemberData = memberDataRepository.findById();
+//        Optional<MemberData> optionalMemberData = memberService.
 //        if (optionalMemberData.isPresent()) {
 //            MemberData memberData = optionalMemberData.get();
 //            CalculationResult result = calculatorServiceImpl.calculate(memberData);
