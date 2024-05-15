@@ -1,6 +1,15 @@
 @charset "utf-8";
 
 /* 로그인 페이지 */
+#login {
+	background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+#login h2 {
+	text-align: center;
+}
 #login table {
     width: 280px;
     height: 250px;
@@ -45,9 +54,6 @@
     font-size: 12px;
     color: darkgray;
     text-decoration-line: none;
-}
-
-#login .join {
     text-align: center;
 }
 
