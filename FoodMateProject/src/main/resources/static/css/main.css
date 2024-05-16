@@ -267,7 +267,7 @@ ul.style li span {
 #footer {
     background: #333;
     color: #fff;
-    padding: 4em 0;
+    padding: 0;
 }
 
 #footer .container {
@@ -369,9 +369,8 @@ ul.style li span {
 
 .copyright {
     text-align: center;
-    padding: 1em 0;
+    padding: 0;
     background: #222;
-    margin-top: 2em;
 }
 
 .copyright a {

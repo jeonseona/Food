@@ -43,7 +43,7 @@ function nickcheck() {
 	// 닉네임 중복확인 창 오픈
 	var url = "nickname_check_form?nickname=" + $("#nickname").val();
 	window.open(url, "_blank_", "toolbar=no, menubar=no, scrollbars=no, " +
-		"resizable=yes, width=400, height=250");
+		"resizable=yes, width=600, height=400");
 }
 /**
  * 바디데이터 수정
