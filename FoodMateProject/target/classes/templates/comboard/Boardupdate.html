@@ -3,27 +3,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="assets/css/main.css">
+<th:block th:insert="~{includes/header.html}"></th:block>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-<Script type="text/javascript">
-	function go_mov() {
-		var theForm = document.frm
-		theForm.method = "get";
-		theForm.action = "board_list";
-		theForm.submit();
-	}
-
-	function go_mod_save() {
-		var theForm = document.getElementById('update_form');
-		if (!theForm.seq.value) {
-			alert('문서 번호가 없습니다. 다시 시도해 주세요.');
-			return false; // 폼 제출 방지
-		}
-		theForm.method = "post";
-		theForm.action = "/board_update_t";
-		theForm.submit();
-	}
-</script>
-
+<script type="text/javascript" th:src="@{js/Board.js}"></script>
 <article>
 	<h1>유저 레시피 글 수정</h1>
 	<form name="frm" id="update_form" method="post"
@@ -134,4 +116,5 @@
 	</form>
 </article>
 </body>
+<th:block th:insert="~{includes/footer.html}"></th:block>
 </html>

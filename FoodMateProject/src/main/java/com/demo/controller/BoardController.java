@@ -8,15 +8,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,6 +30,7 @@ import com.demo.domain.MemberData;
 import com.demo.domain.Reply;
 import com.demo.dto.Com_Recipe;
 import com.demo.service.Com_Board_DetailService;
+import com.google.gson.Gson;
 
 import jakarta.persistence.EntityManager;
 import jakarta.servlet.http.HttpSession;
@@ -49,7 +54,7 @@ public class BoardController {
 	@GetMapping(value= {"/board_list", "/board_list_main"})
 	public String getboard_list(@RequestParam(value = "seq", defaultValue = "1") int seq,
 			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "10") int size, Model model) {
+			@RequestParam(value = "size", defaultValue = "6") int size, Model model) {
 		Page<Com_Board_Detail> pageList = Board_DetailService.getAllCom_Board(seq, page, size);
 		List<Com_Board_Detail> boardList = pageList.getContent();
 
@@ -89,7 +94,7 @@ public class BoardController {
 	public String getSearchByType(@RequestParam(value = "seq", defaultValue = "1") int seq,
 			@RequestParam("searchType") String searchType, @RequestParam("searchKeyword") String keyword,
 			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "10") int size, Model model) {
+			@RequestParam(value = "size", defaultValue = "6") int size, Model model) {
 
 		Page<Com_Board_Detail> pageList;
 
@@ -361,7 +366,7 @@ public class BoardController {
 	@GetMapping("/category")
 	public String com_BoardKindAction(@RequestParam(value = "seq", defaultValue = "1") int seq,
 			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "10") int size,
+			@RequestParam(value = "size", defaultValue = "6") int size,
 			Model model, @RequestParam(value = "", required = false)String category) {
 		Page<Com_Board_Detail> pageList = Board_DetailService.getCom_Board_DetailByKind(seq, page, size, category);
 		List<Com_Board_Detail> kindlist = pageList.getContent();
@@ -403,12 +408,14 @@ public class BoardController {
 	}
 	
 	
-	//인기도순 정렬
-		@GetMapping("/sorted_board_list")
+	//차트용 정렬
+		@GetMapping(value="/sorted_board_list" , produces = MediaType.APPLICATION_JSON_VALUE)
+		@ResponseBody
 		public String getSortedBoardList(@RequestParam(value = "seq", defaultValue = "1") int seq,
 				@RequestParam(value = "page", defaultValue = "1") int page,
-				@RequestParam(value = "size", defaultValue = "10") int size,
-				@RequestParam("sort") String sort, Model model) {
+				@RequestParam(value = "size", defaultValue = "6") int size,
+				@RequestParam("sort") String sort, Model model,
+				@RequestHeader(value = HttpHeaders.ACCEPT, defaultValue = "text/html") String acceptHeader) {
 		    
 		    Page<Com_Board_Detail> pageList = null;
 
@@ -422,16 +429,63 @@ public class BoardController {
 		        case "date_sort":
 		            pageList = Board_DetailService.getAllCom_Board(seq, page, size);
 		            break;
+		            
 		    }
-		    List<Com_Board_Detail> boardList = pageList.getContent();
-			model.addAttribute("boardList", boardList);
-		    model.addAttribute("pageInfo", pageList);
 		    
-		    return "comboard/BoardList";
+		    
+		    List<Com_Board_Detail> boardList = pageList.getContent();
+		    List<Com_Board_Detail> cnttop3BoardList = boardList.stream()
+	                .sorted((b1, b2) -> Integer.compare(b2.getCnt(), b1.getCnt()))
+	                .limit(3)
+	                .collect(Collectors.toList());
+		    List<Com_Board_Detail> goodpointtop3BoardList = boardList.stream()
+	                .sorted((b1, b2) -> Integer.compare(b2.getGoodpoint(), b1.getGoodpoint()))
+	                .limit(3)
+	                .collect(Collectors.toList());
+		    
+		    
+		    model.addAttribute("cnttop3BoardList", new Gson().toJson(cnttop3BoardList));
+		    model.addAttribute("goodpointtop3BoardList", new Gson().toJson(goodpointtop3BoardList));
+		
+		    		if (sort.equals("cnt_sort")) {
+		    		 return new Gson().toJson(cnttop3BoardList);
+		            } else {
+		             return new Gson().toJson(goodpointtop3BoardList);
+		    }
 		}
 		
+		//인기도 정렬
+		 @GetMapping(value = "/sorted_board_list", produces = MediaType.TEXT_HTML_VALUE)
+		    public String getSortedBoardListHtml(@RequestParam(value = "seq", defaultValue = "1") int seq,
+		                                         @RequestParam(value = "page", defaultValue = "1") int page,
+		                                         @RequestParam(value = "size", defaultValue = "6") int size,
+		                                         @RequestParam("sort") String sort, Model model) {
+
+		        Page<Com_Board_Detail> pageList = null;
+
+		        switch (sort) {
+		            case "cnt_sort":
+		                pageList = Board_DetailService.getCom_Board_DetailByCnt(seq, page, size);
+		                break;
+		            case "goodpoint_sort":
+		                pageList = Board_DetailService.getCom_Board_DetailByGoodpoint(seq, page, size);
+		                break;
+		            case "date_sort":
+		                pageList = Board_DetailService.getAllCom_Board(seq, page, size);
+		                break;
+		        }
+
+		        List<Com_Board_Detail> boardList = pageList.getContent();
+
+
+		        model.addAttribute("boardList", boardList);
+		        model.addAttribute("pageInfo", pageList);
+
+
+		        return "comboard/BoardList";
+		    }
 		
-		
+
 		
 		//댓글 출력
 		@PostMapping("/reply_list")
@@ -533,5 +587,4 @@ public class BoardController {
 		}
 
 		
-
 }

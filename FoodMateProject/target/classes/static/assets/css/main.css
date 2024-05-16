@@ -305,54 +305,6 @@
 		margin-top: -0.6em;
 	}
 
-/* Box */
-
-	.thumbnails {
-		display: -moz-flex;
-		display: -webkit-flex;
-		display: -ms-flex;
-		display: flex;
-		-moz-align-items: stretch;
-		-webkit-align-items: stretch;
-		-ms-align-items: stretch;
-		align-items: stretch;
-		-moz-justify-content: center;
-		-webkit-justify-content: center;
-		-ms-justify-content: center;
-		justify-content: center;
-		-moz-flex-wrap: wrap;
-		-webkit-flex-wrap: wrap;
-		-ms-flex-wrap: wrap;
-		flex-wrap: wrap;
-	}
-/*BoardList 기본박스 */
-
-		.thumbnails .box {
-			display: grid;
-       		place-items: center;
-			margin: 0 1em 2em 1em;
-			width: 30%;
-			float: left;
-        	padding: 10px 10px;
-        	margin-right: 20px;
-        	text-align: center;
-		}
-
-			@media screen and (max-width: 1280px) {
-
-				.thumbnails .box {
-					width: 45%;
-				}
-
-			}
-
-			@media screen and (max-width: 736px) {
-
-				.thumbnails .box {
-					width: 100%;
-				}
-
-			}
 
 /* Form */
 
@@ -1445,7 +1397,7 @@
 			}
 
 		}
-		
+/**********************************************************************************************/		
 /*
 페이징
 */	
@@ -1478,21 +1430,31 @@
   'opsz' 24
 }
 
-#searchType {
-	width: 100px;
-	display: grid;
-    place-items: center;
-	float: left;
-	
-}
+.search-and-write-container {
+			margin-left: 7%;
+            display: flex;
+            align-items: center;
+        }
 
- #searchKeyword {
-	width: 200px;
-	display: grid;
-    place-items: center;
-	float: left;
-	
-}
+        #searchType {
+            width: 100px;
+            text-align: center; /* 텍스트 중앙 정렬 */
+        }
+
+        #searchKeyword {
+            width: 200px;
+            text-align: center; /* 텍스트 중앙 정렬 */
+        }
+
+        #searchForm {
+            display: flex;
+            align-items: center; /* 수직 정렬 */
+            gap: 10px; /* 요소들 사이의 간격 */
+        }
+
+        #writeForm {
+        	margin-right: 7%;
+            margin-left: auto;}
 
 
 .thumbnails .box h3{
@@ -1508,7 +1470,91 @@
 	margin-right : 5%;
 }
 
-.writebtn {
-	display: flex;
-    justify-content: center; 
+/*페이징 처리 부분*/
+.pagination {
+    list-style-type: none; /* 리스트 아이템 앞의 점 제거 */
+    padding: 0;
+}
+
+.pagination li {
+    display: inline-block; /* 리스트 아이템을 가로로 나열 */
+    margin-right: 4px; /* 각 아이템 간 간격 조정 */
+}
+
+.pagination li a {
+    text-decoration: none; /* 링크 밑줄 제거 */
+    padding: 5px 10px; /* 링크 내부 패딩 조정 */
+    border: 1px solid #ddd; /* 테두리 스타일 설정 */
+}
+
+.pagination li.active a {
+    background-color: #007bff; /* 활성 페이지 배경색 */
+    color: white; /* 활성 페이지 텍스트 색상 */
+}
+
+.pagination li.disabled a {
+    color: #ccc; /* 비활성화 링크 색상 */
+}
+/**/
+
+/* Box */
+
+	.thumbnails {
+		display: -moz-flex;
+		display: -webkit-flex;
+		display: -ms-flex;
+		display: flex;
+		-moz-align-items: stretch;
+		-webkit-align-items: stretch;
+		-ms-align-items: stretch;
+		align-items: stretch;
+		-moz-justify-content: center;
+		-webkit-justify-content: center;
+		-ms-justify-content: center;
+		justify-content: center;
+		-moz-flex-wrap: wrap;
+		-webkit-flex-wrap: wrap;
+		-ms-flex-wrap: wrap;
+		flex-wrap: wrap;
+	}
+
+		.thumbnails .box {
+			display: grid;
+       		place-items: center;
+			margin: 0 1em 2em 1em;
+			width: 30%;
+			float: left;
+        	padding: 10px 10px;
+        	margin-right: 20px;
+        	text-align: center;
+		}
+		
+				.thumbnails .menubox {
+			display: grid;
+       		place-items: center;
+			margin: 0 1em 2em 1em;
+			width: 20%;
+			float: left;
+        	padding: 10px 10px;
+        	margin-right: 20px;
+        	text-align: center;
+        	background-color: #dbebf2;
+		}
+		
+				.thumbnails .menubox_chart {
+			display: grid;
+       		place-items: center;
+			margin: 0;
+			width: 20%;
+			float: left;
+        	padding: 0;
+        	margin-right: 20px;
+        	text-align: center;
+        	background-color: #ffffff;
+        	border: 1px black;
+		}
+		
+		
+.hidden {
+    display: none;
 }
