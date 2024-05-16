@@ -126,15 +126,36 @@ body {
 
 /* Major Section 스타일 */
 .major h2 {
-	font-size: 2.5em;
-	color: #333;
-	margin-bottom: 0.5em;
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 1.5em;
+    background-color: rgba(255, 255, 255, 0.7); /* 반투명 밝은 배경색 */
+    padding: 0.5em; /* 패딩 추가 */
+    display: block; /* 블록 요소로 설정하여 줄바꿈 */
+    width: fit-content; /* 텍스트 너비에 맞춤 */
+    border-radius: 5px; /* 둥근 모서리 */
+    margin: 0 auto; /* 수평 가운데 정렬 */
+}
+
+.major h3 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 1.5em;
+    background-color: rgba(255, 255, 255, 0.7); /* 반투명 밝은 배경색 */
+    padding: 0.5em; /* 패딩 추가 */
+    display: block; /* 블록 요소로 설정하여 줄바꿈 */
+    width: fit-content; /* 텍스트 너비에 맞춤 */
+    border-radius: 5px; /* 둥근 모서리 */
+    margin: 0 auto; /* 수평 가운데 정렬 */
 }
 
 .major .byline {
-	font-size: 1.2em;
-	color: #666;
-	margin-bottom: 1.5em;
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 1.5em;
+    display: block; /* 블록 요소로 설정하여 줄바꿈 */
+    width: fit-content; /* 텍스트 너비에 맞춤 */
+    margin: 0 auto; /* 수평 가운데 정렬 */
 }
 
 /* Button 스타일 */
@@ -153,14 +174,6 @@ body {
 }
 
 /* Major Section Styles */
-#style1, .style1 {
-	background: url("../images/mainPage-image3.jpg") no-repeat center center;
-	background-size: cover;
-	padding: 3em 2em;
-	border-radius: 8px;
-	margin-bottom: 2em;
-	text-align: center;
-}
 
 #style1, .style1 {
 	background: url("../images/mainPage-image3.jpg") no-repeat center center;
