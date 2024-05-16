@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>음식 기호 및 제외 재료 선택</title>
 <link rel="stylesheet" th:href="@{/css/userChoice.css}"
-	href="/css/userChoice.css">
+    href="/css/userChoice.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="js/bmi.js"></script>
 
@@ -129,15 +129,17 @@ function addKeywordToList(checkbox) {
 
     // 중복 제거 후 키워드 목록을 문자열로 변환하여 출력
     keywordsList.value = Array.from(new Set(checkedKeywords)).join(", ");
+    
+   
 }
 
 
 function go_searchKeywords(){
-	const url = "go_searchList";
-		
-	var newWindow = window.open(url, '_blank', 'width=600,height=400');
-	
-	// 새 창의 상태를 주기적으로 확인
+    const url = "go_searchList";
+        
+    var newWindow = window.open(url, '_blank', 'width=600,height=400');
+    
+    // 새 창의 상태를 주기적으로 확인
     var checkInterval = setInterval(function() {
         if (newWindow.closed) {
             clearInterval(checkInterval);  // 인터벌을 정지
@@ -145,16 +147,39 @@ function go_searchKeywords(){
     }, 200); // 매 초마다 체크
 }
 
+function updateNutrientChoice() {
+    var carboValue = document.getElementById('carbo').value;
+    var proteinValue = document.getElementById('protein').value;
+    var fatValue = document.getElementById('fat').value;
+
+    var nutrientChoice = carboValue + ", " + proteinValue + ", " + fatValue;
+
+    document.getElementById('nutrientChoice').value = nutrientChoice;
+}
+function setCarboValue(value) {
+    document.getElementById('carbo').value = value;
+    updateNutrientChoice();
+}
+function setProteinValue(value) {
+    document.getElementById('protein').value = value;
+    updateNutrientChoice();
+}
+function setFatValue(value) {
+    document.getElementById('fat').value = value;
+    updateNutrientChoice();
+}
+
 // 파이썬용 오류시 삭제
     function sendSelectedKeywords() {
         var selectedKeywords = document.getElementById("selected_keywords").value;
         var excludeIngredients = document.getElementById("keyword_display").innerText;
-        
+        var dietCalory = document.getElementById("dietCalory").value;
+        var nutrientChoice = document.getElementById("nutrientChoice").value;
         // Ajax를 사용하여 선택된 키워드와 제외할 재료를 서버에 전송
         $.ajax({
             type: "POST",
             url: "/processKeywords",
-            data: JSON.stringify({ selectedKeywords: selectedKeywords, excludeIngredients: excludeIngredients }),
+            data: JSON.stringify({ selectedKeywords: selectedKeywords, excludeIngredients: excludeIngredients, dietCalory: dietCalory, nutrientChoice: nutrientChoice }),
             contentType: "application/json",
             success: function(response) {
                 console.log("Selected keywords and exclude ingredients sent to server successfully");
@@ -167,76 +192,82 @@ function go_searchKeywords(){
 
 </script>
 <body>
-	<th:block th:replace="~{includes/header}"></th:block>
-	<h1>음식 기호 및 제외 재료 선택</h1>
-	<form id="foodPreferenceForm" action="/saveFoodPreferences"
-		method="post">
-		<h2>사용자 정보</h2>
-		<p>
-			이름: <span id="userName" th:text="${member.name}"></span>
-		</p>
-		<p>
-			나이: <span th:text="${member.age}"></span>
-		</p>
-		<p>
-			몸무게: <span th:text="${member.weight}"></span>
-		</p>
-		<p>
-			키: <span th:text="${member.height}"></span>
-		</p>
-		<p>
-			성별: <span th:text="${member.gender}"></span>
-		</p>
-		<p>
-			BMI: <span id="userBMI" th:text="${result.bmi}"></span>
-		</p>
-		<p>
-			BMR: <span th:text="${result.bmr}"></span> kcal
-		</p>
-		<p>
-			하루 권장 칼로리: <span id="dailyCalories" th:text="${result.dailyCalories}"></span>
-			kcal
-		</p>
-		<th:block th:if="${result.dietCalories != 0}">
-			<p>
-				다이어트 권장 칼로리: <span id="dietCalories"
-					th:text="${result.dietCalories}"></span> kcal
-			</p>
-		</th:block>
-		<!-- 사용자 BMI 범위에 따른 그래픽 표시 -->
-		<div id="bmiGraphic">
-			<div id="underweight" class="bmiCategory" data-label="18.5"></div>
-			<div id="normal" class="bmiCategory" data-label="23"></div>
-			<div id="overweight" class="bmiCategory" data-label="25"></div>
-			<div id="obese" class="bmiCategory" data-label="30"></div>
-			<div id="severelyObese" class="bmiCategory"></div>
-		</div>
-		<br>
-		<div id="status">
-			<p>
-				<span class="individual">저체중</span> <span class="good">정상</span> <span
-					class="danger">과체중</span> <span class="wow">비만</span> <span
-					class="amazing">고도비만</span>
-			</p>
-		</div>
-		<br>
-		<br>
-		<h2>활동량 선택</h2>
-		<label><input type="radio" name="activityLevel"
-			value="sedentary" onclick="calculateCalories()"> 가벼운 활동(운동 거의
-			안함)</label><br> <label><input type="radio" name="activityLevel"
-			value="lightlyActive" onclick="calculateCalories()"> 가벼운
-			운동(1-3일/주)</label><br> <label><input type="radio"
-			name="activityLevel" value="moderatelyActive"
-			onclick="calculateCalories()"> 보통 활동(3-5일/주)</label><br> <label><input
-			type="radio" name="activityLevel" value="veryActive"
-			onclick="calculateCalories()"> 높은 활동(6-7일/주)</label><br> <label><input
-			type="radio" name="activityLevel" value="superActive"
-			onclick="calculateCalories()"> 매우 높은 활동(운동선수)</label><br> <br>
-		<br>
-		<h2>좋아하는 키워드 선택:</h2>
-		
-		<input type="text" id="selected_keywords" name="selected_keywords">
+    <th:block th:replace="~{includes/header}"></th:block>
+    <h1>음식 기호 및 제외 재료 선택</h1>
+    <form id="foodPreferenceForm" action="/saveFoodPreferences"
+        method="post">
+        <h2>사용자 정보</h2>
+        <p>
+            이름: <span id="userName" th:text="${member.name}"></span>
+        </p>
+        <p>
+            나이: <span th:text="${member.age}"></span>
+        </p>
+        <p>
+            몸무게: <span th:text="${member.weight}"></span>
+        </p>
+        <p>
+            키: <span th:text="${member.height}"></span>
+        </p>
+        <p>
+            성별: <span th:text="${member.gender}"></span>
+        </p>
+        <p>
+            BMI: <span id="userBMI" th:text="${result.bmi}"></span>
+        </p>
+        <p>
+            BMR: <span th:text="${result.bmr}"></span> kcal
+        </p>
+        <p>
+            하루 권장 칼로리: <span id="dailyCalories" th:text="${result.dailyCalories}"></span>
+            kcal
+        </p>
+        <th:block th:if="${result.dietCalories != 0}">
+            <p>
+                다이어트 권장 칼로리: <span id="dietCalories"
+                    th:text="${result.dietCalories}"></span> kcal
+            </p>
+            <input type="hidden" id="dietCalory" name="dietCalory" th:value ="${result.dietCalories}">
+        </th:block>
+        <!-- 사용자 BMI 범위에 따른 그래픽 표시 -->
+        <div id="bmiGraphic">
+            <div id="underweight" class="bmiCategory" data-label="18.5"></div>
+            <div id="normal" class="bmiCategory" data-label="23"></div>
+            <div id="overweight" class="bmiCategory" data-label="25"></div>
+            <div id="obese" class="bmiCategory" data-label="30"></div>
+            <div id="severelyObese" class="bmiCategory"></div>
+        </div>
+        <br>
+        <div id="status">
+            <p>
+                <span class="individual">저체중</span> <span class="good">정상</span> <span
+                    class="danger">과체중</span> <span class="wow">비만</span> <span
+                    class="amazing">고도비만</span>
+            </p>
+        </div>
+        <br>
+        <br>
+        <h2>활동량 선택</h2>
+            <label>
+                <input type="radio" name="activityLevel" value="sedentary" onclick="calculateCalories()" checked> 가벼운 활동(운동 거의 안함)
+            </label><br>
+            <label>
+                <input type="radio" name="activityLevel" value="lightlyActive" onclick="calculateCalories()"> 가벼운 운동(1-3일/주)
+            </label><br>
+            <label>
+                <input type="radio" name="activityLevel" value="moderatelyActive" onclick="calculateCalories()"> 보통 활동(3-5일/주)
+            </label><br>
+            <label>
+                <input type="radio" name="activityLevel" value="veryActive" onclick="calculateCalories()"> 높은 활동(6-7일/주)
+            </label><br>
+            <label>
+                <input type="radio" name="activityLevel" value="superActive" onclick="calculateCalories()"> 매우 높은 활동(운동선수)
+            </label><br>
+            <br>
+        <br>
+        <h2>좋아하는 키워드 선택:</h2>
+        
+        <input type="text" id="selected_keywords" name="selected_keywords">
         <input type="checkbox" id="exercise" value="exercise" onclick="addKeywordToList(this)" name="keywords"> <label for="exercise">운동</label><br>
         <input type="checkbox" id="mealkit" value="mealkit" onclick="addKeywordToList(this)" name="keywords"> <label for="mealkit">간편식</label><br>
         <input type="checkbox" id="meat" value="meat" onclick="addKeywordToList(this)" name="keywords"> <label for="meat">육류</label><br>
@@ -246,19 +277,48 @@ function go_searchKeywords(){
         <input type="checkbox" id="foreign" value="foreign" onclick="addKeywordToList(this)" name="keywords"> <label for="foreign">외국식</label><br>
         <input type="checkbox" id="wild" value="wild" onclick="addKeywordToList(this)" name="keywords"> <label for="wild">선식</label><br>
         <input type="checkbox" id="vegan" value="vegan" onclick="addKeywordToList(this)" name="keywords"> <label for="vegan">비건</label><br>
-		
-		<br>
-		<h2>제외시키고 싶은 음식 재료 검색:</h2>
-		<label>검색</label>
-		<input type="text" id="searchWord" name="excludeIngredients" onclick="go_searchKeywords()">
-		<br><label>저장된 기록</label>
-		<span id="keyword_display"></span>
+        
+        
+        <br>
+        <h2>제외시키고 싶은 음식 재료 검색:</h2>
+        <label>검색</label>
+        <input type="text" id="searchWord" name="excludeIngredients" onclick="go_searchKeywords()">
+        <br><label>저장된 기록</label>
+        <span id="keyword_display"></span>
         <br>
 
-		<button type="submit">선택 완료</button>
-	</form>
+        <br>
+        <h2>영양분 선택</h2>
+            <label>
+            <span>탄수화물</span><br>
+                <input type="number" id="carbo" name="carbo" value="0" min="0" step="0.1" onchange="updateNutrientChoice()">
+                <input type="radio" name="carboSelect" value="1" onchange="setCarboValue('1')" checked> 저함량
+                <input type="radio" name="carboSelect" value="27" onchange="setCarboValue('27')"> 중함량
+                <input type="radio" name="carboSelect" value="55" onchange="setCarboValue('55')"> 고함량
+            </label><br>
+            <label>
+            <span>단백질</span><br>
+                <input type="number" id="protein" name="protein" value="0" min="0" step="0.1" onchange="updateNutrientChoice()">
+                <input type="radio" name="proteinSelect" value="3" onchange="setProteinValue('3')" checked> 저함량
+                <input type="radio" name="proteinSelect" value="43" onchange="setProteinValue('43')"> 중함량
+                <input type="radio" name="proteinSelect" value="90" onchange="setProteinValue('90')"> 고함량
+            </label><br>
+            <label>
+            <span>지방</span><br>
+                <input type="number" id="fat" name="fat" value="0" min="0" step="0.1" onchange="updateNutrientChoice()">
+                <input type="radio" name="fatSelect" value="0" onchange="setFatValue('0')" checked> 저함량
+                <input type="radio" name="fatSelect" value="12" onchange="setFatValue('12')"> 중함량
+                <input type="radio" name="fatSelect" value="25" onchange="setFatValue('25')"> 고함량
+            </label>
+            <!-- 설정 안해서 nutrientChoice가 비어있는 경우 0을 받도록 설정필요 -->
+            <input type="text" id="nutrientChoice">
+            <br>
+        <br>
 
-	<th:block th:replace="~{includes/footer}"></th:block>
+        <button type="submit">선택 완료</button>
+    </form>
+
+    <th:block th:replace="~{includes/footer}"></th:block>
 
 </body>
 </html>

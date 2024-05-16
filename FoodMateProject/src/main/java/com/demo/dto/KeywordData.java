@@ -12,4 +12,6 @@ import lombok.Setter;
 public class KeywordData {
 	private String selectedKeywords;
     private String excludeIngredients;
+    private String dietCalory;
+    private String nutrientChoice;
 }
