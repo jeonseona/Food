@@ -51,8 +51,8 @@ main h3 {
 #menu li a:hover {
     background-color: #a0d8a0; /* 호버 시 배경색 변경 */
 }
-
 /* 내 정보 섹션 스타일 */
+
 #mainInfo {
     margin-top: 20px;
 }
