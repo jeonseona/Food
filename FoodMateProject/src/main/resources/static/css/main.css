@@ -1,71 +1,90 @@
+/* main 헤더 */
+.logo {
+    display: inline-block; /* 인라인 블록 요소로 설정 */
+    border-radius: 50%; /* 둥근 모서리 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    width: 150px; /* 너비 설정 */
+    height: 150px; /* 높이 설정 */
+    object-fit: cover; /* 이미지가 요소를 채우도록 설정 */
+    vertical-align: middle; /* 텍스트와 수직 정렬 */
+}
+
 /* 헤더 스타일 */
 #header {
-    background: #333 url("../images/pic01.jpg") no-repeat center 65%;
-    background-size: cover;
-    color: #fff;
-    padding: 8em 0;
-    text-align: center;
-    position: relative;
+    background: #333 url("../images/header.png") no-repeat center 65%; /* 배경 이미지 및 색상 설정 */
+    background-size: cover; /* 배경 이미지 크기 설정 */
+    color: #fff; /* 텍스트 색상 */
+    padding: 4em 0; /* 상하 여백 설정 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    position: relative; /* 상대 위치 설정 */
 }
 
 #header:before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(16, 32, 48, 0.25);
+    content: ''; /* 내용 없음 */
+    position: absolute; /* 절대 위치 설정 */
+    left: 0; /* 왼쪽 0 */
+    top: 0; /* 위쪽 0 */
+    width: 100%; /* 전체 너비 */
+    height: 100%; /* 전체 높이 */
+    background: rgba(16, 32, 48, 0.25); /* 반투명 배경 색상 */
 }
 
 #header>* {
-    position: relative;
-    z-index: 1;
+    position: relative; /* 상대 위치 설정 */
+    z-index: 1; /* 쌓임 순서 설정 */
 }
 
 #header .container {
-    margin-top: -2em; /* 컨테이너를 위로 2em만큼 이동 */
+    display: flex; /* 플렉스박스 사용 */
+    flex-direction: column; /* 열 방향으로 정렬 */
+    align-items: center; /* 수평 중앙 정렬 */
 }
 
-.homepage #header {
-    padding: 10em 0;
-    background-position: center;
+#header #logo {
+    position: absolute; /* 절대 위치 설정 */
+    top: 0; /* 위쪽 여백 */
+    left: 0; /* 왼쪽 여백 */
 }
 
 #header h1 {
-    font-size: 3em;
-    margin: 0;
-    color: #fff;
+    font-size: 3em; /* 폰트 크기 설정 */
+    margin: 0; /* 기본 마진 제거 */
+    color: #fff; /* 텍스트 색상 */
+    margin-bottom: 1em; /* 아래쪽 여백 */
+}
+
+#nav {
+    text-align: center; /* 텍스트 중앙 정렬 */
 }
 
 #nav > ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: inline-block;
+    margin: 0; /* 기본 마진 제거 */
+    padding: 0; /* 기본 패딩 제거 */
+    list-style: none; /* 목록 스타일 제거 */
+    display: inline-block; /* 인라인 블록 요소로 설정 */
 }
 
 #nav > ul > li {
-    display: inline;
-    margin-left: 1em;
-    position: relative; /* 부모 요소를 기준으로 서브메뉴 위치 설정 */
+    display: inline; /* 인라인 요소로 설정 */
+    margin-left: 1em; /* 왼쪽 여백 설정 */
+    position: relative; /* 상대 위치 설정 */
 }
 
 #nav > ul > li:first-child {
-    margin-left: 0;
+    margin-left: 0; /* 첫 번째 항목의 왼쪽 여백 제거 */
 }
 
 #nav > ul > li a {
-    color: #FFF;
-    text-decoration: none;
-    font-size: 1.2em;
-    padding: 0.5em 1em;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+    color: #FFF; /* 링크 텍스트 색상 */
+    text-decoration: none; /* 밑줄 제거 */
+    font-size: 1.2em; /* 폰트 크기 설정 */
+    padding: 0.5em 1em; /* 내부 여백 설정 */
+    border-radius: 5px; /* 모서리 둥글게 설정 */
+    transition: background-color 0.3s ease; /* 배경색 전환 효과 설정 */
 }
 
 #nav > ul > li a:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.2); /* 마우스 오버 시 배경색 */
 }
 
 /* 서브메뉴 (기본적으로 숨김) */
@@ -74,12 +93,12 @@
     position: absolute; /* 부모 요소를 기준으로 위치 설정 */
     top: 100%; /* 부모 요소 바로 아래에 위치 */
     left: 0; /* 왼쪽 정렬 */
-    background-color: none; /* 서브메뉴 배경색 */
-    padding: 0; /* 기본 패딩 제거 */
-    /*margin: 0; /* 기본 마진 제거 */
-    margin-top: 0.5em;
+    background: rgba(255, 255, 255, 0.7); /* 투명도 */
+    padding: 10px 0; /* 위아래 패딩 추가 */
+    width: 100%; /* 부모 요소의 가로 길이와 같은 크기로 설정 */
     list-style: none; /* 리스트 스타일 제거 (불릿 없음) */
     z-index: 1000; /* 다른 콘텐츠 위에 표시되도록 설정 */
+    margin-top: 5px; /* 부모 요소와의 간격 설정 */
 }
 
 /* 호버 시 서브메뉴 보이기 */
@@ -90,21 +109,42 @@
 /* 서브메뉴 리스트 아이템 */
 #nav > ul > li > ul > li {
     display: block; /* 서브메뉴 아이템을 수직으로 쌓기 */
+    position: relative; /* 상대 위치 설정 */
 }
 
 /* 서브메뉴 링크 */
 #nav > ul > li > ul > li > a {
-    color: #FFF; /* 텍스트 색상을 흰색으로 설정 */
+    color: #333; /* 텍스트 색상을 흰색으로 설정 */
     text-decoration: none; /* 밑줄 제거 */
     font-size: 0.8em; /* 서브메뉴의 글자 크기 */
     padding: 0.5em 0.5em; /* 클릭 가능한 영역에 패딩 추가 */
     white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+    display: block; /* 인라인 요소를 블록 요소로 변환 */
 }
 
 /* 서브메뉴 링크 호버 효과 */
-#nav > ul > li > ul > li > a:hover {
-    background-color: rgba(255, 255, 255, 0.2); /* 호버 시 배경색 */
+#nav > ul > li > ul > li:nth-child(1) > a:hover {
+    background-image: linear-gradient(to right, red, white); /* 빨간색에서 주황색으로 그라데이션 효과 */
 }
+#nav > ul > li > ul > li:nth-child(2) > a:hover {
+    background-image: linear-gradient(to right, orange, white); /* 주황색에서 노란색으로 그라데이션 효과 */
+}
+#nav > ul > li > ul > li:nth-child(3) > a:hover {
+    background-image: linear-gradient(to right, yellow, white); /* 노란색에서 초록색으로 그라데이션 효과 */
+}
+#nav > ul > li > ul > li:nth-child(4) > a:hover {
+    background-image: linear-gradient(to right, green, white); /* 초록색에서 파란색으로 그라데이션 효과 */
+}
+#nav > ul > li > ul > li:nth-child(5) > a:hover {
+    background-image: linear-gradient(to right, blue, white); /* 파란색에서 남색으로 그라데이션 효과 */
+}
+#nav > ul > li > ul > li:nth-child(6) > a:hover {
+    background-image: linear-gradient(to right, indigo, white); /* 남색에서 보라색으로 그라데이션 효과 */
+}
+#nav > ul > li > ul > li:nth-child(7) > a:hover {
+    background-image: linear-gradient(to right, violet, white); /* 보라색에서 빨간색으로 그라데이션 효과 */
+}
+
 
 /* Body and Container 스타일 */
 body {

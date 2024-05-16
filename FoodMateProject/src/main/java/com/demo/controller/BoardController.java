@@ -2,21 +2,27 @@ package com.demo.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.demo.domain.Com_Board_Detail;
@@ -24,6 +30,7 @@ import com.demo.domain.MemberData;
 import com.demo.domain.Reply;
 import com.demo.dto.Com_Recipe;
 import com.demo.service.Com_Board_DetailService;
+import com.google.gson.Gson;
 
 import jakarta.persistence.EntityManager;
 import jakarta.servlet.http.HttpSession;
@@ -47,7 +54,7 @@ public class BoardController {
 	@GetMapping(value= {"/board_list", "/board_list_main"})
 	public String getboard_list(@RequestParam(value = "seq", defaultValue = "1") int seq,
 			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "10") int size, Model model) {
+			@RequestParam(value = "size", defaultValue = "6") int size, Model model) {
 		Page<Com_Board_Detail> pageList = Board_DetailService.getAllCom_Board(seq, page, size);
 		List<Com_Board_Detail> boardList = pageList.getContent();
 
@@ -87,7 +94,7 @@ public class BoardController {
 	public String getSearchByType(@RequestParam(value = "seq", defaultValue = "1") int seq,
 			@RequestParam("searchType") String searchType, @RequestParam("searchKeyword") String keyword,
 			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "10") int size, Model model) {
+			@RequestParam(value = "size", defaultValue = "6") int size, Model model) {
 
 		Page<Com_Board_Detail> pageList;
 
@@ -170,10 +177,6 @@ public class BoardController {
 	    saveUploadedFile(mainuploadFile, recipe, 7);	    
 
 	    
-//	    if (recipe != null) { // idx가 번호를 자동으로 생성하게 했음에도 저장순서가 빨라서 null값으로 판정되어 에러가남. 수동으로 저장을 먼저해주기로함
-//	    	recipe = entityManager.merge(recipe); 
-//            entityManager.persist(recipe);
-//        }
 	    
 	    recipe.setRcp_nm(title);
 	    recipe.setHash_tag(maingredient);
@@ -218,7 +221,6 @@ public class BoardController {
 
 	            File saveFile = new File(directory, saveName);
 	            file.transferTo(saveFile);
-	            System.out.println("File saved to " + saveFile.getAbsolutePath());
 
 	            String filePath = "uploads/" + saveName; // 확장자를 포함한 전체 파일 경로를 저장
 	            switch (manualNumber) {
@@ -266,14 +268,17 @@ public class BoardController {
 
 					model.addAttribute("kindList", kindList);
 					model.addAttribute("com_boardVO", board);
+					model.addAttribute("com_boardVO.seq", board.getSeq());
+			        }
 					
 					return "comboard/Boardupdate";
-				}
+				
 		}
 		
 	// 글 수정
 	@PostMapping("/board_update_t")
 	public String updateCom_Board(HttpSession session, @RequestParam("seq") int seq,
+			@RequestParam("idx") int idx,
 			@RequestParam("title") String title,
 	        @RequestParam("gredient") String gredient,
 	        @RequestParam("maingredient") String maingredient,
@@ -317,7 +322,8 @@ public class BoardController {
 		    saveUploadedFile(manualImg06, recipe, 6);
 		    saveUploadedFile(mainuploadFile, recipe, 7);	
 		    
-
+		    
+		    recipe.setIdx(idx);
 		    recipe.setRcp_nm(title);
 		    recipe.setHash_tag(maingredient);
 		    recipe.setManual01(manual01);
@@ -327,13 +333,15 @@ public class BoardController {
 		    recipe.setManual05(manual05);
 		    recipe.setManual06(manual06);
 		    recipe.setRcp_parts_dtls(gredient);
-		    recipe.setRcp_pat2(kindName);
+		    recipe.setRcp_pat2(kindName);	    
 		    
 		    
-		    board.setCom_recipe(recipe);
+		    Com_Recipe svrecipe = Board_DetailService.updateRecipe(recipe);
+		    board.setCom_recipe(svrecipe);
+		    board.setMember_data(loginUser);
+		    
 		    
 		Board_DetailService.updateBoard(board);
-		Board_DetailService.updateRecipe(recipe);
 		return "redirect:/com_board_detail?seq=" + seq;
 	}
 	}
@@ -358,7 +366,7 @@ public class BoardController {
 	@GetMapping("/category")
 	public String com_BoardKindAction(@RequestParam(value = "seq", defaultValue = "1") int seq,
 			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "10") int size,
+			@RequestParam(value = "size", defaultValue = "6") int size,
 			Model model, @RequestParam(value = "", required = false)String category) {
 		Page<Com_Board_Detail> pageList = Board_DetailService.getCom_Board_DetailByKind(seq, page, size, category);
 		List<Com_Board_Detail> kindlist = pageList.getContent();
@@ -400,12 +408,14 @@ public class BoardController {
 	}
 	
 	
-	//인기도순 정렬
-		@GetMapping("/sorted_board_list")
+	//차트용 정렬
+		@GetMapping(value="/sorted_board_list" , produces = MediaType.APPLICATION_JSON_VALUE)
+		@ResponseBody
 		public String getSortedBoardList(@RequestParam(value = "seq", defaultValue = "1") int seq,
 				@RequestParam(value = "page", defaultValue = "1") int page,
-				@RequestParam(value = "size", defaultValue = "10") int size,
-				@RequestParam("sort") String sort, Model model) {
+				@RequestParam(value = "size", defaultValue = "6") int size,
+				@RequestParam("sort") String sort, Model model,
+				@RequestHeader(value = HttpHeaders.ACCEPT, defaultValue = "text/html") String acceptHeader) {
 		    
 		    Page<Com_Board_Detail> pageList = null;
 
@@ -419,16 +429,63 @@ public class BoardController {
 		        case "date_sort":
 		            pageList = Board_DetailService.getAllCom_Board(seq, page, size);
 		            break;
+		            
 		    }
-		    List<Com_Board_Detail> boardList = pageList.getContent();
-			model.addAttribute("boardList", boardList);
-		    model.addAttribute("pageInfo", pageList);
 		    
-		    return "comboard/BoardList";
+		    
+		    List<Com_Board_Detail> boardList = pageList.getContent();
+		    List<Com_Board_Detail> cnttop3BoardList = boardList.stream()
+	                .sorted((b1, b2) -> Integer.compare(b2.getCnt(), b1.getCnt()))
+	                .limit(3)
+	                .collect(Collectors.toList());
+		    List<Com_Board_Detail> goodpointtop3BoardList = boardList.stream()
+	                .sorted((b1, b2) -> Integer.compare(b2.getGoodpoint(), b1.getGoodpoint()))
+	                .limit(3)
+	                .collect(Collectors.toList());
+		    
+		    
+		    model.addAttribute("cnttop3BoardList", new Gson().toJson(cnttop3BoardList));
+		    model.addAttribute("goodpointtop3BoardList", new Gson().toJson(goodpointtop3BoardList));
+		
+		    		if (sort.equals("cnt_sort")) {
+		    		 return new Gson().toJson(cnttop3BoardList);
+		            } else {
+		             return new Gson().toJson(goodpointtop3BoardList);
+		    }
 		}
 		
+		//인기도 정렬
+		 @GetMapping(value = "/sorted_board_list", produces = MediaType.TEXT_HTML_VALUE)
+		    public String getSortedBoardListHtml(@RequestParam(value = "seq", defaultValue = "1") int seq,
+		                                         @RequestParam(value = "page", defaultValue = "1") int page,
+		                                         @RequestParam(value = "size", defaultValue = "6") int size,
+		                                         @RequestParam("sort") String sort, Model model) {
+
+		        Page<Com_Board_Detail> pageList = null;
+
+		        switch (sort) {
+		            case "cnt_sort":
+		                pageList = Board_DetailService.getCom_Board_DetailByCnt(seq, page, size);
+		                break;
+		            case "goodpoint_sort":
+		                pageList = Board_DetailService.getCom_Board_DetailByGoodpoint(seq, page, size);
+		                break;
+		            case "date_sort":
+		                pageList = Board_DetailService.getAllCom_Board(seq, page, size);
+		                break;
+		        }
+
+		        List<Com_Board_Detail> boardList = pageList.getContent();
+
+
+		        model.addAttribute("boardList", boardList);
+		        model.addAttribute("pageInfo", pageList);
+
+
+		        return "comboard/BoardList";
+		    }
 		
-		
+
 		
 		//댓글 출력
 		@PostMapping("/reply_list")
@@ -464,45 +521,70 @@ public class BoardController {
 				}
 		}
 		
-		//댓글 수정
-		@PostMapping(value="/reply_update")
-		public String updateReply(@RequestParam("replynum") int replynum,
-				@RequestParam("seq") int seq, HttpSession session) {
-			
-			MemberData loginUser = (MemberData) session.getAttribute("loginUser");
-			Reply reply = Board_DetailService.findReplyByreplynum(replynum);
-			
-			if (loginUser == null) { 
-				return "member/login"; 
-			}else if(!(loginUser.getId()).equals(reply.getMember_data().getId())){
-				return "본인이 작성한 댓글만 수정가능합니다.";
-			}else {
-				
-				Board_DetailService.updateReply(reply);			
-				return "redirect:/com_board_detail?seq=" + seq;
+		//***** 댓글 수정 *****
+		@PostMapping(value = "/reply_update")
+		@ResponseBody
+		public Map<String, Object> updateReply(@RequestBody Map<String, Object> payload, HttpSession session) {
+		    Map<String, Object> response = new HashMap<>();
+		    try {
+		        int replynum = Integer.parseInt(payload.get("replynum").toString());
+		        String content = payload.get("content").toString();
+		        MemberData loginUser = (MemberData) session.getAttribute("loginUser");
+		        Reply reply = Board_DetailService.findReplyByreplynum(replynum);
+		        
+		        System.out.println("Reply Number controller: " + replynum);
+		        System.out.println("Content controller: " + content);
+
+		        if (loginUser == null || !loginUser.getId().equals(reply.getMember_data().getId())) {
+		            response.put("success", false);
+		            response.put("message", "본인이 작성한 댓글만 수정 가능합니다.");
+		            return response;
+		        }
+
+		        reply.setContent(content);
+		        Board_DetailService.updateReply(reply);
+		        response.put("success", true);
+		        response.put("message", "댓글이 수정되었습니다.");
+		    } catch (Exception e) {
+		        // 예외 메시지를 로그에 출력
+		        e.printStackTrace();
+		        response.put("success", false);
+		        response.put("message", "서버 오류가 발생했습니다. 오류 메시지: " + e.getMessage());
+		    }
+		    return response;
 		}
-		}
+
 		
 		//댓글 삭제 
 		@PostMapping("/reply_delete")
-		public String deleteReply(@RequestParam("replynum") int replynum, 
-				@RequestParam("seq") int seq, HttpSession session) {
-			
-			MemberData loginUser = (MemberData) session.getAttribute("loginUser");
-			Reply reply = Board_DetailService.findReplyByreplynum(replynum);
-			
-			if (loginUser == null) { 
-				return "member/login"; 
-			}else if(!(loginUser.getId()).equals(reply.getMember_data().getId())){
-				return "본인이 작성한 댓글만 삭제가능합니다.";
-			}else {
+		@ResponseBody
+		public Map<String, Object> deleteReply(@RequestParam("replynum") int replynum, HttpSession session) {
+		    Map<String, Object> response = new HashMap<>();
+		    try {
+		        MemberData loginUser = (MemberData) session.getAttribute("loginUser");
+		        Reply reply = Board_DetailService.findReplyByreplynum(replynum);
 
-				Board_DetailService.deleteReply(reply);			
-				return "redirect:/com_board_detail?seq=" + seq;
+		        if (loginUser == null) {
+		            response.put("success", false);
+		            response.put("message", "로그인이 필요합니다.");
+		            return response;
+		        }
+
+		        if (!loginUser.getId().equals(reply.getMember_data().getId())) {
+		            response.put("success", false);
+		            response.put("message", "본인이 작성한 댓글만 삭제 가능합니다.");
+		            return response;
+		        }
+
+		        Board_DetailService.deleteReply(reply);
+		        response.put("success", true);
+		        response.put("message", "댓글이 삭제되었습니다.");
+		    } catch (Exception e) {
+		        response.put("success", false);
+		        response.put("message", "서버 오류가 발생했습니다.");
+		    }
+		    return response;
 		}
-		}
-		
 
 		
-
 }

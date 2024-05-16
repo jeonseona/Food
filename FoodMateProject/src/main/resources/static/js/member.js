@@ -1,3 +1,4 @@
+
 /*
 ** 약관 동의 여부 확인
 */
@@ -139,14 +140,6 @@ $(document).ready(function() {
     }
 });
 
-// 아이디, 비밀번호 찾기 화면 요청
-function find_id_form() {
-    // 아이디 찾기 화면 오픈
-    var url = "find_id_form";
-    
-    window.open(url, "_blank_", "toolbar=no, menubar=no, scrollbars=no, " +
-        "resizable=yes, width=550, height=450");
-}
 
 /*
 ** 아이디 찾기 요청

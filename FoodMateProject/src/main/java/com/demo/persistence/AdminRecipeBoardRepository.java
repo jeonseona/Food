@@ -10,7 +10,7 @@ import com.demo.domain.MemberData;
 
 public interface AdminRecipeBoardRepository extends JpaRepository<AdminRecipeBoard, Long> {
 	
-	@Query(value="SELECT * FROM MemberData", nativeQuery = true)
+	@Query(value="SELECT * FROM member", nativeQuery = true)
 	List<MemberData> getAllMember();
 	
 	@Query(value="SELECT * FROM (SELECT * FROM admin_recipe_board ORDER BY regdate DESC) WHERE ROWNUM <= 5", nativeQuery = true)
