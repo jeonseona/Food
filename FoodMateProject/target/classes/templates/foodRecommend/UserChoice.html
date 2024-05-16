@@ -6,8 +6,6 @@
 <title>음식 기호 및 제외 재료 선택</title>
 <link rel="stylesheet" th:href="@{/css/userChoice.css}"
     href="/css/userChoice.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="js/bmi.js"></script>
 
 </head>
 <script type="text/javascript">
@@ -171,16 +169,20 @@ function setFatValue(value) {
 
 // 파이썬용 오류시 삭제
     function sendSelectedKeywords() {
-        var selectedKeywords = document.getElementById("selected_keywords").value;
+        //var selectedKeywords = document.getElementById("selected_keywords").value;
+        var selectedKeywords = $("#selected_keywords").val();
         var excludeIngredients = document.getElementById("keyword_display").innerText;
-        var dietCalory = document.getElementById("dietCalory").value;
-        var nutrientChoice = document.getElementById("nutrientChoice").value;
+        //var dietCalory = document.getElementById("dietCalory").value;
+        var dietCalory = $("#dietCalory").val();
+        //var nutrientChoice = document.getElementById("nutrientChoice").value;
+        var nutrientChoice = $("#nutrientChoice").val();
+        alert("sendSelectedKeywords() 호출");
         // Ajax를 사용하여 선택된 키워드와 제외할 재료를 서버에 전송
         $.ajax({
             type: "POST",
             url: "/processKeywords",
             data: JSON.stringify({ selectedKeywords: selectedKeywords, excludeIngredients: excludeIngredients, dietCalory: dietCalory, nutrientChoice: nutrientChoice }),
-            contentType: "application/json",
+            contentType: "application/json; charset=utf-8",
             success: function(response) {
                 console.log("Selected keywords and exclude ingredients sent to server successfully");
             },
@@ -194,8 +196,7 @@ function setFatValue(value) {
 <body>
     <th:block th:replace="~{includes/header}"></th:block>
     <h1>음식 기호 및 제외 재료 선택</h1>
-    <form id="foodPreferenceForm" action="/saveFoodPreferences"
-        method="post">
+    <form id="foodPreferenceForm" action="/saveFoodPreferences" method="post">
         <h2>사용자 정보</h2>
         <p>
             이름: <span id="userName" th:text="${member.name}"></span>
@@ -315,10 +316,14 @@ function setFatValue(value) {
             <br>
         <br>
 
-        <button type="submit">선택 완료</button>
+        <button type="button" onclick="sendSelectedKeywords();">선택 완료</button>
     </form>
 
     <th:block th:replace="~{includes/footer}"></th:block>
+
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="js/bmi.js"></script>
 
 </body>
 </html>
