@@ -1,0 +1,77 @@
+package com.demo.controller;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.demo.dto.Movie;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+@RequestMapping("/movies")
+@RestController
+public class RecommendController {
+
+	private static final String STD_IN = "stdin";
+	private static final String STD_ERR = "stderr";
+	
+	@GetMapping("/recommend")
+	public List<Movie> mainView(@RequestParam(value="movie_select") String movie_index, HttpServletRequest request, Model model) throws InterruptedException {
+		List<Movie> movieList = new ArrayList<>();
+		String[] movies_title = {"Avatar", "Pirates of the Caribbean: At World's End", "Spectre", "The Dark Knight Rises",
+								"John Carter", "Spider-Man 3", "Avengers: Age of Ultron", "Harry Potter and the Half-Blood Prince"};
+		int idx = Integer.parseInt(movie_index);
+		String result = runningProcess(movies_title[idx]);   // 파이썬 프로그램 실행
+		
+		String[] tmpArr = result.split("\n");
+		System.out.println(tmpArr[0]);
+		for(int k=0; k<tmpArr.length; k++) {
+			String[] items = tmpArr[k].split(",");
+
+				Movie movie = new Movie();
+				
+				movie.setTitle(items[0].trim());
+				movie.setVote_count(Integer.parseInt(items[1].replace(" ", "")));
+				movie.setVote_average(Double.parseDouble(items[2].replace(" ", "")));
+				movie.setScore(Double.parseDouble(items[3].replace(" ", "")));
+//				movie.setPost_path(items[4].trim());
+				
+				movieList.add(movie);
+		}
+		
+		return movieList;
+	}
+	
+	private static String runningProcess(String title) {
+		Process process = null;
+		File workingDirectory = new File("D:/Student/MachineLearning");
+		String cmd = "python D:/Student/MachineLearning/recommend.py " + title;
+		ProcessStream processInStream = null;
+		ProcessStream processErrStream = null;
+		String result = "";
+		
+		try {
+			process = Runtime.getRuntime().exec(cmd, null, workingDirectory);
+			processInStream = new ProcessStream(STD_IN, process.getInputStream());
+			processErrStream = new ProcessStream(STD_ERR, process.getErrorStream());
+			
+			result = processInStream.start();
+			processErrStream.start();
+			process.getOutputStream().close();
+			
+			process.waitFor();
+		    
+		} catch (IOException | InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		return processInStream.getResult();
+	}
+}
