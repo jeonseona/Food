@@ -13,7 +13,12 @@
         <nav id="nav">
             <ul>
                 <li><a th:href="@{/}">Home</a></li>
-                <li><a th:href="@{/login}">Login</a></li>
+                <th:block th:if="${session.loginUser == null}">
+                	<li><a th:href="@{/login}">Login</a></li>
+                </th:block>
+                <th:block th:unless="${session.loginUser==null}">
+                	<li><a th:href="@{/logout}">Logout</a></li>
+                </th:block>
                 <li><a th:href="@{/board_list_main}">Community</a></li>
                 <li><a th:href="@{/mypage}">MyPage&nbsp;&nbsp;<i class="fas fa-chevron-down"></i></a>
                 	<ul>
