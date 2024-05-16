@@ -2,6 +2,7 @@ package com.demo.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -371,10 +372,10 @@ public class BoardController {
 		Page<Com_Board_Detail> pageList = Board_DetailService.getCom_Board_DetailByKind(seq, page, size, category);
 		List<Com_Board_Detail> kindlist = pageList.getContent();
 		
-		model.addAttribute("boardKindList", kindlist);
+		model.addAttribute("boardList", kindlist);
 		model.addAttribute("pageInfo", pageList);
 		
-		return "comboard/BoardKind";
+		return "comboard/BoardList";
 	}
 	
 	//추천수 관리
@@ -480,7 +481,17 @@ public class BoardController {
 
 		        model.addAttribute("boardList", boardList);
 		        model.addAttribute("pageInfo", pageList);
-
+		        
+		        List<Com_Board_Detail> top3Cnt = new ArrayList<>();
+		        List<Com_Board_Detail> top3Goodpoint = new ArrayList<>();
+		        
+		        if (sort.equals("cnt_sort")) {
+		            top3Cnt = boardList.stream().sorted((b1, b2) -> Integer.compare(b2.getCnt(), b1.getCnt())).limit(3).collect(Collectors.toList());
+		            model.addAttribute("top3Cnt", top3Cnt);
+		        } else if (sort.equals("goodpoint_sort")) {
+		            top3Goodpoint = boardList.stream().sorted((b1, b2) -> Integer.compare(b2.getGoodpoint(), b1.getGoodpoint())).limit(3).collect(Collectors.toList());
+		            model.addAttribute("top3Goodpoint", top3Goodpoint);
+		        }
 
 		        return "comboard/BoardList";
 		    }

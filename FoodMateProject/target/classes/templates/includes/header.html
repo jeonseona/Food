@@ -1,22 +1,40 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>FoodMate - 다이어트 식단 추천</title>
+<meta charset="UTF-8">
+<title>FoodMate - 다이어트 식단 추천</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" th:href="@{/css/main.css}" href="/css/main.css" />
 </head>
 <body>
-    <header>
+	<header id="header">
+    <div class="container">
         <h1>FoodMate</h1>
-        <nav>
+        <nav id="nav">
             <ul>
                 <li><a th:href="@{/}">Home</a></li>
-                <li><a th:href="@{/login}">Login</a></li>   <!-- 로그인 -->
-                <li><a th:href="@{/board_list_main}">Community</a></li> <!-- 커뮤니티 페이지 -->
-                <li><a th:href="@{/Top_recipes}">Top_recipes</a><li> <!-- 탑 레시피 -->
-                <li><a th:href="@{/mypage}">MyPage</a></li> <!--  마이 페이지 -->
-                <li><a th:href="@{/customer_service}">Customer_Service</a></li> <!-- 고객센터 -->
+                <th:block th:if="${session.loginUser == null}">
+                	<li><a th:href="@{/login}">Login</a></li>
+                </th:block>
+                <th:block th:unless="${session.loginUser==null}">
+                	<li><a th:href="@{/logout}">Logout</a></li>
+                </th:block>
+                <li><a th:href="@{/board_list_main}">Community</a></li>
+                <li><a th:href="@{/mypage}">MyPage&nbsp;&nbsp;<i class="fas fa-chevron-down"></i></a>
+                	<ul>
+                		<li><a th:href="@{infoView}">내 정보</a></li>
+				        <li><a th:href="@{infoUpdate}">내 정보 수정</a></li>
+				        <li><a th:href="@{bodyUpdate}">바디데이터 수정</a></li>
+				        <li><a th:href="@{myInquiry}">내 질문</a></li>
+				        <li><a th:href="@{myRecipeList}">나의 레시피</a></li>
+				        <li><a th:href="@{foodRecommend}">추천받은 음식 기록</a></li>
+                	</ul></li>
+                <li><a th:href="@{/customer_service}">Customer Service</a></li>
             </ul>
         </nav>
-    </header>
+    </div>
+</header>
+
 </body>
 </html>
+<!-- <li><a th:href="@{/Top_recipes}">Top_recipes</a><li> --><!-- 탑 레시피 -->

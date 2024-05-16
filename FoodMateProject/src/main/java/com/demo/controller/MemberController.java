@@ -100,7 +100,7 @@ public class MemberController {
         	long usercode = user.getUsercode();
         	if(usercode == 1) {
         		model.addAttribute("loginUser", user);
-                url = "redirect:/";
+                url = "redirect:main.do";
         	} else {
         		model.addAttribute("loginUser", user);
                 url = "redirect:/";
@@ -112,12 +112,11 @@ public class MemberController {
         return url;
     }
 
-    
     // 로그아웃 처리
     @GetMapping("/logout")
     public String logout(SessionStatus status) {
         status.setComplete(); // 세션 완료 상태로 설정
-        return "redirect:/login_form"; // 로그아웃 후 로그인 화면으로 리다이렉트
+        return "redirect:/"; // 로그아웃 후 로그인 화면으로 리다이렉트
     }
     
    

@@ -11,6 +11,11 @@ public interface CustomerService {
     void addInquiry(askBoard inquiry);
     List<askBoard> getInquiryList();
     List<askBoard> getInquiriesBySubject(String subject);
-    List<askBoard> getInquiriesBySubjectNamedQuery(String subject);
+    List<askBoard> getInquiriesBySubjectNamedQuery(String name);
     List<AdminQnaBoard> getAllQnaBoards();
+	AdminQnaBoard getQnaDetailsById(String question);
+	AdminQnaBoard getQnaDetailsById(Long id);
+	askBoard getInquiryDetailsById(Long id);
+	askBoard findById(askBoard inquiry);
+
 }

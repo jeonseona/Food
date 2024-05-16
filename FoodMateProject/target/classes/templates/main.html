@@ -1,28 +1,68 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoodMate - 다이어트 식단 추천</title>
-    <link rel="stylesheet" th:href="@{/css/main.css}" href="/css/main.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FoodMate - 다이어트 식단 추천</title>
+<link rel="stylesheet" th:href="@{/css/main.css}" href="/css/main.css">
 </head>
 <body>
-    <!-- 헤더 -->
-    <th:block th:replace="~{includes/header}"></th:block>
+	<!-- 헤더 -->
+	<th:block th:insert="~{includes/header}"></th:block>
 
-    <section class="hero">
-        <div class="container">
-            <h2 th:text="${welcomeMessage}"></h2>
-            <p>다이어트 식단 추천을 통해 건강한 삶을 시작하세요.</p>
-            <a th:href="@{/UserChoice}" class="btn">시작하기</a>
-            <div class='mainPage-images'>
-            	<img th:src="@{/images/mainPage-image3.jpg}" src="images/mainPage-image3.jpg">
-            	
-            </div>
-        </div>
-    </section>
+	<div class="container">
+		<section class="style1">
+			<header class="major">
+				<h2 th:text="${welcomeMessage}"></h2>
+				<h3>다이어트 식단 추천을 통해 건강한 삶을 시작하세요.</h3>
+				<a th:href="@{/UserChoice}" class="btn">시작하기</a>
+			</header>
 
-    <!-- 푸터 -->
-    <th:block th:replace="~{includes/footer}"></th:block>
+		</section>
+	</div>
+	<div class="container">
+		<section class="style2">
+			<header class="major">
+				<h2>여기는 추천 메뉴 보여주는 곳</h2>
+				<span class="byline">Mauris vulputate dolor sit amet nibh</span>
+			</header>
+			<div class="mrow">
+
+				<!-- Content -->
+				<div class="mu">
+					<article>
+						<ul class="style">
+							<li><span class="fa fa-wrench"></span>
+								<h3>Integer ultrices</h3> <span>In posuere eleifend odio.
+									Quisque semper augue mattis wisi. Maecenas ligula. Pellentesque
+									viverra vulputate enim.</span></li>
+							<li><span class="fa fa-cloud"></span>
+								<h3>Aliquam luctus</h3> <span>Pellentesque viverra
+									vulputate enim. Aliquam erat volutpat. Maecenas condimentum
+									enim tincidunt risus accumsan.</span></li>
+						</ul>
+					</article>
+				</div>
+				<div class="mu">
+					<article>
+						<ul class="style">
+							<li><span class="fa fa-cogs"></span>
+								<h3>Integer ultrices</h3> <span>In posuere eleifend odio.
+									Quisque semper augue mattis wisi. Maecenas ligula. Pellentesque
+									viverra vulputate enim.</span></li>
+							<li><span class="fa fa-leaf"></span>
+								<h3>Aliquam luctus</h3> <span>Pellentesque viverra
+									vulputate enim. Aliquam erat volutpat. Maecenas condimentum
+									enim tincidunt risus accumsan.</span></li>
+						</ul>
+					</article>
+				</div>
+
+			</div>
+		</section>
+	</div>
+
+	<!-- 푸터 -->
+	<th:block th:insert="~{includes/footer}"></th:block>
 </body>
 </html>

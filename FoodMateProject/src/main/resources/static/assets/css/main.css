@@ -179,7 +179,7 @@
 	}
 
 	h1, h2, h3, h4, h5, h6 {
-		color:rgb(58, 122, 192);
+		color:rgb(145, 167, 105);
 		font-weight: bold;
 		line-height: 1.5;
 		margin: 0 0 1em 0;
@@ -516,7 +516,7 @@
 	.box {
 		border-radius: 4px;
 		margin-bottom: 2em;
-		background:#d7d9e3;
+		background:#d7e3dd;
 		text-align: center;
 	}
 
@@ -896,7 +896,7 @@
 	input[type="submit"],
 	input[type="reset"],
 	input[type="button"],
-	button,
+	button, #colorbtn , 
 	.button {
 		-moz-appearance: none;
 		-webkit-appearance: none;
@@ -906,7 +906,7 @@
 		-webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 		-ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 		transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-		background-color:#93a8c1;
+		background-color: #8FBC8F;
 		border-radius: 4px;
 		border: 0;
 		color: #ffffff !important;
@@ -928,7 +928,7 @@
 		input[type="button"]:hover,
 		button:hover,
 		.button:hover {
-			background-color:rgb(92, 156, 194);
+			background-color:rgb(47, 122, 78);
 		}
 
 		input[type="submit"]:active,
@@ -936,7 +936,7 @@
 		input[type="button"]:active,
 		button:active,
 		.button:active {
-			background-color:rgb(92, 133, 194);
+			background-color:rgb(142, 206, 147);
 		}
 
 		input[type="submit"].icon,
@@ -1002,23 +1002,25 @@
 		input[type="button"].style2,
 		button.style2,
 		.button.style2 {
-			background-color: #93a8c1;
+			background-color: #8FBC8F;
 		}
 
 			input[type="submit"].style2:hover,
 			input[type="reset"].style2:hover,
 			input[type="button"].style2:hover,
 			button.style2:hover,
-			.button.style2:hover {
-				background-color: #92a2d6;
+			.button.style2:hover,
+			.thumbnails #write_menu_btn:hover {
+				background-color: #6ac997;
 			}
 
 			input[type="submit"].style2:active,
 			input[type="reset"].style2:active,
 			input[type="button"].style2:active,
-			button.style2:active,
-			.button.style2:active {
-				background-color: #6c82c8;
+			button.style2:active, 
+			.button.style2:active, 
+			.thumbnails #write_menu_btn:active {
+				background-color: #458462;
 			}
 
 		input[type="submit"].style3,
@@ -1422,7 +1424,7 @@
 }
 
 #symbol_red.material-symbols-outlined {
-	color: red;
+	color: rgb(171, 16, 16);
   font-variation-settings:
   'FILL' 0,
   'wght' 400,
@@ -1488,7 +1490,7 @@
 }
 
 .pagination li.active a {
-    background-color: #007bff; /* 활성 페이지 배경색 */
+    background-color: #8FBC8F; /* 활성 페이지 배경색 */
     color: white; /* 활성 페이지 텍스트 색상 */
 }
 
@@ -1538,23 +1540,62 @@
         	padding: 10px 10px;
         	margin-right: 20px;
         	text-align: center;
-        	background-color: #dbebf2;
+        	background-color: #b6dbc4;
 		}
 		
 				.thumbnails .menubox_chart {
 			display: grid;
        		place-items: center;
-			margin: 0;
-			width: 20%;
+			margin: 0 1em 2em 1em;
+			width: 45%;
 			float: left;
         	padding: 0;
         	margin-right: 20px;
         	text-align: center;
         	background-color: #ffffff;
-        	border: 1px black;
+			font-size: 10px;
 		}
 		
 		
 .hidden {
     display: none;
+}
+
+/* 상단 메뉴바 ************************/
+#menu {
+    background: #8FBC8F; /* 배경색 변경 */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+#menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex; /* 메뉴 항목을 가로로 배치하기 위해 추가 */
+}
+
+#menu li {
+    display: block;
+    color: #fff; /* 텍스트 색상 변경 */
+    text-align: center;
+    padding: 10px 20px; /* 패딩 조정 */
+    text-decoration: none;
+    margin: 0 10px; /* 좌우 여백 추가 */
+}
+
+#menu li a {
+	color: #222121;
+    transition: background-color 0.3s; /* 호버 효과를 위한 전환 효과 추가 */
+}
+
+#menu li a:hover {
+    background-color: #e0f0e0; /* 호버 시 배경색 변경 */
+}
+
+#write_menu_btn {
+			background-color:#8FBC8F;
+			width:150px;
+			margin-right: 20px;
 }

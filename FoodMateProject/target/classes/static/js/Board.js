@@ -4,12 +4,24 @@
 
  // BoardList
  
+ //접기
 $(document).ready(function() {
-            $('#toggleButton').click(function(event) {
-                event.preventDefault(); // 기본 동작 방지
-                $('#main_head').toggleClass('hidden');
-            });
-        });
+    $('#toggleButton').off('click').on('click', function(event) {
+        event.preventDefault(); // 기본 동작 방지
+        $('#main_head').toggleClass('hidden');
+    });
+});
+
+//메뉴바
+$(document).ready(function() {
+    $('.menu-link').on('click', function(event) {
+        event.preventDefault();
+        var url = $(this).data('url');
+        $('#content').load(url);
+    });
+});
+
+
         
  function go_view(seq) {
 		var theForm = document.createElement('form');
@@ -332,9 +344,24 @@ function go_list()
             // 차트 옵션
             var barchart_options = {
                 title: '조회수 Top 3',
-                width: 400 ,
+                width: 600 ,
                 height: 300,
-                legend: 'none'
+                legend: 'none',
+                titleTextStyle: {
+                    fontSize: 18 // 제목 글씨 크기
+                },
+                vAxis: {
+                    minValue: 0,
+                    viewWindow: {
+                        min: 0
+                    },
+                    gridlines: {
+                        count: 2 // 주 그리드라인 개수
+                    },
+                    minorGridlines: {
+                        count: 1 // 소 그리드라인 간격
+                    }
+                }
             };
 
             // 차트 그리기
@@ -380,9 +407,22 @@ function go_list()
             // 차트 옵션
             var barchart_options = {
                 title: '추천수 Top 3',
-                width: 400,
+                width: 600,
                 height: 300,
-                legend: 'none'
+                legend: 'none',
+                titleTextStyle: {
+                    fontSize: 18 // 제목 글씨 크기
+                },
+                vAxis: {
+                    minValue: 0,
+                    viewWindow: {
+                        min: 0
+                    },
+                    gridlines: {
+                        count: -1, // 자동 계산
+                        interval: 1
+                    }
+                }
             };
 
             // 차트 그리기

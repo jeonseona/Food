@@ -136,7 +136,7 @@
 			<table id="Board_deatail_List">
 				<tr>
 					<td colspan="2"><textarea name="reply_content"
-							id="reply_content" rows="3" cols="50"></textarea> <input
+							id="reply_content" rows="3" cols="50"></textarea> <input id="colorbtn" 
 						type="button" class="btn" value="저장" onClick="reply_save()"></td>
 				</tr>
 			</table>
@@ -155,12 +155,12 @@
 						</td>
 						<td
 							th:if="${session.loginUser != null and replyVO.member_data.id.equals(session.loginUser.id)}">
-							<button th:attr="data-replynum=${replyVO.replynum}"
+							<button id="colorbtn" th:attr="data-replynum=${replyVO.replynum}"
 								onclick="toggleEditMode(this, event);">수정</button>
-							<button
+							<button id="colorbtn" 
 								th:attr="data-replynum=${replyVO.replynum},data-save-button=${replyVO.replynum}"
 								onclick="saveChanges(this, event);" style="display: none;">저장</button>
-							<button
+							<button id="colorbtn"
 								th:attr="onclick='deleteReply(' + ${replyVO.replynum} + ', event)'">삭제</button>
 						</td>
 					</tr>
@@ -174,8 +174,8 @@
 				class="btn" value="목록" onClick="go_list()">
 			<th:block
 				th:if="${session.loginUser != null and (Com_Board_DetailVO.member_data.id).equals(session.loginUser.id)}">
-				<input type="button" class="btn" value="수정" onClick="board_update()">
-				<input type="button" class="btn" value="삭제" onClick="board_delete()">
+				<input type="button" id="colorbtn" class="btn" value="수정" onClick="board_update()">
+				<input type="button" id="colorbtn" class="btn" value="삭제" onClick="board_delete()">
 			</th:block>
 		</form>
 	</article>

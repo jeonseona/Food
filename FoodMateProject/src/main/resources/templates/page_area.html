@@ -3,7 +3,7 @@
 <meta charset="UTF-8">
 
 <!--  각 화면의 페이지 번호가 표시되는 영역의 구현 -->
-<div id="page_area" >
+<div id="page_area">
 	<ul class="pagination" th:with="start=${T(java.lang.Math).floor(pageInfo.number/10)*10 + 1},
 														   last=(${start + 9 < pageInfo.totalPages ? start+9 : pageInfo.totalPages})">
   		<th:block th:with="
@@ -14,7 +14,7 @@
 
 			<li th:class="paging">
 				<a th:href="${firstPage}" aria-label="First">
-					<span aria-hidden="true" style="color:black;">First</span>
+					<span aria-hidden="true">First</span>
 				</a>
 			</li>
 			<!--  이전 페이지로 가기 버튼  -->
@@ -25,7 +25,7 @@
 			</li>
 	
 			<!-- [1][2][3]... 표시 부분 -->
-			<li style="color:black;" th:each="page : ${#numbers.sequence(start, last)}" th:class="${page == pageInfo.number + 1} ? 'active'" class="paging">
+			<li th:each="page : ${#numbers.sequence(start, last)}" th:class="${page == pageInfo.number + 1} ? 'active'" class="paging">
 				<a th:text="${page}" th:href="@{/board_list(page=${page})}"></a> 
 			</li>
 		
@@ -39,7 +39,7 @@
 			<!-- 맨 마지막 페이지로 이동 -->
 			<li>
 				<a th:href="${lastPage}" aria-label="Last">
-					<span aria-hidden="true" style="color:black;">Last</span>
+					<span aria-hidden="true">Last</span>
 				</a>
 			</li>
 	</ul>

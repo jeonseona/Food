@@ -57,4 +57,25 @@ public class CustomerServiceImpl implements CustomerService {
         
         return null;
     }
+
+	public AdminQnaBoard getQnaDetailsById(Long id) {
+		return qnaBoardRepository.findById(id).orElse(null);
+	}
+
+	@Override
+	public AdminQnaBoard getQnaDetailsById(String question) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public askBoard getInquiryDetailsById(Long id) {
+		return customerServiceRepository.findById(id).orElse(null);
+	}
+
+	@Override
+	public askBoard findById(askBoard inquiry) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
