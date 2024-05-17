@@ -38,7 +38,8 @@ public class ProcessStream implements Runnable {
 			
 			while(true) {
 				String line = br.readLine();
-				
+				// 삭제
+				System.out.println(line);
 				if (line == null)
 					break;
 				

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.domain.foodRecipe;
 import com.demo.dto.KeywordData;
+import com.demo.dto.RecommendData;
 
 @RestController
 public class HomeController {
@@ -19,7 +20,7 @@ public class HomeController {
 	private static final String STD_ERR = "stderr";
 
     @PostMapping("/processKeywords")
-    public List<foodRecipe> processKeywords(@RequestBody KeywordData keywordData) {
+    public List<RecommendData> processKeywords(@RequestBody KeywordData keywordData) {
         // 선택된 키워드와 제외할 재료를 받아서 처리
         String selectedKeywords = keywordData.getSelectedKeywords();
         String excludeIngredients = keywordData.getExcludeIngredients();
@@ -33,7 +34,7 @@ public class HomeController {
         
         
         //
-    		List<foodRecipe> foodList = new ArrayList<>();
+    		List<RecommendData> foodList = new ArrayList<>();
     		String result = runningProcess(selectedKeywords, excludeIngredients, dietCalory, nutrientChoice);   // 파이썬 프로그램 실행
     		
     		
@@ -42,15 +43,15 @@ public class HomeController {
     		for(int k=0; k<tmpArr.length; k++) {
     			String[] items = tmpArr[k].split(",");
 
-    				foodRecipe food = new foodRecipe();
+    				RecommendData food = new RecommendData();
     				
-    				foodRecipe.setTitle(items[0].trim());
-    				foodRecipe.setVote_count(Integer.parseInt(items[1].replace(" ", "")));
-    				foodRecipe.setVote_average(Double.parseDouble(items[2].replace(" ", "")));
-    				foodRecipe.setScore(Double.parseDouble(items[3].replace(" ", "")));
-//    				movie.setPost_path(items[4].trim());
+    				food.setIdx(items[0].trim());
+    				food.setName(items[1].replace(" ", ""));
+    				food.setImages(items[2].replace(" ", ""));
+    				food.setCalories(Double.parseDouble(items[3].replace(" ", "")));
+//    				
     				
-    				movieList.add(movie);
+    				foodList.add(food);
     		
     		}
     		
@@ -66,7 +67,7 @@ public class HomeController {
         
         private static String runningProcess(String selectedKeywords, String excludeIngredients, String dietCalory, String nutrientChoice) {
     		Process process = null;
-    		File workingDirectory = new File("D:/Student/MachineLearning");
+    		File workingDirectory = new File("E:/Student/MachineLearning");
     		String cmd = "python E:/Student/MachineLearning/recommend_food.py " + selectedKeywords + " " + excludeIngredients + " " + dietCalory + " " + nutrientChoice;
     		ProcessStream processInStream = null;
     		ProcessStream processErrStream = null;
