@@ -17,8 +17,8 @@ public class MemberServiceImpl implements MemberService {
     private MemberRepository memberRepo;
 
     @Override
-    public void insertMember(MemberData member) {
-        memberRepo.save(member);
+    public void insertMember(MemberData vo) {
+        memberRepo.save(vo);
     }
 
     @Override

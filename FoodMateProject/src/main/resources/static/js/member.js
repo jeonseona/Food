@@ -30,66 +30,68 @@ $(document).ready(function(){
 function go_save() {
     // 아이디가 비어있는 경우
     if ($("#id").val() == "") {
-        // 알림 표시
         alert("아이디를 입력해 주세요");
-        // 아이디 필드에 포커스 설정
         $("#id").focus();
-        // 폼 제출 중지
         return false;
     } 
-    // 아이디가 재입력한 값과 일치하지 않는 경우
+    // 아이디 중복 체크가 필요한 경우
     else if ($("#id").val() != $("#reid").val()) {
-        // 알림 표시
         alert("아이디 중복 체크를 해주세요.");
-        // 아이디 필드에 포커스 설정
         $("#id").focus();
-        // 폼 제출 중지
         return false;
     } 
     // 비밀번호가 비어있는 경우
-    else if ($("#pwd").val() == "") {
-        // 알림 표시
+    else if ($("#password").val() == "") {
         alert("비밀번호를 입력해 주세요.");
-        // 비밀번호 필드에 포커스 설정
-        $("#pwd").focus();
-        // 폼 제출 중지
+        $("#password").focus();
         return false;
     } 
     // 비밀번호가 확인용 비밀번호와 일치하지 않는 경우
-    else if ($("#pwd").val() != $("#pwdCheck").val()) {
-        // 알림 표시
+    else if ($("#password").val() != $("#password_confirm").val()) {
         alert("비밀번호가 일치하지 않습니다.");
-        // 비밀번호 필드에 포커스 설정
-        $("#pwd").focus();
-        // 폼 제출 중지
+        $("#password").focus();
         return false;
     } 
     // 이름이 비어있는 경우
     else if ($("#name").val() == "") {
-        // 알림 표시
         alert("이름을 입력해 주세요.");
-        // 폼 제출 중지
-        return false;
-    } 
-    // 닉네임이 비어있는 경우
-    else if ($("#nickname").val() == "") {
-        // 알림 표시
-        alert("닉네임을 입력해 주세요 ");
-        // 폼 제출 중지
         return false;
     } 
     // 이메일이 비어있는 경우
     else if ($("#email").val() == "") {
-        // 알림 표시
         alert("이메일을 입력해 주세요.");
-        // 폼 제출 중지
         return false;
     } 
     // 모든 필수 입력 항목이 채워진 경우
     else {
-        // 회원 가입 요청
         $("#join").attr("action", "join").submit();
     }
+}
+
+// id 중복체크
+function idcheck() {
+	if($("#id").val() == ""){
+		alert("아이디를 입력해 주세요!");
+		$("#id").focus();
+		return false;
+	}
+	// id 중복확인 창 오픈
+	var url = "id_check_form?id="+$("#id").val();
+	window.open(url, "_blank_", "toolbar=no, menubar=no, scrollbars=no, " +
+			"resizable=yes, width=500, height=400");
+}
+
+// email 중복체크
+function emailcheck() {
+	if($("#email").val() == ""){
+		alert("이메일을 입력해 주세요!");
+		$("#email").focus();
+		return false;
+	}
+	// id 중복확인 창 오픈
+	var url = "email_check_form?email="+$("#email").val();
+	window.open(url, "_blank_", "toolbar=no, menubar=no, scrollbars=no, " +
+			"resizable=yes, width=500, height=400");
 }
 
 // 로그인 폼의 유효성 검사
@@ -108,26 +110,6 @@ function validateLoginForm() {
     return true;
 }
 
-/*
-** id 중복확인 화면 출력요청
-*/
-// member.js
-
-function idcheck() {
-    // 아이디 필드를 찾아서 값을 확인합니다.
-    if ($("[name='id']").val() == "") {
-        // 알림 표시
-        alert("아이디를 입력해 주세요!");
-        // 아이디 필드에 포커스 설정
-        $("[name='id']").focus();
-        // 폼 제출 중지
-        return false;
-    }
-    // id 중복 확인 창 오픈
-    var url = "id_check_form?id="+$("[name='id']").val();
-    window.open(url, "_blank_", "toolbar=no, menubar=no, scrollbars=no, " +
-            "resizable=yes, width=350, height=200");
-}
 
 
 
