@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.demo.domain.MemberData;
 import com.demo.domain.foodRecipe;
@@ -22,7 +23,7 @@ import com.demo.service.CalculatorServiceImpl;
 import jakarta.servlet.http.HttpSession;
 
 
-
+@SessionAttributes("loginUser")
 @Controller
 public class CalculatorController {
 
@@ -98,6 +99,12 @@ public class CalculatorController {
         model.addAttribute("keywordList", keywordList);
         
         return "foodRecommend/SearchList";
+    }
+    
+    @GetMapping("/RecommendedFood")
+    public String showRecommendedFoodPage() {
+        // 해당 페이지의 뷰 이름을 반환합니다. 뷰 이름은 실제 프로젝트 구조에 따라 결정됩니다.
+        return "foodRecommend/RecommendedFood";
     }
 
 }

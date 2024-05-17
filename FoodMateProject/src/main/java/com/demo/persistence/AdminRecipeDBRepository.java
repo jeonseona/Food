@@ -18,6 +18,9 @@ public interface AdminRecipeDBRepository extends JpaRepository<foodRecipe, Long>
 	@Query(value = "SELECT * FROM food_recipe WHERE idx LIKE :searchWord ORDER BY idx DESC", nativeQuery = true)
 	List<foodRecipe> getRecipeDBListByIndex(String searchWord);
 	
+	@Query(value = "SELECT IMAGES FROM food_recipe WHERE IDX = :idx", nativeQuery = true)
+	String getImagesByIndex(int idx);
+	
 	@Query(value = "SELECT * FROM food_recipe WHERE idx = :searchWord", nativeQuery = true)
 	foodRecipe getRecipeDBByIndex(long searchWord);
 }

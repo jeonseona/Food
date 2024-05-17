@@ -14,6 +14,6 @@ import lombok.ToString;
 public class RecommendData {
 	private String idx;
     private String name;
+    private String calories;
     private String images;
-    private double calories;
 }
