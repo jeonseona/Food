@@ -48,10 +48,15 @@ public class MemberController {
         }
     } 
     
-    // 아이디 비밀번호찾기 화면
-    @GetMapping("/findIdAndPassword")
+ // 아이디찾기 화면
+    @GetMapping("/findId")
     public String findIdAndPasswordView() {
-        return "member/findIdAndPassword";
+        return "member/findId";
+    }
+    // 비밀번호 찾기 화면
+    @GetMapping("/findPassword")
+    public String findPassword() {
+       return "member/findPassword";
     }
   
  // 아이디 찾기 처리

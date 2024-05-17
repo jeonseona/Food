@@ -21,6 +21,20 @@ $(document).ready(function() {
     });
 });
 
+//글자수제한
+function truncateText(selector, maxLength) {
+    var elements = document.querySelectorAll(selector);
+    elements.forEach(function(element) {
+      var text = element.textContent;
+      if (text.length > maxLength) {
+        element.textContent = text.substring(0, maxLength) + '...';
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    truncateText('.truncate', 9); // 9 글자로 제한
+  });
 
         
  function go_view(seq) {
@@ -309,9 +323,18 @@ function go_list()
 
 // 그래프
 
-    google.charts.load('current', {packages: ['corechart'], language: 'ko'});
-    google.charts.setOnLoadCallback(drawChart);
-    google.charts.setOnLoadCallback(drawAnthonyChart);
+	$(document).ready(function() {
+		 if ($('#boardlistbody').length) {
+			 google.charts.load('current', {packages: ['corechart'], language: 'ko'});
+    		google.charts.setOnLoadCallback(drawChart);
+    		google.charts.setOnLoadCallback(drawAnthonyChart);
+    
+        drawChart();
+        drawAnthonyChart();
+    }
+	});
+
+    
 
     function drawChart() {
     $.ajax({
@@ -363,6 +386,7 @@ function go_list()
                     }
                 }
             };
+
 
             // 차트 그리기
             var barchart = new google.visualization.ColumnChart(document.getElementById('visitChart'));
@@ -433,5 +457,6 @@ function go_list()
             console.error('Error fetching chart data', err);
         }
     });
+    
 }
       

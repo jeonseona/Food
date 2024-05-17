@@ -11,30 +11,28 @@
 <script type="text/javascript" th:src="@{js/Board.js}"></script>
 </head>
 <body id="replyjs">
-	<article>
-		<h1>유저 레시피 상세페이지</h1>
-		<form name="frm" method="post">
-			<input type="hidden" name="seq" id="seq"
-				th:value="${Com_Board_DetailVO.seq}">
-			<table id="Board_deatail_List">
-				<tr>
-					<td><img
-						th:src="${Com_Board_DetailVO.com_recipe.att_file_no_mk}"
-						style="width: 400px; height: 300px;" /></td>
-					<td><a onclick="copyboard()"> <span
-							class="material-symbols-outlined">share</span>공유하기
-					</a> <th:block
-							th:if="${session.goodPointStatusMap != null and session.goodPointStatusMap[Com_Board_DetailVO.seq] == 'on'}">
-							<a style="color: red"
-								th:attr="data-seq=${Com_Board_DetailVO.seq}"
-								onclick="goodpoint_plus(this)"><span
-								class="material-symbols-outlined" id="symbol_red">
-									recommend</span>추천해제</a>
-						</th:block> <th:block
-							th:if="${session.goodPointStatusMap == null or session.goodPointStatusMap[Com_Board_DetailVO.seq] != 'on'}">
-							<a th:attr="data-seq=${Com_Board_DetailVO.seq}"
-								onclick="goodpoint_plus(this)"><span
-								class="material-symbols-outlined"> recommend</span>추천하기</a></td>
+    <article>
+        <h3>유저 레시피 상세페이지</h3>
+        <form name="frm" method="post">
+            <input type="hidden" name="seq" id="seq" th:value="${Com_Board_DetailVO.seq}">
+            <table id="Board_deatail_List">
+                <tr>
+                    <td>
+                        <img th:src="${Com_Board_DetailVO.com_recipe.att_file_no_mk}" style="width: 400px; height: 300px;" />
+                    </td>
+                    <td>
+                        <a class="icon-text" onclick="copyboard()">
+                            <i class="fa fa-share"></i> 공유하기
+                        </a>
+                        <th:block th:if="${session.goodPointStatusMap != null and session.goodPointStatusMap[Com_Board_DetailVO.seq] == 'on'}">
+                            <a style="color: red;" th:attr="data-seq=${Com_Board_DetailVO.seq}" onclick="goodpoint_plus(this)" class="icon-text">
+                                <i class="fa fa-thumbs-up"></i> 추천해제
+                            </a>
+                        </th:block>
+                        <th:block th:if="${session.goodPointStatusMap == null or session.goodPointStatusMap[Com_Board_DetailVO.seq] != 'on'}">
+                            <a th:attr="data-seq=${Com_Board_DetailVO.seq}" onclick="goodpoint_plus(this)" class="icon-text">
+                                <i class="fa fa-thumbs-up"></i> 추천하기
+                            </a>
 					</th:block>
 				</tr>
 				<tr>
@@ -129,6 +127,8 @@
 				</tr>
 			</table>
 		</form>
+		<h3> 비슷하지만 다른 레시피 (네이버 Blog Api 이용) </h3>
+			<div id="similar-recipes"></div>
 		<h3>Comment</h3>
 		<form name="replyfrm" method="get">
 			<input type="hidden" name="seq" id="seq"
@@ -166,7 +166,6 @@
 					</tr>
 				</th:block>
 			</table>
-
 		</form>
 		<form name="buttonfrm" method="get">
 			<input type="hidden" name="seq" id="seq"
@@ -181,4 +180,31 @@
 	</article>
 </body>
 <th:block th:insert="~{includes/footer.html}"></th:block>
+<script>
+if (typeof jQuery === 'undefined') {
+    console.log('jQuery is not loaded');
+} else {
+    console.log('jQuery is loaded');
+}
+
+$(document).ready(function() {
+    console.log('Document is ready');
+
+    var recipeName = "[[${Com_Board_DetailVO.com_recipe.rcp_nm}]]";
+    console.log("Sending AJAX request for recipe:", recipeName);
+
+    $.ajax({
+        url: '/blogsearch',
+        method: 'GET',
+        data: { text: recipeName },
+        success: function(data) {
+            console.log("Received data:", data);
+            $('#similar-recipes').html(data);
+        },
+        error: function(error) {
+            console.log('Error:', error);
+        }
+    });
+});
+</script>
 </html>

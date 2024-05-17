@@ -4,12 +4,6 @@
 @import url("https://hangeul.pstatic.net/hangeul_static/css/nanum-gothic.css");
 	
 
-/*
-	Full Motion by TEMPLATED
-	templated.co @templatedco
-	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
-*/
-
 /* Reset */
 
 	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
@@ -513,12 +507,6 @@
 	}
 
 /* Box */
-	.box {
-		border-radius: 4px;
-		margin-bottom: 2em;
-		background:#d7e3dd;
-		text-align: center;
-	}
 
 		.box > :last-child,
 		.box > :last-child > :last-child,
@@ -1416,6 +1404,17 @@
 }
 /* 댓글아이콘*/
 .material-symbols-outlined {
+	color:#81c17b;
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 50
+}
+
+.material-symbols-outlined:hover {
+	color:#000000;
+
   font-variation-settings:
   'FILL' 0,
   'wght' 400,
@@ -1501,6 +1500,13 @@
 
 /* Box */
 
+.box {
+	border-radius: 4px;
+	margin-bottom: 2em;
+	background: #d5deda;
+	text-align: center;
+}
+
 	.thumbnails {
 		display: -moz-flex;
 		display: -webkit-flex;
@@ -1529,6 +1535,7 @@
         	padding: 10px 10px;
         	margin-right: 20px;
         	text-align: center;
+			box-shadow: 2px 2px 2px 1px rgba(128, 128, 128, 0.1);
 		}
 		
 				.thumbnails .menubox {
@@ -1540,7 +1547,7 @@
         	padding: 10px 10px;
         	margin-right: 20px;
         	text-align: center;
-        	background-color: #b6dbc4;
+        	background-color: #c1d6c9;
 		}
 		
 				.thumbnails .menubox_chart {
@@ -1599,3 +1606,24 @@
 			width:150px;
 			margin-right: 20px;
 }
+
+
+/* 공유/추천 아이콘 */
+.icon-text {
+    font-size: 20px; /* 텍스트 크기 조정 */
+    color: #333; /* 아이콘 및 텍스트 색상 */
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px; /* 아이콘과 텍스트 사이 간격 */
+}
+
+.icon-text i {
+    font-size: 28px; /* 아이콘 크기 조정 */
+    color: #81c17b; /* 아이콘 색상 */
+}
+
+.icon-text:hover i {
+    color: #000000; /* 호버 시 아이콘 색상 */
+}
+

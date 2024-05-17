@@ -26,4 +26,6 @@ public interface CustomerServiceRepository extends JpaRepository<askBoard, Long>
 
     @Query("SELECT a FROM askBoard a ORDER BY a.regdate")
     List<askBoard> getInquiryList();
+    
+    
 }

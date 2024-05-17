@@ -121,7 +121,7 @@ public class MypageController {
 			// 로그인한 회원 바디데이터 수정
 			memberService.changeBodyData(vo);
 			
-			return "member/mypageMain";
+			return "mypage/mypageMain";
 		}
 	}
 	

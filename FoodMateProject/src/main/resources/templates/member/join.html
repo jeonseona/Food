@@ -1,62 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" th:href="@{/css/member.css}">
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script th:src="@{/js/member.js}" defer></script>
 <title>Join</title>
 </head>
-<script type="text/javascript">
-function idcheck(){
-	const id = document.querySelector('.id_input').value.trim();
-	const url = `id_check_form?id=${id}`;
-	
-	window.open(url, '_blank', 'width=600,height=400');
-}
-
-function emailcheck() {
-	const email = document.querySelector('.email').value.trim();
-	const url = `email_check_form?email=${email}`;
-	
-	window.open(url, '_blank', 'width=600,height=400');
-}
-</script>
 <body>
-<!-- 헤더 -->
-<th:block th:insert="~{includes/header}"></th:block>
+	<!-- 헤더 -->
+	<th:block th:insert="~{includes/header}"></th:block>
 
-	<div id="join">
-		<form method="post" action="join">
-		    <table>
-		    
-		    <tr>
-		        <td><h2>회원가입</h2></td>
-		    </tr>
-		    <tr><td>아이디</td></tr>
-		    <tr><td>
-		    <input type="text" class="text id_input" name="id" check_result="fail" required />
-		    <button type="button" class="id_overlap_button" onclick="idcheck()">id 중복확인</button>
-		    <img id="id_check_sucess" style="display: none;">
-		</td></tr>
-		    <tr><td>비밀번호</td></tr>
-		    <tr><td><input type="password" class="text" placeholder="비밀번호를 입력하세요">
-		    </td></tr>
-		    <tr><td>비밀번호 확인</td></tr>
-		    <tr><td><input type="password" name="password" class="text" ></td></tr>
-		    <tr><td>이름</td></tr>
-		    <tr><td><input type="text" class="text"></td></tr>
-		    <tr><td>이메일</td></tr>
-		    <tr>
-		        <td>
-		        	<input type="text" class="email" name="email"> 
-		   			<input type="button" onclick="emailcheck()" value="중복확인">
-		        </td>
-		    </tr>
-		    <tr><td><input type="submit" value="가입하기" class="btn" onclick="alert('가입 성공!')"></td></tr>
-		    </table>
+	<div id="join-container">
+		<form method="post" action="join" id="join" name="formm">
+			<h2>회원가입</h2>
+			<input type="text" id="id" class="text id_input" name="id" th:value="${id}" placeholder="ID">
+			<input type="hidden" name="reid" id="reid" th:value="${reid}">
+			<input type="button" onclick="idcheck()" value="id 중복확인">
+			<input type="password" id="password" class="text" name="password" placeholder="비밀번호를 입력하세요">
+			<input type="password" name="password_confirm" id="password_confirm" class="text" placeholder="Password">
+			<input type="text" name="name" id="name" class="text" placeholder="Name">
+			<input type="text" id="email" class="email" name="email" th:value="${email}" placeholder="Email">
+			<input type="hidden" name="reemail" id="reemail" th:value="${reemail}">
+			<input type="button" class="email_check" onclick="emailcheck()" value="중복확인">
+			<input type="button" value="가입하기" onclick="go_save()">
 		</form>
 	</div>
 
-<!-- 푸터 -->
-<th:block th:insert="~{includes/footer}"></th:block>
+	<!-- 푸터 -->
+	<th:block th:insert="~{includes/footer}"></th:block>
 </body>

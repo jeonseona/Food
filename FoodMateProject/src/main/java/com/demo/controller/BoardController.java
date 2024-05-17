@@ -2,6 +2,7 @@ package com.demo.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -16,6 +17,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,13 +27,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.demo.domain.Com_Board_Detail;
 import com.demo.domain.MemberData;
 import com.demo.domain.Reply;
+import com.demo.dto.BlogFood;
 import com.demo.dto.Com_Recipe;
+import com.demo.dto.NaverBlogApi;
 import com.demo.service.Com_Board_DetailService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 import jakarta.persistence.EntityManager;
@@ -596,6 +606,52 @@ public class BoardController {
 		    }
 		    return response;
 		}
-
 		
-}
+		
+		//네이버 blog controller
+		@Value("${naver.client.id}")
+	    private String clientId;
+
+	    @Value("${naver.client.secret}")
+	    private String clientSecret;
+
+	    @GetMapping("/blogsearch")
+	    public String list(@RequestParam("text") String text, Model model) {
+	        URI uri = UriComponentsBuilder
+	            .fromUriString("https://openapi.naver.com")
+	            .path("/v1/search/blog.json")
+	            .queryParam("query", text)
+	            .queryParam("display", 10)
+	            .queryParam("start", 1)
+	            .queryParam("sort", "sim")
+	            .encode()
+	            .build()
+	            .toUri();
+
+	        RequestEntity<Void> req = RequestEntity
+	            .get(uri)
+	            .header("X-Naver-Client-Id", clientId)
+	            .header("X-Naver-Client-Secret", clientSecret)
+	            .build();
+
+	        RestTemplate restTemplate = new RestTemplate();
+	        ResponseEntity<String> resp = restTemplate.exchange(req, String.class);
+
+	        ObjectMapper om = new ObjectMapper();
+	        NaverBlogApi resultVO = null;
+
+	        try {
+	            resultVO = om.readValue(resp.getBody(), NaverBlogApi.class);
+	        } catch (JsonMappingException e) {
+	            e.printStackTrace();
+	        } catch (JsonProcessingException e) {
+	            e.printStackTrace();
+	        }
+
+	        List<BlogFood> food = resultVO.getItems();
+	        model.addAttribute("foods", food);
+	        model.addAttribute("text", text);
+
+	        return "comboard/NBlogResult :: #similar-recipes";
+	    }
+	}

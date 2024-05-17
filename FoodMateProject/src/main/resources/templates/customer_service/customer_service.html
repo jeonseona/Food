@@ -1,143 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <th:block th:insert="~{includes/header.html}"></th:block>
-    <title>고객센터</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f6f7f9;
-        }
-        .container1 {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px; /* border-radius 값 증가 */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        h1 {
-            color: #333;
-            text-align: center;
-        }
-        .logo {
-            display: inline-block;
-            border-radius: 50%;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            margin-bottom: 20px;
-        }
-        .link {
-            display: inline-block;
-            text-align: center;
-            margin-top: 20px;
-            padding: 20px 40px; /* 크기 조절 */
-            background-color: #fff; /* 배경색 흰색으로 설정 */
-            color: #007bff;
-            text-decoration: none;
-            border-radius: 20px;
-            transition: box-shadow 0.3s ease;
-            border: 2px solid #007bff; /* 테두리 추가 */
-        }
-        .link:hover {
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            background-color: #0056b3; /* 호버 시 링크의 배경색 변경 */
-        }
-        .link + .link {
-            margin-left: 20px;
-        }
-        /* 새로운 버튼 스타일 */
-        .small-button {
-            padding: 5px 10px;
-            background-color: #28a745; /* 다른 색으로 설정 */
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-            border: 2px solid #ff4500; /* 테두리 색상 변경 */
-            font-size: 10px; /* 작은 크기로 조절 */
-            position: absolute; /* 위치 설정을 위해 절대 위치 지정 */
-            bottom: 10px; /* 아래에서 10px 간격 */
-            right: 10px; /* 오른쪽에서 10px 간격 */
-        }
-        .small-button:hover {
-            background-color: #218838; /* 호버 시 다른 색으로 변경 */
-        }
-        /* 입력창 스타일 */
-        #chat-input {
-            width: 80%;
-            padding: 10px;
-            margin: 20px auto;
-            display: block;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        #chat-output {
-            width: 80%;
-            margin: 20px auto;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            text-align: left;
-            min-height: 100px;
-            overflow-y: auto; /* 내용이 넘칠 때 스크롤바 표시 */
-            max-height: 300px; /* 스크롤바 최대 높이 설정 */
-        }
-        
-        /* 아이콘 색상 클래스 */
-        .blue-icon {
-            color: #007bff; /* 파란색 */
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<th:block th:insert="~{includes/header.html}"></th:block>
+<title>고객센터</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f6f7f9;
+    color: #666; /* 모든 텍스트의 색상을 #666으로 설정 */
+}
 
-        .red-icon {
-            color: #dc3545; /* 빨간색 */
-        }
+/* 다른 요소들의 스타일 유지 */
 
-        .green-icon {
-            color: #28a745; /* 초록색 */
-        }
-        
-        
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+.container1 {
+    max-width: 1000px; /* 가로 길이를 줄임 */
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    height: 600px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* 가로, 세로 중앙 정렬 */
+    position: relative; /* 챗봇 아이콘 위치 조정을 위해 상대 위치 설정 */
+}
+
+h1 {
+	color: #333;
+	text-align: center;
+	margin-top: 100px;
+}
+
+.link {
+    position: relative; /* 상대 위치 설정 */
+    display: inline-block;
+    text-align: center;
+    margin-top: 200px;
+    padding: 15px 30px;
+    background-color: #fff;
+    color: #666;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: box-shadow 0.3s ease;
+    border: 2px solid #666;
+    align-items: center;
+}
+
+.link i {
+    position: absolute;
+    top: -100px; /* 링크 위에 위치하도록 조정 */
+    left: 50%; /* 링크 가운데 정렬 */
+    transform: translateX(-50%); /* 가운데 정렬을 위한 변환 */
+    font-size: 80px; /* 아이콘 크기 조정 */
+}
+
+.link:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    background-color: #28a745;
+}
+
+.link+.link {
+	margin-left: 20px;
+}
+
+/* 챗봇 아이콘 스타일 */
+#chatbot-icon,
+#calorie-icon {
+    position: fixed;
+    bottom: 30px;
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+#chatbot-icon {
+    left: 10px;
+}
+
+#calorie-icon {
+    left: 110px; /* 챗봇 아이콘 오른쪽에 위치 */
+}
+
+#chatbot-popup,
+#calorie-popup {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed;
+    bottom: 80px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+#chatbot-popup {
+    left: 30px;
+    width: 300px;
+    max-height: 400px;
+}
+
+#calorie-popup {
+    left: 110px;
+    width: 300px;
+    max-height: 300px;
+}
+
+/* 입력창 스타일 */
+#chat-input,
+#calorie-input {
+	width: 90%;
+	padding: 10px;
+	margin: 10px auto;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+}
+
+#chat-output,
+#calorie-output {
+	width: 90%;
+	margin: 10px auto;
+	padding: 10px;
+	background-color: #f9f9f9;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	text-align: left;
+	min-height: 100px;
+	overflow-y: auto; /* 내용이 넘칠 때 스크롤바 표시 */
+	max-height: 200px; /* 스크롤바 최대 높이 설정 */
+}
+
+/* 아이콘 색상 클래스 */
+.blue-icon {
+	color: #28a745; 
+}
+
+.red-icon {
+	color: #28a745; 
+}
+
+.green-icon {
+	color: #28a745; /* 초록색 */
+}
+</style>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
-    <div class="container1">
-    <a href="/">
-        <img class="logo" src="/images/KakaoTalk_20240514_110313095.png" alt="Food Logo">
-	</a>
-        <h1>고객센터</h1>
+	<div class="container1">
+		<h1>고객센터</h1>
 
-        <!-- QnA 링크 -->
-        <a class="link" href="/qna/all">
-        <i class="fas fa-question-circle blue-icon"></i> Q&A</a>
+		<!-- QnA 링크 -->
+		<a class="link" href="/qna/all"> <i class="fas fa-question-circle blue-icon"></i> Q&A</a>
 
-        <!-- 1:1 문의 링크 -->
-        <a class="link" href="/inquiry/inquiryForm">
-        <i class="fas fa-comments red-icon"></i> 1:1 문의 작성</a>
+		<!-- 1:1 문의 링크 -->
+		<a class="link" href="/inquiry/inquiryForm"> <i class="fas fa-comments red-icon"></i> 1:1 문의 작성</a>
 
-        <!-- 1:1 문의 내역 링크 -->
-        <a class="link" href="/inquiry/inquiryList">
-        <i class="fas fa-list green-icon"></i> 1:1 문의 내역</a>
-    </div>
-    
-    <!-- FOOD MATE 소개 버튼 -->
-    <a class="small-button" href="/customer_service/introduce">FOOD MATE 소개</a>
+		<!-- 1:1 문의 내역 링크 -->
+		<a class="link" href="/inquiry/inquiryList"> <i class="fas fa-list green-icon"></i> 1:1 문의 내역</a>
 
-    <!-- 입력창 및 대화 출력 -->
-    <input type="text" id="chat-input" placeholder="챗봇과 대화해 보세요...">
-    <div id="chat-output"></div>
+		<!-- 챗봇 아이콘 -->
+		<div id="chatbot-icon" onclick="toggleChatbotPopup()">
+			<i class="fas fa-robot"></i>
+		</div>
+		
+		<!-- 칼로리 계산기 아이콘 -->
+		<div id="calorie-icon" onclick="toggleCaloriePopup()">
+			<i class="fas fa-calculator"></i>
+		</div>
 
-    <!-- 챗봇 스크립트 -->
-    <script>
+		<!-- 챗봇 팝업 -->
+		<div id="chatbot-popup">
+			<!-- 입력창 및 대화 출력 -->
+			<div id="chat-output"></div>
+			<input type="text" id="chat-input" placeholder="챗봇과 대화해 보세요...">
+		</div>
+		
+		<!-- 칼로리 계산기 팝업 -->
+		<div id="calorie-popup">
+			<h3>칼로리 계산기</h3>
+			<!-- 칼로리 계산기 내용 -->
+			<div id="calorie-output"></div>
+			<input type="text" id="calorie-input" placeholder="음식명을 입력하세요...">
+		</div>
+	</div>
+
+	<!-- 챗봇 및 칼로리 계산기 스크립트 -->
+	<script>
+        function toggleChatbotPopup() {
+            var popup = document.getElementById("chatbot-popup");
+            if (popup.style.display === "none" || popup.style.display === "") {
+                popup.style.display = "flex";
+            } else {
+                popup.style.display = "none";
+            }
+        }
+
+        function toggleCaloriePopup() {
+            var popup = document.getElementById("calorie-popup");
+            if (popup.style.display === "none" || popup.style.display === "") {
+                popup.style.display = "flex";
+            } else {
+                popup.style.display = "none";
+            }
+        }
+
         document.getElementById("chat-input").addEventListener("keypress", function(event) {
             if (event.key === "Enter") {
                 var input = document.getElementById("chat-input").value;
@@ -175,6 +255,43 @@
             }
             document.getElementById("chat-output").innerHTML += `
             <p><i class="fas fa-robot"></i><strong>챗봇:</strong> ${output}</p>
+        `;
+        }
+
+        document.getElementById("calorie-input").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                var input = document.getElementById("calorie-input").value;
+                document.getElementById("calorie-output").innerHTML += `
+                    <p><i class="fas fa-utensils"></i><strong>음식명:</strong> ${input}</p>
+                `;
+                document.getElementById("calorie-input").value = "";
+                // 칼로리 계산 로직을 추가하세요
+                calculateCalories(input);
+            }
+        });
+
+        function calculateCalories(input) {
+            var output;
+            // 음식명에 따른 칼로리를 계산하여 출력합니다.
+            // 실제 데이터베이스나 API와 연동하여 칼로리를 계산하는 로직을 구현해야 합니다.
+            // 여기서는 예시로 간단한 응답을 작성합니다.
+            if (input.includes("사과")) {
+                output = "사과 1개의 칼로리는 약 95kcal입니다.";
+            } else if (input.includes("바나나")) {
+                output = "바나나 1개의 칼로리는 약 105kcal입니다.";
+            } else if (input.includes("치킨")) {
+                output = "치킨 한 조각의 칼로리는 약 250kcal입니다.";
+            } else {
+                // 기본적으로는 랜덤한 대답을 생성합니다.
+                var responses = [
+                    "죄송합니다. 해당 음식의 칼로리 정보를 찾을 수 없습니다.",
+                    "해당 음식에 대한 칼로리 정보가 없습니다. 다른 음식을 입력해 주세요.",
+                    "정확한 칼로리 정보를 제공할 수 없습니다. 다른 음식을 입력해 주세요."
+                ];
+                output = responses[Math.floor(Math.random() * responses.length)];
+            }
+            document.getElementById("calorie-output").innerHTML += `
+            <p><i class="fas fa-robot"></i><strong>칼로리 계산기:</strong> ${output}</p>
         `;
         }
     </script>
