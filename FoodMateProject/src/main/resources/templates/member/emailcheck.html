@@ -30,7 +30,7 @@ form {
 	text-align: center;
 }
 
-input[type="text"] {
+input[type="email"] {
 	width: 80%;
 	padding: 8px;
 	margin: 10px 0;
@@ -59,12 +59,8 @@ input[type="button"]:hover {
 	color: #ff0000;
 }
 </style>
-<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-<script type="text/javascript" th:inline="javascript"
-	th:src="@{js/member.js}">
-</script>
-<script type="text/javascript">
-    function emailOk() {
+<script type="text/javascript" th:inline="javascript">
+    function emailok() {
     	var email = [[${email}]];
     	opener.formm.email.value = email; 
    	  	opener.formm.reemail.value = email;
@@ -75,21 +71,19 @@ input[type="button"]:hover {
 <body>
 	<div id="wrap">
 		<h1>이메일 중복확인</h1>
-		<form method="get" name="formm" id="theform" style="margin-right: 0"
-			action="email_check_form">
-			Email <input type="email" name="email" th:value="${email}"> <input
-				type="submit" value="검색" class="submit">
+		<form method="get" name="formm" id="theform" style="margin-right: 0">
+			Email <input type="email" name="email" th:value="${email}">
+				  <input type="submit" value="검색" class="submit">
 			<div style="margin-top: 20px">
 				<th:block th:if="${message == 1}">
 					<script type="text/javascript">
-          opener.document.formm.email.value = "";
-        </script>
-        [[${email}]]은(는) 이미 사용중인 이메일입니다.
-      </th:block>
+          				opener.document.formm.email.value = "";
+        			</script>
+        			[[${email}]]은(는) 이미 사용중인 이메일입니다.
+      			</th:block>
 				<th:block th:if="${message == -1}">
-        [[${email}]]은(는) 사용 가능한 이메일입니다.
-        <input type="button" value="사용" class="cancel"
-						onclick="emailOk()">
+        			[[${email}]]은(는) 사용 가능한 이메일입니다.
+        			<input type="button" value="사용" class="cancel" onclick="emailok()">
 				</th:block>
 			</div>
 		</form>

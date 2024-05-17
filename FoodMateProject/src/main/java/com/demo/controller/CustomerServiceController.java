@@ -34,9 +34,18 @@ public class CustomerServiceController {
     
     // 1:1 문의 등록 폼 보여주기
     @GetMapping("/inquiry/inquiryForm")
-    public String showInquiryForm(Model model) {
-//        model.addAttribute("loginUser", new askBoard());
-        return "inquiry/inquiryForm";
+    public String showInquiryForm(@ModelAttribute("loginUser") MemberData loginUser, Model model) {
+    	MemberData member = loginUser;
+    	
+    	if(member == null) {
+    		return "redirect:/login";
+    	} else {
+    		model.addAttribute("loginUser", member);
+    		
+    		return "inquiry/inquiryForm";
+    	}
+    	
+        
     }
 
     // 1:1 문의 저장
@@ -45,6 +54,9 @@ public class CustomerServiceController {
         // 현재 사용자의 이름 가져오기
         MemberData member = loginUser;
         
+        if(member == null) {
+        	return "redirect:/login";
+        } else {
         // 사용자 정보를 이용하여 작업 수행
         askBoard inquiry = new askBoard();
         inquiry.setName(member.getName());
@@ -54,7 +66,7 @@ public class CustomerServiceController {
         customerService.addInquiry(inquiry);
         
         return "redirect:/inquiry/inquiryList";
-        
+        }
         
     }
 
