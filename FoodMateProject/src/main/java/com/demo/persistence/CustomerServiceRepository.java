@@ -12,7 +12,9 @@ import com.demo.domain.askBoard;
 @Repository 
 public interface CustomerServiceRepository extends JpaRepository<askBoard, Long> {
 
-	 // Named 쿼리 사용 예시
+	
+
+    // Named 쿼리 사용 예시
     @Query(value="SELECT * FROM ask_board WHERE subject = :subject", nativeQuery = true)
     List<askBoard> findBySubjectNamedQuery(@Param("subject") String subject);
     
@@ -25,7 +27,5 @@ public interface CustomerServiceRepository extends JpaRepository<askBoard, Long>
     @Query("SELECT a FROM askBoard a ORDER BY a.regdate")
     List<askBoard> getInquiryList();
     
-    // 마이페이지용(내 질문)
-    @Query("SELECT ask FROM askBoard ask JOIN ask.member m WHERE m.id =:id")
-    public List<askBoard> myInquiryList(@Param("id") String id);
+    
 }

@@ -104,10 +104,79 @@ function my_bmi() {
 	}
 }
 
+// 체중변화 입력값 받기
+function weight_record() {
+    if ($("#re_date").val() === "") {
+        alert("날짜를 제대로 입력해 주세요.");
+        $("#re_date").focus();
+        return false;
+    } else if ($("#re_weight").val() === "") {
+        alert("몸무게를 제대로 입력해 주세요.");
+        $("#re_weight").focus();
+        return false;
+    } else {
+        // 폼 데이터를 직렬화하여 전송
+        $.post("/weight_record", $("#weight_chart").serialize())
+            .done(function(response) {
+                alert("저장 성공!!");
+                // 그래프 업데이트
+                updateCharts();
+            })
+            .fail(function() {
+                alert("저장 실패. 다시 시도해 주세요.");
+            });
+    }
+}
 
+// 차트 그리기
+$(document).ready(function() {
+    if ($('#weeklyChart').length) {
+        google.charts.load('current', {packages: ['corechart'], language: 'ko'});
+        google.charts.setOnLoadCallback(function() {
+            $.ajax({
+                url: '/getRecordChart',
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json'
+                },
+                success: function(response) {
+                    if (response.redirect) {
+                        window.location.href = response.redirect;
+                        return;
+                    }
 
+                    var weeklyData = JSON.parse(response.split('<br>')[0]);
+                    var monthlyData = JSON.parse(response.split('<br>')[1]);
 
+                    drawWeightChart(weeklyData, '주간 체중 기록', '주', '체중', 'weeklyChart');
+                    drawWeightChart(monthlyData, '월간 체중 기록', '월', '체중', 'monthlyChart');
+                },
+                error: function(err) {
+                    console.error('Error fetching chart data', err);
+                }
+            });
+        });
+    }
+});
 
+function drawWeightChart(data, title, xAxisLabel, yAxisLabel, chartElementId) {
+    var chartData = new google.visualization.DataTable();
+    chartData.addColumn('date', xAxisLabel);
+    chartData.addColumn('number', yAxisLabel);
+
+    data.forEach(function(record) {
+        chartData.addRow([new Date(record.re_date), record.re_weight]);
+    });
+
+    var options = {
+        title: title,
+        curveType: 'function',
+        legend: { position: 'bottom' }
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById(chartElementId));
+    chart.draw(chartData, options);
+}
 
 
 $(document).ready(function() {

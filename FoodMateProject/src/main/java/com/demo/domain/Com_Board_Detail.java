@@ -31,29 +31,32 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@DynamicInsert
+@DynamicInsert 
 @DynamicUpdate
 public class Com_Board_Detail {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "boardseq")
-	@SequenceGenerator(name = "boardseq", sequenceName = "boardseq", allocationSize = 1)
-	private int seq; // 게시글번호
+			@Id
+			@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "boardseq")
+		    @SequenceGenerator(name = "boardseq", sequenceName = "boardseq", allocationSize = 1)
+			private int seq; //게시글번호
+			
+			@OneToOne(cascade = CascadeType.REMOVE)
+		    @JoinColumn(name="idx", nullable=false)
+		    private Com_Recipe com_recipe; //레시피번호
+		    
+		    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})// save, update만 가능 (del불가)
+		    @JoinColumn(name="no_data", nullable=false)
+		    private MemberData member_data; //회원아이디
+		    
+		    @Temporal(value=TemporalType.TIMESTAMP)
+		    @ColumnDefault("sysdate")
+		    private Date d_regdate; //작성일자 
+		    
+		    private int cnt; //조회수
+		    
+		    private int goodpoint; // 추천수
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idx", nullable = false)
-	private Com_Recipe com_recipe; // 레시피번호
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "no_data", nullable = false)
-	private MemberData member_data; // 회원아이디
 
-	@Temporal(value = TemporalType.TIMESTAMP)
-	@ColumnDefault("sysdate")
-	private Date d_regdate; // 작성일자
-
-	private int cnt; // 조회수
-
-	private int goodpoint; // 추천수
 
 }

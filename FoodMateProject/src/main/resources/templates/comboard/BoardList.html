@@ -13,8 +13,8 @@
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script type="text/javascript" th:src="@{js/Board.js}"></script>
 </head>
-<body>
 <th:block th:insert="~{includes/header.html}"></th:block>
+<body id="boardlistbody">
 	<article>
 		<section id="banner" data-video="images/banner">
 			<div class="inner">
@@ -28,6 +28,7 @@
 				</header>
 			</div>
 		</section>
+		<th:block th:insert="~{comboard/menu}"></th:block>
 		<div id="main">
 		<div class="inner">
 		<a href="#" id="toggleButton" class="material-symbols-outlined">top_panel_close</a> 접기
@@ -43,28 +44,12 @@
 						class="material-symbols-outlined">search</span></a>
 				</form>
 				<form id="writeForm" method="get" action="/board_write">
-					<button type="submit" class="btn">글쓰기</button>
+					<button type="submit" class="btn" id="colorbtn">글쓰기</button>
 				</form>
 			</div>
 			<br>
+			<h3>인기순위</h3>
 			<div class="thumbnails">
-				<div class="menubox">
-					<h3>카테고리로 보기</h3>
-					<a href="#" data-category="반찬" onclick="keyClick(event)"
-						th:text="'반찬'"></a> <a href="#" data-category="국&찌개"
-						onclick="keyClick(event)" th:text="'국&찌개'"></a> <a href="#"
-						data-category="후식" onclick="keyClick(event)" th:text="'후식'"></a> <a
-						href="#" data-category="일품" onclick="keyClick(event)"
-						th:text="'일품'"></a> <br>
-				</div>
-				<div class="menubox">
-					<h3>인기순 보기</h3>
-					<a href="#" data-category="cnt_sort" onclick="keyClick(event)"
-						th:text="'조회수순'"></a> <a href="#" data-category="goodpoint_sort"
-						onclick="keyClick(event)" th:text="'추천수순'"></a> <a href="#"
-						data-category="date_sort" onclick="keyClick(event)"
-						th:text="'최신순'"></a>
-				</div>
 				<div class="menubox_chart">
 					<div id="visitChart"></div>
 				</div>
@@ -83,7 +68,9 @@
 								th:src="@{${com_boardVO.com_recipe.att_file_no_mk}}"
 								style="width: 100%; height: 180px;" /></a>
 							<div class="inner">
-								<h3>[[${com_boardVO.com_recipe.rcp_nm}]]</h3>
+								<span th:if="${top3Cnt != null and #lists.contains(top3Cnt, com_boardVO) or top3Goodpoint != null and #lists.contains(top3Goodpoint, com_boardVO)}" class="material-symbols-outlined"
+								style="color:red" th:text="Best"></span>
+								<h3 th:text="${com_boardVO.com_recipe.rcp_nm}" class="truncate">[[${com_boardVO.com_recipe.rcp_nm}]]</h3>
 								<p>작성자 : [[${com_boardVO.member_data.id}]]</p>
 								<p>조회수 : [[${com_boardVO.cnt}]]</p>
 								<p>추천수 : [[${com_boardVO.goodpoint}]]</p>
@@ -99,6 +86,6 @@
 		</div>
 		</div>
 	</article>
-<th:block th:insert="~{includes/footer.html}"></th:block>
 </body>
+<th:block th:insert="~{includes/footer.html}"></th:block>
 </html>

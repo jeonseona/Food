@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>My Weight Chart</title>
+<link rel="stylesheet" th:href="@{/css/mypage.css}">
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script th:src="@{/js/mypage.js}" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // input 요소 참조
+    var weightInput = document.getElementById('re_weight');
+    // kg를 표시할 span 요소 참조
+    var kgSpan = document.getElementById('kg');
+
+    // input 값이 변경될 때마다 이벤트 처리
+    weightInput.addEventListener('input', function() {
+        // input 요소의 값 뒤에 'kg' 추가하여 span 요소에 표시
+        kgSpan.textContent = 'kg';
+    });
+</script>
+</head>
+<body>
+	<!-- 헤더 -->
+	<th:block th:insert="~{includes/header}"></th:block>
+
+	<!-- 메뉴 -->
+	<th:block th:insert="~{mypage/menu}"></th:block>
+
+	<div class="container1">
+		<!-- 내 체중 변화 그래프 -->
+		<section id="weightChart">
+			<div id="content">
+				<div class="record">
+					<section class="left-panel">
+						<h3>체중 입력</h3>
+						<form id="weight_chart" method="post" name="formm"
+							action="weight_record">
+							<fieldset>
+								<label for="re_date">날짜 : </label>
+								<input type="date" id="re_date" name="re_date" required><br>
+								<label for="re_weight">체중 : </label>
+								<input type="number" id="re_weight" name="re_weight" required>
+								<span id="kg">kg</span><br>
+								<input type="button" value="입력" onclick="weight_record()" class="btn">
+							</fieldset>
+						</form>
+					</section>
+					<section class="right-panel">
+						<h3>체중 변화 그래프</h3>
+						<fieldset>
+							<div class="wr_chart">
+								<div id="weeklyChart"></div>
+								<p>설명: 여기는 위에 체중 입력으로 데이터를 저장했을 때 그 데이터 값을 가져와서 일주일간의 변화를 보는
+									차트</p>
+							</div>
+							<div class="wr_chart">
+								<div id="monthlyChart"></div>
+								<p>설명: 여기는 위에 체중 입력으로 데이터를 저장했을 때 그 데이터 값을 가져와서 한달간의 변화를 보는
+									차트</p>
+							</div>
+						</fieldset>
+					</section>
+				</div>
+			</div>
+		</section>
+	</div>
+
+	<!-- 푸터 -->
+	<th:block th:insert="~{includes/footer}"></th:block>
+</body>
+</html>

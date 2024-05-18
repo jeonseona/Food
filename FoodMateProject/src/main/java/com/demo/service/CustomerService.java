@@ -18,6 +18,5 @@ public interface CustomerService {
 	askBoard getInquiryDetailsById(Long id);
 	askBoard findById(askBoard inquiry);
     
-    // 마이페이지용(내 질문)
-    List<askBoard> getMyInquiry(String id);  
+    
 }

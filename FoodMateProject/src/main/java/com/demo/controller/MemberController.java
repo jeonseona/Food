@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.demo.config.KakaoConfig;
 import com.demo.domain.MemberData;
 import com.demo.service.MemberService;
 
@@ -21,8 +20,6 @@ public class MemberController {
 
     @Autowired
     private MemberService memberService;
-//    @Autowired
-//    private KakaoConfig kakaoConfig;
     
     // 로그인 화면 표시
     @GetMapping("/login")
@@ -31,13 +28,6 @@ public class MemberController {
         return "member/login";
     }
     
-    
-//    @GetMapping("/kakao")
-//    public String loginForm(Model model){
-//        model.addAttribute("kakaoApiKey", kakaoConfig.getApiKey());
-//        model.addAttribute("redirectUri", kakaoConfig.getRedirectUri());
-//        return "redirect:" + kakaoConfig.getRedirectUri();
-//    }
     
     // 약정화면 표시
     @GetMapping("/contract")
