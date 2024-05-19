@@ -59,9 +59,22 @@ public class MypageController {
 		if(loginUser == null) {
 			return "redirect:/login";
 		} else {
+	        // 최신 사용자 정보를 데이터베이스에서 가져오기
+	        MemberData userInfo = memberService.getMember(loginUser.getId());
+
+	        // 정보를 Thymeleaf 템플릿에 전달
+	        model.addAttribute("name", userInfo.getName());
+	        model.addAttribute("id", userInfo.getId());
+	        model.addAttribute("********", "********");
+	        model.addAttribute("email", userInfo.getEmail());
+	        model.addAttribute("nickname", userInfo.getNickname());
+	        model.addAttribute("gender", userInfo.getGender());
+	        model.addAttribute("age", userInfo.getAge());
+	        model.addAttribute("height", userInfo.getHeight());
+	        model.addAttribute("weight", userInfo.getWeight());
+	        model.addAttribute("goal", userInfo.getGoal());
+	        model.addAttribute("bmi", userInfo.getBmi());
 			
-	        model.addAttribute("memberData", loginUser);
-			model.addAttribute("********", "********");
 		}
 		return "mypage/infoView";
 	}
@@ -75,8 +88,9 @@ public class MypageController {
 			return "redirect:/login";
 		} else {
 			model.addAttribute("loginUser", loginUser);
-			return "mypage/infoUpdate";
+			
 		}
+		return "mypage/infoUpdate";
 	}
 	
 	// 개인정보 수정
@@ -128,8 +142,8 @@ public class MypageController {
 			vo.setId(loginUser.getId());
 			memberService.changeBodyData(vo);
 			
-			return "redirect:/infoView";
 		}
+		return "redirect:/infoView";
 	}
 	
 	// 나의 체중 변화 그래프 화면

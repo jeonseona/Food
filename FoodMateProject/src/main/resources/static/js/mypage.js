@@ -27,16 +27,7 @@ function change_info() {
 		$("#email").focus();
 		return false;
 	} else {
-		// Ajax를 이용하여 수정 요청을 서버에 보냄
-	    $.ajax({
-	        type: "POST",
-	        url: "update_info",
-	        data: $("#update_info").serialize(), // 폼 데이터 직렬화하여 전송
-	        success: function(data) {
-	            // 서버로부터 받은 응답을 처리하여 화면에 반영
-	            $("#content").html(data);
-	        }
-	    });
+		$("#update_info").attr("action", "update_info").submit();
 	}
 	
 }
@@ -80,16 +71,7 @@ function change_bodydata() {
 		$("#goal").focus();
 		return false;
 	} else {
-		// Ajax를 이용하여 수정 요청을 서버에 보냄
-        $.ajax({
-            type: "POST",
-            url: "update_body",
-            data: $("#update_body").serialize(), // 폼 데이터 직렬화하여 전송
-            success: function(data) {
-                // 서버로부터 받은 응답을 처리하여 화면에 반영
-                $("#content").html(data);
-            }
-        });
+		$("#update_body").attr("action", "update_body").submit();
 	}
 }
 
