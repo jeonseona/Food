@@ -59,6 +59,11 @@ public class BoardController {
 
 	@Value("${com.demo.upload.path}")
 	private String uploadPath;
+	
+	@GetMapping("/chat")
+	public String go_chat() {
+		return "comboard/chat";
+			}
 
 
 	// 게시글 목록 조회
@@ -176,7 +181,6 @@ public class BoardController {
 	    //레시피에 저장
 	    Com_Recipe recipe = new Com_Recipe();  
 		
-		
 
 		 // 이미지 파일 저장 및 DB 경로 설정
 		saveUploadedFile(manualImg01, recipe , 1);
@@ -186,7 +190,6 @@ public class BoardController {
 	    saveUploadedFile(manualImg05, recipe, 5);
 	    saveUploadedFile(manualImg06, recipe, 6);
 	    saveUploadedFile(mainuploadFile, recipe, 7);	    
-
 	    
 	    
 	    recipe.setRcp_nm(title);
@@ -300,13 +303,20 @@ public class BoardController {
 	        @RequestParam("manual04") String manual04,
 	        @RequestParam("manual05") String manual05,
 	        @RequestParam("manual06") String manual06,
-	        @RequestParam(value = "manual_img01", required = false) MultipartFile manualImg01,
-	        @RequestParam(value = "manual_img02", required = false) MultipartFile manualImg02,
-	        @RequestParam(value = "manual_img03", required = false) MultipartFile manualImg03,
-	        @RequestParam(value = "manual_img04", required = false) MultipartFile manualImg04,
-	        @RequestParam(value = "manual_img05", required = false) MultipartFile manualImg05,
-	        @RequestParam(value = "manual_img06", required = false) MultipartFile manualImg06,
-	        @RequestParam(value = "main_img", required = false) MultipartFile mainuploadFile) {
+	        @RequestParam(value = "manualImg1", required = false) MultipartFile manualImg01,
+	        @RequestParam(value = "manualImg2", required = false) MultipartFile manualImg02,
+	        @RequestParam(value = "manualImg3", required = false) MultipartFile manualImg03,
+	        @RequestParam(value = "manualImg4", required = false) MultipartFile manualImg04,
+	        @RequestParam(value = "manualImg5", required = false) MultipartFile manualImg05,
+	        @RequestParam(value = "manualImg6", required = false) MultipartFile manualImg06,
+	        @RequestParam(value = "main_img", required = false) MultipartFile mainuploadFile,
+	        @RequestParam("manual_img01") String existingManualImg01,
+	        @RequestParam("manual_img02") String existingManualImg02,
+	        @RequestParam("manual_img03") String existingManualImg03,
+	        @RequestParam("manual_img04") String existingManualImg04,
+	        @RequestParam("manual_img05") String existingManualImg05,
+	        @RequestParam("manual_img06") String existingManualImg06,
+	        @RequestParam("att_file_no_mk") String existingMainuploadFile) {
 		
 		MemberData loginUser =  (MemberData)session.getAttribute("loginUser");
 		Com_Board_Detail board = Board_DetailService.getCom_Board_Datail(seq);
@@ -319,21 +329,41 @@ public class BoardController {
 			
 			String[] kindList = { "반찬", "국&찌개", "후식", "일품" }; // 카테고리
 	        String kindName = kindList[kind];
-	        
-		    //레시피에 저장
+
 		    Com_Recipe recipe = new Com_Recipe();  
 			
-			
-			 // 이미지 파일 저장 및 DB 경로 설정
-			saveUploadedFile(manualImg01, recipe , 1);
-		    saveUploadedFile(manualImg02, recipe, 2);
-		    saveUploadedFile(manualImg03, recipe, 3);
-		    saveUploadedFile(manualImg04, recipe, 4);
-		    saveUploadedFile(manualImg05, recipe, 5);
-		    saveUploadedFile(manualImg06, recipe, 6);
-		    saveUploadedFile(mainuploadFile, recipe, 7);	
+		    recipe.setManual_img01(existingManualImg01);
+	        recipe.setManual_img02(existingManualImg02);
+	        recipe.setManual_img03(existingManualImg03);
+	        recipe.setManual_img04(existingManualImg04);
+	        recipe.setManual_img05(existingManualImg05);
+	        recipe.setManual_img06(existingManualImg06);
+	        recipe.setAtt_file_no_mk(existingMainuploadFile);
+
+	        // 새로 업로드된 이미지가 있을 경우 덮어쓰기
+	        if (manualImg01 != null && !manualImg01.isEmpty()) {
+	            saveUploadedFile(manualImg01, recipe, 1);
+	        }
+	        if (manualImg02 != null && !manualImg02.isEmpty()) {
+	            saveUploadedFile(manualImg02, recipe, 2);
+	        }
+	        if (manualImg03 != null && !manualImg03.isEmpty()) {
+	            saveUploadedFile(manualImg03, recipe, 3);
+	        }
+	        if (manualImg04 != null && !manualImg04.isEmpty()) {
+	            saveUploadedFile(manualImg04, recipe, 4);
+	        }
+	        if (manualImg05 != null && !manualImg05.isEmpty()) {
+	            saveUploadedFile(manualImg05, recipe, 5);
+	        }
+	        if (manualImg06 != null && !manualImg06.isEmpty()) {
+	            saveUploadedFile(manualImg06, recipe, 6);
+	        }
+	        if (mainuploadFile != null && !mainuploadFile.isEmpty()) {
+	            saveUploadedFile(mainuploadFile, recipe, 7);
+	        }
 		    
-		    
+
 		    recipe.setIdx(idx);
 		    recipe.setRcp_nm(title);
 		    recipe.setHash_tag(maingredient);

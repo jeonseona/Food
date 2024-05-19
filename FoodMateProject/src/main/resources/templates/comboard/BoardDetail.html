@@ -7,10 +7,11 @@
 <link rel="stylesheet" href="assets/css/main.css">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-<script type="text/javascript" th:src="@{js/Board.js}"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script type="text/javascript" th:src="@{js/BoardDetail.js}"></script>
 </head>
 <body id="replyjs">
+	<div id="main">
     <article>
         <h3>유저 레시피 상세페이지</h3>
         <form name="frm" method="post">
@@ -127,7 +128,7 @@
 				</tr>
 			</table>
 		</form>
-		<h3> 비슷하지만 다른 레시피 (네이버 Blog Api 이용) </h3>
+		<h3> 해당요리의 이런저런 이야기(네이버 Blog Api 이용) </h3>
 			<div id="similar-recipes"></div>
 		<h3>Comment</h3>
 		<form name="replyfrm" method="get">
@@ -178,6 +179,7 @@
 			</th:block>
 		</form>
 	</article>
+	</div>
 </body>
 <th:block th:insert="~{includes/footer.html}"></th:block>
 <script>

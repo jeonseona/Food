@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <th:block th:insert="~{includes/header.html}"></th:block>
     <title>1:1 문의</title>
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -20,8 +21,17 @@
             color: #333;
             text-align: center;
             margin-bottom: 20px;
+            position: relative; /* 아이콘을 h1 제목에 상대적으로 배치 */
         }
 
+.page-icon {
+            font-size: 24px;
+            color: #45a049; /* 연한 녹색 아이콘 */
+            position: absolute; /* h1 내에서 위치를 조정하기 위해 절대적으로 배치 */
+            left: -30px; /* h1 왼쪽에 위치하도록 설정 */
+            top: 50%; /* 세로 중앙 정렬 */
+            transform: translateY(-50%); /* 수직 가운데 정렬 */
+        }
         .contact-info {
             background-color: #fff;
             border-radius: 8px;
@@ -91,16 +101,15 @@
             background-color: #45a049;
         }
 
-        /* 아이콘 스타일 */
-        .icon {
-            margin-right: 5px;
+        .subject-text {
+            color: #5cb85c; /* Light green color */
+            cursor: pointer; /* Change cursor to pointer on hover */
+            transition: color 0.3s; /* Smooth transition for color change */
         }
-        
-        /* 아이콘을 추가하는 스타일 */
-        .page-icon {
-            font-size: 24px;
-            color: #007bff;
-            margin-right: 5px;
+
+        /* Darken the color when hovered */
+        .subject-text:hover {
+            color: #3d8b3d; /* Darker green color */
         }
     </style>
 </head>
@@ -116,12 +125,17 @@
     <div class="contact-info">
         <div class="note">1:1 문의 내역 조회는 최대 3년까지 가능합니다.</div>
         <div class="note">
-            <!-- 날짜 조회 아이콘 추가 -->
-            <i class="far fa-calendar-alt icon"></i> 날짜 조회: <input type="date" id="startDate" name="startDate" required> ~ <input type="date" id="endDate" name="endDate" required>
-            <button type="submit">
-                <i class="fas fa-search icon"></i>조회
-            </button>
-        </div>
+    <!-- 날짜 조회 아이콘 추가 -->
+    <i class="far fa-calendar-alt icon"></i> 날짜 조회:<form id="dateSearchForm" action="YOUR_SERVER_ENDPOINT" method="GET"> <!-- Added form tag -->
+        <input type="date" id="startDate" name="startDate" required>
+        ~
+        <input type="date" id="endDate" name="endDate" required>
+        <button type="submit"> <!-- Moved button inside the form -->
+            <i class="fas fa-search icon"></i>조회
+        </button>
+    </form>
+</div>
+
         <div class="note">
             <!-- 전화 상담 아이콘 추가 -->
             <i class="fas fa-phone-alt icon"></i> 전화 상담 xxxx-xxxx | 평일 09:00~18:00 (주말 및 공휴일 휴무) | 점심 12:00~13:00
@@ -161,6 +175,45 @@
             </tbody>
         </table>
     </div>
+    <th:block th:insert="~{includes/footer.html}"></th:block>
+    
+    <!-- JavaScript for handling date search -->
+    <script>
+    document.getElementById('dateSearchForm').addEventListener('submit', function (event) {
+        // Prevent the default form submission
+        event.preventDefault();
+        
+        // Get the values of start and end dates
+        var startDate = document.getElementById('startDate').value;
+        var endDate = document.getElementById('endDate').value;
+
+        // Log the form data to check if it's captured correctly
+        console.log('Start Date:', startDate);
+        console.log('End Date:', endDate);
+
+        // Construct the URL to submit the form data
+        var url = 'YOUR_SERVER_ENDPOINT?startDate=' + startDate + '&endDate=' + endDate;
+        
+        // Log the constructed URL
+        console.log('URL:', url);
+
+        // Redirect to the constructed URL
+        // window.location.href = url; // Commented out for debugging
+    });
+    
+ // Add event listeners to all elements with the 'subject-text' class
+    var subjectLinks = document.querySelectorAll('.subject-text');
+    subjectLinks.forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            // Prevent the default link behavior
+            event.preventDefault();
+
+            // Redirect to the href attribute of the clicked link
+            window.location.href = link.getAttribute('href');
+        });
+    });
+</script>
+
 </body>
 
 </html>

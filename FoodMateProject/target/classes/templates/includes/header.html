@@ -7,12 +7,16 @@
 <link rel="stylesheet" th:href="@{/css/main.css}" href="/css/main.css" />
 </head>
 <body>
-	<header id="header">
+<header id="header">
     <div class="container">
+    	<!-- 로고 -->
+    	<div id="logo">
+    	<a href="/"><img class="logo" src="/images/logo.png" alt="Food Logo"></a>
+    	</div>
         <h1>FoodMate</h1>
         <nav id="nav">
             <ul>
-                <li><a th:href="@{/}">Home</a></li>
+                <li><a href="/customer_service/introduce">FoodMate</a></li>
                 <th:block th:if="${session.loginUser == null}">
                 	<li><a th:href="@{/login}">Login</a></li>
                 </th:block>
@@ -29,7 +33,12 @@
 				        <li><a th:href="@{myRecipeList}">나의 레시피</a></li>
 				        <li><a th:href="@{foodRecommend}">추천받은 음식 기록</a></li>
                 	</ul></li>
-                <li><a th:href="@{/customer_service}">Customer Service</a></li>
+                <li><a th:href="@{/customer_service}">Customer Service&nbsp;&nbsp;<i class="fas fa-chevron-down"></i></a>
+                	<ul>
+                		<li><a class="link" href="/qna/all">Q&A</a></li>
+                		<li><a class="link" href="/inquiry/inquiryForm">1:1 문의 작성</a></li>
+                		<li><a class="link" href="/inquiry/inquiryList">1:1 문의 내역</a></li>
+                	</ul></li>
             </ul>
         </nav>
     </div>

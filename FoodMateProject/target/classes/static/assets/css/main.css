@@ -158,7 +158,7 @@
 		}
 
 	strong, b {
-		color: #fff;
+		color: #399154;
 		font-weight: 400;
 	}
 
@@ -1626,4 +1626,3 @@
 .icon-text:hover i {
     color: #000000; /* 호버 시 아이콘 색상 */
 }
-

@@ -74,21 +74,20 @@ function idok(){
 </head>
 <body>
 <div id="wrap">
-    <h1>비밀번호 찾기 결과</h1>
+    <h1>비밀번호 찾기</h1>
     <form method="post" name="formm" action="change_pwd" id="pwd_form">
         <label>User ID</label>
         <input type="text" name="id" th:value="${id}" readonly="readonly">
         <div>
             <th:block th:if="${message == 1}">
-                <label>Password</label><input type="password"  name="pwd" id="pwd"><br>
-                <label>Retype Password</label><input type="password"  name="pwdCheck" id="pwdcheck"><br>
-                <input type="button" value="확인" class="cancel" onclick="changePassword()">
+                <label>User Password</label>
+                <input type="text"  name="pwd" th:value="${password}" readonly="readonly"><br>
             </th:block>
             <th:block th:if="${message == -1}">
                 잘못된 사용자 정보입니다.
-                <input type="button" value="확인" class="cancel" onclick="idok()">
             </th:block>
         </div>
+        <input type="button" value="확인" class="cancel" onclick="idok()">
     </form>
 </div>
 </body>
