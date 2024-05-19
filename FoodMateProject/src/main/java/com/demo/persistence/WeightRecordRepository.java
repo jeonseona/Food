@@ -17,12 +17,12 @@ public interface WeightRecordRepository extends JpaRepository<WeightRecord, Long
 
 	// 최근 수정한 일주일의 데이터 반환
 	@Query("SELECT wr FROM WeightRecord wr JOIN wr.member m WHERE m.id =:id"
-			+ " AND wr.updatedAt >=:startDate ORDER BY wr.updatedAt DESC")
+			+ " AND wr.re_date >=:startDate ORDER BY wr.re_date DESC")
 	public List<WeightRecord> getRecord7ById(@Param("id") String id, @Param("startDate") Date startDate);
 
 	// 최근 수정한 한달의 데이터 반환
 	@Query("SELECT wr FROM WeightRecord wr JOIN wr.member m WHERE m.id =:id"
-			+ " AND wr.updatedAt >=:startDate ORDER BY wr.updatedAt DESC")
+			+ " AND wr.re_date >=:startDate ORDER BY wr.re_date DESC")
 	public List<WeightRecord> getRecord30ById(@Param("id") String id, @Param("startDate") Date startDate);
 
 }

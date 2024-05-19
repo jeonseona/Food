@@ -81,7 +81,7 @@ public class MypageController {
 	
 	// 개인정보 수정
 	@PostMapping("/update_info")
-	public String infoUpdateAction(HttpSession session, MemberData vo) {
+	public String infoUpdateAction(HttpSession session, Model model, MemberData vo) {
 		MemberData loginUser = (MemberData)session.getAttribute("loginUser");
 		
 		if(loginUser == null) {
@@ -89,8 +89,7 @@ public class MypageController {
 		} else {
 			// 로그인한 회원수정
 			memberService.changeInfo(vo);
-			
-			return "mypage/infoView";
+			return "redirect:/infoView";
 		}
 	}
 	
@@ -119,7 +118,7 @@ public class MypageController {
 	
 	// 바디데이터 수정
 	@PostMapping("/update_body")
-	public String bodyUpdateAction(HttpSession session, MemberData vo) {
+	public String bodyUpdateAction(HttpSession session, Model model, MemberData vo) {
 		MemberData loginUser = (MemberData)session.getAttribute("loginUser");
 		
 		if(loginUser == null) {
@@ -129,7 +128,7 @@ public class MypageController {
 			vo.setId(loginUser.getId());
 			memberService.changeBodyData(vo);
 			
-			return "mypage/infoView";
+			return "redirect:/infoView";
 		}
 	}
 	

@@ -27,8 +27,18 @@ function change_info() {
 		$("#email").focus();
 		return false;
 	} else {
-		$("#update_info").attr("action", "update_info").submit();
+		// Ajax를 이용하여 수정 요청을 서버에 보냄
+	    $.ajax({
+	        type: "POST",
+	        url: "update_info",
+	        data: $("#update_info").serialize(), // 폼 데이터 직렬화하여 전송
+	        success: function(data) {
+	            // 서버로부터 받은 응답을 처리하여 화면에 반영
+	            $("#content").html(data);
+	        }
+	    });
 	}
+	
 }
 /*
 ** 닉네임 중복확인 화면 출력요청
@@ -70,7 +80,16 @@ function change_bodydata() {
 		$("#goal").focus();
 		return false;
 	} else {
-		$("#update_body").attr("action", "update_body").submit();
+		// Ajax를 이용하여 수정 요청을 서버에 보냄
+        $.ajax({
+            type: "POST",
+            url: "update_body",
+            data: $("#update_body").serialize(), // 폼 데이터 직렬화하여 전송
+            success: function(data) {
+                // 서버로부터 받은 응답을 처리하여 화면에 반영
+                $("#content").html(data);
+            }
+        });
 	}
 }
 
@@ -127,58 +146,103 @@ function weight_record() {
             });
     }
 }
-
-// 차트 그리기
+// 체중변화 차트 그리기
 $(document).ready(function() {
-    if ($('#weeklyChart').length) {
-        google.charts.load('current', {packages: ['corechart'], language: 'ko'});
-        google.charts.setOnLoadCallback(function() {
-            $.ajax({
-                url: '/getRecordChart',
-                method: 'GET',
-                headers: {
-                    Accept: 'application/json'
-                },
-                success: function(response) {
-                    if (response.redirect) {
-                        window.location.href = response.redirect;
-                        return;
+            // input 요소 참조
+            var weightInput = document.getElementById('re_weight');
+            // kg를 표시할 span 요소 참조
+            var kgSpan = document.getElementById('kg');
+
+            // input 값이 변경될 때마다 이벤트 처리
+            if (weightInput) {
+                weightInput.addEventListener('input', function() {
+                    // input 요소의 값 뒤에 'kg' 추가하여 span 요소에 표시
+                    kgSpan.textContent = 'kg';
+                });
+            }
+
+            if ($('#weeklyChartCanvas').length && $('#monthlyChartCanvas').length) {
+                // 서버에서 데이터 가져오기
+                $.ajax({
+                    url: '/getRecordChart', // 데이터를 가져올 서버 URL
+                    method: 'GET', // HTTP GET 메서드 사용
+                    headers: {
+                        Accept: 'application/json' // 서버 응답을 JSON으로 기대
+                    },
+                    success: function(response) {
+                        // 서버가 리디렉션 URL을 반환하면 해당 URL로 이동
+                        if (response.redirect) {
+                            window.location.href = response.redirect;
+                            return;
+                        }
+
+                        // 서버 응답 데이터 처리
+                        var weeklyData = response.weeklyData.reverse();	// 최근 데이터를 뒤로 보내기 위해 역순으로 배열을 뒤집음
+                        var monthlyData = response.monthlyData.reverse(); // 최근 데이터를 뒤로 보내기 위해 역순으로 배열을 뒤집음
+
+                        // Chart.js를 사용하여 차트 그리기
+                        drawWeightChart(weeklyData, '주간 체중 기록', 'weeklyChartCanvas');
+                        drawWeightChart(monthlyData, '월간 체중 기록', 'monthlyChartCanvas');
+                    },
+                    error: function(err) {
+                        console.error('차트 데이터를 가져오는 중 오류 발생', err);
                     }
-
-                    var weeklyData = JSON.parse(response.split('<br>')[0]);
-                    var monthlyData = JSON.parse(response.split('<br>')[1]);
-
-                    drawWeightChart(weeklyData, '주간 체중 기록', '주', '체중', 'weeklyChart');
-                    drawWeightChart(monthlyData, '월간 체중 기록', '월', '체중', 'monthlyChart');
-                },
-                error: function(err) {
-                    console.error('Error fetching chart data', err);
-                }
-            });
+                });
+            }
         });
-    }
-});
 
-function drawWeightChart(data, title, xAxisLabel, yAxisLabel, chartElementId) {
-    var chartData = new google.visualization.DataTable();
-    chartData.addColumn('date', xAxisLabel);
-    chartData.addColumn('number', yAxisLabel);
+        /**
+         * Chart.js를 사용하여 체중 변화를 시각화하는 함수
+         * @param {Array} data - 서버에서 가져온 체중 데이터 배열
+         * @param {String} title - 차트 제목
+         * @param {String} chartElementId - 차트를 렌더링할 캔버스 요소의 ID
+         */
+        function drawWeightChart(data, title, chartElementId) {
+            // 데이터 레이블(날짜)과 데이터 값(체중) 추출
+            var labels = data.map(record => new Date(record.re_date).toLocaleDateString('ko-KR'));
+            var values = data.map(record => record.re_weight);
 
-    data.forEach(function(record) {
-        chartData.addRow([new Date(record.re_date), record.re_weight]);
-    });
+            // 차트 데이터 및 옵션 설정
+            var chartData = {
+                labels: labels,
+                datasets: [{
+                    label: title,
+                    data: values,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    fill: false
+                }]
+            };
 
-    var options = {
-        title: title,
-        curveType: 'function',
-        legend: { position: 'bottom' }
-    };
+            var options = {
+                responsive: true,
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom'
+                    }
+                }
+            };
 
-    var chart = new google.visualization.LineChart(document.getElementById(chartElementId));
-    chart.draw(chartData, options);
-}
-
-
+            // Chart.js를 사용하여 라인 차트 생성
+            var ctx = document.getElementById(chartElementId).getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: chartData,
+                options: options
+            });
+        }
+        
+        
+        
 $(document).ready(function() {
     $('.menu-link').on('click', function(event) {
         event.preventDefault();

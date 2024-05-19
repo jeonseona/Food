@@ -8,16 +8,21 @@
 <script th:src="@{/js/mypage.js}" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+window.onload = function() {
     // input 요소 참조
     var weightInput = document.getElementById('re_weight');
     // kg를 표시할 span 요소 참조
     var kgSpan = document.getElementById('kg');
 
     // input 값이 변경될 때마다 이벤트 처리
-    weightInput.addEventListener('input', function() {
-        // input 요소의 값 뒤에 'kg' 추가하여 span 요소에 표시
-        kgSpan.textContent = 'kg';
-    });
+    if (weightInput) {
+        weightInput.addEventListener('input', function() {
+            // input 요소의 값 뒤에 'kg' 추가하여 span 요소에 표시
+            kgSpan.textContent = 'kg';
+        });
+    }
+};
+
 </script>
 </head>
 <body>
@@ -50,14 +55,10 @@
 						<h3>체중 변화 그래프</h3>
 						<fieldset>
 							<div class="wr_chart">
-								<div id="weeklyChart"></div>
-								<p>설명: 여기는 위에 체중 입력으로 데이터를 저장했을 때 그 데이터 값을 가져와서 일주일간의 변화를 보는
-									차트</p>
+								<canvas id="weeklyChartCanvas"></canvas>
 							</div>
 							<div class="wr_chart">
-								<div id="monthlyChart"></div>
-								<p>설명: 여기는 위에 체중 입력으로 데이터를 저장했을 때 그 데이터 값을 가져와서 한달간의 변화를 보는
-									차트</p>
+								<canvas id="monthlyChartCanvas"></canvas>
 							</div>
 						</fieldset>
 					</section>

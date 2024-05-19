@@ -248,12 +248,19 @@ main h3 {
 
 .right-panel fieldset {
     display: flex;
-    flex-direction: row; /* 내용을 가로로 배치합니다. */
+    flex-direction: column; /* 내용을 세로로 배치합니다. */
     justify-content: space-between; /* 요소 사이의 간격을 최대화하여 정렬합니다. */
+    height: 100%; /* 부모 요소의 높이를 100%로 설정합니다. */
 }
 
-.wr_chart {
+.right-panel .wr_chart {
+    flex-grow: 1; /* flex-grow 속성을 사용하여 공간을 모두 차지하도록 합니다. */
     margin-bottom: 20px; /* 아래 여백 추가 */
+}
+
+.right-panel canvas {
+    width: 100%; /* 캔버스 요소가 부모 요소의 너비를 모두 차지하도록 설정합니다. */
+    height: auto; /* 캔버스 요소의 높이를 자동으로 조정합니다. */
 }
 
 .left-panel h3,
