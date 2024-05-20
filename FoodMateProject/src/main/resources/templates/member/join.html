@@ -17,7 +17,7 @@
 			<h2>회원가입</h2>
 			<input type="text" id="id" class="text id_input" name="id" th:value="${id}" placeholder="ID">
 			<input type="hidden" name="reid" id="reid" th:value="${reid}">
-			<input type="button" onclick="idcheck()" value="id 중복확인">
+			<input type="button" class="id_check" onclick="idcheck()" value="id 중복확인">
 			<input type="password" id="password" class="text" name="password" placeholder="비밀번호를 입력하세요">
 			<input type="password" name="password_confirm" id="password_confirm" class="text" placeholder="Password">
 			<input type="text" name="name" id="name" class="text" placeholder="Name">

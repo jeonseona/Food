@@ -109,7 +109,7 @@ main h3 {
     background: #f4f4f4;
     padding: 20px;
     box-sizing: border-box;
-    max-width: 800px;
+    max-width: 600px;
     margin: 20px auto;
     text-align: center; /* 수정된 부분 */
 }
@@ -125,7 +125,7 @@ main h3 {
 #infoUpdate input[type="text"],
 #infoUpdate input[type="password"],
 #infoUpdate input[type="email"] {
-    width: 100%;
+    width: 30%;
     padding: 8px;
     margin-top: 6px;
     margin-bottom: 6px;
@@ -161,7 +161,7 @@ main h3 {
     background: #f4f4f4;
     padding: 20px;
     box-sizing: border-box;
-    max-width: 800px;
+    max-width: 600px;
     margin: 20px auto;
     text-align: center; /* 수정된 부분 */
 }
@@ -172,7 +172,7 @@ main h3 {
 
 #bodyUpdate input[type="text"],
 #bodyUpdate select {
-    width: 100%;
+    width: 30%;
     padding: 8px;
     margin-top: 6px;
     margin-bottom: 6px;
