@@ -8,6 +8,15 @@
     object-fit: cover; /* 이미지가 요소를 채우도록 설정 */
     vertical-align: middle; /* 텍스트와 수직 정렬 */
 }
+.logo2 {
+    display: inline-block; /* 인라인 블록 요소로 설정 */
+    border-radius: 50%; /* 둥근 모서리 */
+    box-shadow: 0; /* 그림자 효과 */
+    width: 52px; /* 너비 설정 */
+    height: 52px; /* 높이 설정 */
+    object-fit: cover; /* 이미지가 요소를 채우도록 설정 */
+    vertical-align: middle; /* 텍스트와 수직 정렬 */
+}
 
 /* 헤더 스타일 */
 #header {
@@ -34,7 +43,19 @@
     z-index: 1; /* 쌓임 순서 설정 */
 }
 
-#header .container {
+
+.fixed-header {	/* 고정되는 헤더 */
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: white; /* 배경색 변경 */
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	z-index: 1000;
+	display: none;
+}
+
+#header .h_container {
     display: flex; /* 플렉스박스 사용 */
     flex-direction: column; /* 열 방향으로 정렬 */
     align-items: center; /* 수평 중앙 정렬 */
@@ -53,28 +74,51 @@
     margin-bottom: 1em; /* 아래쪽 여백 */
 }
 
-#nav {
+#header #nav {
+	position: sticky;
+    top: 0;
+    z-index: 1000; /* 다른 콘텐츠 위에 표시되도록 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+}
+#nav2 {
+	position: sticky;
+    top: 0;
+    z-index: 1000; /* 다른 콘텐츠 위에 표시되도록 */
     text-align: center; /* 텍스트 중앙 정렬 */
 }
 
-#nav > ul {
+#header #nav > ul {
+    margin: 0; /* 기본 마진 제거 */
+    padding: 0; /* 기본 패딩 제거 */
+    list-style: none; /* 목록 스타일 제거 */
+    display: inline-block; /* 인라인 블록 요소로 설정 */
+}
+#nav2 > ul {
     margin: 0; /* 기본 마진 제거 */
     padding: 0; /* 기본 패딩 제거 */
     list-style: none; /* 목록 스타일 제거 */
     display: inline-block; /* 인라인 블록 요소로 설정 */
 }
 
-#nav > ul > li {
+#header #nav > ul > li {
+    display: inline; /* 인라인 요소로 설정 */
+    margin-left: 1em; /* 왼쪽 여백 설정 */
+    position: relative; /* 상대 위치 설정 */
+}
+#nav2 > ul > li {
     display: inline; /* 인라인 요소로 설정 */
     margin-left: 1em; /* 왼쪽 여백 설정 */
     position: relative; /* 상대 위치 설정 */
 }
 
-#nav > ul > li:first-child {
+#header #nav > ul > li:first-child {
+    margin-left: 0; /* 첫 번째 항목의 왼쪽 여백 제거 */
+}
+#nav2 > ul > li:first-child {
     margin-left: 0; /* 첫 번째 항목의 왼쪽 여백 제거 */
 }
 
-#nav > ul > li a {
+#header #nav > ul > li a {
     color: #FFF; /* 링크 텍스트 색상 */
     text-decoration: none; /* 밑줄 제거 */
     font-size: 1.2em; /* 폰트 크기 설정 */
@@ -82,13 +126,36 @@
     border-radius: 5px; /* 모서리 둥글게 설정 */
     transition: background-color 0.3s ease; /* 배경색 전환 효과 설정 */
 }
+#nav2 > ul > li a {
+    color: black; /* 링크 텍스트 색상 */
+    text-decoration: none; /* 밑줄 제거 */
+    font-size: 1.2em; /* 폰트 크기 설정 */
+    padding: 0.5em 1em; /* 내부 여백 설정 */
+    border-radius: 5px; /* 모서리 둥글게 설정 */
+    transition: background-color 0.3s ease; /* 배경색 전환 효과 설정 */
+}
 
-#nav > ul > li a:hover {
+#header #nav > ul > li a:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* 마우스 오버 시 배경색 */
+}
+#nav2 > ul > li a:hover {
     background-color: rgba(255, 255, 255, 0.2); /* 마우스 오버 시 배경색 */
 }
 
 /* 서브메뉴 (기본적으로 숨김) */
-#nav > ul > li > ul {
+#header #nav > ul > li > ul {
+    display: none; /* 서브메뉴 숨김 */
+    position: absolute; /* 부모 요소를 기준으로 위치 설정 */
+    top: 100%; /* 부모 요소 바로 아래에 위치 */
+    left: 0; /* 왼쪽 정렬 */
+    background: rgba(255, 255, 255, 0.7); /* 투명도 */
+    padding: 10px 0; /* 위아래 패딩 추가 */
+    width: 100%; /* 부모 요소의 가로 길이와 같은 크기로 설정 */
+    list-style: none; /* 리스트 스타일 제거 (불릿 없음) */
+    z-index: 1000; /* 다른 콘텐츠 위에 표시되도록 설정 */
+    margin-top: 5px; /* 부모 요소와의 간격 설정 */
+}
+#nav2 > ul > li > ul {
     display: none; /* 서브메뉴 숨김 */
     position: absolute; /* 부모 요소를 기준으로 위치 설정 */
     top: 100%; /* 부모 요소 바로 아래에 위치 */
@@ -102,18 +169,25 @@
 }
 
 /* 호버 시 서브메뉴 보이기 */
-#nav > ul > li:hover > ul {
+#header #nav > ul > li:hover > ul {
+    display: block; /* 호버 시 서브메뉴 표시 */
+}
+#nav2 > ul > li:hover > ul {
     display: block; /* 호버 시 서브메뉴 표시 */
 }
 
 /* 서브메뉴 리스트 아이템 */
-#nav > ul > li > ul > li {
+#header #nav > ul > li > ul > li {
+    display: block; /* 서브메뉴 아이템을 수직으로 쌓기 */
+    position: relative; /* 상대 위치 설정 */
+}
+#nav2 > ul > li > ul > li {
     display: block; /* 서브메뉴 아이템을 수직으로 쌓기 */
     position: relative; /* 상대 위치 설정 */
 }
 
 /* 서브메뉴 링크 */
-#nav > ul > li > ul > li > a {
+#header #nav > ul > li > ul > li > a {
     color: #333; /* 텍스트 색상을 흰색으로 설정 */
     text-decoration: none; /* 밑줄 제거 */
     font-size: 0.8em; /* 서브메뉴의 글자 크기 */
@@ -121,27 +195,99 @@
     white-space: nowrap; /* 텍스트 줄바꿈 방지 */
     display: block; /* 인라인 요소를 블록 요소로 변환 */
 }
-
+#nav2 > ul > li > ul > li > a {
+    color: black; /* 텍스트 색상을 흰색으로 설정 */
+    text-decoration: none; /* 밑줄 제거 */
+    font-size: 0.8em; /* 서브메뉴의 글자 크기 */
+    padding: 0.5em 0.5em; /* 클릭 가능한 영역에 패딩 추가 */
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+    display: block; /* 인라인 요소를 블록 요소로 변환 */
+}
 /* 서브메뉴 링크 호버 효과 */
-#nav > ul > li > ul > li:nth-child(1) > a:hover {
+#header #nav > ul > li > ul > li:nth-child(1) > a:hover {
     background-image: linear-gradient(to right, red, white); /* 빨간색에서 주황색으로 그라데이션 효과 */
 }
-#nav > ul > li > ul > li:nth-child(2) > a:hover {
+#header #nav > ul > li > ul > li:nth-child(2) > a:hover {
     background-image: linear-gradient(to right, orange, white); /* 주황색에서 노란색으로 그라데이션 효과 */
 }
-#nav > ul > li > ul > li:nth-child(3) > a:hover {
+#header #nav > ul > li > ul > li:nth-child(3) > a:hover {
     background-image: linear-gradient(to right, yellow, white); /* 노란색에서 초록색으로 그라데이션 효과 */
 }
-#nav > ul > li > ul > li:nth-child(4) > a:hover {
+#header #nav > ul > li > ul > li:nth-child(4) > a:hover {
     background-image: linear-gradient(to right, green, white); /* 초록색에서 파란색으로 그라데이션 효과 */
 }
-#nav > ul > li > ul > li:nth-child(5) > a:hover {
+#header #nav > ul > li > ul > li:nth-child(5) > a:hover {
     background-image: linear-gradient(to right, blue, white); /* 파란색에서 남색으로 그라데이션 효과 */
 }
-#nav > ul > li > ul > li:nth-child(6) > a:hover {
+#header #nav > ul > li > ul > li:nth-child(6) > a:hover {
     background-image: linear-gradient(to right, indigo, white); /* 남색에서 보라색으로 그라데이션 효과 */
 }
-#nav > ul > li > ul > li:nth-child(7) > a:hover {
+#header #nav > ul > li > ul > li:nth-child(7) > a:hover {
+    background-image: linear-gradient(to right, violet, white); /* 보라색에서 빨간색으로 그라데이션 효과 */
+}
+#header #nav > ul > li > ul > li:nth-child(1) > a:hover {
+    background-image: linear-gradient(to right, red, white); /* 빨간색에서 주황색으로 그라데이션 효과 */
+}
+#header #nav > ul > li > ul > li:nth-child(2) > a:hover {
+    background-image: linear-gradient(to right, orange, white); /* 주황색에서 노란색으로 그라데이션 효과 */
+}
+#header #nav > ul > li > ul > li:nth-child(3) > a:hover {
+    background-image: linear-gradient(to right, yellow, white); /* 노란색에서 초록색으로 그라데이션 효과 */
+}
+#header #nav > ul > li > ul > li:nth-child(4) > a:hover {
+    background-image: linear-gradient(to right, green, white); /* 초록색에서 파란색으로 그라데이션 효과 */
+}
+#header #nav > ul > li > ul > li:nth-child(5) > a:hover {
+    background-image: linear-gradient(to right, blue, white); /* 파란색에서 남색으로 그라데이션 효과 */
+}
+#header #nav > ul > li > ul > li:nth-child(6) > a:hover {
+    background-image: linear-gradient(to right, indigo, white); /* 남색에서 보라색으로 그라데이션 효과 */
+}
+#header #nav > ul > li > ul > li:nth-child(7) > a:hover {
+    background-image: linear-gradient(to right, violet, white); /* 보라색에서 빨간색으로 그라데이션 효과 */
+}
+
+/* 서브메뉴 링크 호버 효과 */
+#nav2 > ul > li > ul > li:nth-child(1) > a:hover {
+    background-image: linear-gradient(to right, red, white); /* 빨간색에서 주황색으로 그라데이션 효과 */
+}
+#nav2 > ul > li > ul > li:nth-child(2) > a:hover {
+    background-image: linear-gradient(to right, orange, white); /* 주황색에서 노란색으로 그라데이션 효과 */
+}
+#nav2 > ul > li > ul > li:nth-child(3) > a:hover {
+    background-image: linear-gradient(to right, yellow, white); /* 노란색에서 초록색으로 그라데이션 효과 */
+}
+#nav2 > ul > li > ul > li:nth-child(4) > a:hover {
+    background-image: linear-gradient(to right, green, white); /* 초록색에서 파란색으로 그라데이션 효과 */
+}
+#nav2 > ul > li > ul > li:nth-child(5) > a:hover {
+    background-image: linear-gradient(to right, blue, white); /* 파란색에서 남색으로 그라데이션 효과 */
+}
+#nav2 > ul > li > ul > li:nth-child(6) > a:hover {
+    background-image: linear-gradient(to right, indigo, white); /* 남색에서 보라색으로 그라데이션 효과 */
+}
+#nav2 > ul > li > ul > li:nth-child(7) > a:hover {
+    background-image: linear-gradient(to right, violet, white); /* 보라색에서 빨간색으로 그라데이션 효과 */
+}
+#nav2 > ul > li > ul > li:nth-child(1) > a:hover {
+    background-image: linear-gradient(to right, red, white); /* 빨간색에서 주황색으로 그라데이션 효과 */
+}
+#nav2 > ul > li > ul > li:nth-child(2) > a:hover {
+    background-image: linear-gradient(to right, orange, white); /* 주황색에서 노란색으로 그라데이션 효과 */
+}
+#nav2 > ul > li > ul > li:nth-child(3) > a:hover {
+    background-image: linear-gradient(to right, yellow, white); /* 노란색에서 초록색으로 그라데이션 효과 */
+}
+#nav2 > ul > li > ul > li:nth-child(4) > a:hover {
+    background-image: linear-gradient(to right, green, white); /* 초록색에서 파란색으로 그라데이션 효과 */
+}
+#nav2 > ul > li > ul > li:nth-child(5) > a:hover {
+    background-image: linear-gradient(to right, blue, white); /* 파란색에서 남색으로 그라데이션 효과 */
+}
+#nav2 > ul > li > ul > li:nth-child(6) > a:hover {
+    background-image: linear-gradient(to right, indigo, white); /* 남색에서 보라색으로 그라데이션 효과 */
+}
+#nav2 > ul > li > ul > li:nth-child(7) > a:hover {
     background-image: linear-gradient(to right, violet, white); /* 보라색에서 빨간색으로 그라데이션 효과 */
 }
 
@@ -156,7 +302,9 @@ body {
 	color: #333;
 }
 
-.container {
+.m_container,
+.h_container,
+.f_container {
 	width: 100%;
 	max-width: 1200px;
 	margin: 0 auto;
@@ -310,7 +458,7 @@ ul.style li span {
     padding: 0;
 }
 
-#footer .container {
+#footer .f_container {
     display: flex;
     justify-content: space-between; /* 왼쪽과 오른쪽으로 정렬 */
     align-items: flex-start;
@@ -359,7 +507,7 @@ ul.style li span {
     margin: 0;
 }
 
-#footer ul.default li {
+#footer ul> li {
     padding: 0.5em 0;
     border-top: 1px solid rgba(192, 192, 192, 0.25);
 }
@@ -368,12 +516,14 @@ ul.style li span {
     border-top: none;
 }
 
-#footer ul.default li a {
+#footer ul.default li a,
+#footer ul.contact li a {
     color: #3ac984;
     text-decoration: none;
 }
 
-#footer ul.default li a:hover {
+#footer ul.default li a:hover,
+#footer ul.contact li a:hover {
     text-decoration: underline;
 }
 
@@ -408,6 +558,7 @@ ul.style li span {
 }
 
 .copyright {
+    position: sticky;
     text-align: center;
     padding: 0;
     background: #222;
@@ -424,7 +575,7 @@ ul.style li span {
 
 /* 반응형 디자인 */
 @media (max-width: 768px) {
-    #nav>ul>li {
+    #header #nav>ul>li {
         display: block;
         margin-left: 0;
     }

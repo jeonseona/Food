@@ -180,6 +180,12 @@ $(document).ready(function() {
          * @param {String} chartElementId - 차트를 렌더링할 캔버스 요소의 ID
          */
         function drawWeightChart(data, title, chartElementId) {
+			// 이전에 그려진 차트를 파괴
+		    var existingChart = Chart.getChart(chartElementId);
+		    if (existingChart) {
+		        existingChart.destroy();
+		    }
+		    
             // 데이터 레이블(날짜)과 데이터 값(체중) 추출
             var labels = data.map(record => new Date(record.re_date).toLocaleDateString('ko-KR'));
             var values = data.map(record => record.re_weight);

@@ -52,6 +52,19 @@ public class WeightRecordServiceImpl implements WeightRecordService {
 
         return weightRecordRepo.getRecord30ById(id, startDate);
 	}
+
+	// 주간/월간 변화 평균값 계산 메서드
+	@Override
+	public double calculateAverageWeight(List<WeightRecord> records) {
+		if(records.isEmpty()) {
+			return 0.0;
+		}
+		double sum = 0.0;
+        for (WeightRecord record : records) {
+            sum += record.getRe_weight();
+        }
+        return sum / records.size();
+	}
 	
 	
 }

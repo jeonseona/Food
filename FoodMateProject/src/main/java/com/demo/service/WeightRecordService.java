@@ -17,4 +17,7 @@ public interface WeightRecordService {
 
     // 최근 30일의 체중 기록을 반환하는 메서드
     List<WeightRecord> getRecentMonthRecords(String id);
+    
+    // 주간/월간 변화 평균값 계산 메서드
+    double calculateAverageWeight(List<WeightRecord> records);
 }

@@ -1,5 +1,6 @@
 package com.demo.controller;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -154,6 +155,28 @@ public class MypageController {
 		if(loginUser == null) {
 			return "redirect:/login";
 		} else {
+			// 최신 사용자 정보를 데이터베이스에서 가져오기
+	        MemberData userInfo = memberService.getMember(loginUser.getId());
+	        
+	        // 최근 7일과 30일의 체중 기록을 가져옴
+            List<WeightRecord> recentWeekRecords = recordService.getRecentWeekRecords(loginUser.getId());
+            List<WeightRecord> recentMonthRecords = recordService.getRecentMonthRecords(loginUser.getId());
+
+	        // 주간 변화 평균값 계산
+            double weeklyAvg = recordService.calculateAverageWeight(recentWeekRecords);
+
+            // 월간 변화 평균값 계산
+            double monthlyAvg = recordService.calculateAverageWeight(recentMonthRecords);
+
+            // DecimalFormat을 사용하여 소수점 2자리까지 형식화
+            DecimalFormat df = new DecimalFormat("#.##");
+            weeklyAvg = Double.parseDouble(df.format(weeklyAvg));
+            monthlyAvg = Double.parseDouble(df.format(monthlyAvg));
+            
+	        model.addAttribute("goal", userInfo.getGoal());
+	        model.addAttribute("weekly", weeklyAvg);
+	        model.addAttribute("monthly", monthlyAvg);
+	        
 			return "mypage/myWeightChart";
 		}
 	}

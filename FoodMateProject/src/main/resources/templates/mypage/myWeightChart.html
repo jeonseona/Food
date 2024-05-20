@@ -22,29 +22,37 @@
 			<div id="content">
 				<div class="record">
 					<section class="left-panel">
-						<h3>체중 입력</h3>
-						<form id="weight_chart" method="post" name="formm"
-							action="weight_record">
-							<fieldset>
-								<label for="re_date">날짜 : </label>
-								<input type="date" id="re_date" name="re_date" required><br>
-								<label for="re_weight">체중 : </label>
-								<input type="number" id="re_weight" name="re_weight" step="0.01" required>
-								<span id="kg">kg</span><br>
-								<input type="button" value="입력" onclick="weight_record()" class="btn">
-							</fieldset>
+						<form id="weight_chart" method="post" name="formm" action="weight_record">
+							<h3>체중 입력</h3>
+							<label for="re_date">날짜 : </label>
+							<input type="date" id="re_date" name="re_date" required><br>
+							<label for="re_weight">체중 : </label>
+							<input type="number" id="re_weight" name="re_weight" step="0.01" required>
+							<span id="kg">kg</span><br>
+							<input type="button" value="입력" onclick="weight_record()" class="btn">
 						</form>
 					</section>
 					<section class="right-panel">
-						<h3>체중 변화 그래프</h3>
-						<fieldset>
-							<div class="wr_chart">
+						<div class="wr_chart">
+							<div class="chart-container">
 								<canvas id="weeklyChartCanvas"></canvas>
-							</div>
-							<div class="wr_chart">
+								<ul class="chart-description">
+                                <li>내 목표 체중 : [[${goal}]]</li>
+                                <li>주간 변화 평균: <span th:text="${weekly}"></span></li>
+                                <li>xxx : </li>
+                            	</ul>
+                            </div>
+						</div>
+						<div class="wr_chart">
+							<div class="chart-container">
 								<canvas id="monthlyChartCanvas"></canvas>
-							</div>
-						</fieldset>
+								<ul class="chart-description">
+                                <li>내 목표 체중 : [[${goal}]]</li>
+                                <li>월간 변화 평균 : <span th:text="${monthly}"></span></li>
+                                <li>xxx : </li>
+                            	</ul>
+                            </div>
+						</div>
 					</section>
 				</div>
 			</div>
