@@ -2,7 +2,6 @@ package com.demo.dto;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,9 +25,9 @@ import lombok.ToString;
 public class Com_Recipe {
 	
 	@Id
-//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "com_recipeseq")
-//    @SequenceGenerator(name = "com_recipeseq", sequenceName = "com_recipeseq", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "com_recipeseq")
+    @SequenceGenerator(name = "com_recipeseq", sequenceName = "com_recipeseq", allocationSize = 1)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int idx;
 	String rcp_nm; // 이름
 	String att_file_no_mk; //타이틀이미지

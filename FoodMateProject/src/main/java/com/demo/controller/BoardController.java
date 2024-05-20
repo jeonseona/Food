@@ -55,14 +55,25 @@ public class BoardController {
 	
 	@Autowired
     private EntityManager entityManager;
-	
 
 	@Value("${com.demo.upload.path}")
 	private String uploadPath;
 	
-	@GetMapping("/chat")
+	//네이버 api 로그인
+    @Value("${naver.client.id}")
+    private String clientId;
+
+    @Value("${naver.client.secret}")
+    private String clientSecret;
+    
+    @GetMapping("/chat")
 	public String go_chat() {
-		return "comboard/chat";
+		return "comboard/Chat";
+			}
+    
+    @GetMapping("/cal")
+	public String go_cal() {
+		return "comboard/Foodcal";
 			}
 
 
@@ -637,51 +648,47 @@ public class BoardController {
 		    return response;
 		}
 		
+		//네이버 블로그 api
 		
-		//네이버 blog controller
-		@Value("${naver.client.id}")
-	    private String clientId;
+  	    @GetMapping("/blogsearch")
+  	    public String list(@RequestParam("text") String text, Model model) {
+  	        URI uri = UriComponentsBuilder
+  	            .fromUriString("https://openapi.naver.com")
+  	            .path("/v1/search/blog.json")
+  	            .queryParam("query", text)
+  	            .queryParam("display", 10)
+  	            .queryParam("start", 1)
+  	            .queryParam("sort", "sim")
+  	            .encode()
+  	            .build()
+  	            .toUri();
 
-	    @Value("${naver.client.secret}")
-	    private String clientSecret;
+  	        RequestEntity<Void> req = RequestEntity
+  	            .get(uri)
+  	            .header("X-Naver-Client-Id", clientId)
+  	            .header("X-Naver-Client-Secret", clientSecret)
+  	            .build();
 
-	    @GetMapping("/blogsearch")
-	    public String list(@RequestParam("text") String text, Model model) {
-	        URI uri = UriComponentsBuilder
-	            .fromUriString("https://openapi.naver.com")
-	            .path("/v1/search/blog.json")
-	            .queryParam("query", text)
-	            .queryParam("display", 10)
-	            .queryParam("start", 1)
-	            .queryParam("sort", "sim")
-	            .encode()
-	            .build()
-	            .toUri();
+  	        RestTemplate restTemplate = new RestTemplate();
+  	        ResponseEntity<String> resp = restTemplate.exchange(req, String.class);
 
-	        RequestEntity<Void> req = RequestEntity
-	            .get(uri)
-	            .header("X-Naver-Client-Id", clientId)
-	            .header("X-Naver-Client-Secret", clientSecret)
-	            .build();
+  	        ObjectMapper om = new ObjectMapper();
+  	        NaverBlogApi resultVO = null;
 
-	        RestTemplate restTemplate = new RestTemplate();
-	        ResponseEntity<String> resp = restTemplate.exchange(req, String.class);
+  	        try {
+  	            resultVO = om.readValue(resp.getBody(), NaverBlogApi.class);
+  	        } catch (JsonMappingException e) {
+  	            e.printStackTrace();
+  	        } catch (JsonProcessingException e) {
+  	            e.printStackTrace();
+  	        }
 
-	        ObjectMapper om = new ObjectMapper();
-	        NaverBlogApi resultVO = null;
+  	        List<BlogFood> food = resultVO.getItems();
+  	        model.addAttribute("foods", food);
+  	        model.addAttribute("text", text);
 
-	        try {
-	            resultVO = om.readValue(resp.getBody(), NaverBlogApi.class);
-	        } catch (JsonMappingException e) {
-	            e.printStackTrace();
-	        } catch (JsonProcessingException e) {
-	            e.printStackTrace();
-	        }
-
-	        List<BlogFood> food = resultVO.getItems();
-	        model.addAttribute("foods", food);
-	        model.addAttribute("text", text);
-
-	        return "comboard/NBlogResult :: #similar-recipes";
-	    }
+  	        return "comboard/NBlogResult :: #similar-recipes";
+  	    }
+		
+		
 	}
