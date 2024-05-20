@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<th:block th:insert="~{includes/header.html}"></th:block>
+<title>고객센터</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f6f7f9;
+    color: #666; /* 모든 텍스트의 색상을 #666으로 설정 */
+}
+
+/* 다른 요소들의 스타일 유지 */
+
+.container1 {
+    max-width: 1000px; /* 가로 길이를 줄임 */
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    height: 600px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* 가로, 세로 중앙 정렬 */
+    position: relative; /* 챗봇 아이콘 위치 조정을 위해 상대 위치 설정 */
+}
+
+h1 {
+	color: #333;
+	text-align: center;
+	margin-top: 100px;
+}
+
+.link {
+    position: relative; /* 상대 위치 설정 */
+    display: inline-block;
+    text-align: center;
+    margin-top: 200px;
+    padding: 15px 30px;
+    background-color: #fff;
+    color: #666;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: box-shadow 0.3s ease;
+    border: 2px solid #666;
+    align-items: center;
+}
+
+a.link i {
+    position: absolute;
+    top: -100px; /* 링크 위에 위치하도록 조정 */
+    left: 50%; /* 링크 가운데 정렬 */
+    transform: translateX(-50%); /* 가운데 정렬을 위한 변환 */
+    font-size: 80px; /* 아이콘 크기 조정 */
+}
+
+a.link:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    background-color: #28a745;
+}
+
+a.link {
+	margin-left: 20px;
+}
+
+/* 챗봇 아이콘 스타일 */
+#chatbot-icon,
+#calorie-icon {
+    position: fixed;
+    bottom: 30px;
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+#chatbot-icon {
+    left: 10px;
+}
+
+#calorie-icon {
+    left: 110px; /* 챗봇 아이콘 오른쪽에 위치 */
+}
+
+#chatbot-popup,
+#calorie-popup {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed;
+    bottom: 80px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+#chatbot-popup {
+    left: 30px;
+    width: 300px;
+    max-height: 400px;
+}
+
+#calorie-popup {
+    left: 110px;
+    width: 300px;
+    max-height: 300px;
+}
+
+/* 입력창 스타일 */
+#chat-input,
+#calorie-input {
+	width: 90%;
+	padding: 10px;
+	margin: 10px auto;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+}
+
+#chat-output,
+#calorie-output {
+	width: 90%;
+	margin: 10px auto;
+	padding: 10px;
+	background-color: #f9f9f9;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	text-align: left;
+	min-height: 100px;
+	overflow-y: auto; /* 내용이 넘칠 때 스크롤바 표시 */
+	max-height: 200px; /* 스크롤바 최대 높이 설정 */
+}
+
+/* 아이콘 색상 클래스 */
+.blue-icon {
+	color: #28a745; 
+}
+
+.red-icon {
+	color: #28a745; 
+}
+
+.green-icon {
+	color: #28a745; /* 초록색 */
+}
+</style>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+	<div class="container1">
+		<h1>고객센터</h1>
+
+		<!-- QnA 링크 -->
+		<a class="link" href="/qna/all"> <i class="fas fa-question-circle blue-icon"></i> Q&A</a>
+
+		<!-- 1:1 문의 링크 -->
+		<a class="link" href="/inquiry/inquiryForm"> <i class="fas fa-comments red-icon"></i> 1:1 문의 작성</a>
+
+		<!-- 1:1 문의 내역 링크 -->
+		<a class="link" href="/inquiry/inquiryList"> <i class="fas fa-list green-icon"></i> 1:1 문의 내역</a>
+
+		<!-- 챗봇 아이콘 -->
+		<div id="chatbot-icon" onclick="toggleChatbotPopup()">
+			<i class="fas fa-robot"></i>
+		</div>
+		
+		<!-- 칼로리 계산기 아이콘 -->
+		<div id="calorie-icon" onclick="toggleCaloriePopup()">
+			<i class="fas fa-calculator"></i>
+		</div>
+
+		<!-- 챗봇 팝업 -->
+		<div id="chatbot-popup">
+			<!-- 입력창 및 대화 출력 -->
+			<div id="chat-output"></div>
+			<input type="text" id="chat-input" placeholder="챗봇과 대화해 보세요...">
+		</div>
+		
+		<!-- 칼로리 계산기 팝업 -->
+		<div id="calorie-popup">
+			<h3>칼로리 계산기</h3>
+			<!-- 칼로리 계산기 내용 -->
+			<div id="calorie-output"></div>
+			<input type="text" id="calorie-input" placeholder="음식명을 입력하세요...">
+		</div>
+	</div>
+
+	<!-- 챗봇 및 칼로리 계산기 스크립트 -->
+	<script>
+        function toggleChatbotPopup() {
+            var popup = document.getElementById("chatbot-popup");
+            if (popup.style.display === "none" || popup.style.display === "") {
+                popup.style.display = "flex";
+            } else {
+                popup.style.display = "none";
+            }
+        }
+
+        function toggleCaloriePopup() {
+            var popup = document.getElementById("calorie-popup");
+            if (popup.style.display === "none" || popup.style.display === "") {
+                popup.style.display = "flex";
+            } else {
+                popup.style.display = "none";
+            }
+        }
+
+        document.getElementById("chat-input").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                var input = document.getElementById("chat-input").value;
+                document.getElementById("chat-output").innerHTML += `
+                    <p><i class="fas fa-user"></i><strong>사용자:</strong> ${input}</p>
+                `;
+                document.getElementById("chat-input").value = "";
+                // 챗봇 응답 로직을 추가하세요
+                respondToUser(input);
+            }
+        });
+
+        function respondToUser(input) {
+            var output;
+            // 사용자 입력에 따라 챗봇이 응답합니다.
+            if (input.includes("안녕")) {
+                output = "안녕하세요! 무엇을 도와드릴까요?";
+            } else if (input.includes("사용법")) {
+                output = "FOOD MATE는 사이트 이용자가 자신의 건강상태를 입력하면 현재 이용자의 건강상태에 따라 적절한 음식을 골라서 알려주는 페이지입니다.";
+            } else if (input.includes("어떤 정보를 제공하나요") || input.includes("무엇을 할 수 있나요")) {
+                output = "FOOD MATE는 사용자의 건강 정보를 기반으로 적절한 식단을 추천해줍니다. 또한 영양 정보, 요리 레시피, 건강 팁 등 다양한 정보를 제공합니다.";
+            } else if (input.includes("건강한 식단")) {
+                output = "건강한 식단은 개인의 건강 상태에 따라 달라질 수 있습니다. 그러나 일반적으로 신선한 과일과 채소, 곡물, 단백질원인 고기나 채소를 포함하는 균형 잡힌 식단이 좋습니다.";
+            } else if (input.includes("레시피")) {
+                output = "FOOD MATE는 사용자의 건강 상태와 선호도에 맞는 다양한 요리 레시피를 제공합니다. 특정 요리의 레시피를 원하시면 레시피 검색을 이용해보세요!";
+            } else {
+                // 기본적으로는 랜덤한 대답을 생성합니다.
+                var responses = [
+                    "죄송합니다. 제가 이해하지 못했어요. 다시 말씀해 주시겠어요?",
+                    "그것에 대해 잘 모르겠어요. 다른 질문이 있으신가요?",
+                    "정확히 무엇을 말씀하시는 건가요?",
+                    "그것은 흥미로운 주제네요. 다른 주제에 대해 이야기해 볼까요?"
+                ];
+                output = responses[Math.floor(Math.random() * responses.length)];
+            }
+            document.getElementById("chat-output").innerHTML += `
+            <p><i class="fas fa-robot"></i><strong>챗봇:</strong> ${output}</p>
+        `;
+        }
+
+        document.getElementById("calorie-input").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                var input = document.getElementById("calorie-input").value;
+                document.getElementById("calorie-output").innerHTML += `
+                    <p><i class="fas fa-utensils"></i><strong>음식명:</strong> ${input}</p>
+                `;
+                document.getElementById("calorie-input").value = "";
+                // 칼로리 계산 로직을 추가하세요
+                calculateCalories(input);
+            }
+        });
+
+        function calculateCalories(input) {
+            var output;
+            // 음식명에 따른 칼로리를 계산하여 출력합니다.
+            // 실제 데이터베이스나 API와 연동하여 칼로리를 계산하는 로직을 구현해야 합니다.
+            // 여기서는 예시로 간단한 응답을 작성합니다.
+            if (input.includes("사과")) {
+                output = "사과 1개의 칼로리는 약 95kcal입니다.";
+            } else if (input.includes("바나나")) {
+                output = "바나나 1개의 칼로리는 약 105kcal입니다.";
+            } else if (input.includes("치킨")) {
+                output = "치킨 한 조각의 칼로리는 약 250kcal입니다.";
+            } else {
+                // 기본적으로는 랜덤한 대답을 생성합니다.
+                var responses = [
+                    "죄송합니다. 해당 음식의 칼로리 정보를 찾을 수 없습니다.",
+                    "해당 음식에 대한 칼로리 정보가 없습니다. 다른 음식을 입력해 주세요.",
+                    "정확한 칼로리 정보를 제공할 수 없습니다. 다른 음식을 입력해 주세요."
+                ];
+                output = responses[Math.floor(Math.random() * responses.length)];
+            }
+            document.getElementById("calorie-output").innerHTML += `
+            <p><i class="fas fa-robot"></i><strong>칼로리 계산기:</strong> ${output}</p>
+        `;
+        }
+    </script>
+</body>
+<th:block th:insert="~{includes/footer.html}"></th:block>
+</html>
