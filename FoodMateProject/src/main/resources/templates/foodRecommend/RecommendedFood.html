@@ -23,11 +23,17 @@ $(document).ready(function() {
             var image = $('<img>').attr('src', food.images);
             listItem.append(image);
             
+         // 이미지 클릭 이벤트 추가
+            image.on('click', function() {
+                window.open('chart.html?idx=' + idx, '_blank', 'width=400, height=600');
+            });
+            
             // hidden input 요소로 음식의 idx 추가
+            // 안쓰면 삭제
             var hiddenInput = $('<input>').attr('type', 'hidden').attr('name', 'foodIdx').val(food.idx);
             listItem.append(hiddenInput);
 
-            var text = $('<span>').text(food.images + " - " + food.idx + " - " + food.name + " - " + food.calories + " kcal"); // 텍스트 생성
+            var text = $('<span>').text(food.idx + " - " + food.name + " - " + food.calories + " kcal"); // 텍스트 생성
             listItem.append(text); // 텍스트를 식단 추천 목록에 추가
 
             foodRecommendations.append(listItem);

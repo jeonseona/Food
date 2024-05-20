@@ -38,13 +38,23 @@ public class HomeController {
 
 	    String[] tmpArr = result.split("\n");
 	    for (String line : tmpArr) {
-	        String[] items = line.split("/");
+	        String[] items = line.split("@");
 	        if (items.length >= 4) { // Expected number of items
 	            RecommendData food = new RecommendData();
 	            food.setIdx(items[0].trim());
 	            food.setName(items[1].trim());
 	            food.setCalories(items[2].replace(" kcal", "").trim());
-	            food.setImages(items[3].split(", ")[0].trim());
+	            // 이미지 URL을 분리하여 처리
+	            String[] imageUrls = items[3].split("\\.jpg");
+	            for (int i = 0; i < imageUrls.length; i++) {
+	                imageUrls[i] = imageUrls[i].trim() + ".jpg";
+	            }
+
+	            // 첫 번째 이미지 URL을 설정
+	            if (imageUrls.length > 0) {
+	                food.setImages(imageUrls[0]);
+	            }
+
 	            foodList.add(food);
 	            System.out.println("food추가" + food);
 	        } else {
