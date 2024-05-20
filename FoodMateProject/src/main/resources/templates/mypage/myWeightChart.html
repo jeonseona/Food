@@ -7,23 +7,7 @@
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script th:src="@{/js/mypage.js}" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-window.onload = function() {
-    // input 요소 참조
-    var weightInput = document.getElementById('re_weight');
-    // kg를 표시할 span 요소 참조
-    var kgSpan = document.getElementById('kg');
 
-    // input 값이 변경될 때마다 이벤트 처리
-    if (weightInput) {
-        weightInput.addEventListener('input', function() {
-            // input 요소의 값 뒤에 'kg' 추가하여 span 요소에 표시
-            kgSpan.textContent = 'kg';
-        });
-    }
-};
-
-</script>
 </head>
 <body>
 	<!-- 헤더 -->
@@ -45,7 +29,7 @@ window.onload = function() {
 								<label for="re_date">날짜 : </label>
 								<input type="date" id="re_date" name="re_date" required><br>
 								<label for="re_weight">체중 : </label>
-								<input type="number" id="re_weight" name="re_weight" required>
+								<input type="number" id="re_weight" name="re_weight" step="0.01" required>
 								<span id="kg">kg</span><br>
 								<input type="button" value="입력" onclick="weight_record()" class="btn">
 							</fieldset>

@@ -227,7 +227,6 @@ main h3 {
 .record {
     display: flex;
     justify-content: center; /* 요소를 가운데 정렬합니다. */
-    align-items: center; /* 요소를 가운데 정렬합니다. */
 }
 
 .left-panel,
