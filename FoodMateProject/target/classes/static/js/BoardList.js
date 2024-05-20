@@ -71,7 +71,18 @@ function truncateText(selector, maxLength) {
 	
 	
 	
+// 그래프
+
+	$(document).ready(function() {
+		 if ($('#boardlistbody').length) {
+			 google.charts.load('current', {packages: ['corechart'], language: 'ko'});
+    		google.charts.setOnLoadCallback(drawChart);
+    		google.charts.setOnLoadCallback(drawAnthonyChart);
     
+        drawChart();
+        drawAnthonyChart();
+    }
+	});     
 
     function drawChart() {
     $.ajax({
@@ -120,7 +131,8 @@ function truncateText(selector, maxLength) {
                     },
                     minorGridlines: {
                         count: 1 // 소 그리드라인 간격
-                    }
+                    },
+                   format: '0' // 
                 }
             };
 
@@ -168,7 +180,7 @@ function truncateText(selector, maxLength) {
             // 차트 옵션
             var barchart_options = {
                 title: '추천수 Top 3',
-                width: 600,
+                width: 600 ,
                 height: 300,
                 legend: 'none',
                 titleTextStyle: {
@@ -180,9 +192,12 @@ function truncateText(selector, maxLength) {
                         min: 0
                     },
                     gridlines: {
-                        count: -1, // 자동 계산
-                        interval: 1
-                    }
+                        count: 2 // 주 그리드라인 개수
+                    },
+                    minorGridlines: {
+                        count: 1 // 소 그리드라인 간격
+                    },
+                    format: '0' 
                 }
             };
 

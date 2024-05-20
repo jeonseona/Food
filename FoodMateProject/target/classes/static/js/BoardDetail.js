@@ -251,16 +251,3 @@ function go_list()
 	   theForm.submit();
 }		
 
-
-// 그래프
-
-	$(document).ready(function() {
-		 if ($('#boardlistbody').length) {
-			 google.charts.load('current', {packages: ['corechart'], language: 'ko'});
-    		google.charts.setOnLoadCallback(drawChart);
-    		google.charts.setOnLoadCallback(drawAnthonyChart);
-    
-        drawChart();
-        drawAnthonyChart();
-    }
-	});

@@ -400,7 +400,7 @@ public class BoardController {
 
 	// 글 삭제
 	@GetMapping("/board_delete")
-	public String deleteCom_Board(@RequestParam(value = "seq") int seq, Com_Board_Detail vo, HttpSession session) {
+	public String deleteCom_Board(@RequestParam(value = "seq") int seq, HttpSession session) {
 		MemberData loginUser = (MemberData) session.getAttribute("loginUser");
 		Com_Board_Detail board = Board_DetailService.getCom_Board_Datail(seq);
 
