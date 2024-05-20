@@ -313,7 +313,7 @@ body {
 }
 
 /* Major Section 스타일 */
-.major h2 {
+.style1 .major h2 {
     font-size: 2.5em;
     color: #333;
     margin-bottom: 1.5em;
@@ -325,16 +325,16 @@ body {
     margin: 0 auto; /* 수평 가운데 정렬 */
 }
 
-.major h3 {
+.style1 .major h3 {
     font-size: 1.5em;
     color: #333;
     margin-bottom: 1.5em;
-    background-color: rgba(255, 255, 255, 0.7); /* 반투명 밝은 배경색 */
-    padding: 0.5em; /* 패딩 추가 */
-    display: block; /* 블록 요소로 설정하여 줄바꿈 */
-    width: fit-content; /* 텍스트 너비에 맞춤 */
-    border-radius: 5px; /* 둥근 모서리 */
-    margin: 0 auto; /* 수평 가운데 정렬 */
+    background-color: rgba(255, 255, 255, 0.7); /*반투명 밝은 배경색*/
+    padding: 0.5em; /*패딩 추가*/
+    display: block; /*블록 요소로 설정하여 줄바꿈*/
+    width: fit-content; /*텍스트 너비에 맞춤*/
+    border-radius: 5px; /*둥근 모서리*/
+    margin: 0 auto; /*수평 가운데 정렬*/
 }
 
 .major .byline {
@@ -377,7 +377,6 @@ body {
 .mrow {
 	display: flex;
 	gap: 2em;
-	flex-wrap: wrap;
 	justify-content: center;
 }
 
