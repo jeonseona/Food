@@ -67,7 +67,7 @@
     left: 0; /* 왼쪽 여백 */
 }
 
-#header .h_container h1 {
+#header h1 {
     font-size: 3em; /* 폰트 크기 설정 */
     margin: 0; /* 기본 마진 제거 */
     color: #fff; /* 텍스트 색상 */
@@ -607,4 +607,6 @@ ul.style li span {
     #footer .fu4 {
         max-width: 100%;
     }
+    
+    
 }
