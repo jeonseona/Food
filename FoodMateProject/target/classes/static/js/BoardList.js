@@ -74,15 +74,16 @@ function truncateText(selector, maxLength) {
 // 그래프
 
 	$(document).ready(function() {
-		 if ($('#boardlistbody').length) {
-			 google.charts.load('current', {packages: ['corechart'], language: 'ko'});
-    		google.charts.setOnLoadCallback(drawChart);
-    		google.charts.setOnLoadCallback(drawAnthonyChart);
-    
-        drawChart();
-        drawAnthonyChart();
+    if ($('#boardlistbody').length) {
+        google.charts.load('current', {packages: ['corechart'], language: 'ko'});
+        google.charts.setOnLoadCallback(drawCharts);
     }
-	});     
+});
+
+function drawCharts() {
+    drawChart();
+    drawAnthonyChart();
+}
 
     function drawChart() {
     $.ajax({
@@ -212,3 +213,22 @@ function truncateText(selector, maxLength) {
     
 }
       
+        function toggleChatbotPopup() {
+            var popup = document.getElementById('chatbot-popup');
+            if (popup.style.display === 'none' || popup.style.display === '') {
+                popup.style.display = 'block';
+            } else {
+                popup.style.display = 'none';
+            }
+        }
+
+        function toggleCaloriePopup() {
+            var popup = document.getElementById('calorie-popup');
+            if (popup.style.display === 'none' || popup.style.display === '') {
+                popup.style.display = 'block';
+            } else {
+                popup.style.display = 'none';
+            }
+        }      
+        
+        

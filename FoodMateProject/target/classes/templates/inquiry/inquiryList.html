@@ -4,34 +4,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <th:block th:insert="~{includes/header.html}"></th:block>
     <title>1:1 문의</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" href="/css/main.css" />
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
+    /* 챗봇 아이콘 스타일 */
+#chatbot-icon,
+#calorie-icon {
+    position: fixed;
+    bottom: 30px;
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+#chatbot-icon {
+    left: 10px;
+}
+
+#calorie-icon {
+    left: 110px; /* 챗봇 아이콘 오른쪽에 위치 */
+}
         body {
             font-family: Arial, sans-serif;
-            background-color: #f7f7f7; /* 연한 회색 배경색 */
+            background-color: #f7f7f7;
             margin: 0;
             padding: 20px;
-            color: #555; /* 어두운 회색 텍스트 */
+            color: #555;
         }
 
         h1 {
             color: #333;
             text-align: center;
             margin-bottom: 20px;
-            position: relative; /* 아이콘을 h1 제목에 상대적으로 배치 */
+            position: relative;
         }
 
-.page-icon {
+        .page-icon {
             font-size: 24px;
-            color: #45a049; /* 연한 녹색 아이콘 */
-            position: absolute; /* h1 내에서 위치를 조정하기 위해 절대적으로 배치 */
-            left: -30px; /* h1 왼쪽에 위치하도록 설정 */
-            top: 50%; /* 세로 중앙 정렬 */
-            transform: translateY(-50%); /* 수직 가운데 정렬 */
+            color: #45a049;
+            position: absolute;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
         }
+
         .contact-info {
             background-color: #fff;
             border-radius: 8px;
@@ -47,7 +70,7 @@
         }
 
         .inquiry-list-container {
-            padding: 20px; /* 여백 추가 */
+            padding: 20px;
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -102,46 +125,40 @@
         }
 
         .subject-text {
-            color: #5cb85c; /* Light green color */
-            cursor: pointer; /* Change cursor to pointer on hover */
-            transition: color 0.3s; /* Smooth transition for color change */
+            color: #5cb85c;
+            cursor: pointer;
+            transition: color 0.3s;
         }
 
-        /* Darken the color when hovered */
         .subject-text:hover {
-            color: #3d8b3d; /* Darker green color */
+            color: #3d8b3d;
         }
     </style>
 </head>
 
 <body>
-    <!-- 아이콘과 제목을 포함하는 div 요소 -->
+<!-- 챗봇 아이콘 -->
+        <div id="chatbot-icon" onclick="toggleChatbotPopup()">
+            <i class="fas fa-robot"></i>
+        </div>
+        
+        <!-- 칼로리 계산기 아이콘 -->
+        <div id="calorie-icon" onclick="toggleCaloriePopup()">
+            <i class="fas fa-calculator"></i>
+        </div>
+
+<th:block th:insert="~{includes/header.html}"></th:block>
     <div style="text-align: center;">
-        <!-- Font Awesome 아이콘 -->
         <i class="fas fa-comment-dots page-icon"></i>
-        <!-- 제목 -->
         <h1>1:1 문의</h1>
     </div>
     <div class="contact-info">
         <div class="note">1:1 문의 내역 조회는 최대 3년까지 가능합니다.</div>
+       
         <div class="note">
-    <!-- 날짜 조회 아이콘 추가 -->
-    <i class="far fa-calendar-alt icon"></i> 날짜 조회:<form id="dateSearchForm" action="YOUR_SERVER_ENDPOINT" method="GET"> <!-- Added form tag -->
-        <input type="date" id="startDate" name="startDate" required>
-        ~
-        <input type="date" id="endDate" name="endDate" required>
-        <button type="submit"> <!-- Moved button inside the form -->
-            <i class="fas fa-search icon"></i>조회
-        </button>
-    </form>
-</div>
-
-        <div class="note">
-            <!-- 전화 상담 아이콘 추가 -->
             <i class="fas fa-phone-alt icon"></i> 전화 상담 xxxx-xxxx | 평일 09:00~18:00 (주말 및 공휴일 휴무) | 점심 12:00~13:00
         </div>
     </div>
-    <!-- 여백 추가 -->
     <div class="inquiry-list-container">
         <table class="inquiry-list">
             <thead>
@@ -150,25 +167,19 @@
                     <th>이름</th>
                     <th>제목</th>
                     <th>상태</th>
-                    <!-- 답변 상태 열 추가 -->
                     <th>작성일</th>
-                    <!-- 생성일자 열 추가 -->
                 </tr>
             </thead>
             <tbody>
-                <!-- Thymeleaf를 사용하여 inquiries를 반복 -->
                 <tr th:each="inquiry, row : ${inquiries}" th:class="${row.odd} ? 'odd' : 'even'">
-                    <!-- 번호 매기기 -->
                     <td th:text="${row.index + 1}"></td>
-                    <!-- 각 문의의 이름, 제목, 답변 상태 및 작성일을 테이블 셀에 출력 -->
                     <td th:text="${inquiry.name}"></td>
-                    <td class="subject"><a th:href="@{/inquiry/inquiry_detail/{id}(id=${inquiry.inquiry_id})}" th:text="${inquiry.subject}" class="subject-text"></a></td>
-                    <!-- 답변 상태를 표시하는데 inquiry.status를 사용 -->
+                    <td class="subject">
+                        <a th:href="@{/inquiry/inquiry_detail/{id}(id=${inquiry.inquiry_id})}" th:text="${inquiry.subject}" class="subject-text"></a>
+                    </td>
                     <td th:text="${inquiry.status}"></td>
-                    <!-- Date 형식에 맞게 출력 -->
                     <td th:text="${#dates.format(inquiry.regdate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                 </tr>
-                <!-- 조회 결과가 없을 때 -->
                 <tr th:if="${#lists.isEmpty(inquiries)}">
                     <td colspan="5" class="empty-message">해당 기간 문의 내역이 없습니다.</td>
                 </tr>
@@ -176,44 +187,62 @@
         </table>
     </div>
     <th:block th:insert="~{includes/footer.html}"></th:block>
-    
-    <!-- JavaScript for handling date search -->
+
     <script>
-    document.getElementById('dateSearchForm').addEventListener('submit', function (event) {
-        // Prevent the default form submission
-        event.preventDefault();
-        
-        // Get the values of start and end dates
-        var startDate = document.getElementById('startDate').value;
-        var endDate = document.getElementById('endDate').value;
+document.getElementById('dateSearchForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // 기본 동작인 폼 제출을 막습니다.
 
-        // Log the form data to check if it's captured correctly
-        console.log('Start Date:', startDate);
-        console.log('End Date:', endDate);
+    var startDate = document.getElementById('startDate').value;
+    var endDate = document.getElementById('endDate').value;
 
-        // Construct the URL to submit the form data
-        var url = 'YOUR_SERVER_ENDPOINT?startDate=' + startDate + '&endDate=' + endDate;
-        
-        // Log the constructed URL
-        console.log('URL:', url);
+    if (new Date(startDate) > new Date(endDate)) {
+        alert('시작일은 종료일보다 이전이어야 합니다.');
+        return;
+    }
 
-        // Redirect to the constructed URL
-        // window.location.href = url; // Commented out for debugging
-    });
-    
- // Add event listeners to all elements with the 'subject-text' class
-    var subjectLinks = document.querySelectorAll('.subject-text');
-    subjectLinks.forEach(function(link) {
-        link.addEventListener('click', function(event) {
-            // Prevent the default link behavior
-            event.preventDefault();
-
-            // Redirect to the href attribute of the clicked link
-            window.location.href = link.getAttribute('href');
+    // fetch를 사용하여 서버에 데이터를 전송합니다.
+    fetch("/inquiry/search?startDate=" + startDate + "&endDate=" + endDate)
+        .then(response => response.json()) // 서버로부터 응답을 받아 JSON 형식으로 변환합니다.
+        .then(data => {
+            // 서버로부터 받은 데이터를 처리합니다.
+            displaySearchResults(data);
+        })
+        .catch(error => {
+            console.error('Error fetching inquiries:', error);
         });
-    });
-</script>
+});
 
+// 조회 결과를 화면에 표시하는 함수
+function displaySearchResults(data) {
+    var tableBody = document.querySelector('.inquiry-list tbody');
+    tableBody.innerHTML = ''; // 이전 결과를 지웁니다.
+
+    if (data.length === 0) {
+        // 조회 결과가 없는 경우 메시지를 표시합니다.
+        tableBody.innerHTML = '<tr><td colspan="5" class="empty-message">해당 기간 문의 내역이 없습니다.</td></tr>';
+    } else {
+        // 조회 결과가 있는 경우 각각의 데이터를 테이블에 추가합니다.
+        data.forEach(function(item, index) {
+            var row = '<tr>' +
+                '<td>' + (index + 1) + '</td>' +
+                '<td>' + item.name + '</td>' +
+                '<td class="subject">' +
+                '<a href="/inquiry/inquiry_detail/' + item.inquiry_id + '" class="subject-text">' + item.subject + '</a>' +
+                '</td>' +
+                '<td>' + item.status + '</td>' +
+                '<td>' + formatDate(item.regdate) + '</td>' +
+                '</tr>';
+            tableBody.innerHTML += row;
+        });
+    }
+}
+
+// 날짜 형식을 변환하는 함수
+function formatDate(dateString) {
+    var date = new Date(dateString);
+    return date.toLocaleString('ko-KR');
+}
+</script>
 </body>
 
 </html>

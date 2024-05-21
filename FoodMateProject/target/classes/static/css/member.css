@@ -111,7 +111,7 @@
     background-color: rgb(233, 233, 233);
 }
 
-#join-container .id_overlap_button,
+#join-container .id_check,
 #join-container .email_check {
     background-color: rgba(170, 172, 219, 0.33); /* 중복확인 버튼 색상 변경 */
 }
@@ -126,13 +126,13 @@
 }
 
 #join-container .btn:hover,
-#join-container .id_overlap_button:hover,
+#join-container .id_check:hover,
 #join-container .email_check:hover {
     background-color: rgb(209, 228, 255); /* 호버 시 밝고 시원한 느낌의 색상으로 변경 */
 }
 
 #join-container .btn:active,
-#join-container .id_overlap_button:active,
+#join-container .id_check:active,
 #join-container .email_check:active {
     background-color: rgb(61, 135, 255);
 }

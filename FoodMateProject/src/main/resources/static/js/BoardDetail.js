@@ -251,3 +251,20 @@ function go_list()
 	   theForm.submit();
 }		
 
+        function toggleChatbotPopup() {
+            var popup = document.getElementById('chatbot-popup');
+            if (popup.style.display === 'none' || popup.style.display === '') {
+                popup.style.display = 'block';
+            } else {
+                popup.style.display = 'none';
+            }
+        }
+
+        function toggleCaloriePopup() {
+            var popup = document.getElementById('calorie-popup');
+            if (popup.style.display === 'none' || popup.style.display === '') {
+                popup.style.display = 'block';
+            } else {
+                popup.style.display = 'none';
+            }
+        }

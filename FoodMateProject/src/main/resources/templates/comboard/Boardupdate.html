@@ -3,10 +3,42 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="assets/css/main.css">
+<style>
+/* 챗봇 아이콘 스타일 */
+#chatbot-icon,
+#calorie-icon {
+    position: fixed;
+    bottom: 30px;
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+#chatbot-icon {
+    left: 10px;
+}
+
+#calorie-icon {
+    left: 110px; /* 챗봇 아이콘 오른쪽에 위치 */
+}</style>
 <th:block th:insert="~{includes/header.html}"></th:block>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" th:src="@{js/BoardDetail.js}"></script>
 <article>
+<!-- 챗봇 아이콘 -->
+        <div id="chatbot-icon" onclick="toggleChatbotPopup()">
+            <i class="fas fa-robot"></i>
+        </div>
+        
+        <!-- 칼로리 계산기 아이콘 -->
+        <div id="calorie-icon" onclick="toggleCaloriePopup()">
+            <i class="fas fa-calculator"></i>
+        </div>
 	<h1>유저 레시피 글 수정</h1>
 	<form name="frm" id="update_form" method="post"
 		enctype="multipart/form-data">

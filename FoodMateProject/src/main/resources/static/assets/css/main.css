@@ -1145,6 +1145,7 @@
 		text-align: center;
 		overflow: hidden;
 	}
+	
 
 		#banner .inner {
 			text-align: center;
@@ -1641,3 +1642,6 @@
 .icon-text:hover i {
     color: #000000; /* 호버 시 아이콘 색상 */
 }
+
+
+/* 2번째 */

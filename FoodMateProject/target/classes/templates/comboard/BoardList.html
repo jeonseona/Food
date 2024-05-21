@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="assets/css/main.css">
+    	<link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link rel="stylesheet" href="https://hangeul.pstatic.net/hangeul_static/css/nanum-barun-gothic.css">
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" th:src="@{js/BoardList.js}"></script>
 </head>
-<body id="boardlistbody">
+<body id="boardlistbody">     
     <th:block th:insert="~{includes/header.html}"></th:block>
-    
     <article>
         <section id="banner" data-video="images/banner">
             <div class="inner">
@@ -42,6 +41,8 @@
                             <input type="text" name="searchKeyword" id="searchKeyword">
                             <a href="#" onclick="submitSearch()"><span class="material-symbols-outlined">search</span></a>
                         </form>
+                             <a href="/cal">계산기</a><br>
+   							 <a href="/chat">챗봇</a>
                         <form id="writeForm" method="get" action="/board_write">
                             <button type="submit" class="btn" id="colorbtn">글쓰기</button>
                         </form>
@@ -81,8 +82,7 @@
                 <th:block th:insert="~{./page_area}"></th:block>
             </div>
         </div>
-    </article>
-    
+    </article>    
     <th:block th:insert="~{includes/footer.html}"></th:block>
 </body>
 </html>

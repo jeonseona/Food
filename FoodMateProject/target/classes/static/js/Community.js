@@ -19,20 +19,6 @@ $(document).ready(function() {
     });
 });
 
-//글자수제한
-function truncateText(selector, maxLength) {
-    var elements = document.querySelectorAll(selector);
-    elements.forEach(function(element) {
-      var text = element.textContent;
-      if (text.length > maxLength) {
-        element.textContent = text.substring(0, maxLength) + '...';
-      }
-    });
-  }
-
-  document.addEventListener("DOMContentLoaded", function() {
-    truncateText('.truncate', 9); // 9 글자로 제한
-  });
 
         
  function go_view(community_seq) {

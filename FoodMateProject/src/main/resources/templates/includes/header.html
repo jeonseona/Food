@@ -3,47 +3,126 @@
 <head>
 <meta charset="UTF-8">
 <title>FoodMate - 다이어트 식단 추천</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="stylesheet" th:href="@{/css/main.css}" href="/css/main.css" />
+<script>
+	document.addEventListener("scroll", function() {
+		var header = document.getElementById("header");
+		var fixedHeader = document.getElementById("fixedHeader");
+		var headerBottom = header.getBoundingClientRect().bottom;
+
+		if (headerBottom <= 0) {
+			fixedHeader.style.display = "block";
+		} else {
+			fixedHeader.style.display = "none";
+		}
+	});
+</script>
 </head>
 <body>
-<header id="header">
-    <div class="container">
-    	<!-- 로고 -->
-    	<div id="logo">
-    	<a href="/"><img class="logo" src="/images/logo.png" alt="Food Logo"></a>
-    	</div>
-        <h1>FoodMate</h1>
-        <nav id="nav">
-            <ul>
-                <li><a href="/customer_service/introduce">FoodMate</a></li>
-                <th:block th:if="${session.loginUser == null}">
-                	<li><a th:href="@{/login}">Login</a></li>
-                </th:block>
-                <th:block th:unless="${session.loginUser==null}">
-                	<li><a th:href="@{/logout}">Logout</a></li>
-                </th:block>
-                <li><a th:href="@{/board_list_main}">Community</a></li>
-                <li><a th:href="@{/mypage}">MyPage&nbsp;&nbsp;<i class="fas fa-chevron-down"></i></a>
-                	<ul>
-                		<li><a th:href="@{infoView}">내 정보</a></li>
-				        <li><a th:href="@{infoUpdate}">내 정보 수정</a></li>
-				        <li><a th:href="@{bodyUpdate}">바디데이터 수정</a></li>
-				        <li><a th:href="@{myInquiry}">내 질문</a></li>
-				        <li><a th:href="@{myRecipeList}">나의 레시피</a></li>
-				        <li><a th:href="@{foodRecommend}">추천받은 음식 기록</a></li>
-                	</ul></li>
-                <li><a th:href="@{/customer_service}">Customer Service&nbsp;&nbsp;<i class="fas fa-chevron-down"></i></a>
-                	<ul>
-                		<li><a class="link" href="/qna/all">Q&A</a></li>
-                		<li><a class="link" href="/inquiry/inquiryForm">1:1 문의 작성</a></li>
-                		<li><a class="link" href="/inquiry/inquiryList">1:1 문의 내역</a></li>
-                	</ul></li>
-            </ul>
-        </nav>
-    </div>
-</header>
+	<header id="header">
+		<div class="h_container">
+			<!-- 로고 -->
+			<div id="logo">
+				<a href="/"><img class="logo" src="/images/logo.png"
+					alt="Food Logo"></a>
+			</div>
+			<h1>FoodMate</h1>
+			<nav id="nav">
+				<ul>
+					<li><a href="/customer_service/introduce">FoodMate</a></li>
+					<th:block th:if="${session.loginUser == null}">
+						<li><a th:href="@{/login}">Login</a></li>
+					</th:block>
+					<th:block th:unless="${session.loginUser==null}">
+						<li><a th:href="@{/logout}">Logout</a></li>
+					</th:block>
+					<li><a th:href="@{/board_list_main}">Community</a>
+						<ul>
+							<li><a th:href="@{/board_list}"><i
+									class="fas fa-comments"></i>&nbsp;유저 레시피 공유</a></li>
+							<li><a th:href="@{/community_list}"><i
+									class="fas fa-handshake"></i>&nbsp;자유 게시판</a></li>
+						</ul></li>
+					<li><a th:href="@{/mypage}">MyPage&nbsp;&nbsp;<i
+							class="fas fa-chevron-down"></i></a>
+						<ul>
+							<li><a th:href="@{infoView}"><i class="fas fa-user"></i>&nbsp;내
+									정보</a></li>
+							<li><a th:href="@{infoUpdate}"><i class="fas fa-pen"></i>&nbsp;내
+									정보 수정</a></li>
+							<li><a th:href="@{bodyUpdate}"><i class="fas fa-check"></i>&nbsp;바디데이터
+									수정</a></li>
+							<li><a th:href="@{myWeightChart}"><i
+									class="fas fa-chart-line"></i>&nbsp;체중 변화 기록</a></li>
+							<li><a th:href="@{myRecipeList}"><i
+									class="fas fa-utensils"></i>&nbsp;나의 레시피</a></li>
+							<li><a th:href="@{foodRecommend}"><i
+									class="fas fa-history"></i>&nbsp;받은 추천 기록</a></li>
+						</ul></li>
+					<li><a th:href="@{/customer_service}">Customer
+							Service&nbsp;&nbsp;<i class="fas fa-chevron-down"></i>
+					</a>
+						<ul>
+							<li><a href="/qna/all">Q&A</a></li>
+							<li><a href="/inquiry/inquiryForm">1:1 문의 작성</a></li>
+							<li><a href="/inquiry/inquiryList">1:1 문의 내역</a></li>
+						</ul></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<!-- 고정 헤더 -->
+	<div class="fixed-header" id="fixedHeader">
+		<nav id="nav2">
+			<a href="/"><img class="logo2" src="/images/logo.png"
+				alt="Food Logo"></a>
+			<ul>
+				<li><a href="/customer_service/introduce">FoodMate</a></li>
+				<th:block th:if="${session.loginUser == null}">
+					<li><a th:href="@{/login}">Login</a></li>
+				</th:block>
+				<th:block th:unless="${session.loginUser==null}">
+					<li><a th:href="@{/logout}">Logout</a></li>
+				</th:block>
+				<li><a th:href="@{/board_list_main}">Community</a>
+					<ul>
+						<li><a th:href="@{/board_list}"><i
+								class="fas fa-comments"></i>&nbsp;유저 레시피 공유</a></li>
+						<li><a th:href="@{/community_list}"><i
+								class="fas fa-handshake"></i>&nbsp;자유 게시판</a></li>
+					</ul></li>
+				<li><a th:href="@{/mypage}">MyPage&nbsp;&nbsp;<i
+						class="fas fa-chevron-down"></i></a>
+					<ul>
+						<li><a th:href="@{infoView}"><i class="fas fa-user"></i>&nbsp;내
+								정보</a></li>
+						<li><a th:href="@{infoUpdate}"><i class="fas fa-pen"></i>&nbsp;내
+								정보 수정</a></li>
+						<li><a th:href="@{bodyUpdate}"><i class="fas fa-check"></i>&nbsp;바디데이터
+								수정</a></li>
+						<li><a th:href="@{myWeightChart}"><i
+								class="fas fa-chart-line"></i>&nbsp;체중 변화 기록</a></li>
+						<li><a th:href="@{myRecipeList}"><i
+								class="fas fa-utensils"></i>&nbsp;나의 레시피</a></li>
+						<li><a th:href="@{foodRecommend}"><i
+								class="fas fa-history"></i>&nbsp;받은 추천 기록</a></li>
+					</ul></li>
+				<li><a th:href="@{/customer_service}">Customer
+						Service&nbsp;&nbsp;<i class="fas fa-chevron-down"></i>
+				</a>
+					<ul>
+						<li><a href="/qna/all">Q&A</a></li>
+						<li><a href="/inquiry/inquiryForm">1:1 문의 작성</a></li>
+						<li><a href="/inquiry/inquiryList">1:1 문의 내역</a></li>
+					</ul></li>
+			</ul>
+		</nav>
+	</div>
+
 
 </body>
 </html>
-<!-- <li><a th:href="@{/Top_recipes}">Top_recipes</a><li> --><!-- 탑 레시피 -->
+<!-- <li><a th:href="@{/Top_recipes}">Top_recipes</a><li> -->
+<!-- 탑 레시피 -->

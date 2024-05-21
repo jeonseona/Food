@@ -7,15 +7,16 @@
     <script th:src="@{/js/mypage.js}" defer></script>
 </head>
 <body>
-<nav id="menu">
+<nav id="my_menu">
     <ul>
         <li><a th:href="@{infoView}">내 정보</a></li>
         <li><a th:href="@{infoUpdate}">내 정보 수정</a></li>
         <li><a th:href="@{bodyUpdate}">바디데이터 수정</a></li>
-        <li><a th:href="@{myInquiry}">내 질문</a></li>
+        <li><a th:href="@{myWeightChart}">체중 변화 기록</a></li>
         <li><a th:href="@{myRecipeList}">나의 레시피</a></li>
         <li><a th:href="@{foodRecommend}">추천받은 음식 기록</a></li>
         <!-- 필요에 따라 다른 메뉴 아이템 추가 -->
+        <!-- <li><a th:href="@{myInquiry}">내 질문</a></li> -->
     </ul>
 </nav>
 </body>

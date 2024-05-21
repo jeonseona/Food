@@ -4,10 +4,42 @@
 <meta charset="UTF-8">
 <title>Body Update</title>
 <link rel="stylesheet" th:href="@{/css/mypage.css}">
+<style>
+/* 챗봇 아이콘 스타일 */
+#chatbot-icon,
+#calorie-icon {
+    position: fixed;
+    bottom: 30px;
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+#chatbot-icon {
+    left: 10px;
+}
+
+#calorie-icon {
+    left: 110px; /* 챗봇 아이콘 오른쪽에 위치 */
+}</style>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script th:src="@{/js/mypage.js}" defer></script>
 </head>
 <body>
+<!-- 챗봇 아이콘 -->
+        <div id="chatbot-icon" onclick="toggleChatbotPopup()">
+            <i class="fas fa-robot"></i>
+        </div>
+        
+        <!-- 칼로리 계산기 아이콘 -->
+        <div id="calorie-icon" onclick="toggleCaloriePopup()">
+            <i class="fas fa-calculator"></i>
+        </div>
 	<!-- 헤더 -->
 	<th:block th:insert="~{includes/header}"></th:block>
 
@@ -22,20 +54,20 @@
 				<h3>바디데이터 수정하기</h3>
 				<form action="update_body" id="update_body" method="post" name="formm">
 					<fieldset>
-						<label>성별</label> <select name="gender" id="gender">
+						<label>성별 : </label> <select name="gender" id="gender">
 							<option value="Male">남자</option>
 							<option value="Female">여자</option>
 						</select><br>
-						<label>나이</label>
+						<label>나이 : </label>
 						<input type="text" name="age" id="age"><br>
-						<label>키</label>
+						<label>키 : </label>
 						<input type="text" name="height" id="height"><br>
-						<label>몸무게</label>
+						<label>몸무게 : </label>
 						<input type="text" name="weight" id="weight"><br>
-						<label>bmi</label>
+						<label>BMI : </label>
 						<input type="text" name="bmi" id="bmi" readonly>
 						<input type="button" value="계산하기" onclick="my_bmi()" class="dup btn"><br>
-						<label>목표체중</label>
+						<label>목표체중 : </label>
 						<input type="text" name="goal" id="goal">
 						<div>	
 							<input type="button" value="저장하기" onclick="change_bodydata()" class="btn">
