@@ -3,32 +3,64 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="assets/css/main.css">
+<style>
+/* 챗봇 아이콘 스타일 */
+#chatbot-icon,
+#calorie-icon {
+    position: fixed;
+    bottom: 30px;
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+#chatbot-icon {
+    left: 10px;
+}
+
+#calorie-icon {
+    left: 110px; /* 챗봇 아이콘 오른쪽에 위치 */
+}</style>
 <th:block th:insert="~{includes/header.html}"></th:block>
-<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-<script type="text/javascript" th:src="@{js/Board.js}"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script type="text/javascript" th:src="@{js/BoardDetail.js}"></script>
 <article>
+<!-- 챗봇 아이콘 -->
+        <div id="chatbot-icon" onclick="toggleChatbotPopup()">
+            <i class="fas fa-robot"></i>
+        </div>
+        
+        <!-- 칼로리 계산기 아이콘 -->
+        <div id="calorie-icon" onclick="toggleCaloriePopup()">
+            <i class="fas fa-calculator"></i>
+        </div>
 	<h1>유저 레시피 글 수정</h1>
 	<form name="frm" id="update_form" method="post"
 		enctype="multipart/form-data">
-		<input type="hidden" name="seq" value="[[${com_boardVO.seq}]]">
+		<input type="hidden" name="seq" th:value="${com_boardVO.seq}">
 		<input type="hidden" name="d_regdate"
-			value="[[${com_boardVO.d_regdate}]]"> <input type="hidden"
-			name="idx" value="[[${com_boardVO.com_recipe.idx}]]">
+			th:value="${com_boardVO.d_regdate}"> <input type="hidden"
+			name="idx" th:value="${com_boardVO.com_recipe.idx}">
 		<!-- 기존 이미지 저장  -->
 		<input type="hidden" name="manual_img01"
-			value="[[${com_boardVO.com_recipe.manual_img01}]]"> <input
+			th:value="${com_boardVO.com_recipe.manual_img01}"> <input
 			type="hidden" name="manual_img02"
-			value="[[${com_boardVO.com_recipe.manual_img02}]]"> <input
+			th:value="${com_boardVO.com_recipe.manual_img02}"> <input
 			type="hidden" name="manual_img03"
-			value="[[${com_boardVO.com_recipe.manual_img03}]]"> <input
+			th:value="${com_boardVO.com_recipe.manual_img03}"> <input
 			type="hidden" name="manual_img04"
-			value="[[${com_boardVO.com_recipe.manual_img04}]]"> <input
+			th:value="${com_boardVO.com_recipe.manual_img04}"> <input
 			type="hidden" name="manual_img05"
-			value="[[${com_boardVO.com_recipe.manual_img05}]]"> <input
+			th:value="${com_boardVO.com_recipe.manual_img05}"> <input
 			type="hidden" name="manual_img06"
-			value="[[${com_boardVO.com_recipe.manual_img06}]]"> <input
+			th:value="${com_boardVO.com_recipe.manual_img06}"> <input
 			type="hidden" name="att_file_no_mk"
-			value="[[${com_boardVO.com_recipe.att_file_no_mk}]]">
+			th:value="${com_boardVO.com_recipe.att_file_no_mk}">
 		<table id="list">
 			<tr>
 				<th>분류</th>
@@ -42,18 +74,18 @@
 			<tr>
 				<th>요리명</th>
 				<td colspan="5"><input type="text" name="title" id="title"
-					value="[[${com_boardVO.com_recipe.rcp_nm}]]"></td>
+					th:value="${com_boardVO.com_recipe.rcp_nm}"></td>
 			</tr>
 			<tr>
 				<th>주재료</th>
 				<td colspan="5"><input type="text" name="maingredient"
-					id="maingredient" value="[[${com_boardVO.com_recipe.hash_tag}]]">
+					id="maingredient" th:value="${com_boardVO.com_recipe.hash_tag}">
 				</td>
 			</tr>
 			<tr>
 				<th>재료</th>
 				<td colspan="5"><input type="text" name="gredient"
-					id="gredient" value="[[${com_boardVO.com_recipe.rcp_parts_dtls}]]"></td>
+					id="gredient" th:value="${com_boardVO.com_recipe.rcp_parts_dtls}"></td>
 			</tr>
 			<tr>
 				<th>대표이미지 등록</th>

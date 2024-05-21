@@ -1,5 +1,6 @@
 package com.demo.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -12,12 +13,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.demo.domain.AdminQnaBoard;
 import com.demo.domain.MemberData;
 import com.demo.domain.askBoard;
+import com.demo.persistence.CustomerServiceRepository;
 import com.demo.service.CustomerService;
+
 
 @Controller
 @RequestMapping("/")
@@ -31,6 +35,7 @@ public class CustomerServiceController {
         this.customerService = customerService;
     }
 
+    
     
     // 1:1 문의 등록 폼 보여주기
     @GetMapping("/inquiry/inquiryForm")
@@ -140,5 +145,11 @@ public class CustomerServiceController {
 //        model.addAttribute("loginUser", new askBoard());
         return "/customer_service/introduce";
     }
+    
+    @GetMapping("/inquiry/search")
+    public String showInquirySearchPage() {
+        return "inquiry/search";
+    }
+    
 	
 }

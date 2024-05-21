@@ -28,4 +28,8 @@ public interface CustomerServiceRepository extends JpaRepository<askBoard, Long>
     List<askBoard> getInquiryList();
     
     
+    
+    
+    
+    
 }

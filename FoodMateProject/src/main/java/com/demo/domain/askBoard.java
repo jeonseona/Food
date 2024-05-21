@@ -39,5 +39,7 @@ public class askBoard {
     private String comments;
     // status 속성 추가
     private String status;
+    
+    
 
 }
