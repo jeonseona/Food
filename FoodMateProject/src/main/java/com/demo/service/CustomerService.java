@@ -7,7 +7,7 @@ import com.demo.domain.askBoard;
 
 
 public interface CustomerService {
-	List<String> getQnAList();
+    List<String> getQnAList();
     void addInquiry(askBoard inquiry);
     List<askBoard> getInquiryList();
     List<askBoard> getInquiriesBySubject(String subject);
@@ -17,6 +17,6 @@ public interface CustomerService {
 	AdminQnaBoard getQnaDetailsById(Long id);
 	askBoard getInquiryDetailsById(Long id);
 	askBoard findById(askBoard inquiry);
-    
-    
+	
+
 }

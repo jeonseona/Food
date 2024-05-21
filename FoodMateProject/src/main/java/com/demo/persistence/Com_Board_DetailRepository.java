@@ -33,7 +33,8 @@ public interface Com_Board_DetailRepository extends JpaRepository<Com_Board_Deta
 	public Page<Com_Board_Detail> findAllCom_Board_Detail(int seq, Pageable pageable); //전체글 페이징처리 
 	
 	//정렬 상품 조회
-	@Query(value="SELECT b.* FROM Com_Board_Detail b JOIN Com_Recipe r ON b.idx = r.idx WHERE r.rcp_pat2 = ?1 ", nativeQuery=true)
+	@Query(value = "SELECT b.seq, b.d_regdate, b.cnt, b.goodpoint, b.idx, b.no_data, r.idx AS r_idx, r.rcp_pat2"
+			+ " FROM Com_Board_Detail b JOIN Com_Recipe r ON b.idx = r.idx WHERE r.rcp_pat2 = ?1", nativeQuery=true)
 	public Page<Com_Board_Detail> findCom_Board_DetailByKindContaining(String kind, int seq, Pageable pageable);
 	
 	//조회순 정렬

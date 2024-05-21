@@ -8,7 +8,7 @@
         <meta name="author" content="" />
         <title>관리자 페이지(Admin)</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-        <link href="/css/styles.css" rel="stylesheet" />
+        <link href="/css/admin_styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -82,11 +82,11 @@
                                     	<!-- memberList에 들어있는 값으로 아래 인자(이름) 수정 -->
                                     		<div>
                                         	<tr>
-                                            	<td>[[${member.name}]]</td>
+                                            	<td>[[${member.name]]</td>
                                             	<td>System Architect</td>
                                             	<td>Edinburgh</td>
-                                            	<td>[[${member.age}]]</td>
-                                            	<td>member.birth(MemberData에 date가 없음)</td>
+                                            	<td>[[${member.age]]</td>
+                                            	<td>[[${member.birth]]</td>
                                             	<td>[[${dates.format(member.regdate, "yyyy-MM-dd")}]]</td>
                                        		</tr>
                                         	</div>

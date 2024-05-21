@@ -52,10 +52,9 @@ public interface Com_Board_DetailService {
 	public Page<Reply> getReplyList_paging(int replynum , int page, int size);
 	
 	public Reply findReplyByreplynum(int replynum);
-		
-	// 회원별 작성한 레시피 목록(마이페이지용)
-	public List<Com_Board_Detail> getMyRecipe(String id);
 	
+	// 회원별 작성한 레시피 목록(마이페이지용)
+    public List<Com_Board_Detail> getMyRecipe(String id);
 	
 
 }

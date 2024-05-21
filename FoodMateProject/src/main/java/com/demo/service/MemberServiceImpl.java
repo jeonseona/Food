@@ -17,8 +17,8 @@ public class MemberServiceImpl implements MemberService {
     private MemberRepository memberRepo;
 
     @Override
-    public void insertMember(MemberData vo) {
-        memberRepo.save(vo);
+    public void insertMember(MemberData member) {
+        memberRepo.save(member);
     }
 
     @Override
@@ -103,7 +103,7 @@ public class MemberServiceImpl implements MemberService {
 	// 바디데이터 수정
 	@Override
 	public void changeBodyData(MemberData vo) {
-		memberRepo.updateBodyData(vo.getId(), vo.getGender(), vo.getAge(), vo.getHeight(), vo.getWeight(), vo.getBmi(), vo.getGoal());
+		memberRepo.updateBodyData(vo.getId(), vo.getHeight(), vo.getWeight(), vo.getBmi(), vo.getAge(), vo.getGender(), vo.getGoal());
 	}
 
 	@Override
@@ -120,4 +120,3 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 }
-

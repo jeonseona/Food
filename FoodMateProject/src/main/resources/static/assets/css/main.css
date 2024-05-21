@@ -158,7 +158,7 @@
 		}
 
 	strong, b {
-		color: #fff;
+		color: #399154;
 		font-weight: 400;
 	}
 
@@ -884,7 +884,7 @@
 	input[type="submit"],
 	input[type="reset"],
 	input[type="button"],
-	button, #colorbtn , 
+	button , #colorbtn,
 	.button {
 		-moz-appearance: none;
 		-webkit-appearance: none;
@@ -988,7 +988,7 @@
 		input[type="submit"].style2,
 		input[type="reset"].style2,
 		input[type="button"].style2,
-		button.style2,
+		button.style2, #colorbtn ,
 		.button.style2 {
 			background-color: #8FBC8F;
 		}
@@ -996,7 +996,7 @@
 			input[type="submit"].style2:hover,
 			input[type="reset"].style2:hover,
 			input[type="button"].style2:hover,
-			button.style2:hover,
+			button.style2:hover, #colorbtn:hover,
 			.button.style2:hover,
 			.thumbnails #write_menu_btn:hover {
 				background-color: #6ac997;
@@ -1005,7 +1005,7 @@
 			input[type="submit"].style2:active,
 			input[type="reset"].style2:active,
 			input[type="button"].style2:active,
-			button.style2:active, 
+			button.style2:active, #colorbtn:active,
 			.button.style2:active, 
 			.thumbnails #write_menu_btn:active {
 				background-color: #458462;
@@ -1362,7 +1362,7 @@
 		#footer .copyright {
 			color: rgba(255, 255, 255, 0.5);
 			font-size: 0.9em;
-			margin: 0;
+			margin: 0 0 2em 0;
 			padding: 0;
 			text-align: center;
 		}
@@ -1538,6 +1538,20 @@
 			box-shadow: 2px 2px 2px 1px rgba(128, 128, 128, 0.1);
 		}
 		
+		
+		.thumbnails .box:hover {
+			display: grid;
+       		place-items: center;
+			margin: 0 1em 2em 1em;
+			width: 30%;
+			float: left;
+        	padding: 10px 10px;
+        	margin-right: 20px;
+        	text-align: center;
+			box-shadow: 3px 3px 3px 2px rgba(120, 169, 30, 0.729);
+		}
+		
+		
 				.thumbnails .menubox {
 			display: grid;
        		place-items: center;
@@ -1608,6 +1622,7 @@
 }
 
 
+
 /* 공유/추천 아이콘 */
 .icon-text {
     font-size: 20px; /* 텍스트 크기 조정 */
@@ -1626,4 +1641,3 @@
 .icon-text:hover i {
     color: #000000; /* 호버 시 아이콘 색상 */
 }
-

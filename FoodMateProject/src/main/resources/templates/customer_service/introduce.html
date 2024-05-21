@@ -1,30 +1,66 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<th:block th:insert="~{includes/header.html}"></th:block>
 <title>FOOD MATE 시작하기</title>
+<link rel="stylesheet" th:href="@{/css/main.css}" href="/css/main.css" />
 <style>
+/* 챗봇 아이콘 스타일 */
+#chatbot-icon,
+#calorie-icon {
+    position: fixed;
+    bottom: 30px;
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+#chatbot-icon {
+    left: 10px;
+}
+
+#calorie-icon {
+    left: 110px; /* 챗봇 아이콘 오른쪽에 위치 */
+}
     body {
-        font-family: Arial, sans-serif;
+        font-family: 'Arial', sans-serif;
         margin: 0;
         padding: 0;
-        background-color: #f4f4f4;
+        background-color: #f9f9f9;
     }
-    .container {
+    .header1 {
+        background-size: cover;
+        background-position: center;
+        color: black;
+        padding: 20px 0;
+        text-align: center;
+    }
+    .container1 {
         max-width: 800px;
         margin: 20px auto;
         padding: 20px;
         background-color: #fff;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     }
-    h1, h2, h3 {
+    h1_1 {
         color: #333;
-        text-align: center; /* 중앙 정렬 추가 */
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.8); /* 흰색 반투명 배경 */
+        padding: 20px;
+        border-radius: 5px;
+        margin-top: 20px;
     }
     p {
         margin-bottom: 20px;
-        line-height: 1.6; /* 줄간격 추가 */
+        line-height: 1.6;
+        color: #666;
     }
     ul {
         padding-left: 20px;
@@ -32,35 +68,97 @@
     }
     /* 시작하기 버튼 스타일 */
     .start-button {
-        display: block;
-        width: auto; /* 너비 자동으로 조정 */
-        margin: 10px auto; /* 위아래 여백 축소 */
-        padding: 5px 10px; /* 내부 여백 축소 */
-        background-color: #007bff;
+        display: inline-block;
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #28a745;
         color: #fff;
         text-align: center;
         text-decoration: none;
-        border-radius: 3px;
+        border-radius: 5px;
         transition: background-color 0.3s ease;
     }
     .start-button:hover {
-        background-color: #0056b3;
+        background-color: #218838;
+    }
+    /* 강조 스타일 */
+    .highlight {
+        background-color: #ffc107;
+        padding: 10px;
+        border-radius: 5px;
+        display: inline-block;
+        color: #333;
+        font-weight: bold;
+    }
+    /* 이미지 스타일 */
+    .image-paragraph {
+        text-align: center;
+    }
+    .image-paragraph img {
+        width: 100%; /* 이미지를 가로에 꽉 채움 */
+        max-width: 100%;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    /* 상자 스타일 */
+    .box {
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #f2f2f2;
+        margin-bottom: 30px;
+        animation: slide-up 1s ease;
+    }
+
+    @keyframes slide-up {
+        from {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 </style>
 </head>
 <body>
-    <div class="container">
-        <h1>FOOD MATE 시작하기</h1>
-        <h2>FOOD MATE는 무엇인가요 ?</h2>
-        <p>저희 FOOD MATE는 사이트 이용자가 자신의 건강상태를 마이페이지에서 입력하면 현재 이용자의 건강상태에 따라
-            적절한 음식을 골라서 알려주는 페이지입니다.</p>
-        <h3>어떻게 이용하나요 ?</h3>
-        <ul>
-            <li>사용자가 성별, 나이, 키, 몸무게, bmi, 목표체중을 입력한다.</li>
-            <li>메인 페이지에 있는 <a href="#" class="start-button">시작하기</a> 버튼을 통해 그에 맞는 음식을 추천받는다.</li>
-        </ul>
-        <h3>FOOD MATE를 무료로 이용할 수 있나요 ?</h3>
-        <p>FOOD MATE는 무료로 이용 가능합니다.</p>
+<!-- 챗봇 아이콘 -->
+        <div id="chatbot-icon" onclick="toggleChatbotPopup()">
+            <i class="fas fa-robot"></i>
+        </div>
+        
+        <!-- 칼로리 계산기 아이콘 -->
+        <div id="calorie-icon" onclick="toggleCaloriePopup()">
+            <i class="fas fa-calculator"></i>
+        </div>
+    <div class="header1">
+        <h1 id=h1_1>FOOD MATE에 오신 것을 환영합니다</h1>
+    </div>
+    <div class="container1">
+        <div class="box">
+            <!-- 첫 번째 상자 -->
+            <h2>FOOD MATE란?</h2>
+            <div class="image-paragraph">
+                <img src="https://www.adobe.com/content/dam/cc/us/en/products/creativecloud/photography/hub/CODERED_B1_food-photography_hero-img_900x420.jpg.img.jpg" alt="건강한 식습관" />
+            </div>
+            <p>FOOD MATE는 건강한 식습관을 촉진하기 위한 온라인 플랫폼입니다. 사용자가 건강 정보를 제공하면, FOOD MATE는 해당 사용자에게 맞는 식이 계획 및 영양 정보를 제공합니다.</p>
+        </div>
+        <div class="box">
+            <!-- 두 번째 상자 -->
+            <h2>어떻게 작동하나요?</h2>
+            <ul>
+                <li>사용자가 성별, 나이, 키, 몸무게, BMI 및 목표 체중을 입력합니다.</li>
+                <li>메인 페이지의 <a href="#" class="start-button">시작하기</a> 버튼을 클릭합니다.</li>
+                <li>FOOD MATE는 제공된 정보를 기반으로 해당 사용자에게 건강한 식이 계획을 생성합니다.</li>
+            </ul>
+        </div>
+        <div class="box">
+            <!-- 세 번째 상자 -->
+            <h2>FOOD MATE를 무료로 사용할 수 있나요?</h2>
+            <p>네, FOOD MATE는 완전히 무료로 사용할 수 있습니다.</p>
+            <p><span class="highlight">지금 건강한 삶을 시작하세요!</span></p>
+        </div>
     </div>
 </body>
+<th:block th:insert="~{includes/footer.html}"></th:block>
 </html>

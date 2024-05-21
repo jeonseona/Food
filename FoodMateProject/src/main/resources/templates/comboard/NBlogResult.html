@@ -22,12 +22,12 @@
 			<td>날짜</td>
 			</tr>
 			<tr th:each="food:${foods}">
-				<td><a th:href="'http://' + ${food.bloggerlink}" th:utext="${food.title}"></a></td>
-				<td><a th:href="'http://' + ${food.bloggerlink}" th:utext="${food.description}"></a></td>
+				<td><a th:href="${food.link}" th:utext="${food.title}" style="font-weight:bold;"></a></td>
+				<td><a th:href="${food.link}" th:utext="${food.description}"></a></td>
 				<td  th:utext="${food.bloggername}"></td><td th:utext="${food.postdate}"></td>
 			</tr> 
 		</table>
 		</div>
 </body>
-<script type="text/javascript" th:src="@{js/Board.js}"></script>
+<script type="text/javascript" th:src="@{js/BoardDetail.js}"></script>
 </html>

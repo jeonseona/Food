@@ -257,7 +257,7 @@ public class MypageController {
 	
 	
 	/* 추가 기능용 자리
-	 * 이것도 안씀...?
+	 * 아직 구상중..
 	@PostMapping("/myGoal")
 	public String adviceOfGoal(HttpSession session, Model model) {
 		MemberData loginUser = (MemberData)session.getAttribute("loginUser");
