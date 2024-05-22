@@ -113,11 +113,6 @@ h1 {
 </style>
 <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <script type="text/javascript">
-function openInPopup(url) {
-        window.open(url, '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
-    }
-</script>  
 </head>
 <body>
 <th:block th:insert="~{includes/header.html}"></th:block>
@@ -133,9 +128,15 @@ function openInPopup(url) {
         <!-- 1:1 문의 내역 링크 -->
         <a class="link" href="/inquiry/inquiryList"> <i class="fas fa-list green-icon"></i> 1:1 문의 내역</a>
 
-
-<a id="chatbot-icon" href="javascript:void(0);" onclick="openInPopup('/chat')"><i class="fas fa-robot"></i></a><br>
-<a id="calorie-icon" href="javascript:void(0);" onclick="openInPopup('/cal')"><i class="fas fa-calculator"></i></a>
+        <!-- 챗봇 아이콘 -->
+        <div id="chatbot-icon" onclick="toggleChatbotPopup()">
+            <i class="fas fa-robot"></i>
+        </div>
+        
+        <!-- 칼로리 계산기 아이콘 -->
+        <div id="calorie-icon" onclick="toggleCaloriePopup()">
+            <i class="fas fa-calculator"></i>
+        </div>
 
         
     </div>

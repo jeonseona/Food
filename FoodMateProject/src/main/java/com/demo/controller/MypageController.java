@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -27,6 +28,7 @@ import com.demo.service.WeightRecordService;
 
 import jakarta.servlet.http.HttpSession;
 
+@RequestMapping("/mypage")
 @Controller
 public class MypageController {
 
@@ -103,7 +105,7 @@ public class MypageController {
 		} else {
 			// 로그인한 회원수정
 			memberService.changeInfo(vo);
-			return "redirect:/infoView";
+			return "redirect:/mypage/infoView";
 		}
 	}
 
@@ -142,7 +144,7 @@ public class MypageController {
 			// 로그인한 회원 바디데이터 수정
 			vo.setId(loginUser.getId());
 			memberService.changeBodyData(vo);
-			return "redirect:/infoView";
+			return "redirect:/mypage/infoView";
 			
 		}
 		

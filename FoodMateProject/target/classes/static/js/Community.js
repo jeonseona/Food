@@ -101,7 +101,7 @@ function go_mov() {
 	}
 
 	function go_mod_save() {
-		var theForm = document.getElementById('communityupdate_form');
+		var theForm = document.getElementById('update_form');
 		if (!theForm.community_seq.value) {
 			alert('문서 번호가 없습니다. 다시 시도해 주세요.');
 			return false; // 폼 제출 방지
@@ -161,7 +161,6 @@ function go_save() {
 	} else{
 		var theform = $("#write_form");
 		theform.attr("method", "post");
-		theform.attr("enctype", "multipart/form-data");
 		theform.attr("action", "/communityboard_write_t");
 		theform.submit();
 	}

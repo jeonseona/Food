@@ -23,6 +23,7 @@ import com.demo.domain.MemberData;
 import com.demo.service.CommunityBoardService;
 import com.lowagie.text.DocumentException;
 
+import jakarta.persistence.EntityManager;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
@@ -32,6 +33,9 @@ public class CommunityController {
 	
 	@Autowired
 	CommunityBoardService communityse;
+	
+	@Autowired
+	EntityManager entityManager;
     
 	// 게시글 목록 조회
 	@GetMapping("/community_list")
@@ -119,6 +123,10 @@ public class CommunityController {
 		MemberData loginUser =  (MemberData)session.getAttribute("loginUser");
 		Page<CommunityBoard> pageInfo = (Page<CommunityBoard>)session.getAttribute("pageInfo");
 		
+		if (loginUser != null) {
+        	loginUser = entityManager.merge(loginUser); 
+            entityManager.persist(loginUser);
+        }
 		
 		if (pageInfo == null) {
 	        pageInfo = communityse.getAllCommunityBoard(1, 1, 8); // 기본값 설정
