@@ -241,13 +241,8 @@ function go_mov() {
 		theform.submit();
 	}
 		}
-	
-		
-function go_list()
-{
-	   var theForm = document.frm;
-	   theForm.method = "get";
-	   theForm.action="board_list";
-	   theForm.submit();
-}		
 
+
+function openInPopup(url) {
+        window.open(url, '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
+    }

@@ -230,6 +230,52 @@ $(document).ready(function() {
         }
         
         
+ function delHistory() {
+    // 체크된 체크박스 요소를 모두 선택합니다.
+    var checkboxes = document.querySelectorAll('input[name="delete"]:checked');
+    
+    // 선택된 체크박스가 없으면 함수를 종료합니다.
+    if (checkboxes.length === 0) {
+        alert("삭제할 항목을 선택하세요.");
+        return;
+    }
+    
+var confirmation = confirm("정말로 삭제하시겠습니까?");
+    
+    // 사용자가 "예"를 클릭한 경우에만 삭제를 진행합니다.
+    if (confirmation) {
+    	
+    // 선택된 체크박스의 값을 배열로 저장합니다.
+    var deleteIdxArray = [];
+    checkboxes.forEach(function(checkbox) {
+        deleteIdxArray.push(Number(checkbox.value));
+    });
+    
+    // 서버에 선택된 항목을 삭제하는 요청을 보냅니다.
+    $.ajax({
+        type: "POST",
+        url: "/deleteHistory",
+        data: JSON.stringify(deleteIdxArray),
+        contentType: "application/json; charset=utf-8",
+        success: function(response) {
+            if (response === "success") {
+                console.log("삭제 요청이 성공적으로 처리되었습니다.");
+                // 새로고침하여 변경된 내용을 반영합니다.
+                location.reload();
+            } else {
+                console.error("로그인이 필요합니다.");
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("오류가 발생했습니다:", error);
+        }
+    });
+    }
+}
+ 
+ 
+ 
+ 
         
 $(document).ready(function() {
     $('.menu-link').on('click', function(event) {

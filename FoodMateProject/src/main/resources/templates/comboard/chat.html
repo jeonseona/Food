@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <meta charset="UTF-8">
 <link rel="stylesheet" href="css/chat.css">
 <head>
@@ -40,6 +40,7 @@
     function sendKeywordMessage(keyword) {
         sendMessage(keyword);
     }
+    
     </script>
 </head>
 <body>
@@ -58,5 +59,6 @@
             <button onclick="sendMessage()">Send</button>
         </div>
     </div>
+    <a id="chatbot-icon" href="/board_list">돌아가기</a>
 </body>
 </html>

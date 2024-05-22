@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <meta charset="UTF-8">
 <link rel="stylesheet" href="css/chat.css">
 <title>단순 음식 계산기</title>
@@ -8,15 +8,16 @@
         <h1>영양성분이 궁금한 음식을 물어보세요!</h1>
         <div class="chat-box" id="messages"></div>
         <div class="input-box">
-            <input type="text" id="message" placeholder="Type a message" onkeypress="handleKeyPress(event)">
+            <input type="text" id="calmessage" placeholder="Type a message" onkeypress="handleKeyPress(event)">
             <button onclick="sendMessage()">Send</button>
         </div>
     </div>
+    <a id="chatbot-icon" href="/board_list">돌아가기</a>
 </body>
 <script type="text/javascript">
 async function sendMessage(message) {
     if (!message) {
-        message = document.getElementById("message").value;
+        message = document.getElementById("calmessage").value;
     }
     if (message.trim() === "") return;
 
@@ -25,7 +26,7 @@ async function sendMessage(message) {
     userMessageElement.textContent = message;
     userMessageElement.className = "message user-message";
     messagesDiv.appendChild(userMessageElement);
-    document.getElementById("message").value = "";
+    document.getElementById("calmessage").value = "";
 
     const response = await fetch('/api/chat/send?message=' + encodeURIComponent(message), {
         method: 'POST',

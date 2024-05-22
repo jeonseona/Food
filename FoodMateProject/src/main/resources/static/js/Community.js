@@ -19,20 +19,6 @@ $(document).ready(function() {
     });
 });
 
-//글자수제한
-function truncateText(selector, maxLength) {
-    var elements = document.querySelectorAll(selector);
-    elements.forEach(function(element) {
-      var text = element.textContent;
-      if (text.length > maxLength) {
-        element.textContent = text.substring(0, maxLength) + '...';
-      }
-    });
-  }
-
-  document.addEventListener("DOMContentLoaded", function() {
-    truncateText('.truncate', 9); // 9 글자로 제한
-  });
 
         
  function go_view(community_seq) {
@@ -158,5 +144,26 @@ function go_list()
 	   theForm.submit();
 }		
 
+function openInPopup(url) {
+        window.open(url, '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
+    }
 
+
+function go_save() {	
+	if ($("#title").val() == "") {
+		alert("제목을 입력하세요.");
+		$("#title").focus();
+		return false;
+	} else if ($("#content").val() == "") {
+		alert("내용을 입력하세요.");
+		$("#content").focus();
+		return false;
+	} else{
+		var theform = $("#write_form");
+		theform.attr("method", "post");
+		theform.attr("enctype", "multipart/form-data");
+		theform.attr("action", "/communityboard_write_t");
+		theform.submit();
+	}
+		}
       
