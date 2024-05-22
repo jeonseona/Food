@@ -11,7 +11,7 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css"
 	rel="stylesheet" />
-<link href="/css/styles.css" rel="stylesheet" />
+<link href="/css/admin_styles.css" rel="stylesheet" />
 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
 	crossorigin="anonymous"></script>
 </head>
@@ -162,9 +162,9 @@
 							<table id="datatablesSimple">
 								<thead>
 									<tr>
-										<th>문의번호</th>
-										<th>회원명</th>
-										<th>문의내용</th>
+										<th>Name</th>
+										<th>Position</th>
+										<th>Office</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -179,9 +179,9 @@
 											<!-- memberList에 들어있는 값으로 아래 인자(이름) 수정 -->
 											<div>
 												<tr>
-													<td>[[${askBoard.inquiry_id}]]</td>
-                                            		<td>[[${askBoard.name}]]</td>
-                                            		<td>[[${askBoard.subject}]]</td>
+													<td>System Architect</td>
+                                            	<td>System Architect</td>
+                                            	<td>Edinburgh</td>
 												</tr>
 											</div>
 										</th:block>

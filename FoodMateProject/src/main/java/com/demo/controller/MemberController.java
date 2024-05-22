@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.demo.domain.MemberData;
 import com.demo.service.MemberService;
@@ -49,14 +48,19 @@ public class MemberController {
         }
     } 
     
-    // 아이디 비밀번호찾기 화면
-    @GetMapping("/findIdAndPassword")
+ // 아이디찾기 화면
+    @GetMapping("/findId")
     public String findIdAndPasswordView() {
-        return "member/findIdAndPassword";
+        return "member/findId";
+    }
+    // 비밀번호 찾기 화면
+    @GetMapping("/findPassword")
+    public String findPassword() {
+       return "member/findPassword";
     }
   
  // 아이디 찾기 처리
-  	@GetMapping("/find_id")
+  	@PostMapping("/find_id")
   	public String findIdAction(MemberData vo, Model model) {
   		
   		MemberData member = memberService.getIdByNameEmail(vo.getName(), vo.getEmail());
@@ -74,7 +78,7 @@ public class MemberController {
   	
   	
  	// 비밀번호 찾기
- 	@GetMapping("/find_pwd")
+ 	@PostMapping("/find_pwd")
  	public String findPwdAction(MemberData vo, Model model) {
  		
  		MemberData member = memberService.getPwdByIdNameEmail(vo.getId(), vo.getName(), vo.getEmail());
@@ -82,6 +86,7 @@ public class MemberController {
  		if (member != null) { // 사용자 조회 성공
  			model.addAttribute("message", 1);
  			model.addAttribute("id", member.getId());
+ 			model.addAttribute("password", member.getPassword());
  		} else {
  			model.addAttribute("message", -1);
  		}
@@ -124,7 +129,6 @@ public class MemberController {
     // ID 중복 확인 처리
     @GetMapping("/id_check_form")
     public String idCheckView(@RequestParam("id")String id, Model model) {
-    	
         int result = memberService.confirmID(id);
         
         model.addAttribute("message", result);
@@ -144,19 +148,11 @@ public class MemberController {
     
     // 회원가입 처리 (POST 요청)
     @PostMapping("/join")
-    public String joinAction(MemberData vo, RedirectAttributes redirectAttributes) {
+    public String joinAction(MemberData vo) {
         memberService.insertMember(vo);
-        return "redirect:/";
+        return "redirect:/"; // 회원가입 후 메인 페이지로 리다이렉트
     }
     
-    @PostMapping("/change_pwd")
-    public String changePassword(@RequestParam("id")String id, @RequestParam("pwd")String pwd) {
-    	MemberData member = memberService.getMember(id);
-    	
-    	member.setPassword(pwd);
-    	memberService.insertMember(member);
-    	
-    	return "redirect:/";
-    }
+    
         
 }
