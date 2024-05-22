@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Food Recommend History</title>
     <link rel="stylesheet" th:href="@{/css/mypage.css}">
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <style>
     /* 챗봇 아이콘 스타일 */
 #chatbot-icon,
@@ -66,13 +67,12 @@
 						</thead>
 						<tbody th:if="${#lists.size(recommend) != 0}">
 							<tr th:each="history : ${recommend}">
-								<td th:text="${history.recommend_food.name}"></td>
-								<td><img th:src="${history.recommend_food.images}"
-									alt="Food Image" th:alt="${history.recommend_food.name}"
-									style="height: 100px;"></td>
-								<td th:text="${history.recommend_food.calories}"></td>
+								<td th:text="${history.recommendFood.name}"></td>
+								<td><img th:src="${#strings.substringBefore(history.recommendFood.images, '.jpg') + '.jpg'}" /></td>
+								<td th:text="${history.recommendFood.calories}"></td>
 								<td
-									th:text="${#dates.format(history.recommended_date, 'yyyy-MM-dd')}"></td>
+									th:text="${#dates.format(history.recommendedDate, 'yyyy-MM-dd HH:mm')}"></td>
+								<td><input type="checkbox" name="delete" th:value="${history.historyId}"></td>
 							</tr>
 						</tbody>
 					</table>

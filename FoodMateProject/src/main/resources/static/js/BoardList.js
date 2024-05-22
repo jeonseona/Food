@@ -74,15 +74,16 @@ function truncateText(selector, maxLength) {
 // 그래프
 
 	$(document).ready(function() {
-		 if ($('#boardlistbody').length) {
-			 google.charts.load('current', {packages: ['corechart'], language: 'ko'});
-    		google.charts.setOnLoadCallback(drawChart);
-    		google.charts.setOnLoadCallback(drawAnthonyChart);
-    
-        drawChart();
-        drawAnthonyChart();
+    if ($('#boardlistbody').length) {
+        google.charts.load('current', {packages: ['corechart'], language: 'ko'});
+        google.charts.setOnLoadCallback(drawCharts);
     }
-	});     
+});
+
+function drawCharts() {
+    drawChart();
+    drawAnthonyChart();
+}
 
     function drawChart() {
     $.ajax({
@@ -211,4 +212,7 @@ function truncateText(selector, maxLength) {
     });
     
 }
-      
+
+function openInPopup(url) {
+        window.open(url, '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
+    }

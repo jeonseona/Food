@@ -29,7 +29,7 @@ public class CommunityController {
 	@GetMapping("/community_list")
 	public String getboard_list(@RequestParam(value = "community_seq", defaultValue = "1") int community_seq,
 			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "2") int size, Model model) {
+			@RequestParam(value = "size", defaultValue = "8") int size, Model model) {
 		Page<CommunityBoard> pageList = communityse.getAllCommunityBoard(community_seq, page, size);
 		List<CommunityBoard> boardList = pageList.getContent();
 
@@ -69,7 +69,7 @@ public class CommunityController {
 	public String getSearchByType(@RequestParam(value = "community_seq", defaultValue = "1") int community_seq,
 			@RequestParam("searchType") String searchType, @RequestParam("searchKeyword") String keyword,
 			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "6") int size, Model model) {
+			@RequestParam(value = "size", defaultValue = "8") int size, Model model) {
 
 		Page<CommunityBoard> pageList;
 
@@ -111,7 +111,7 @@ public class CommunityController {
 		MemberData loginUser =  (MemberData)session.getAttribute("loginUser");
 		Page<CommunityBoard> pageInfo = (Page<CommunityBoard>)session.getAttribute("pageInfo");
         
-	    //레시피에 저장
+	    
         CommunityBoard community = new CommunityBoard();  
 	    
         community.setCommunity_content(content);
@@ -122,7 +122,7 @@ public class CommunityController {
 		
 		model.addAttribute("pageInfo", pageInfo );
 		
-		return "redirect:/community";
+		return "redirect:/community_list";
 
 	}
 	

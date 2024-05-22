@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -246,14 +247,29 @@ public class MypageController {
 		if(loginUser == null) {
 			return "redirect:/login";
 		} else {
-			List<Recommend_History> recommend = recommendService.getMyRecommendHistory(loginUser.getId());
+			List<Recommend_History> recommend = recommendService.getMyRecommendHistory(loginUser);
 			model.addAttribute("recommend", recommend);
 			
 			return "mypage/recommendHistory";
 		}
 	}
 	
-	
+	@PostMapping("/deleteHistory")
+	@ResponseBody
+	public String deleteHistory(@RequestBody List<Integer> deleteIdxArray, HttpSession session) {
+	    // 세션에서 현재 로그인한 사용자 정보 가져오기
+	    MemberData loginUser = (MemberData) session.getAttribute("loginUser");
+
+	    // 로그인한 사용자의 추천 기록 중 선택된 항목 삭제
+	    if (loginUser != null) {
+	        for (int index : deleteIdxArray) {
+	            recommendService.deleteRecommendHistory(index);
+	        }
+	        return "success";
+	    } else {
+	        return "fail";
+	    }
+	}
 	
 	
 	/* 추가 기능용 자리

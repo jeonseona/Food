@@ -30,7 +30,10 @@
 }
 
 #calorie-icon {
-    left: 110px; /* 챗봇 아이콘 오른쪽에 위치 */
+    left: 90px; /* 챗봇 아이콘 오른쪽에 위치 */
+    width: 40px;
+    text-align:center;
+    
 }
         body {
             font-family: Arial, sans-serif;
@@ -126,19 +129,16 @@
             margin-right: 5px;
         }
     </style>
+    <script type="text/javascript">
+function openInPopup(url) {
+        window.open(url, '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
+    }
+</script>  
 </head>
 
 <body>
-<!-- 챗봇 아이콘 -->
-        <div id="chatbot-icon" onclick="toggleChatbotPopup()">
-            <i class="fas fa-robot"></i>
-        </div>
-        
-        <!-- 칼로리 계산기 아이콘 -->
-        <div id="calorie-icon" onclick="toggleCaloriePopup()">
-            <i class="fas fa-calculator"></i>
-        </div>
-
+<a id="chatbot-icon" href="javascript:void(0);" onclick="openInPopup('/chat')"><i class="fas fa-robot"></i></a><br>
+<a id="calorie-icon" href="javascript:void(0);" onclick="openInPopup('/cal')"><i class="fas fa-calculator"></i></a>
     <div class="inquiry-detail">
         <p class="author-info">작성자 | <span th:text="관리자"></span></p>
         <div class="subject">

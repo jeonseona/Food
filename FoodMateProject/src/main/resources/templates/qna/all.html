@@ -28,7 +28,10 @@
 }
 
 #calorie-icon {
-    left: 110px; /* 챗봇 아이콘 오른쪽에 위치 */
+    left: 90px; /* 챗봇 아이콘 오른쪽에 위치 */
+    width: 40px;
+    text-align:center;
+    
 }
         body {
             font-family: Arial, sans-serif;
@@ -209,18 +212,17 @@
             cursor: pointer;
         }
     </style>
+    <script type="text/javascript">
+function openInPopup(url) {
+        window.open(url, '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
+    }
+</script>  
 </head>
 
 <body>
-<!-- 챗봇 아이콘 -->
-        <div id="chatbot-icon" onclick="toggleChatbotPopup()">
-            <i class="fas fa-robot"></i>
-        </div>
-        
-        <!-- 칼로리 계산기 아이콘 -->
-        <div id="calorie-icon" onclick="toggleCaloriePopup()">
-            <i class="fas fa-calculator"></i>
-        </div>
+
+<a id="chatbot-icon" href="javascript:void(0);" onclick="openInPopup('/chat')"><i class="fas fa-robot"></i></a><br>
+<a id="calorie-icon" href="javascript:void(0);" onclick="openInPopup('/cal')"><i class="fas fa-calculator"></i></a>
     <div class="container">
         <h1><i class="fas fa-comment-alt"></i> QnA</h1>
 
@@ -369,7 +371,7 @@
             }
         }
 
-        // 만족도 결과 표시 함수
+     // 만족도 결과 표시 함수
         function showSurveyResults() {
             // 결과를 표시할 공간을 가져옵니다.
             const surveyResults = document.getElementById('surveyResults');
@@ -386,26 +388,92 @@
             surveyResults.style.display = 'block';
         }
 
+        // 만족도 버튼 클릭 시 서버로 전송
+        function submitSatisfaction() {
+            const satisfaction = document.querySelector('input[name="satisfaction"]:checked').value;
+
+            // 서버로 만족도 전송
+            fetch('/submitSatisfaction.do', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ satisfaction: satisfaction })
+            }).then(response => {
+                if (response.ok) {
+                    // 만족도 정보 전송 성공 시 처리
+                    console.log('만족도 조사 결과 전송 완료');
+                } else {
+                    // 만족도 정보 전송 실패 시 처리
+                    console.error('만족도 조사 결과 전송 실패');
+                }
+            });
+        }
+
         // 버튼 클릭 이벤트 핸들러 설정
         document.getElementById('showResultsButton').addEventListener('click', showSurveyResults);
 
+     // 각 버튼에 대한 이벤트 리스너 추가
+        document.querySelectorAll('input[type="radio"]').forEach((radio) => {
+            radio.addEventListener('change', () => {
+                // 클릭된 버튼의 값을 가져옴
+                const satisfaction = document.querySelector('input[name="satisfaction"]:checked').value;
+                
+                // 서버로 전송할 데이터 구성
+                const data = {
+                    rating: satisfaction
+                };
 
+                // 서버로 데이터를 전송
+                fetch('/submitSatisfaction.do', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('만족도 조사가 제출되었습니다.');
+                    } else {
+                        alert('제출에 실패했습니다.');
+                    }
+                })
+                .catch(error => {
+                    console.error('에러 발생:', error);
+                    alert('제출에 실패했습니다.');
+                });
+            });
+        });
 
-        // 의견 제출 함수
         function submitOpinion() {
-            var opinion = document.getElementById('userOpinion').value;
-            // 의견이 비어있는지 확인
-            if (opinion.trim() === '') {
-                alert('의견을 입력해주세요.');
-                return;
-            }
-            // 여기서 의견을 서버로 전송하는 코드를 작성할 수 있습니다.
-            // 예시: fetch('URL', { method: 'POST', body: JSON.stringify({ opinion: opinion }), headers: { 'Content-Type': 'application/json' } })
-            alert('의견이 제출되었습니다.');
-            document.getElementById('userOpinion').value = ''; // 입력란 초기화
+            const opinion = document.getElementById('userOpinion').value;
+
+            fetch('/submitOpinion', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ opinion: opinion })
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('의견 제출 완료');
+                    // 성공적으로 제출되었을 때 사용자에게 알림을 줄 수 있습니다.
+                    alert('의견이 성공적으로 제출되었습니다.');
+                } else {
+                    console.error('의견 제출 실패');
+                    alert('의견 제출에 실패했습니다.');
+                }
+            })
+            .catch(error => {
+                console.error('에러 발생:', error);
+                alert('의견 제출에 실패했습니다.');
+            });
         }
-        
-        
+
+
+
     </script>
 </body>
 <th:block th:insert="~{includes/footer.html}"></th:block>
