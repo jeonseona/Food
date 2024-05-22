@@ -286,7 +286,26 @@ public class MypageController {
 		}
 	}
 	
+	// 필터링된 체중변화기록
+	@GetMapping("/filter")
+	public String getWeightRecordsByDateRange(HttpSession session, Model model,
+						@RequestParam Date startDate, @RequestParam Date endDate) {
+		MemberData loginUser (MemberData)session.getAttribute("loginUser");
+		
+		if(loginUser == null) {
+			return "redirect:login";
+		} else {
+	        // 로그인된 사용자의 체중 기록을 서비스에서 조회
+	        List<WeightRecord> weightRecords = weightRecordService.getWeightRecordsByDateRange(loginUser.getId(), startDate, endDate);
 	
+	        // 조회된 체중 기록을 모델에 추가하여 뷰에서 사용 가능하게 함
+	        model.addAttribute("weightRecords", weightRecords);
+	
+	        // 체중 기록을 표시할 페이지로 이동
+	        return "weightRecords";
+		}
+	
+	}
 	
 	
 	*/

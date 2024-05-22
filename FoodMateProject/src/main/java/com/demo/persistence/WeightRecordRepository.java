@@ -25,4 +25,6 @@ public interface WeightRecordRepository extends JpaRepository<WeightRecord, Long
 			+ " AND wr.re_date >=:startDate ORDER BY wr.re_date DESC")
 	public List<WeightRecord> getRecord30ById(@Param("id") String id, @Param("startDate") Date startDate);
 
+	// 체중 기록을 특정 기간 동안 필터링
+	List<WeightRecord> findByMemberIdAndCreatedAtBetween(String id, Date startDate, Date endDate);
 }

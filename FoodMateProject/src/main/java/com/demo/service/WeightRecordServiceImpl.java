@@ -65,6 +65,11 @@ public class WeightRecordServiceImpl implements WeightRecordService {
         }
         return sum / records.size();
 	}
+
+	@Override
+	public List<WeightRecord> getWeirghtRecordFiltering(String id, Date startDate, Date endDate) {
+		return weightRecordRepo.findByMemberIdAndCreatedAtBetween(id, startDate, endDate);
+	}
 	
 	
 }
