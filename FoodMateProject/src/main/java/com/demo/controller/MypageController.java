@@ -287,6 +287,7 @@ public class MypageController {
 	}
 	
 	// 필터링된 체중변화기록
+	// 아직 쓸지 안쓸지 모름.
 	@GetMapping("/filter")
 	public String getWeightRecordsByDateRange(HttpSession session, Model model,
 						@RequestParam Date startDate, @RequestParam Date endDate) {
