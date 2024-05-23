@@ -16,6 +16,7 @@ import com.demo.domain.CommunityBoard;
 import com.demo.domain.MemberData;
 import com.demo.service.CommunityBoardService;
 
+import jakarta.persistence.EntityManager;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 
@@ -24,6 +25,9 @@ public class CommunityController {
 	
 	@Autowired
 	CommunityBoardService communityse;
+	
+	@Autowired
+	EntityManager entityManager;
     
 	// 게시글 목록 조회
 	@GetMapping("/community_list")
@@ -104,14 +108,25 @@ public class CommunityController {
 	// 글쓰기 등록
 	@Transactional
 	@PostMapping("/communityboard_write_t")
-	public String insertCommunity(CommunityBoard vo, HttpSession session, Model model,
+	public String insertCommunity(HttpSession session, Model model,
 			@RequestParam("title") String title,
 	        @RequestParam("content") String content) {
 
 		MemberData loginUser =  (MemberData)session.getAttribute("loginUser");
 		Page<CommunityBoard> pageInfo = (Page<CommunityBoard>)session.getAttribute("pageInfo");
+		
+		if (loginUser != null) {
+        	loginUser = entityManager.merge(loginUser); 
+            entityManager.persist(loginUser);
+        }
+		
+		if (pageInfo == null) {
+	        pageInfo = communityse.getAllCommunityBoard(1, 1, 8); // 기본값 설정
+	    }
+		
+		List<CommunityBoard> boardList = pageInfo.getContent();
         
-	    //레시피에 저장
+	    
         CommunityBoard community = new CommunityBoard();  
 	    
         community.setCommunity_content(content);
@@ -120,9 +135,10 @@ public class CommunityController {
 
 		communityse.insertBoard(community);
 		
+		model.addAttribute("boardList", boardList);
 		model.addAttribute("pageInfo", pageInfo );
 		
-		return "redirect:/community";
+		return "redirect:/community_list";
 
 	}
 	
@@ -141,14 +157,13 @@ public class CommunityController {
 					model.addAttribute("communityboardVO.community_seq", board.getCommunity_seq());
 			        }
 					
-					return "comboard/Boardupdate";
+					return "comboard/Communityupdate";
 				
 		}
 		
 	// 글 수정
 	@PostMapping("/communityboard_update_t")
 	public String updateCom_Board(HttpSession session, @RequestParam("community_seq") int community_seq,
-			@RequestParam("idx") int idx,
 			Model model,
 			@RequestParam("title") String title,
 	        @RequestParam("content") String content) {
@@ -167,11 +182,11 @@ public class CommunityController {
 	        community.setCommunity_content(content);
 	        community.setCommunity_title(title);
 	        community.setMember_data(loginUser);
-		    community.setMember_data(loginUser);
+	        community.setCommunity_seq(community_seq);
 		    
 		    
 		communityse.updateBoard(community);
-		return "redirect:/CommunityDetail?community_seq=" + community_seq;
+		return "redirect:/community_detail?community_seq=" + community_seq;
 	}
 	}
 
@@ -191,5 +206,32 @@ public class CommunityController {
 	}
 	}
 	
-
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

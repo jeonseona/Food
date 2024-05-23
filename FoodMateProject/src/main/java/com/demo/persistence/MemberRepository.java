@@ -12,6 +12,9 @@ import com.demo.domain.MemberData;
 
 public interface MemberRepository extends JpaRepository<MemberData, Long> {
 
+	@Query(value="SELECT * FROM member_data ORDER BY no_data DESC", nativeQuery = true)
+	List<MemberData> getAllMember();
+	
 	@Query(value = "SELECT * FROM member_data WHERE name =:name AND email =:email", nativeQuery=true)
 	MemberData findByNameAndEmail(String name, String email);
 
@@ -39,8 +42,8 @@ public interface MemberRepository extends JpaRepository<MemberData, Long> {
 	// 바디데이터 수정
 	@Transactional
 	@Modifying
-	@Query("UPDATE MemberData md SET md.height = :height, md.weight = :weight, md.bmi=:bmi, md.age = :age, md.gender = :gender, md.goal = :goal WHERE md.id = :id")
+	@Query("UPDATE MemberData md SET md.height = :height, md.weight = :weight, md.bmi=:bmi, md.age = :age, md.gender = :gender, md.goal = :goal, md.goalDay =:goalDay WHERE md.id = :id")
 	public void updateBodyData(@Param("id") String id, @Param("height") long height, @Param("weight") long weight, @Param("bmi") double bmi,
-			@Param("age") long age, @Param("gender") String gender, @Param("goal") long goal);
+			@Param("age") long age, @Param("gender") String gender, @Param("goal") long goal, @Param("goalDay") String goalDay);
 
 }

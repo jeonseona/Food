@@ -76,10 +76,10 @@ function idok(){
 <div id="wrap">
     <h1>비밀번호 찾기</h1>
     <form method="post" name="formm" action="change_pwd" id="pwd_form">
-        <label>User ID</label>
-        <input type="text" name="id" th:value="${id}" readonly="readonly">
         <div>
             <th:block th:if="${message == 1}">
+            	<label>User ID</label>
+        		<input type="text" name="id" th:value="${id}" readonly="readonly">
                 <label>User Password</label>
                 <input type="text"  name="pwd" th:value="${password}" readonly="readonly"><br>
             </th:block>

@@ -42,10 +42,7 @@ $(document).ready(function() {
 	}
 	
     
-/**
- * 
- */
- //Detail
+
 	function go_list() {
 		var theForm = document.frm;
 		theForm.method = "get";
@@ -92,7 +89,7 @@ $(document).ready(function() {
 
 
 
-//Boardupdate
+
 function go_mov() {
 		var theForm = document.frm
 		theForm.method = "get";
@@ -101,7 +98,7 @@ function go_mov() {
 	}
 
 	function go_mod_save() {
-		var theForm = document.getElementById('communityupdate_form');
+		var theForm = document.getElementById('update_form');
 		if (!theForm.community_seq.value) {
 			alert('문서 번호가 없습니다. 다시 시도해 주세요.');
 			return false; // 폼 제출 방지
@@ -111,7 +108,7 @@ function go_mov() {
 		theForm.submit();
 	}
 	
-	//BoardWrite
+
 	
 	function go_save() {	
 	if ($("#title").val() == "") {
@@ -134,15 +131,27 @@ function go_mov() {
 		theform.submit();
 	}
 		}
-	
-		
-function go_list()
-{
-	   var theForm = document.frm;
-	   theForm.method = "get";
-	   theForm.action="community_list";
-	   theForm.submit();
-}		
+			
+
+function openInPopup(url) {
+        window.open(url, '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
+    }
 
 
+function go_save() {	
+	if ($("#title").val() == "") {
+		alert("제목을 입력하세요.");
+		$("#title").focus();
+		return false;
+	} else if ($("#content").val() == "") {
+		alert("내용을 입력하세요.");
+		$("#content").focus();
+		return false;
+	} else{
+		var theform = $("#write_form");
+		theform.attr("method", "post");
+		theform.attr("action", "/communityboard_write_t");
+		theform.submit();
+	}
+		}
       

@@ -37,10 +37,11 @@
                                     <a class="nav-link" href="admin_food.do">음식레시피 게시판</a>
                                     <a class="nav-link" href="admin_QnA.do">Q&A 게시판</a>
                                      <a class="nav-link" href="admin_ask.do">1:1 문의 게시판</a>
+                                     <a class="nav-link" href="/admin/satisfactionResults">만족도 조사 결과</a>
                                 </nav>
                             </div>
                              <a class="sb-sidenav-menu-heading" href="dataManager.do">DB관리</a>
-                             <a class="sb-sidenav-menu-heading" href="logout.do">로그아웃</a>
+                             <a class="sb-sidenav-menu-heading" href="logout">로그아웃</a>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
@@ -59,15 +60,12 @@
                                 회원조회
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
+                                <table id="datatablesSimple" style="width:400px;">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th>회원번호</th>
+                                            <th>회원명</th>
+                                            <th>ID</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -82,12 +80,9 @@
                                     	<!-- memberList에 들어있는 값으로 아래 인자(이름) 수정 -->
                                     		<div>
                                         	<tr>
-                                            	<td>[[${member.name]]</td>
-                                            	<td>System Architect</td>
-                                            	<td>Edinburgh</td>
-                                            	<td>[[${member.age]]</td>
-                                            	<td>[[${member.birth]]</td>
-                                            	<td>[[${dates.format(member.regdate, "yyyy-MM-dd")}]]</td>
+                                            	<td>[[${member.no_data}]]</td>
+                                            	<td>[[${member.name}]]</td>
+                                            	<td>[[${member.id}]]</td>
                                        		</tr>
                                         	</div>
                                         	</th:block>

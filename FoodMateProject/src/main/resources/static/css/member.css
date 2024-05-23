@@ -51,31 +51,6 @@
 	background-color: #3c3c3c;
 }
 
-/* 
-.kakao-login-button {
-  display: inline-block; 인라인 블록 요소로 변경
-  margin: 20px auto;
-  padding: 0; 패딩 제거
-  color: transparent; 텍스트 투명화
-  font-size: 0; 폰트 사이즈 제거
-  font-weight: bold;
-  text-decoration: none;
-  border-radius: 5px;
-  border: none;
-  text-align: center; 텍스트 가운데 정렬
-}
-
-.kakao-icon {
-  display: block; 블록 요소로 변경하여 로고만 표시
-  margin: 0 auto; 가운데 정렬
-  width: 50px; 로고 크기 유지
-  height: 50px;
-  background-image: url('../images/kakao_logo.png'); 카카오 로고 이미지
-  background-size: cover;
-  background-repeat: no-repeat;
-}
- */
-
 /* 회원가입 페이지 */
 #join-container {
     background-color: #f9f9f9;

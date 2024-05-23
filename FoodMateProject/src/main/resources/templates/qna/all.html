@@ -28,7 +28,10 @@
 }
 
 #calorie-icon {
-    left: 110px; /* 챗봇 아이콘 오른쪽에 위치 */
+    left: 90px; /* 챗봇 아이콘 오른쪽에 위치 */
+    width: 40px;
+    text-align:center;
+    
 }
         body {
             font-family: Arial, sans-serif;
@@ -67,7 +70,7 @@
         }
 
         /* 각 질문을 둥근 사각형으로 스타일링 */
-        .question {
+        #question {
             padding: 20px;
             border-radius: 20px;
             background-color: #fff;
@@ -75,21 +78,22 @@
             border: 2px solid #ccc;
             cursor: pointer; /* 클릭 가능한 요소임을 나타내기 위해 커서 변경 */
         }
+        
 
         /* 마우스 호버 시 색상 변경 */
-        .question:hover {
+        #question:hover {
             background-color: #f0f0f0;
         }
 
         /* 질문 텍스트 스타일 */
-        .question-text {
+        #question-text {
             font-weight: bold;
             color: #666;
             text-decoration: none; /* 밑줄 제거 */
         }
 
         /* 질문 텍스트에 호버 시 밑줄이 나타나지 않도록 함 */
-        .question-text:hover {
+        #question-text:hover {
             text-decoration: none;
         }
 
@@ -102,7 +106,7 @@
 
         /* 게시일이 표시되도록 질문의 너비를 줄임 */
         .date {
-            width: 120px;
+            width: 200px;
         }
 
         /* 총 QnA 수 문구 스타일 */
@@ -157,6 +161,7 @@
             margin-top: 20px;
             font-size: 18px;
             font-weight: bold;
+            
         }
 
         /* 의견 입력란 스타일 */
@@ -253,9 +258,9 @@
                     <!-- 질문 번호 출력 -->
                     <td th:text="${row.index + 1}"></td>
                     <!-- 질문 내용 출력 -->
-                    <td class="question"><a
-                        th:href="@{/qna/qna_detail/{id}(id=${qna.getQna_boardnum()})}"
-                        th:text="${qna.question}" class="question-text"></a></td>
+                    <td id="question" th:onclick="location.href='/qna/qna_detail/' + [[${qna.qna_boardnum}]]"
+                        th:text="${qna.question}" class="question-text">
+                    </td>
                     <!-- 게시일 출력 -->
                     <td class="date"><span
                         th:text="${#dates.format(qna.regdate, 'yyyy-MM-dd HH:mm:ss')}"></span></td>
@@ -273,21 +278,10 @@
             <label for="dissatisfied"><input type="radio" id="dissatisfied" name="satisfaction" value="dissatisfied" onchange="incrementCount('dissatisfied')"><i class="fas fa-frown"></i></label>
             <label for="very-dissatisfied"><input type="radio" id="very-dissatisfied" name="satisfaction" value="very-dissatisfied" onchange="incrementCount('very-dissatisfied')"><i class="fas fa-sad-tear"></i></label>
         </form>
-    <!-- Button to show satisfaction survey results -->
-<button id="showResultsButton">Show Survey Results</button>
-
-    <!-- 만족도 결과 표시 공간 -->
-    <div id="surveyResults" style="display: none;">
-        <h2>Satisfaction Survey Results</h2>
-        <div id="countsDisplay"></div>
-    </div>
     
     <!-- 만족도 문구 -->
     <div class="satisfaction-message" id="satisfactionMessage" style="display: none;"></div>
-    <!-- 의견 입력란 -->
-    <textarea id="userOpinion" placeholder="고객님의 의견을 입력해주세요."></textarea>
-    <!-- 의견 제출 버튼 -->
-    <button id="submitOpinion" onclick="submitOpinion()">의견 제출</button>
+    
     
     
     <!-- JavaScript -->
@@ -369,43 +363,52 @@
             }
         }
 
-        // 만족도 결과 표시 함수
-        function showSurveyResults() {
-            // 결과를 표시할 공간을 가져옵니다.
-            const surveyResults = document.getElementById('surveyResults');
-            // 결과를 표시할 텍스트를 생성합니다.
-            const countsDisplay = document.getElementById('countsDisplay');
-            countsDisplay.innerHTML = `
-                Very Satisfied: ${verySatisfiedCount}<br>
-                Satisfied: ${satisfiedCount}<br>
-                Neutral: ${neutralCount}<br>
-                Dissatisfied: ${dissatisfiedCount}<br>
-                Very Dissatisfied: ${veryDissatisfiedCount}
-            `;
-            // 결과를 표시합니다.
-            surveyResults.style.display = 'block';
+     
+
+     // 만족도 버튼 클릭 시 서버로 전송
+        document.querySelectorAll('input[type="radio"]').forEach((radio) => {
+            radio.addEventListener('change', () => {
+                const satisfaction = document.querySelector('input[name="satisfaction"]:checked').value;
+
+                // 서버로 만족도 전송
+                fetch('/submitSatisfaction.do', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ satisfaction: satisfaction })
+                }).then(response => {
+                    if (response.ok) {
+                        // 만족도 정보 전송 성공 시 처리
+                        console.log('만족도 조사 결과 전송 완료');
+                    } else {
+                        // 만족도 정보 전송 실패 시 처리
+                        console.error('만족도 조사 결과 전송 실패');
+                    }
+                });
+            });
+        });
+
+        
+
+        function incrementCount(satisfaction) {
+            fetch('/submitSatisfaction', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ satisfaction: satisfaction })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
         }
 
-        // 버튼 클릭 이벤트 핸들러 설정
-        document.getElementById('showResultsButton').addEventListener('click', showSurveyResults);
 
-
-
-        // 의견 제출 함수
-        function submitOpinion() {
-            var opinion = document.getElementById('userOpinion').value;
-            // 의견이 비어있는지 확인
-            if (opinion.trim() === '') {
-                alert('의견을 입력해주세요.');
-                return;
-            }
-            // 여기서 의견을 서버로 전송하는 코드를 작성할 수 있습니다.
-            // 예시: fetch('URL', { method: 'POST', body: JSON.stringify({ opinion: opinion }), headers: { 'Content-Type': 'application/json' } })
-            alert('의견이 제출되었습니다.');
-            document.getElementById('userOpinion').value = ''; // 입력란 초기화
-        }
-        
-        
     </script>
 </body>
 <th:block th:insert="~{includes/footer.html}"></th:block>

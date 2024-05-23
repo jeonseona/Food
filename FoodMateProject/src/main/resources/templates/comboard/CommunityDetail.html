@@ -10,11 +10,14 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body id="newBody" class="no-sidebar">
+<a id="chatbot-icon" href="javascript:void(0);" onclick="openInPopup('/chat')"><i class="fas fa-robot"></i></a><br>
+<a id="calorie-icon" href="javascript:void(0);" onclick="openInPopup('/cal')"><i class="fas fa-calculator"></i></a>
+<th:block th:insert="~{includes/header.html}"></th:block>
     <div id="newMain" class="wrapper style1">
         <div class="container">
+        	<section>
             <form name="frm" method="post">
                 <input type="hidden" name="community_seq" id="newCommunitySeq" th:value="${CommunityBoard.community_seq}">
-                <section>
                     <header class="major">
                         <h2 id="newTitle">[[${CommunityBoard.community_title}]]</h2>
                         <div class="newActions">
@@ -31,17 +34,18 @@
                                     <i class="fa fa-thumbs-up"></i>[[${CommunityBoard.community_goodpoint}]]
                                 </a>
                             </th:block>
-                        </div>
-                    <div class="newContent">
+                            </div>
+                        <div class="newContent">
                         <p>[[${CommunityBoard.community_content}]]</p>
                     </div>
                     </header>
                     <div class="newMeta">
                             <span class="byline">작성자: [[${CommunityBoard.member_data.id}]]</span>
                             <span class="byline">작성일: [[${#dates.format(CommunityBoard.community_d_regdate, "yyyy-MM-dd") }]]</span>
-                            <span class="byline">조회수: [[${CommunityBoard.community_cnt}]]</span>
+                            <span class="byline">조회수: [[${CommunityBoard.community_cnt}]]</span><br>
+                            <button class="newBtn" onclick="printContent()">Print</button>
+                       		<button class="newBtn" onclick="downloadPDF()">Download as PDF</button>
                         </div>
-                </section>
             </form>
             <form name="buttonfrm" method="get">
                 <input type="hidden" name="community_seq" id="newCommunitySeqHidden" value="[[${CommunityBoard.community_seq}]]">
@@ -53,6 +57,7 @@
                     </th:block>
                 </div>
             </form>
+            </section>
         </div>
     </div>
     <th:block th:insert="~{includes/footer.html}"></th:block>
@@ -64,4 +69,36 @@
 <script src="js/skel.min.js"></script>
 <script src="js/skel-layers.min.js"></script>
 <script src="js/init.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+<script type="text/javascript">
+function printContent() {
+    window.print();
+  }
+  
+async function downloadPDF() {
+    const content = document.getElementById('content').innerHTML;
+
+    const response = await fetch('/api/generate-pdf', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ htmlContent: content })
+    });
+
+    if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'document.pdf';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+    } else {
+        console.error('PDF 파일로 다운받는데 실패하였습니다');
+    }
+}
+</script>
 </html>

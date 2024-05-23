@@ -117,7 +117,7 @@ function weight_record() {
         return false;
     } else {
         // 폼 데이터를 직렬화하여 전송
-        $.post("/weight_record", $("#weight_chart").serialize())
+        $.post("/mypage/weight_record", $("#weight_chart").serialize())
             .done(function(response) {
                 alert("저장 성공!!");
                 // 그래프 업데이트
@@ -127,6 +127,7 @@ function weight_record() {
                 alert("저장 실패. 다시 시도해 주세요.");
             });
     }
+    window.location.reload();
 }
 // 체중변화 차트 그리기
 $(document).ready(function() {
@@ -146,7 +147,7 @@ $(document).ready(function() {
             if ($('#weeklyChartCanvas').length && $('#monthlyChartCanvas').length) {
                 // 서버에서 데이터 가져오기
                 $.ajax({
-                    url: '/getRecordChart', // 데이터를 가져올 서버 URL
+                    url: '/mypage/getRecordChart', // 데이터를 가져올 서버 URL
                     method: 'GET', // HTTP GET 메서드 사용
                     headers: {
                         Accept: 'application/json' // 서버 응답을 JSON으로 기대

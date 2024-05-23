@@ -212,23 +212,7 @@ function drawCharts() {
     });
     
 }
-      
-        function toggleChatbotPopup() {
-            var popup = document.getElementById('chatbot-popup');
-            if (popup.style.display === 'none' || popup.style.display === '') {
-                popup.style.display = 'block';
-            } else {
-                popup.style.display = 'none';
-            }
-        }
 
-        function toggleCaloriePopup() {
-            var popup = document.getElementById('calorie-popup');
-            if (popup.style.display === 'none' || popup.style.display === '') {
-                popup.style.display = 'block';
-            } else {
-                popup.style.display = 'none';
-            }
-        }      
-        
-        
+function openInPopup(url) {
+        window.open(url, '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
+    }

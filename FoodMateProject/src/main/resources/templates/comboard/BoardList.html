@@ -11,6 +11,8 @@
     <script type="text/javascript" th:src="@{js/BoardList.js}"></script>
 </head>
 <body id="boardlistbody">     
+<a id="chatbot-icon" href="javascript:void(0);" onclick="openInPopup('/chat')"><i class="fas fa-robot"></i></a><br>
+<a id="calorie-icon" href="javascript:void(0);" onclick="openInPopup('/cal')"><i class="fas fa-calculator"></i></a>
     <th:block th:insert="~{includes/header.html}"></th:block>
     <article>
         <section id="banner" data-video="images/banner">
@@ -24,13 +26,10 @@
                 </header>
             </div>
         </section>
-
         <th:block th:insert="~{comboard/menu}"></th:block>
-
         <div id="main">
             <div class="inner">
                 <a href="#" id="toggleButton" class="material-symbols-outlined">top_panel_close</a> 접기
-
                 <div id="main_head">
                     <div class="search-and-write-container">
                         <form id="searchForm" name="searchForm" th:action="@{/board_search}" method="get">
@@ -41,8 +40,6 @@
                             <input type="text" name="searchKeyword" id="searchKeyword">
                             <a href="#" onclick="submitSearch()"><span class="material-symbols-outlined">search</span></a>
                         </form>
-                             <a href="/cal">계산기</a><br>
-   							 <a href="/chat">챗봇</a>
                         <form id="writeForm" method="get" action="/board_write">
                             <button type="submit" class="btn" id="colorbtn">글쓰기</button>
                         </form>

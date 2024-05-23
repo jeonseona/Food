@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,22 +29,24 @@
 #calorie-icon {
     left: 110px; /* 챗봇 아이콘 오른쪽에 위치 */
 }</style>
+<script type="text/javascript">
+function openInPopup(url) {
+        window.open(url, '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
+    }
+    
+$(function () {
+    // Footer를 외부 파일에서 불러오기
+    $("#footer").load("includes/footer.html");
+});
+</script> 
+	
 </head>
 <body>
-
-
-<!-- 챗봇 아이콘 -->
-        <div id="chatbot-icon" onclick="toggleChatbotPopup()">
-            <i class="fas fa-robot"></i>
-        </div>
-        
-        <!-- 칼로리 계산기 아이콘 -->
-        <div id="calorie-icon" onclick="toggleCaloriePopup()">
-            <i class="fas fa-calculator"></i>
-        </div>
-	<!-- 헤더 -->
+<a id="chatbot-icon" href="javascript:void(0);" onclick="openInPopup('/chat')"><i class="fas fa-robot"></i></a><br>
+<a id="calorie-icon" href="javascript:void(0);" onclick="openInPopup('/cal')"><i class="fas fa-calculator"></i></a>
+	
 	<th:block th:insert="~{includes/header}"></th:block>
-
+	
 	<div class="m_container">
 		<section class="style1">
 			<div class="major">
@@ -93,5 +96,6 @@
 
 	<!-- 푸터 -->
 	<th:block th:insert="~{includes/footer}"></th:block>
+	
 </body>
 </html>

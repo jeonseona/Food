@@ -18,9 +18,15 @@
 
 	function board_delete() {
 		var theForm = document.frm;
+		var confirmCheck = confirm("정말로 삭제하시겠습니까?")
+		
+		if(confirmCheck){
 		theForm.method = "get";
 		theForm.action = "board_delete";
 		theForm.submit();
+		} else {
+			
+		}
 
 	}
 
@@ -241,30 +247,9 @@ function go_mov() {
 		theform.submit();
 	}
 		}
-	
-		
-function go_list()
-{
-	   var theForm = document.frm;
-	   theForm.method = "get";
-	   theForm.action="board_list";
-	   theForm.submit();
-}		
 
-        function toggleChatbotPopup() {
-            var popup = document.getElementById('chatbot-popup');
-            if (popup.style.display === 'none' || popup.style.display === '') {
-                popup.style.display = 'block';
-            } else {
-                popup.style.display = 'none';
-            }
-        }
 
-        function toggleCaloriePopup() {
-            var popup = document.getElementById('calorie-popup');
-            if (popup.style.display === 'none' || popup.style.display === '') {
-                popup.style.display = 'block';
-            } else {
-                popup.style.display = 'none';
-            }
-        }
+function openInPopup(url) {
+        window.open(url, '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
+    }
+    

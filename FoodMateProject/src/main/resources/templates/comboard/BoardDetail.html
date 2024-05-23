@@ -7,43 +7,12 @@
 <link rel="stylesheet" href="assets/css/main.css">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<style>
-/* 챗봇 아이콘 스타일 */
-#chatbot-icon,
-#calorie-icon {
-    position: fixed;
-    bottom: 30px;
-    background-color: #28a745;
-    color: #fff;
-    border-radius: 50%;
-    padding: 15px;
-    font-size: 30px;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    z-index: 1000;
-}
-
-#chatbot-icon {
-    left: 10px;
-}
-
-#calorie-icon {
-    left: 110px; /* 챗봇 아이콘 오른쪽에 위치 */
-}</style>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" th:src="@{js/BoardDetail.js}"></script>
 </head>
 <body id="replyjs">
-<!-- 챗봇 아이콘 -->
-        <div id="chatbot-icon" onclick="toggleChatbotPopup()">
-            <i class="fas fa-robot"></i>
-        </div>
-        
-        <!-- 칼로리 계산기 아이콘 -->
-        <div id="calorie-icon" onclick="toggleCaloriePopup()">
-            <i class="fas fa-calculator"></i>
-        </div>
-
+<a id="chatbot-icon" href="javascript:void(0);" onclick="openInPopup('/chat')"><i class="fas fa-robot"></i></a><br>
+<a id="calorie-icon" href="javascript:void(0);" onclick="openInPopup('/cal')"><i class="fas fa-calculator"></i></a>
 	<div id="main">
     <article>
         <h3>유저 레시피 상세페이지</h3>
@@ -216,17 +185,10 @@
 </body>
 <th:block th:insert="~{includes/footer.html}"></th:block>
 <script>
-if (typeof jQuery === 'undefined') {
-    console.log('jQuery is not loaded');
-} else {
-    console.log('jQuery is loaded');
-}
-
 $(document).ready(function() {
     console.log('Document is ready');
 
     var recipeName = "[[${Com_Board_DetailVO.com_recipe.rcp_nm}]]";
-    console.log("Sending AJAX request for recipe:", recipeName);
 
     $.ajax({
         url: '/blogsearch',

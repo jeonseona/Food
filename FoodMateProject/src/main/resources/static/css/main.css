@@ -610,3 +610,79 @@ ul.style li span {
     
     
 }
+
+
+/* 테마 */
+#themeToggleButtonLight {
+    font-size: 1.5em;
+    color: gold;
+}
+
+#themeToggleButtonDark {
+    font-size: 1.5em;
+    color: silver;
+}
+
+
+/* 네비게이션 스타일 */
+.dark-theme #nav2 > ul > li a {
+    color: gold; /* 링크 텍스트 색상 */
+    text-decoration: none; /* 밑줄 제거 */
+    font-size: 1.2em; /* 폰트 크기 설정 */
+    padding: 0.5em 1em; /* 내부 여백 설정 */
+    border-radius: 5px; /* 모서리 둥글게 설정 */
+    transition: background-color 0.3s ease; /* 배경색 전환 효과 설정 */
+}
+
+.dark-theme #nav2 > ul > li > ul {
+    display: none; /* 서브메뉴 숨김 */
+    position: absolute; /* 부모 요소를 기준으로 위치 설정 */
+    top: 100%; /* 부모 요소 바로 아래에 위치 */
+    left: 0; /* 왼쪽 정렬 */
+    background: rgba(0, 0, 0, 0.8); /* 블랙 투명도 */
+    padding: 10px 0; /* 위아래 패딩 추가 */
+    width: 100%; /* 부모 요소의 가로 길이와 같은 크기로 설정 */
+    list-style: none; /* 리스트 스타일 제거 (불릿 없음) */
+    z-index: 1000; /* 다른 콘텐츠 위에 표시되도록 설정 */
+    margin-top: 5px; /* 부모 요소와의 간격 설정 */
+}
+
+.dark-theme #nav2 > ul > li:hover > ul {
+    display: block; /* 호버 시 서브메뉴 표시 */
+}
+
+.dark-theme #nav2 > ul > li > ul > li {
+    display: block; /* 서브메뉴 아이템을 수직으로 쌓기 */
+    position: relative; /* 상대 위치 설정 */
+}
+
+.dark-theme #nav2 > ul > li > ul > li > a {
+    color: silver; /* 텍스트 색상을 실버로 설정 */
+    text-decoration: none; /* 밑줄 제거 */
+    font-size: 0.8em; /* 서브메뉴의 글자 크기 */
+    padding: 0.5em 0.5em; /* 클릭 가능한 영역에 패딩 추가 */
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+    display: block; /* 인라인 요소를 블록 요소로 변환 */
+}
+
+.dark-theme #nav2 > ul > li > ul > li:nth-child(1) > a:hover {
+    background-image: linear-gradient(to right, silver, white); 
+}
+.dark-theme #nav2 > ul > li > ul > li:nth-child(2) > a:hover {
+    background-image: linear-gradient(to right, silver, white); 
+}
+.dark-theme #nav2 > ul > li > ul > li:nth-child(3) > a:hover {
+    background-image: linear-gradient(to right, silver, white); 
+}
+.dark-theme #nav2 > ul > li > ul > li:nth-child(4) > a:hover {
+    background-image: linear-gradient(to right, silver, white); 
+}
+.dark-theme #nav2 > ul > li > ul > li:nth-child(5) > a:hover {
+    background-image: linear-gradient(to right, silver, white); 
+}
+.dark-theme #nav2 > ul > li > ul > li:nth-child(6) > a:hover {
+    background-image: linear-gradient(to right, silver, white); 
+}
+.dark-theme #nav2 > ul > li > ul > li:nth-child(7) > a:hover {
+    background-image: linear-gradient(to right, silver, white); 
+}

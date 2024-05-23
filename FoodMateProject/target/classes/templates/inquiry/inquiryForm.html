@@ -29,7 +29,10 @@
 }
 
 #calorie-icon {
-    left: 110px; /* 챗봇 아이콘 오른쪽에 위치 */
+    left: 90px; /* 챗봇 아이콘 오른쪽에 위치 */
+    width: 40px;
+    text-align:center;
+    
 }
 body {
     font-family: Arial, sans-serif;
@@ -143,35 +146,8 @@ button[type="submit"]:hover {
 </style>
 </head>
 <body>
-<!-- 챗봇 아이콘 -->
-        <div id="chatbot-icon" onclick="toggleChatbotPopup()">
-            <i class="fas fa-robot"></i>
-        </div>
-        
-        <!-- 칼로리 계산기 아이콘 -->
-        <div id="calorie-icon" onclick="toggleCaloriePopup()">
-            <i class="fas fa-calculator"></i>
-        </div>
-    
-    <!-- 챗봇 팝업 -->
-<div id="chatbot-popup" class="popup">
-    <div class="popup-close">
-        <button onclick="toggleChatbotPopup()">&times;</button>
-    </div>
-    <div class="popup-content">
-        <th:block th:replace="~{comboard/chat}"></th:block>
-    </div>
-</div>
-
-<!-- 칼로리 계산기 팝업 -->
-<div id="calorie-popup" class="popup">
-    <div class="popup-close">
-        <button onclick="toggleCaloriePopup()">&times;</button>
-    </div>
-    <div class="popup-content">
-        <th:block th:replace="~{/cal}"></th:block>
-    </div>
-</div>
+<a id="chatbot-icon" href="/chat"><i class="fas fa-robot"></i></a>
+<a id="chatbot-icon" href="/cal"><i class="fas fa-calculator"></i></a>
 	<h2>1:1 문의 접수</h2>
     <form action="/saveInquiry" method="post">
         <!-- 제목 입력 칸 -->
@@ -257,23 +233,6 @@ button[type="submit"]:hover {
             }
         });
         
-        function toggleChatbotPopup() {
-            var popup = document.getElementById('chatbot-popup');
-            if (popup.style.display === 'none' || popup.style.display === '') {
-                popup.style.display = 'block';
-            } else {
-                popup.style.display = 'none';
-            }
-        }
-
-        function toggleCaloriePopup() {
-            var popup = document.getElementById('calorie-popup');
-            if (popup.style.display === 'none' || popup.style.display === '') {
-                popup.style.display = 'block';
-            } else {
-                popup.style.display = 'none';
-            }
-        }
     </script>
 </body>
 <th:block th:insert="~{includes/footer.html}"></th:block>
