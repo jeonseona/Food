@@ -9,8 +9,11 @@
 </head>
 <body>
     <div class="container">
-        <h1>영양소 정보</h1>
+        <h1>영양소 정보(파이차트)</h1>
         <canvas id="nutrientChart"></canvas>
+        
+        <h1>영양소 정보(레이더차트)</h1>
+        <canvas id="radarChart"></canvas>
     </div>
 		<h1>레시피 정보</h1>
         <div id="recipeIntroduce"></div>
@@ -39,6 +42,12 @@
                 const ctx = document.getElementById('nutrientChart').getContext('2d');
                 const nutrientChart = new Chart(ctx, {
                     type: 'pie',
+                    data: data
+                });
+                
+                const ctx2 = document.getElementById('radarChart').getContext('2d');
+                const radarChart = new Chart(ctx2, {
+                    type: 'radar',
                     data: data
                 });
             },
