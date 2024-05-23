@@ -1,10 +1,12 @@
 package com.demo.controller;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -242,20 +244,25 @@ public class MypageController {
 		}
 	}
 	
-	// 추천받은 음식 화면
 	@GetMapping("/foodRecommend")
-	public String foodRecommendView(HttpSession session, Model model) {
-		MemberData loginUser = (MemberData)session.getAttribute("loginUser");
-		
-		if(loginUser == null) {
-			return "redirect:/login";
-		} else {
-			List<Recommend_History> recommend = recommendService.getMyRecommendHistory(loginUser);
-			model.addAttribute("recommend", recommend);
-			
-			return "mypage/recommendHistory";
-		}
-	}
+    public String foodRecommendView(HttpSession session, Model model) {
+        MemberData loginUser = (MemberData) session.getAttribute("loginUser");
+
+        if (loginUser == null) {
+            return "redirect:/login";
+        } else {
+            List<Recommend_History> recommend = recommendService.getMyRecommendHistory(loginUser);
+
+         // Date 타입을 문자열로 변환하여 날짜별로 그룹화
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Map<String, List<Recommend_History>> groupedByDate = recommend.stream()
+                .collect(Collectors.groupingBy(history -> sdf.format(history.getRecommendDate())));
+
+            model.addAttribute("groupedByDate", groupedByDate);
+
+            return "mypage/recommendHistory";
+        }
+    }
 	
 
 	
