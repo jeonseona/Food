@@ -48,6 +48,10 @@
 			});
 		}
 	}
+	
+	 function openChart(idx) {
+	        window.open('chart.html?idx=' + idx, '_blank', 'width=400, height=600');
+	    }
 </script>
 </head>
 <body>
@@ -88,10 +92,14 @@
 											</div>
 											<th:block th:each="history : ${entry.value}">
 												<div id="group-container">
-													<span th:text="${history.recommendFood.name}"></span> <span><img
-														th:src="${#strings.substringBefore(history.recommendFood.images, '.jpg') + '.jpg'}" /></span>
-													<span th:text="${history.recommendFood.calories}"></span> <span
-														th:text="${#dates.format(history.recommendDate, 'yyyy-MM-dd HH:mm')}"></span>
+													<span th:text="${history.recommendFood.name}"></span>
+													<span>
+														<a href="javascript:void(0);" th:onclick="'openChart(' + ${history.recommendFood.idx} + ')'">
+        													<img th:src="${#strings.substringBefore(history.recommendFood.images, '.jpg') + '.jpg'}" />
+   														 </a>
+   													</span>
+													<span th:text="${history.recommendFood.calories}"></span>
+													<span th:text="${#dates.format(history.recommendDate, 'yyyy-MM-dd HH:mm')}"></span>
 													<span><input type="checkbox" name="delete" id="recommend-box"
 														th:value="${history.historyId}" /></span><br />
 												</div>

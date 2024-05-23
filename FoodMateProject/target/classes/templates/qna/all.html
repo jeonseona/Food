@@ -70,7 +70,7 @@
         }
 
         /* 각 질문을 둥근 사각형으로 스타일링 */
-        .question {
+        #question {
             padding: 20px;
             border-radius: 20px;
             background-color: #fff;
@@ -78,21 +78,22 @@
             border: 2px solid #ccc;
             cursor: pointer; /* 클릭 가능한 요소임을 나타내기 위해 커서 변경 */
         }
+        
 
         /* 마우스 호버 시 색상 변경 */
-        .question:hover {
+        #question:hover {
             background-color: #f0f0f0;
         }
 
         /* 질문 텍스트 스타일 */
-        .question-text {
+        #question-text {
             font-weight: bold;
             color: #666;
             text-decoration: none; /* 밑줄 제거 */
         }
 
         /* 질문 텍스트에 호버 시 밑줄이 나타나지 않도록 함 */
-        .question-text:hover {
+        #question-text:hover {
             text-decoration: none;
         }
 
@@ -105,7 +106,7 @@
 
         /* 게시일이 표시되도록 질문의 너비를 줄임 */
         .date {
-            width: 120px;
+            width: 200px;
         }
 
         /* 총 QnA 수 문구 스타일 */
@@ -160,6 +161,7 @@
             margin-top: 20px;
             font-size: 18px;
             font-weight: bold;
+            
         }
 
         /* 의견 입력란 스타일 */
@@ -256,9 +258,9 @@
                     <!-- 질문 번호 출력 -->
                     <td th:text="${row.index + 1}"></td>
                     <!-- 질문 내용 출력 -->
-                    <td class="question"><a
-                        th:href="@{/qna/qna_detail/{id}(id=${qna.getQna_boardnum()})}"
-                        th:text="${qna.question}" class="question-text"></a></td>
+                    <td id="question" th:onclick="location.href='/qna/qna_detail/' + [[${qna.qna_boardnum}]]"
+                        th:text="${qna.question}" class="question-text">
+                    </td>
                     <!-- 게시일 출력 -->
                     <td class="date"><span
                         th:text="${#dates.format(qna.regdate, 'yyyy-MM-dd HH:mm:ss')}"></span></td>
@@ -279,10 +281,7 @@
     
     <!-- 만족도 문구 -->
     <div class="satisfaction-message" id="satisfactionMessage" style="display: none;"></div>
-    <!-- 의견 입력란 -->
-    <textarea id="userOpinion" placeholder="고객님의 의견을 입력해주세요."></textarea>
-    <!-- 의견 제출 버튼 -->
-    <button id="submitOpinion" onclick="submitOpinion()">의견 제출</button>
+    
     
     
     <!-- JavaScript -->
@@ -390,51 +389,7 @@
             });
         });
 
-        // 버튼 클릭 이벤트 핸들러 설정
-        document.getElementById('showResultsButton').addEventListener('click', showSurveyResults);
-
-        // 만족도 결과 표시 함수
-        function showSurveyResults() {
-            // 결과를 표시할 공간을 가져옵니다.
-            const surveyResults = document.getElementById('surveyResults');
-            // 결과를 표시할 텍스트를 생성합니다.
-            const countsDisplay = document.getElementById('countsDisplay');
-            countsDisplay.innerHTML = `
-                Very Satisfied: ${verySatisfiedCount}<br>
-                Satisfied: ${satisfiedCount}<br>
-                Neutral: ${neutralCount}<br>
-                Dissatisfied: ${dissatisfiedCount}<br>
-                Very Dissatisfied: ${veryDissatisfiedCount}
-            `;
-            // 결과를 표시합니다.
-            surveyResults.style.display = 'block';
-        }
-
-        function submitOpinion() {
-            const opinion = document.getElementById('userOpinion').value;
-
-            fetch('/submitOpinion', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ opinion: opinion })
-            })
-            .then(response => {
-                if (response.ok) {
-                    console.log('의견 제출 완료');
-                    // 성공적으로 제출되었을 때 사용자에게 알림을 줄 수 있습니다.
-                    alert('의견이 성공적으로 제출되었습니다.');
-                } else {
-                    console.error('의견 제출 실패');
-                    alert('의견 제출에 실패했습니다.');
-                }
-            })
-            .catch(error => {
-                console.error('에러 발생:', error);
-                alert('의견 제출에 실패했습니다.');
-            });
-        }
+        
 
         function incrementCount(satisfaction) {
             fetch('/submitSatisfaction', {

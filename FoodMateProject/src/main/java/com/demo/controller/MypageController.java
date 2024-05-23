@@ -125,12 +125,13 @@ public class MypageController {
 	
 	// 바디데이터 수정 화면
 	@GetMapping("bodyUpdate")
-	public String bodyUpdateView(HttpSession session) {
+	public String bodyUpdateView(HttpSession session, Model model) {
 		MemberData loginUser = (MemberData)session.getAttribute("loginUser");
 		
 		if(loginUser == null) {
 			return "redirect:/login";
 		} else {
+			model.addAttribute("member", loginUser);
 			return "mypage/bodyUpdate";
 		}
 	}

@@ -57,11 +57,11 @@ function openInPopup(url) {
 							<option value="Female">여자</option>
 						</select><br>
 						<label>나이 : </label>
-						<input type="text" name="age" id="age"><br>
+						<input type="text" th:value="${member.age}" name="age" id="age"><br>
 						<label>키 : </label>
-						<input type="text" name="height" id="height"><br>
+						<input type="text" th:value="${member.height}" name="height" id="height"><br>
 						<label>몸무게 : </label>
-						<input type="text" name="weight" id="weight"><br>
+						<input type="text" th:value="${member.weight}" name="weight" id="weight"><br>
 						<label>BMI : </label>
 						<input type="text" name="bmi" id="bmi" readonly>
 						<input type="button" value="계산하기" onclick="my_bmi()" class="dup btn"><br>
