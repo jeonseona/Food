@@ -185,17 +185,10 @@
 </body>
 <th:block th:insert="~{includes/footer.html}"></th:block>
 <script>
-if (typeof jQuery === 'undefined') {
-    console.log('jQuery is not loaded');
-} else {
-    console.log('jQuery is loaded');
-}
-
 $(document).ready(function() {
     console.log('Document is ready');
 
     var recipeName = "[[${Com_Board_DetailVO.com_recipe.rcp_nm}]]";
-    console.log("Sending AJAX request for recipe:", recipeName);
 
     $.ajax({
         url: '/blogsearch',

@@ -666,25 +666,25 @@ ul.style li span {
 }
 
 .dark-theme #nav2 > ul > li > ul > li:nth-child(1) > a:hover {
-    background-image: linear-gradient(to right, silver, white); 
+    background-image: linear-gradient(to right, #333, silver); 
 }
 .dark-theme #nav2 > ul > li > ul > li:nth-child(2) > a:hover {
-    background-image: linear-gradient(to right, silver, white); 
+    background-image: linear-gradient(to right, #333, silver); 
 }
 .dark-theme #nav2 > ul > li > ul > li:nth-child(3) > a:hover {
-    background-image: linear-gradient(to right, silver, white); 
+    background-image: linear-gradient(to right, #333, silver); 
 }
 .dark-theme #nav2 > ul > li > ul > li:nth-child(4) > a:hover {
-    background-image: linear-gradient(to right, silver, white); 
+    background-image: linear-gradient(to right, #333, silver); 
 }
 .dark-theme #nav2 > ul > li > ul > li:nth-child(5) > a:hover {
-    background-image: linear-gradient(to right, silver, white); 
+    background-image: linear-gradient(to right, #333, silver); 
 }
 .dark-theme #nav2 > ul > li > ul > li:nth-child(6) > a:hover {
-    background-image: linear-gradient(to right, silver, white); 
+    background-image: linear-gradient(to right, #333, silver); 
 }
 .dark-theme #nav2 > ul > li > ul > li:nth-child(7) > a:hover {
-    background-image: linear-gradient(to right, silver, white); 
+    background-image: linear-gradient(to right, #333, silver); 
 }
 
 
@@ -750,4 +750,11 @@ body.dark-theme #footer {
     background: #1c1c1c;
     color: #e0e0e0;
 }
-
+.dark-theme #nav2 > ul > li > ul > li > a {
+    color: gold; /* 텍스트 색상을 흰색으로 설정 */
+    text-decoration: none; /* 밑줄 제거 */
+    font-size: 0.8em; /* 서브메뉴의 글자 크기 */
+    padding: 0.5em 0.5em; /* 클릭 가능한 영역에 패딩 추가 */
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+    display: block; /* 인라인 요소를 블록 요소로 변환 */
+}

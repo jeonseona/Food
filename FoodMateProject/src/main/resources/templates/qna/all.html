@@ -212,17 +212,18 @@
             cursor: pointer;
         }
     </style>
-    <script type="text/javascript">
-function openInPopup(url) {
-        window.open(url, '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
-    }
-</script>  
 </head>
 
 <body>
-
-<a id="chatbot-icon" href="javascript:void(0);" onclick="openInPopup('/chat')"><i class="fas fa-robot"></i></a><br>
-<a id="calorie-icon" href="javascript:void(0);" onclick="openInPopup('/cal')"><i class="fas fa-calculator"></i></a>
+<!-- 챗봇 아이콘 -->
+        <div id="chatbot-icon" onclick="toggleChatbotPopup()">
+            <i class="fas fa-robot"></i>
+        </div>
+        
+        <!-- 칼로리 계산기 아이콘 -->
+        <div id="calorie-icon" onclick="toggleCaloriePopup()">
+            <i class="fas fa-calculator"></i>
+        </div>
     <div class="container">
         <h1><i class="fas fa-comment-alt"></i> QnA</h1>
 
@@ -275,14 +276,6 @@ function openInPopup(url) {
             <label for="dissatisfied"><input type="radio" id="dissatisfied" name="satisfaction" value="dissatisfied" onchange="incrementCount('dissatisfied')"><i class="fas fa-frown"></i></label>
             <label for="very-dissatisfied"><input type="radio" id="very-dissatisfied" name="satisfaction" value="very-dissatisfied" onchange="incrementCount('very-dissatisfied')"><i class="fas fa-sad-tear"></i></label>
         </form>
-    <!-- Button to show satisfaction survey results -->
-<button id="showResultsButton">Show Survey Results</button>
-
-    <!-- 만족도 결과 표시 공간 -->
-    <div id="surveyResults" style="display: none;">
-        <h2>Satisfaction Survey Results</h2>
-        <div id="countsDisplay"></div>
-    </div>
     
     <!-- 만족도 문구 -->
     <div class="satisfaction-message" id="satisfactionMessage" style="display: none;"></div>
@@ -371,7 +364,36 @@ function openInPopup(url) {
             }
         }
 
-     // 만족도 결과 표시 함수
+     
+
+     // 만족도 버튼 클릭 시 서버로 전송
+        document.querySelectorAll('input[type="radio"]').forEach((radio) => {
+            radio.addEventListener('change', () => {
+                const satisfaction = document.querySelector('input[name="satisfaction"]:checked').value;
+
+                // 서버로 만족도 전송
+                fetch('/submitSatisfaction.do', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ satisfaction: satisfaction })
+                }).then(response => {
+                    if (response.ok) {
+                        // 만족도 정보 전송 성공 시 처리
+                        console.log('만족도 조사 결과 전송 완료');
+                    } else {
+                        // 만족도 정보 전송 실패 시 처리
+                        console.error('만족도 조사 결과 전송 실패');
+                    }
+                });
+            });
+        });
+
+        // 버튼 클릭 이벤트 핸들러 설정
+        document.getElementById('showResultsButton').addEventListener('click', showSurveyResults);
+
+        // 만족도 결과 표시 함수
         function showSurveyResults() {
             // 결과를 표시할 공간을 가져옵니다.
             const surveyResults = document.getElementById('surveyResults');
@@ -387,64 +409,6 @@ function openInPopup(url) {
             // 결과를 표시합니다.
             surveyResults.style.display = 'block';
         }
-
-        // 만족도 버튼 클릭 시 서버로 전송
-        function submitSatisfaction() {
-            const satisfaction = document.querySelector('input[name="satisfaction"]:checked').value;
-
-            // 서버로 만족도 전송
-            fetch('/submitSatisfaction.do', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ satisfaction: satisfaction })
-            }).then(response => {
-                if (response.ok) {
-                    // 만족도 정보 전송 성공 시 처리
-                    console.log('만족도 조사 결과 전송 완료');
-                } else {
-                    // 만족도 정보 전송 실패 시 처리
-                    console.error('만족도 조사 결과 전송 실패');
-                }
-            });
-        }
-
-        // 버튼 클릭 이벤트 핸들러 설정
-        document.getElementById('showResultsButton').addEventListener('click', showSurveyResults);
-
-     // 각 버튼에 대한 이벤트 리스너 추가
-        document.querySelectorAll('input[type="radio"]').forEach((radio) => {
-            radio.addEventListener('change', () => {
-                // 클릭된 버튼의 값을 가져옴
-                const satisfaction = document.querySelector('input[name="satisfaction"]:checked').value;
-                
-                // 서버로 전송할 데이터 구성
-                const data = {
-                    rating: satisfaction
-                };
-
-                // 서버로 데이터를 전송
-                fetch('/submitSatisfaction.do', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                })
-                .then(response => {
-                    if (response.ok) {
-                        alert('만족도 조사가 제출되었습니다.');
-                    } else {
-                        alert('제출에 실패했습니다.');
-                    }
-                })
-                .catch(error => {
-                    console.error('에러 발생:', error);
-                    alert('제출에 실패했습니다.');
-                });
-            });
-        });
 
         function submitOpinion() {
             const opinion = document.getElementById('userOpinion').value;
@@ -472,6 +436,22 @@ function openInPopup(url) {
             });
         }
 
+        function incrementCount(satisfaction) {
+            fetch('/submitSatisfaction', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ satisfaction: satisfaction })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
 
 
     </script>
