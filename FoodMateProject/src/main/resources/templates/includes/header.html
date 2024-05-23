@@ -56,7 +56,11 @@
                 <th:block th:unless="${session.loginUser==null}">
                 	<li><a th:href="@{/logout}">Logout</a></li>
                 </th:block>
-                <li><a th:href="@{/board_list_main}">Community</a></li>
+                <li><a th:href="@{/board_list_main}">Community</a>
+                	<ul>
+                		<li><a th:href="@{/board_list}"><i class="fas fa-comments"></i>&nbsp;유저 레시피 공유</a></li>
+						<li><a th:href="@{/community_list}"><i class="fas fa-handshake"></i>&nbsp;자유 게시판</a></li>
+                	</ul></li>
                 <li><a th:href="@{/mypage}">MyPage&nbsp;&nbsp;<i class="fas fa-chevron-down"></i></a>
                 	<ul>
                 		<li><a th:href="@{infoView}"><i class="fas fa-user"></i>&nbsp;내 정보</a></li>
@@ -88,7 +92,11 @@
 		    <th:block th:unless="${session.loginUser==null}">
 		        <li><a th:href="@{/logout}">Logout</a></li>
 		    </th:block>
-		    <li><a th:href="@{/board_list_main}">Community</a></li>
+		    <li><a th:href="@{/board_list_main}">Community</a>
+                <ul>
+               		<li><a th:href="@{/board_list}"><i class="fas fa-comments"></i>&nbsp;유저 레시피 공유</a></li>
+					<li><a th:href="@{/community_list}"><i class="fas fa-handshake"></i>&nbsp;자유 게시판</a></li>
+               	</ul></li>
 		    <li><a th:href="@{/mypage}">MyPage&nbsp;&nbsp;<i class="fas fa-chevron-down"></i></a>
 		        <ul>
 		            <li><a th:href="@{infoView}"><i class="fas fa-user"></i>&nbsp;내 정보</a></li>

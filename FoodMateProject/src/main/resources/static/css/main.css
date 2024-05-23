@@ -686,3 +686,68 @@ ul.style li span {
 .dark-theme #nav2 > ul > li > ul > li:nth-child(7) > a:hover {
     background-image: linear-gradient(to right, silver, white); 
 }
+
+
+body.dark-theme {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-theme a {
+    color: #f5c71a; /* Gold color for links */
+}
+
+body.dark-theme #header {
+    background-color: #1c1c1c;
+}
+
+body.dark-theme #header:before {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+body.dark-theme #header h1,
+body.dark-theme #header #nav > ul > li > ul > li > a,
+body.dark-theme #header #nav > ul > li > a {
+    color: #e0e0e0;
+}
+
+body.dark-theme #header #nav > ul > li > a:hover {
+    background-color: rgba(245, 199, 26, 0.2); /* Gold hover effect */
+}
+
+body.dark-theme .style1 .major h2,
+body.dark-theme .style1 .major h3 {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #f5c71a; /* Gold color for headings */
+}
+
+body.dark-theme .mu {
+    background: #1c1c1c;
+    border: 1px solid #444;
+}
+
+body.dark-theme .mu .style h3,
+body.dark-theme .mu .style span {
+    color: #e0e0e0;
+}
+
+body.dark-theme .mu .style span.fa {
+    color: #f5c71a; /* Gold color for icons */
+}
+
+body.dark-theme .btn {
+    background-color: black;
+    color: gold;
+    border: 1px solid gold;
+}
+
+body.dark-theme .btn:hover {
+    background-color: gold;
+    color: black;
+}
+
+body.dark-theme #footer {
+    background: #1c1c1c;
+    color: #e0e0e0;
+}
+

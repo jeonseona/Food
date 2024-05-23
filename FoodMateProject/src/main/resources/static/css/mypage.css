@@ -1,3 +1,27 @@
+/* 챗봇 아이콘 스타일 */
+#chatbot-icon,
+#calorie-icon {
+    position: fixed;
+    bottom: 30px;
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+#chatbot-icon {
+    left: 10px;
+}
+
+#calorie-icon {
+    left: 110px; /* 챗봇 아이콘 오른쪽에 위치 */
+}
+
+
 /* 전체 스타일 */
 .container1 {
     width: 100%;
@@ -209,7 +233,7 @@ main h3 {
 
 #weightChart input[type="date"],
 #weightChart input[type="number"]{
-	width: 30%;
+	width: 50%;
     padding: 8px;
     margin-top: 6px;
     margin-bottom: 6px;
