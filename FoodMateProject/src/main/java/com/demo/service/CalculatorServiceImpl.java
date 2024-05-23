@@ -2,8 +2,8 @@ package com.demo.service;
 
 import org.springframework.stereotype.Service;
 
-import com.demo.domain.MemberData;
 import com.demo.dto.CalculationResult;
+import com.demo.domain.MemberData;
 
 @Service
 public class CalculatorServiceImpl implements CalculatorService {

@@ -47,6 +47,7 @@
             text-align: center;
             margin-bottom: 20px;
             position: relative;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .page-icon {
@@ -91,10 +92,13 @@
         .inquiry-list th,
         .inquiry-list td {
             border: 1px solid #ddd;
-            padding: 10px;
+            padding: 7px;
             text-align: left;
         }
 
+.inquiry-list tr:nth-child(even) {
+    background-color: #f2f2f2; /* 짝수 행 배경색 지정 */
+}
         .inquiry-list th {
             background-color: #f2f2f2;
         }

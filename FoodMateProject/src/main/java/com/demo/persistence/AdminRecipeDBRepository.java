@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.demo.domain.foodRecipe;
+import com.demo.dto.RecommendData;
 
 public interface AdminRecipeDBRepository extends JpaRepository<foodRecipe, Long> {
 	

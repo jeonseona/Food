@@ -32,10 +32,12 @@ body {
 }
 
 h1 {
-    color: #333;
-    text-align: center;
-    margin-top: 100px;
+    color: #333; /* 제목의 글자색 */
+    text-align: center; /* 제목을 중앙 정렬 */
+    margin-top: 100px; /* 제목 위쪽 여백 설정 */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* 텍스트 그림자 효과 추가 */
 }
+
 
 .link {
     position: relative; /* 상대 위치 설정 */
@@ -58,11 +60,16 @@ h1 {
     left: 50%; /* 링크 가운데 정렬 */
     transform: translateX(-50%); /* 가운데 정렬을 위한 변환 */
     font-size: 80px; /* 아이콘 크기 조정 */
+    transition: color 0.3s ease; /* 아이콘 색상 변경 효과 */
 }
 
+.link:hover i {
+    color: #fff; /* 호버 시 아이콘 색상 변경 */
+}
 .link:hover {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     background-color: #28a745;
+    color: #fff; /* 호버 시 텍스트 색상 변경 */
 }
 
 .link+.link {

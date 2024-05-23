@@ -4,6 +4,28 @@
     <meta charset="UTF-8">
     <title>Info Update</title>
     <link rel="stylesheet" th:href="@{/css/mypage.css}">
+    <style>/* 챗봇 아이콘 스타일 */
+#chatbot-icon,
+#calorie-icon {
+    position: fixed;
+    bottom: 30px;
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+#chatbot-icon {
+    left: 10px;
+}
+
+#calorie-icon {
+    left: 110px; /* 챗봇 아이콘 오른쪽에 위치 */
+}</style>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script th:src="@{/js/mypage.js}" defer></script>
     <script type="text/javascript">
@@ -42,7 +64,7 @@ function openInPopup(url) {
                         <input type="hidden" name="renickname" id="renickname" th:value="${renickname}">
                         <input type="button" value="중복 체크" class="dup btn" onclick="nickcheck()"><br>
                         <label>이메일 : </label>
-                        <input type="email" name="email" id="email" th:value="${loginUser.email}" readonly><br>
+                        <input type="email" name="email" id="email" th:value="${loginUser.email}"><br>
                         <div>
                             <input type="button" value="수정하기" onclick="change_info()" class="btn">
                             <input type="button" value="취소" onclick="location.href='/mypage';" class="btn">

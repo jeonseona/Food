@@ -31,64 +31,67 @@
 }</style>
 <script type="text/javascript">
 function openInPopup(url) {
-        window.open(url, '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
-    }
+    window.open(url, '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
+}
+
 </script>  
 </head>
 <body>
 <a id="chatbot-icon" href="javascript:void(0);" onclick="openInPopup('/chat')"><i class="fas fa-robot"></i></a><br>
 <a id="calorie-icon" href="javascript:void(0);" onclick="openInPopup('/cal')"><i class="fas fa-calculator"></i></a>
-	<!-- 헤더 -->
-	<th:block th:insert="~{includes/header}"></th:block>
+    <!-- 헤더 -->
+    <th:block th:insert="~{includes/header}"></th:block>
 
-	<div class="m_container">
-		<section class="style1">
-			<div class="major">
-				<h2 th:text="${welcomeMessage}"></h2>
-				<h3>다이어트 식단 추천을 통해 건강한 삶을 시작하세요.</h3>
-				<a th:href="@{/UserChoice}" class="btn">시작하기</a>
-			</div>
+    <div class="m_container">
+        <section class="style1">
+            <div class="major">
+                <h2 th:text="${welcomeMessage}"></h2>
+                <h3>다이어트 식단 추천을 통해 건강한 삶을 시작하세요.</h3>
+                <a th:href="@{/UserChoice}" class="btn">시작하기</a>
+            </div>
 
-		</section>
-	</div>
-	<div class="m_container">
-		<section class="style2">
-			<header class="major">
-				<h2>여기는 추천 메뉴 보여주는 곳</h2>
-			</header>
-			<div class="mrow">
+        </section>
+    </div>
+    <div class="m_container">
+        <section class="style2">
+            <header class="major">
+                <h2>여기는 추천 메뉴 보여주는 곳</h2>
+            </header>
+            <div class="mrow">
 
-				<!-- Content -->
-				<div class="mu">
-					<article>
-						<ul class="style">
-							<li><i class="fas fa-users"></i>
-								<h3>회원 수</h3>
-								<span>회원가입 페이지 url</span></li>
-							<li><i class="fas fa-user-clock"></i>
-								<h3>방문자 수</h3>
-								<span>회원가입 페이지 url</span></li>
-						</ul>
-					</article>
-				</div>
-				<div class="mu">
-					<article>
-						<ul class="style">
-							<li><i class="fas fa-file-image"></i>
-								<h3>레시피 수</h3>
-								<span>공유 레시피 url</span></li>
-							<li><span class="fa fa-leaf"></span>
-								<h3>ㅁㄴㅇ</h3>
-								<span>ㅁㄴㅇ</span></li>
-						</ul>
-					</article>
-				</div>
+                <!-- Content -->
+                <div class="mu">
+                    <article>
+                        <ul class="style">
+                            <li><i class="fas fa-users"></i>
+                                <h3>회원 수</h3>
+                                <span>회원가입 페이지 url</span></li>
+                            <li><i class="fas fa-user-clock"></i>
+                                <h3>방문자 수</h3>
+                                <i class="fas fa-user-plus"></i> : 
+                                <span></span>명
+                            </li>
+                        </ul>
+                    </article>
+                </div>
+                <div class="mu">
+                    <article>
+                        <ul class="style">
+                            <li><i class="fas fa-file-image"></i>
+                                <h3>레시피 수</h3>
+                                <span>공유 레시피 url</span></li>
+                            <li><span class="fa fa-leaf"></span>
+                                <h3>ㅁㄴㅇ</h3>
+                                <span>ㅁㄴㅇ</span></li>
+                        </ul>
+                    </article>
+                </div>
 
-			</div>
-		</section>
-	</div>
+            </div>
+        </section>
+    </div>
 
-	<!-- 푸터 -->
-	<th:block th:insert="~{includes/footer}"></th:block>
+    <!-- 푸터 -->
+    <th:block th:insert="~{includes/footer}"></th:block>
 </body>
 </html>

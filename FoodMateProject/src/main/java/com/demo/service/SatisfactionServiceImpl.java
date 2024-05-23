@@ -1,12 +1,12 @@
 package com.demo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.demo.domain.SatisfactionSurvey;
-import com.demo.dto.SatisfactionDTO;
 import com.demo.persistence.SatisfactionRepository;
-import com.demo.service.SatisfactionService;
 
 @Service
 public class SatisfactionServiceImpl implements SatisfactionService {
@@ -15,10 +15,12 @@ public class SatisfactionServiceImpl implements SatisfactionService {
     private SatisfactionRepository satisfactionRepository;
 
     @Override
-    public void saveSatisfaction(SatisfactionDTO satisfactionDTO) {
-        // DTO를 엔티티로 변환하여 저장
-        SatisfactionSurvey satisfactionSurvey = new SatisfactionSurvey();
-        satisfactionSurvey.setSatisfaction((String) satisfactionDTO.getSatisfaction());
+    public void saveSatisfaction(SatisfactionSurvey satisfactionSurvey) {
         satisfactionRepository.save(satisfactionSurvey);
+    }
+    
+    @Override
+    public List<SatisfactionSurvey> getAllSatisfactionSurveys() {
+        return satisfactionRepository.findAll();
     }
 }

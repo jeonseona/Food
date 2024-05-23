@@ -25,7 +25,10 @@
 }
 
 #calorie-icon {
-    left: 110px; /* 챗봇 아이콘 오른쪽에 위치 */
+    left: 90px; /* 챗봇 아이콘 오른쪽에 위치 */
+    width: 40px;
+    text-align:center;
+    
 }</style>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script th:src="@{/js/member.js}" defer></script>
@@ -39,18 +42,17 @@
         window.open("findPassword", "_blank", "width=600,height=400");
     }
     
+    function openkakao() {
+    	window.open("kakao", "_blank", "width=700,height=500");
+    }
+    function openInPopup(url) {
+            window.open(url, '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
+        }
 </script>
 </head>
 <body>
-<!-- 챗봇 아이콘 -->
-        <div id="chatbot-icon" onclick="toggleChatbotPopup()">
-            <i class="fas fa-robot"></i>
-        </div>
-        
-        <!-- 칼로리 계산기 아이콘 -->
-        <div id="calorie-icon" onclick="toggleCaloriePopup()">
-            <i class="fas fa-calculator"></i>
-        </div>
+<a id="chatbot-icon" href="javascript:void(0);" onclick="openInPopup('/chat')"><i class="fas fa-robot"></i></a><br>
+<a id="calorie-icon" href="javascript:void(0);" onclick="openInPopup('/cal')"><i class="fas fa-calculator"></i></a>
 	<!-- 헤더 -->
 	<th:block th:insert="~{includes/header}"></th:block>
 

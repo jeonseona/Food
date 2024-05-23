@@ -12,13 +12,14 @@ import org.springframework.stereotype.Service;
 
 import com.demo.domain.AdminQnaBoard;
 import com.demo.domain.AdminRecipeBoard;
+import com.demo.domain.MemberData;
 import com.demo.domain.askBoard;
 import com.demo.domain.foodRecipe;
-import com.demo.domain.MemberData;
 import com.demo.persistence.AdminAskBoardRepository;
 import com.demo.persistence.AdminQnaBoardRepository;
 import com.demo.persistence.AdminRecipeBoardRepository;
 import com.demo.persistence.AdminRecipeDBRepository;
+import com.demo.persistence.MemberRepository;
 
 /*
  * 체크할 사항
@@ -43,6 +44,9 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	private AdminAskBoardRepository adminAskBoardRepo;
+	
+	@Autowired
+	private MemberRepository memberRepo;
 
 	@Override
 	public int adminCheck(MemberData vo) {
@@ -73,7 +77,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<MemberData> getAllMemberList() {
 		// TODO Auto-generated method stub
-		return adminRecipeBoardRepo.getAllMember();
+		return memberRepo.getAllMember();
 	}
 	
 	@Override
@@ -242,6 +246,12 @@ public class AdminServiceImpl implements AdminService {
 	public void updateAdminInquiry(askBoard vo) {
 		adminAskBoardRepo.save(vo);
 		
+	}
+
+	@Override
+	public foodRecipe getFoodByIndex(int idx) {
+		// TODO Auto-generated method stub
+		return adminRecipeDBRepo.getFoodByIndex(idx);
 	}
 
 	

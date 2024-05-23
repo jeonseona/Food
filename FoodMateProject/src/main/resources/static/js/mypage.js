@@ -117,7 +117,7 @@ function weight_record() {
         return false;
     } else {
         // 폼 데이터를 직렬화하여 전송
-        $.post("/weight_record", $("#weight_chart").serialize())
+        $.post("/mypage/weight_record", $("#weight_chart").serialize())
             .done(function(response) {
                 alert("저장 성공!!");
                 // 그래프 업데이트
@@ -129,26 +129,6 @@ function weight_record() {
     }
     window.location.reload();
 }
-// JavaScript를 사용하여 현재 날짜를 yyyy-mm-dd 형식으로 변환
-document.addEventListener("DOMContentLoaded", function() {
-	function setCurrentDate() {
-		const dateInput = document.getElementById('re_date');
-		const today = new Date();
-		const yyyy = today.getFullYear();
-		let mm = today.getMonth() + 1; // 1월은 0부터 시작하므로 1을 더함
-		let dd = today.getDate();
-
-		// 월과 일이 한 자리 숫자인 경우 앞에 0을 붙임
-		if (mm < 10) mm = '0' + mm;
-		if (dd < 10) dd = '0' + dd;
-
-		const formattedToday = yyyy + '-' + mm + '-' + dd;
-		dateInput.value = formattedToday;
-	}
-
-	// 페이지가 로드될 때 현재 날짜를 설정
-	window.onload = setCurrentDate;
-});
 // 체중변화 차트 그리기
 $(document).ready(function() {
             // input 요소 참조
@@ -167,7 +147,7 @@ $(document).ready(function() {
             if ($('#weeklyChartCanvas').length && $('#monthlyChartCanvas').length) {
                 // 서버에서 데이터 가져오기
                 $.ajax({
-                    url: '/getRecordChart', // 데이터를 가져올 서버 URL
+                    url: '/mypage/getRecordChart', // 데이터를 가져올 서버 URL
                     method: 'GET', // HTTP GET 메서드 사용
                     headers: {
                         Accept: 'application/json' // 서버 응답을 JSON으로 기대
@@ -251,52 +231,6 @@ $(document).ready(function() {
         }
         
         
- function delHistory() {
-    // 체크된 체크박스 요소를 모두 선택합니다.
-    var checkboxes = document.querySelectorAll('input[name="delete"]:checked');
-    
-    // 선택된 체크박스가 없으면 함수를 종료합니다.
-    if (checkboxes.length === 0) {
-        alert("삭제할 항목을 선택하세요.");
-        return;
-    }
-    
-var confirmation = confirm("정말로 삭제하시겠습니까?");
-    
-    // 사용자가 "예"를 클릭한 경우에만 삭제를 진행합니다.
-    if (confirmation) {
-    	
-    // 선택된 체크박스의 값을 배열로 저장합니다.
-    var deleteIdxArray = [];
-    checkboxes.forEach(function(checkbox) {
-        deleteIdxArray.push(Number(checkbox.value));
-    });
-    
-    // 서버에 선택된 항목을 삭제하는 요청을 보냅니다.
-    $.ajax({
-        type: "POST",
-        url: "/deleteHistory",
-        data: JSON.stringify(deleteIdxArray),
-        contentType: "application/json; charset=utf-8",
-        success: function(response) {
-            if (response === "success") {
-                console.log("삭제 요청이 성공적으로 처리되었습니다.");
-                // 새로고침하여 변경된 내용을 반영합니다.
-                location.reload();
-            } else {
-                console.error("로그인이 필요합니다.");
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error("오류가 발생했습니다:", error);
-        }
-    });
-    }
-}
- 
- 
- 
- 
         
 $(document).ready(function() {
     $('.menu-link').on('click', function(event) {

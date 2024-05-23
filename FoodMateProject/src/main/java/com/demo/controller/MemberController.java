@@ -86,6 +86,7 @@ public class MemberController {
  		if (member != null) { // 사용자 조회 성공
  			model.addAttribute("message", 1);
  			model.addAttribute("id", member.getId());
+ 			model.addAttribute("password", member.getPassword());
  		} else {
  			model.addAttribute("message", -1);
  		}
@@ -121,7 +122,7 @@ public class MemberController {
     @GetMapping("/logout")
     public String logout(SessionStatus status) {
         status.setComplete(); // 세션 완료 상태로 설정
-        return "redirect:/"; // 로그아웃 후 로그인 화면으로 리다이렉트
+        return "member/login"; // 로그아웃 후 로그인 화면으로 리다이렉트
     }
     
    

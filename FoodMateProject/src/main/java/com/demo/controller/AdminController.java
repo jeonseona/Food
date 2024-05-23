@@ -19,14 +19,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.demo.domain.AdminQnaBoard;
 import com.demo.domain.AdminRecipeBoard;
-import com.demo.domain.MemberData;
 import com.demo.domain.askBoard;
 import com.demo.domain.foodRecipe;
+import com.demo.domain.MemberData;
 import com.demo.service.AdminService;
-import com.demo.service.SatisfactionService;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 @SessionAttributes("loginUser")
@@ -442,7 +440,4 @@ public class AdminController {
 		adminService.updateAdminRecipeDB(vo);
 		
 	}
-
-	
-
 }

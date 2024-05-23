@@ -45,5 +45,6 @@ public class MemberData {
     private double bmi;
     private long goal;
     private String goalDay;
+    
    
 }

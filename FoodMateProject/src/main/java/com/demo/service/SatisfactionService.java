@@ -1,7 +1,10 @@
 package com.demo.service;
 
-import com.demo.dto.SatisfactionDTO;
+import java.util.List;
+
+import com.demo.domain.SatisfactionSurvey;
 
 public interface SatisfactionService {
-    void saveSatisfaction(SatisfactionDTO satisfactionDTO);
+    void saveSatisfaction(SatisfactionSurvey satisfactionSurvey);
+    List<SatisfactionSurvey> getAllSatisfactionSurveys();
 }

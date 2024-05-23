@@ -187,7 +187,7 @@ public class BoardController {
         }
         
         String[] kindList = { "반찬", "국&찌개", "후식", "일품" }; // 카테고리
-        String kindName = kindList[kind];
+        String kindName = kindList[kind-1];
         
 	    //레시피에 저장
 	    Com_Recipe recipe = new Com_Recipe();  

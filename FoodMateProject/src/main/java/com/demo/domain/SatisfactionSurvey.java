@@ -27,21 +27,26 @@ import lombok.ToString;
 @DynamicInsert
 @DynamicUpdate
 public class SatisfactionSurvey {
+	
+	// 익명의 만족도 조사
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String rating; // 만족도를 나타내는 rating 필드 추가
+    private int VerySatisfied;
+    private int Satisfied;
+    private int Neutral;
+    private int Dissatisfied;
+    private int VeryDissatisfied;
     private LocalDateTime createdAt;
-
+    
+    // 익명의 의견 제출
+    private String Opinion;
+    
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
     }
 
-    // 만족도를 저장하는 메서드
-    public void setSatisfaction(String satisfaction) {
-        this.rating = satisfaction;
-    }
 
     // getters and setters
 }

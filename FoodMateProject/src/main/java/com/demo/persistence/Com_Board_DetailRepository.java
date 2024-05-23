@@ -25,8 +25,9 @@ public interface Com_Board_DetailRepository extends JpaRepository<Com_Board_Deta
 	public Page<Com_Board_Detail> findCom_Board_DetailByTitleContainingOrderByTitle(String title, int seq, Pageable pageable);
 	
 	// 글쓴이 아이디로 검색
-	@Query(value="SELECT b.* FROM Com_Board_Detail b JOIN Member_Data m ON b.no_data = m.no_data WHERE m.id = ?1 ", nativeQuery=true)
-	public Page<Com_Board_Detail> findCom_Board_DetailByIdContainingOrderById(String id, int seq, Pageable pageable);
+    @Query(value="SELECT b.* FROM Com_Board_Detail b JOIN Member_Data m ON b.no_data = m.no_data WHERE m.id = ?1 ", nativeQuery=true)
+    public Page<Com_Board_Detail> findCom_Board_DetailByIdContainingOrderById(String id, int seq, Pageable pageable);
+
 	
 	//전체글 페이징처리 
 	@Query(value="SELECT * FROM Com_Board_Detail ORDER BY seq DESC ", nativeQuery=true)
