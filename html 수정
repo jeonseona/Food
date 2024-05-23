@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>고객센터</title>
+<link rel="stylesheet" th:href="@{/css/main.css}" href="/css/main.css" />
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f6f7f9;
+    color: #666; /* 모든 텍스트의 색상을 #666으로 설정 */
+}
+
+/* 다른 요소들의 스타일 유지 */
+
+.container1 {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    height: 600px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* 가로, 세로 중앙 정렬 */
+    position: relative; /* 상대 위치 설정 */
+}
+
+h1 {
+    color: #333; /* 제목의 글자색 */
+    text-align: center; /* 제목을 중앙 정렬 */
+    margin-top: 100px; /* 제목 위쪽 여백 설정 */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* 텍스트 그림자 효과 추가 */
+}
+
+
+.link {
+    position: relative; /* 상대 위치 설정 */
+    display: inline-block;
+    text-align: center;
+    margin-top: 200px;
+    padding: 15px 30px;
+    background-color: #fff;
+    color: #666;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: box-shadow 0.3s ease;
+    border: 2px solid #666;
+    align-items: center;
+}
+
+.link i {
+    position: absolute;
+    top: -100px; /* 링크 위에 위치하도록 조정 */
+    left: 50%; /* 링크 가운데 정렬 */
+    transform: translateX(-50%); /* 가운데 정렬을 위한 변환 */
+    font-size: 80px; /* 아이콘 크기 조정 */
+    transition: color 0.3s ease; /* 아이콘 색상 변경 효과 */
+}
+
+.link:hover i {
+    color: #fff; /* 호버 시 아이콘 색상 변경 */
+}
+.link:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    background-color: #28a745;
+    color: #fff; /* 호버 시 텍스트 색상 변경 */
+}
+
+.link+.link {
+    margin-left: 20px;
+}
+
+/* 챗봇 아이콘 스타일 */
+#chatbot-icon,
+#calorie-icon {
+    position: fixed;
+    bottom: 30px;
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+#chatbot-icon {
+    left: 10px;
+}
+
+#calorie-icon {
+    left: 90px; /* 챗봇 아이콘 오른쪽에 위치 */
+    width: 40px;
+    text-align:center;
+    
+}
+
+
+
+
+/* 아이콘 색상 클래스 */
+.blue-icon {
+    color: #28a745; 
+}
+
+.red-icon {
+    color: #28a745; 
+}
+
+.green-icon {
+    color: #28a745; /* 초록색 */
+}
+</style>
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+<th:block th:insert="~{includes/header.html}"></th:block>
+    <div class="container1">
+        <h1>고객센터</h1>
+
+        <!-- QnA 링크 -->
+        <a class="link" href="/qna/all"> <i class="fas fa-question-circle blue-icon"></i> Q&A</a>
+
+        <!-- 1:1 문의 링크 -->
+        <a class="link" href="/inquiry/inquiryForm"> <i class="fas fa-comments red-icon"></i> 1:1 문의 작성</a>
+
+        <!-- 1:1 문의 내역 링크 -->
+        <a class="link" href="/inquiry/inquiryList"> <i class="fas fa-list green-icon"></i> 1:1 문의 내역</a>
+
+        <!-- 챗봇 아이콘 -->
+        <div id="chatbot-icon" onclick="toggleChatbotPopup()">
+            <i class="fas fa-robot"></i>
+        </div>
+        
+        <!-- 칼로리 계산기 아이콘 -->
+        <div id="calorie-icon" onclick="toggleCaloriePopup()">
+            <i class="fas fa-calculator"></i>
+        </div>
+
+        
+    </div>
+
+    </script>
+</body>
+<th:block th:insert="~{includes/footer.html}"></th:block>
+</html>
+customer_service.html
+
+
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:insert="~{includes/header.html}"></th:block>
+    <title>FOOD MATE 시작하기</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" href="/css/main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <style>
+        /* 챗봇 아이콘 스타일 */
+        #chatbot-icon,
+        #calorie-icon {
+            position: fixed;
+            bottom: 30px;
+            background-color: #28a745;
+            color: #fff;
+            border-radius: 50%;
+            padding: 15px;
+            font-size: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
+        #chatbot-icon {
+            left: 10px;
+        }
+
+        #calorie-icon {
+            left: 90px; /* 챗봇 아이콘 오른쪽에 위치 */
+            width: 40px;
+            text-align: center;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .container1 {
+            width: 100%; /* 가로로 가득 채우기 */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            text-align: center; /* 가운데 정렬 추가 */
+        }
+
+        .box {
+            width: 300px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #f2f2f2;
+            margin-bottom: 30px;
+            animation: slide-up 1s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .box img {
+            max-width: 100%;
+            border-radius: 10px; /* 모서리 둥글게 */
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .box .caption {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.7); /* 반투명 배경색 */
+            padding: 10px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* 다양한 크기의 상자를 위한 스타일 */
+        .box:nth-child(odd) {
+            width: 250px;
+        }
+
+        .box:nth-child(3) {
+            width: 350px;
+        }
+
+        /* 각 상자에 대한 애니메이션 효과 */
+        .box:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+        }
+        .header1 {
+           text-align:center;
+           
+        }
+        
+        .img {
+           border-radius: 100px; /* 모서리 둥글게 */
+        }
+        
+        .highlight-text {
+            color: #28a745; /* 강조 색상 */
+            font-weight: bold;
+        }
+        
+         #img2 {
+            width: 300px; /* 너비 설정 */
+            height: auto; /* 높이 자동 조정 */
+            position: relative;
+            top: 100px; /* 아래로 내리기 */
+            left:200px;
+        }
+        
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .flex-container .text {
+            max-width: 600px;
+            margin-left: 500px; /* 왼쪽으로 이동 */
+            font-size: 30px; /* 글씨 크기 키우기 */
+        }
+        
+        #h1_1 {
+    text-align: center; /* 제목을 중앙 정렬 */
+    color: #333; /* 제목의 글자색 */
+    font-family: Arial, sans-serif; /* 제목의 글꼴 */
+    font-size: 36px; /* 제목의 글자 크기 */
+    background-color: #f8f9fa; /* 제목의 배경색 */
+    padding: 20px; /* 제목 주위의 여백 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+    border-radius: 10px; /* 제목의 모서리를 둥글게 만듦 */
+}
+        
+        
+    </style>
+</head>
+<body>
+    <!-- 챗봇 아이콘 -->
+    <div id="chatbot-icon" onclick="toggleChatbotPopup()">
+        <i class="fas fa-robot"></i>
+    </div>
+        
+    <!-- 칼로리 계산기 아이콘 -->
+    <div id="calorie-icon" onclick="toggleCaloriePopup()">
+        <i class="fas fa-calculator"></i>
+    </div>
+    
+    <div class="header1">
+    <br>
+        <h1 id="h1_1">FOOD MATE에 오신 것을 환영합니다</h1> <!-- h1 가운데 정렬 -->
+        <br><br><br><br><br>
+        <img src="https://www.adobe.com/content/dam/cc/us/en/products/creativecloud/photography/hub/CODERED_B1_food-photography_hero-img_900x420.jpg.img.jpg" alt="건강한 식습관" style="border-radius: 30px; width: 90%;" />
+        </div>
+        
+        <div class="flex-container">
+        <img id="img2" src="/images/free-icon-nutrients-5286612.png" alt="건강한 식습관">
+        <div class="text">
+            사용자가 <span class="highlight-text">다이어트 과정에서<br></span> <span class="highlight-text">동반자처럼</span> 함께 식사를 즐기고 <br>동기부여를 받는다는 메시지를 전달
+        </div>
+    </div>
+    
+    <br><br><br><br><br><br><br><br><br><br>
+    <div class="container1">
+        <div class="box">
+            <!-- 첫 번째 상자 -->
+            <h2>FOOD MATE란?</h2>
+            <p><i class="fas fa-apple-alt"></i> FOOD MATE는 건강한 식습관을 촉진하기 위한 온라인 플랫폼입니다. 사용자가 건강 정보를 제공하면, FOOD MATE는 해당 사용자에게 맞는 식이 계획 및 영양 정보를 제공합니다.</p>
+        </div>
+        <div class="box">
+            <!-- 두 번째 상자 -->
+            <h2>어떻게 이용하나요?</h2>
+            <ul>
+                <li><i class="fas fa-user"></i> 사용자가 성별, 나이, 키, 몸무게, BMI 및 목표 체중을 입력합니다.</li>
+                <li><i class="fas fa-play-circle"></i> 메인 페이지의 <a href="#" class="start-button">시작하기</a> 버튼을 클릭합니다.</li>
+                <li><i class="fas fa-clipboard-list"></i> FOOD MATE는 제공된 정보를 기반으로 해당 사용자에게 건강한 식이 계획을 생성합니다.</li>
+            </ul>
+        </div>
+        <div class="box">
+            <!-- 세 번째 상자 -->
+            <h2>FOOD MATE를 무료로 사용할 수 있나요?</h2>
+            <p><i class="fas fa-check-circle"></i> 네, FOOD MATE는 완전히 무료로 사용할 수 있습니다.</p>
+            <p><span class="highlight">지금 건강한 삶을 시작하세요!</span></p>
+        </div>
+    </div>
+</body>
+<th:block th:insert="~{includes/footer.html}"></th:block>
+</html>
+introduce.html
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1:1 문의</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" href="/css/main.css" />
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+    /* 챗봇 아이콘 스타일 */
+#chatbot-icon,
+#calorie-icon {
+    position: fixed;
+    bottom: 30px;
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+#chatbot-icon {
+    left: 10px;
+}
+
+#calorie-icon {
+    left: 90px; /* 챗봇 아이콘 오른쪽에 위치 */
+    width: 40px;
+    text-align:center;
+    
+}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 20px;
+            color: #555;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .page-icon {
+            font-size: 24px;
+            color: #45a049;
+            position: absolute;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .contact-info {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .note {
+            font-size: 0.8em;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .inquiry-list-container {
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .inquiry-list {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .inquiry-list th,
+        .inquiry-list td {
+            border: 1px solid #ddd;
+            padding: 7px;
+            text-align: left;
+        }
+
+.inquiry-list tr:nth-child(even) {
+    background-color: #f2f2f2; /* 짝수 행 배경색 지정 */
+}
+        .inquiry-list th {
+            background-color: #f2f2f2;
+        }
+
+        .inquiry-list tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .empty-message {
+            font-style: italic;
+            color: #999;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-container button:hover {
+            background-color: #45a049;
+        }
+
+        .subject-text {
+            color: #5cb85c;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .subject-text:hover {
+            color: #3d8b3d;
+        }
+    </style>
+</head>
+
+<body>
+<!-- 챗봇 아이콘 -->
+        <div id="chatbot-icon" onclick="toggleChatbotPopup()">
+            <i class="fas fa-robot"></i>
+        </div>
+        
+        <!-- 칼로리 계산기 아이콘 -->
+        <div id="calorie-icon" onclick="toggleCaloriePopup()">
+            <i class="fas fa-calculator"></i>
+        </div>
+
+<th:block th:insert="~{includes/header.html}"></th:block>
+    <div style="text-align: center;">
+        <i class="fas fa-comment-dots page-icon"></i>
+        <h1>1:1 문의</h1>
+    </div>
+    <div class="contact-info">
+        <div class="note">1:1 문의 내역 조회는 최대 3년까지 가능합니다.</div>
+       
+        <div class="note">
+            <i class="fas fa-phone-alt icon"></i> 전화 상담 xxxx-xxxx | 평일 09:00~18:00 (주말 및 공휴일 휴무) | 점심 12:00~13:00
+        </div>
+    </div>
+    <div class="inquiry-list-container">
+        <table class="inquiry-list">
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>이름</th>
+                    <th>제목</th>
+                    <th>상태</th>
+                    <th>작성일</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="inquiry, row : ${inquiries}" th:class="${row.odd} ? 'odd' : 'even'">
+                    <td th:text="${row.index + 1}"></td>
+                    <td th:text="${inquiry.name}"></td>
+                    <td class="subject">
+                        <a th:href="@{/inquiry/inquiry_detail/{id}(id=${inquiry.inquiry_id})}" th:text="${inquiry.subject}" class="subject-text"></a>
+                    </td>
+                    <td th:text="${inquiry.status}"></td>
+                    <td th:text="${#dates.format(inquiry.regdate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(inquiries)}">
+                    <td colspan="5" class="empty-message">해당 기간 문의 내역이 없습니다.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <th:block th:insert="~{includes/footer.html}"></th:block>
+
+    <script>
+document.getElementById('dateSearchForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // 기본 동작인 폼 제출을 막습니다.
+
+    var startDate = document.getElementById('startDate').value;
+    var endDate = document.getElementById('endDate').value;
+
+    if (new Date(startDate) > new Date(endDate)) {
+        alert('시작일은 종료일보다 이전이어야 합니다.');
+        return;
+    }
+
+    // fetch를 사용하여 서버에 데이터를 전송합니다.
+    fetch("/inquiry/search?startDate=" + startDate + "&endDate=" + endDate)
+        .then(response => response.json()) // 서버로부터 응답을 받아 JSON 형식으로 변환합니다.
+        .then(data => {
+            // 서버로부터 받은 데이터를 처리합니다.
+            displaySearchResults(data);
+        })
+        .catch(error => {
+            console.error('Error fetching inquiries:', error);
+        });
+});
+
+// 조회 결과를 화면에 표시하는 함수
+function displaySearchResults(data) {
+    var tableBody = document.querySelector('.inquiry-list tbody');
+    tableBody.innerHTML = ''; // 이전 결과를 지웁니다.
+
+    if (data.length === 0) {
+        // 조회 결과가 없는 경우 메시지를 표시합니다.
+        tableBody.innerHTML = '<tr><td colspan="5" class="empty-message">해당 기간 문의 내역이 없습니다.</td></tr>';
+    } else {
+        // 조회 결과가 있는 경우 각각의 데이터를 테이블에 추가합니다.
+        data.forEach(function(item, index) {
+            var row = '<tr>' +
+                '<td>' + (index + 1) + '</td>' +
+                '<td>' + item.name + '</td>' +
+                '<td class="subject">' +
+                '<a href="/inquiry/inquiry_detail/' + item.inquiry_id + '" class="subject-text">' + item.subject + '</a>' +
+                '</td>' +
+                '<td>' + item.status + '</td>' +
+                '<td>' + formatDate(item.regdate) + '</td>' +
+                '</tr>';
+            tableBody.innerHTML += row;
+        });
+    }
+}
+
+// 날짜 형식을 변환하는 함수
+function formatDate(dateString) {
+    var date = new Date(dateString);
+    return date.toLocaleString('ko-KR');
+}
+</script>
+</body>
+
+</html>
+inquiry.html
+
