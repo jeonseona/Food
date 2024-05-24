@@ -117,7 +117,7 @@ function weight_record() {
         return false;
     } else {
         // 폼 데이터를 직렬화하여 전송
-        $.post("/mypage/weight_record", $("#weight_chart").serialize())
+        $.post("/weight_record", $("#weight_chart").serialize())
             .done(function(response) {
                 alert("저장 성공!!");
                 // 그래프 업데이트
@@ -147,7 +147,7 @@ $(document).ready(function() {
             if ($('#weeklyChartCanvas').length && $('#monthlyChartCanvas').length) {
                 // 서버에서 데이터 가져오기
                 $.ajax({
-                    url: '/mypage/getRecordChart', // 데이터를 가져올 서버 URL
+                    url: '/getRecordChart', // 데이터를 가져올 서버 URL
                     method: 'GET', // HTTP GET 메서드 사용
                     headers: {
                         Accept: 'application/json' // 서버 응답을 JSON으로 기대
@@ -231,28 +231,6 @@ $(document).ready(function() {
         }
 
 
-// JavaScript를 사용하여 현재 날짜를 yyyy-mm-dd 형식으로 변환
-document.addEventListener("DOMContentLoaded", function() {
-    function setCurrentDate() {
-        const dateInput = document.getElementById('re_date');
-        const today = new Date();
-        const yyyy = today.getFullYear();
-        let mm = today.getMonth() + 1; // 1월은 0부터 시작하므로 1을 더함
-        let dd = today.getDate();
-
-        // 월과 일이 한 자리 숫자인 경우 앞에 0을 붙임
-        if (mm < 10) mm = '0' + mm;
-        if (dd < 10) dd = '0' + dd;
-
-        const formattedToday = yyyy + '-' + mm + '-' + dd;
-        dateInput.value = formattedToday;
-    }
-
-    // 페이지가 로드될 때 현재 날짜를 설정
-    window.onload = setCurrentDate;
-});
-
-
    
         
 $(document).ready(function() {
@@ -278,7 +256,7 @@ function delHistory() {
 
 		$.ajax({
 			type: "POST",
-			url: "/mypage/deleteHistory",
+			url: "/deleteHistory",
 			data: JSON.stringify(deleteIdxArray),
 			contentType: "application/json; charset=utf-8",
 			success: function(response) {
