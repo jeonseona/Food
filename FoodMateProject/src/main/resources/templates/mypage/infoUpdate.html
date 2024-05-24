@@ -25,13 +25,19 @@
 
 #calorie-icon {
     left: 110px; /* 챗봇 아이콘 오른쪽에 위치 */
-}</style>
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-    <script th:src="@{/js/mypage.js}" defer></script>
-    <script type="text/javascript">
+}
+</style>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script th:src="@{/js/mypage.js}" defer></script>
+<script type="text/javascript">
 function openInPopup(url) {
         window.open(url, '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
     }
+//닉네임 입력 필드의 값이 변경될 때 중복 체크 상태를 초기화합니다.
+$("#nickname").on('input', function() {
+    isNicknameChecked = false;
+    $("#renickname").val('');
+});
 </script>  
 </head>
 <body>
@@ -60,14 +66,14 @@ function openInPopup(url) {
                         <label>이름 : </label>
                         <input type="text" name="name" id="name" th:value="${loginUser.name}" readonly placeholder="수정 불가"><br>
                         <label>닉네임 : </label>
-                        <input type="text" name="nickname" id="nickname" th:value="${loginUser.nickname}">
-                        <input type="hidden" name="renickname" id="renickname" th:value="${renickname}">
-                        <th:block th:if="${loginUser.nickname == null}">
-                        <input type="button" value="중복 체크" class="dup btn" onclick="nickcheck()"><br>
-                        </th:block>
-                        <th:block th:if="${loginUser.nickname != null}">
-                        <input type="button" value="닉네임 수정" class="dup btn" onclick="window.open('nickname_check_form', '_blank', 'toolbar=no, menubar=no, scrollbars=no, resizable=yes, width=600, height=400');"><br>
-                        </th:block>
+		                <input type="text" name="nickname" id="nickname" th:value="${loginUser.nickname}">
+		                <input type="hidden" name="renickname" id="renickname" th:value="${renickname}">
+		                <th:block th:if="${loginUser.nickname == null}">
+		                <input type="button" value="중복 체크" class="dup btn" onclick="nickcheck()"><br>
+		                </th:block>
+		                <th:block th:if="${loginUser.nickname != null}">
+		                <input type="button" value="닉네임 수정" class="dup btn" onclick="window.open('nickname_check_form', '_blank', 'toolbar=no, menubar=no, scrollbars=no, resizable=yes, width=600, height=400');"><br>
+		                </th:block>
                         <label>이메일 : </label>
                         <input type="email" name="email" id="email" th:value="${loginUser.email}" readonly><br>
                         <div>

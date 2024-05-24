@@ -106,7 +106,7 @@ public class MypageController {
 			memberService.changeInfo(vo);
 			
 		}
-	    return "mypage/infoView";
+	    return "redirect:/infoView";
 	}
 
 	
@@ -148,7 +148,7 @@ public class MypageController {
 			memberService.changeBodyData(vo);
 			
 		}
-		return "mypage/infoView";
+		return "redirect:/infoView";
 		
 	}
 	

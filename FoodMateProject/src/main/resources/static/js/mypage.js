@@ -2,6 +2,10 @@
  * 마이페이지 스크립트
 */
 
+// 닉네임 중복 체크 상태 변수
+let isNicknameChecked = false;
+let originalNickname = $("#nickname").val();
+
 /**
  * 개인정보 수정 (닉네임, 비밀번호, 이메일) 
  */
@@ -18,7 +22,7 @@ function change_info() {
 		alert("변경할 닉네임을 입력하세요.");
 		$("#nickname").focus();
 		return false;
-	} else if ($("#nickname").val() != $("#renickname").val()) {
+	} else if ($("#nickname").val() != originalNickname && !isNicknameChecked) {
 		alert("닉네임 중복 체크를 해주세요.");
 		$("#nickname").focus();
 		return false;
@@ -29,11 +33,11 @@ function change_info() {
 	} else {
 		$("#update_info").attr("action", "update_info").submit();
 	}
-	
 }
-/*
-** 닉네임 중복확인 화면 출력요청
-*/
+
+/**
+ * 닉네임 중복확인 화면 출력요청
+ */
 function nickcheck() {
 	if ($("#nickname").val() == "") {
 		alert("닉네임을 입력해 주세요!");
@@ -45,6 +49,18 @@ function nickcheck() {
 	var url = "nickname_check_form?nickname=" + $("#nickname").val();
 	window.open(url, "_blank_", "toolbar=no, menubar=no, scrollbars=no, " +
 		"resizable=yes, width=600, height=400");
+}
+
+// 닉네임 입력 필드의 값이 변경될 때 중복 체크 상태를 초기화합니다.
+$("#nickname").on('input', function() {
+	isNicknameChecked = false;
+	$("#renickname").val('');
+});
+
+// 중복 체크 완료 후 닉네임을 설정하는 함수
+function setNicknameChecked() {
+	isNicknameChecked = true;
+	$("#renickname").val($("#nickname").val());
 }
 /**
  * 바디데이터 수정
