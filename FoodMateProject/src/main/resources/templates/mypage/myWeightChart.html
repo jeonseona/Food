@@ -4,18 +4,67 @@
 <meta charset="utf-8">
 <title>My Weight Chart</title>
 <link rel="stylesheet" th:href="@{/css/mypage.css}">
+<style>
+/* 챗봇 아이콘 스타일 */
+#chatbot-icon,
+#calorie-icon {
+    position: fixed;
+    bottom: 30px;
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+#chatbot-icon {
+    left: 10px;
+}
+
+#calorie-icon {
+    left: 110px; /* 챗봇 아이콘 오른쪽에 위치 */
+}</style>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script th:src="@{/js/mypage.js}" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script type="text/javascript">
-function openInPopup(url) {
-        window.open(url, '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
+
+<script>
+    // JavaScript를 사용하여 현재 날짜를 yyyy-mm-dd 형식으로 변환
+     document.addEventListener("DOMContentLoaded", function() {
+    function setCurrentDate() {
+        const dateInput = document.getElementById('re_date');
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        let mm = today.getMonth() + 1; // 1월은 0부터 시작하므로 1을 더함
+        let dd = today.getDate();
+
+        // 월과 일이 한 자리 숫자인 경우 앞에 0을 붙임
+        if (mm < 10) mm = '0' + mm;
+        if (dd < 10) dd = '0' + dd;
+
+        const formattedToday = yyyy + '-' + mm + '-' + dd;
+        dateInput.value = formattedToday;
     }
-</script>  
+
+    // 페이지가 로드될 때 현재 날짜를 설정
+    window.onload = setCurrentDate;
+});
+</script>
+
 </head>
 <body>
-<a id="chatbot-icon" href="javascript:void(0);" onclick="openInPopup('/chat')"><i class="fas fa-robot"></i></a><br>
-<a id="calorie-icon" href="javascript:void(0);" onclick="openInPopup('/cal')"><i class="fas fa-calculator"></i></a>
+<!-- 챗봇 아이콘 -->
+        <div id="chatbot-icon" onclick="toggleChatbotPopup()">
+            <i class="fas fa-robot"></i>
+        </div>
+        
+        <!-- 칼로리 계산기 아이콘 -->
+        <div id="calorie-icon" onclick="toggleCaloriePopup()">
+            <i class="fas fa-calculator"></i>
+        </div>
 	<!-- 헤더 -->
 	<th:block th:insert="~{includes/header}"></th:block>
 

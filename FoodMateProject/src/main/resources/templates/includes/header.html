@@ -37,7 +37,6 @@
         }
     }
 </script>
-</script>
 </head>
 <body>
 <header id="header">
@@ -46,7 +45,7 @@
     	<div id="logo">
     	<a href="/"><img class="logo" src="/images/logo.png" alt="Food Logo"></a>
     	</div>
-        <h1>FoodMate</h1>
+        <h1><a href="/" style="text-decoration: none; color: inherit;">FoodMate</a></h1>
         <nav id="nav">
             <ul>
                 <li><a href="/customer_service/introduce">FoodMate</a></li>
@@ -57,18 +56,20 @@
                 	<li><a th:href="@{/logout}">Logout</a></li>
                 </th:block>
                 <li><a th:href="@{/board_list_main}">Community</a>
+						<ul>
+							<li><a th:href="@{/board_list}"><i
+									class="fas fa-comments"></i>&nbsp;유저 레시피 공유</a></li>
+							<li><a th:href="@{/community_list}"><i
+									class="fas fa-handshake"></i>&nbsp;자유 게시판</a></li>
+						</ul></li>
+                <li><a th:href="@{/mypage/mypage}">MyPage&nbsp;&nbsp;<i class="fas fa-chevron-down"></i></a>
                 	<ul>
-                		<li><a th:href="@{/board_list}"><i class="fas fa-comments"></i>&nbsp;유저 레시피 공유</a></li>
-						<li><a th:href="@{/community_list}"><i class="fas fa-handshake"></i>&nbsp;자유 게시판</a></li>
-                	</ul></li>
-                <li><a th:href="@{/mypage}">MyPage&nbsp;&nbsp;<i class="fas fa-chevron-down"></i></a>
-                	<ul>
-                		<li><a th:href="@{infoView}"><i class="fas fa-user"></i>&nbsp;내 정보</a></li>
-				        <li><a th:href="@{infoUpdate}"><i class="fas fa-pen"></i>&nbsp;내 정보 수정</a></li>
-				        <li><a th:href="@{bodyUpdate}"><i class="fas fa-check"></i>&nbsp;바디데이터 수정</a></li>
-				        <li><a th:href="@{myWeightChart}"><i class="fas fa-chart-line"></i>&nbsp;체중 변화 기록</a></li>
-				        <li><a th:href="@{myRecipeList}"><i class="fas fa-utensils"></i>&nbsp;나의 레시피</a></li>
-				        <li><a th:href="@{foodRecommend}"><i class="fas fa-history"></i>&nbsp;받은 추천 기록</a></li>
+                		<li><a th:href="@{/mypage/infoView}"><i class="fas fa-user"></i>&nbsp;내 정보</a></li>
+				        <li><a th:href="@{/mypage/infoUpdate}"><i class="fas fa-pen"></i>&nbsp;내 정보 수정</a></li>
+				        <li><a th:href="@{/mypage/bodyUpdate}"><i class="fas fa-check"></i>&nbsp;바디데이터 수정</a></li>
+				        <li><a th:href="@{/mypage/myWeightChart}"><i class="fas fa-chart-line"></i>&nbsp;체중 변화 기록</a></li>
+				        <li><a th:href="@{/mypage/myRecipeList}"><i class="fas fa-utensils"></i>&nbsp;나의 레시피</a></li>
+				        <li><a th:href="@{/mypage/foodRecommend}"><i class="fas fa-history"></i>&nbsp;받은 추천 기록</a></li>
                 	</ul></li>
                 <li><a th:href="@{/customer_service}">Customer Service&nbsp;&nbsp;<i class="fas fa-chevron-down"></i></a>
                 	<ul>
@@ -93,18 +94,20 @@
 		        <li><a th:href="@{/logout}">Logout</a></li>
 		    </th:block>
 		    <li><a th:href="@{/board_list_main}">Community</a>
-                <ul>
-               		<li><a th:href="@{/board_list}"><i class="fas fa-comments"></i>&nbsp;유저 레시피 공유</a></li>
-					<li><a th:href="@{/community_list}"><i class="fas fa-handshake"></i>&nbsp;자유 게시판</a></li>
-               	</ul></li>
-		    <li><a th:href="@{/mypage}">MyPage&nbsp;&nbsp;<i class="fas fa-chevron-down"></i></a>
+						<ul>
+							<li><a th:href="@{/board_list}"><i
+									class="fas fa-comments"></i>&nbsp;유저 레시피 공유</a></li>
+							<li><a th:href="@{/community_list}"><i
+									class="fas fa-handshake"></i>&nbsp;자유 게시판</a></li>
+						</ul></li>
+		    <li><a th:href="@{/mypage/mypage}">MyPage&nbsp;&nbsp;<i class="fas fa-chevron-down"></i></a>
 		        <ul>
-		            <li><a th:href="@{infoView}"><i class="fas fa-user"></i>&nbsp;내 정보</a></li>
-			        <li><a th:href="@{infoUpdate}"><i class="fas fa-pen"></i>&nbsp;내 정보 수정</a></li>
-			        <li><a th:href="@{bodyUpdate}"><i class="fas fa-check"></i>&nbsp;바디데이터 수정</a></li>
-			        <li><a th:href="@{myWeightChart}"><i class="fas fa-chart-line"></i>&nbsp;체중 변화 기록</a></li>
-			        <li><a th:href="@{myRecipeList}"><i class="fas fa-utensils"></i>&nbsp;나의 레시피</a></li>
-			        <li><a th:href="@{foodRecommend}"><i class="fas fa-history"></i>&nbsp;받은 추천 기록</a></li>
+		            <li><a th:href="@{/mypage/infoView}"><i class="fas fa-user"></i>&nbsp;내 정보</a></li>
+			        <li><a th:href="@{/mypage/infoUpdate}"><i class="fas fa-pen"></i>&nbsp;내 정보 수정</a></li>
+			        <li><a th:href="@{/mypage/bodyUpdate}"><i class="fas fa-check"></i>&nbsp;바디데이터 수정</a></li>
+			        <li><a th:href="@{/mypage/myWeightChart}"><i class="fas fa-chart-line"></i>&nbsp;체중 변화 기록</a></li>
+			        <li><a th:href="@{/mypage/myRecipeList}"><i class="fas fa-utensils"></i>&nbsp;나의 레시피</a></li>
+			        <li><a th:href="@{/mypage/foodRecommend}"><i class="fas fa-history"></i>&nbsp;받은 추천 기록</a></li>
 		        </ul>
 		    </li>
 		    <li><a th:href="@{/customer_service}">Customer Service&nbsp;&nbsp;<i class="fas fa-chevron-down"></i></a>

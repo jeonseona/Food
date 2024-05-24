@@ -24,7 +24,8 @@ public interface CommunityBoardRepository extends JpaRepository<CommunityBoard, 
 	public Page<CommunityBoard> findCommunityBoardByTitleContainingOrderByTitle(String title, int community_seq, Pageable pageable);
 	
 	// 글쓴이 아이디로 검색
-	@Query(value="SELECT b.* FROM Community_Board b WHERE b.member_data.id = ?1 ", nativeQuery=true)
+	@Query(value="SELECT b.community_seq, b.no_data, b.community_title, b.community_content, b.community_d_regdate, b.community_cnt, b.community_goodpoint FROM Community_Board b JOIN "
+	         + " Member_Data m ON b.no_data = m.no_data WHERE m.id = ?1 ", nativeQuery=true)
 	public Page<CommunityBoard> findCommunityBoardByIdContainingOrderById(String id, int community_seq, Pageable pageable);
 	
 	//전체글 페이징처리 

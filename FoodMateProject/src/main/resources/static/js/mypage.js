@@ -231,6 +231,54 @@ $(document).ready(function() {
         }
         
         
+$(document).ready(function() {
+	$(".date-header").click(function() {
+		$(this).next(".date-group").toggle();
+	});
+});
+
+function delHistory() {
+	var checkboxes = document
+		.querySelectorAll('input[name="delete"]:checked');
+	if (checkboxes.length === 0) {
+		alert("삭제할 항목을 선택하세요.");
+		return;
+	}
+
+	var confirmation = confirm("정말로 삭제하시겠습니까?");
+	if (confirmation) {
+		var deleteIdxArray = [];
+		checkboxes.forEach(function(checkbox) {
+			deleteIdxArray.push(Number(checkbox.value));
+		});
+
+		$.ajax({
+			type: "POST",
+			url: "/mypage/deleteHistory",
+			data: JSON.stringify(deleteIdxArray),
+			contentType: "application/json; charset=utf-8",
+			success: function(response) {
+				if (response === "success") {
+					location.reload();
+				} else {
+					console.error("로그인이 필요합니다.");
+				}
+			},
+			error: function(xhr, status, error) {
+				console.error("오류가 발생했습니다:", error);
+			}
+		});
+	}
+}
+
+function openChart(idx) {
+	window.open('chart.html?idx=' + idx, '_blank', 'width=400, height=600');
+}
+
+
+
+
+
         
 $(document).ready(function() {
     $('.menu-link').on('click', function(event) {

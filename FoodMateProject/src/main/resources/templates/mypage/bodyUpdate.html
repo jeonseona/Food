@@ -4,6 +4,29 @@
 <meta charset="UTF-8">
 <title>Body Update</title>
 <link rel="stylesheet" th:href="@{/css/mypage.css}">
+<style>
+/* 챗봇 아이콘 스타일 */
+#chatbot-icon,
+#calorie-icon {
+    position: fixed;
+    bottom: 30px;
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+#chatbot-icon {
+    left: 10px;
+}
+
+#calorie-icon {
+    left: 110px; /* 챗봇 아이콘 오른쪽에 위치 */
+}</style>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script th:src="@{/js/mypage.js}" defer></script>
 <script type="text/javascript">
@@ -34,11 +57,11 @@ function openInPopup(url) {
 							<option value="Female">여자</option>
 						</select><br>
 						<label>나이 : </label>
-						<input type="text" name="age" id="age" th:value="${loginUser.age}"><br>
+						<input type="text" th:value="${member.age}" name="age" id="age"><br>
 						<label>키 : </label>
-						<input type="text" name="height" id="height" th:value="${loginUser.height}"><br>
+						<input type="text" th:value="${member.height}" name="height" id="height"><br>
 						<label>몸무게 : </label>
-						<input type="text" name="weight" id="weight" th:value="${loginUser.weight}"><br>
+						<input type="text" th:value="${member.weight}" name="weight" id="weight"><br>
 						<label>BMI : </label>
 						<input type="text" name="bmi" id="bmi" readonly>
 						<input type="button" value="계산하기" onclick="my_bmi()" class="dup btn"><br>
