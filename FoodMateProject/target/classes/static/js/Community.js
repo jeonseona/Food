@@ -155,3 +155,48 @@ function go_save() {
 	}
 		}
       
+//프린트
+function printContent() {
+    window.print();
+  }
+  
+ //pdf 
+async function downloadPDF() {
+    const form = document.forms['pdffrm'];
+    const formData = new FormData(form); 
+
+    const response = await fetch(form.action, {
+        method: 'GET',
+        body: formData
+    });
+
+    if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        const filename = form.community_title.value + '.pdf';
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+    } else {
+        console.error('PDF 파일로 다운받는데 실패하였습니다');
+    }
+}
+
+	function go_list() {
+		var theForm = document.frm;
+		theForm.method = "get";
+		theForm.action = "/community_list";
+		theForm.submit();
+	}
+	
+	function go_spelling(){
+		var theForm = document.frm;
+		theForm.method = "get";
+		theForm.action = "/spellingcheck";
+		theForm.submit();
+		
+	}

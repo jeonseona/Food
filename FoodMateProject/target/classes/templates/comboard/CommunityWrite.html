@@ -7,13 +7,6 @@
 <link rel="stylesheet" href="css/skel.css">
 <link rel="stylesheet" href="css/style.css">
 <th:block th:insert="~{includes/header.html}"></th:block>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script type="text/javascript" th:src="@{js/Community.js}"></script>
-<script src="js/jquery.min.js"></script>
-<script src="js/jquery.dropotron.min.js"></script>
-<script src="js/skel.min.js"></script>
-<script src="js/skel-layers.min.js"></script>
-<script src="js/init.js"></script>
 <article>
 <a id="chatbot-icon" href="javascript:void(0);" onclick="openInPopup('/chat')"><i class="fas fa-robot"></i></a><br>
 <a id="calorie-icon" href="javascript:void(0);" onclick="openInPopup('/cal')"><i class="fas fa-calculator"></i></a>
@@ -32,6 +25,8 @@
 					<td><textarea name="content" rows="6"
 						id="content"></textarea></td>
 				</tr>
+				<!-- 여기 get으로 -->
+				<tr><th><button class="btn" id="write_menu_btn" type="submit" onClick="go_spelling()">맞춤법 검사</button></th></tr>
 			</table>
 			<hr>
 			<br>
@@ -43,5 +38,12 @@
 	</div>
 </article>
 </body>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script type="text/javascript" th:src="@{js/Community.js}"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.dropotron.min.js"></script>
+<script src="js/skel.min.js"></script>
+<script src="js/skel-layers.min.js"></script>
+<script src="js/init.js"></script>
 <th:block th:insert="~{includes/footer.html}"></th:block>
 </html>

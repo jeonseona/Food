@@ -43,8 +43,8 @@
                             <span class="byline">작성자: [[${CommunityBoard.member_data.id}]]</span>
                             <span class="byline">작성일: [[${#dates.format(CommunityBoard.community_d_regdate, "yyyy-MM-dd") }]]</span>
                             <span class="byline">조회수: [[${CommunityBoard.community_cnt}]]</span></div><br>
-                            <button class="newBtn" onclick="printContent()">Print하기</button>
                             </form>
+                            <button class="newBtn" onclick="printContent()">Print하기</button>
                      <form name="pdffrm" method="get" action="/api/generate-pdf">
               		  <input type="hidden" name="community_seq" id="newCommunitySeq" th:value="${CommunityBoard.community_seq}"> 
               		  <input type="hidden" name="community_title" id="newCommunitytitle" th:value="${CommunityBoard.community_title}">             
@@ -73,35 +73,4 @@
 <script src="js/skel-layers.min.js"></script>
 <script src="js/init.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
-<script type="text/javascript">
-function printContent() {
-    window.print();
-  }
-  
-async function downloadPDF() {
-    const form = document.forms['pdffrm'];
-    const formData = new FormData(form); 
-
-    const response = await fetch(form.action, {
-        method: 'GET',
-        body: formData
-    });
-
-    if (response.ok) {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        const filename = form.community_title.value + '.pdf';
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        window.URL.revokeObjectURL(url);
-    } else {
-        console.error('PDF 파일로 다운받는데 실패하였습니다');
-    }
-}
-
-</script>
 </html>

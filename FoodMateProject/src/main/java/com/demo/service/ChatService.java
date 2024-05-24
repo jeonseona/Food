@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.demo.dto.Foodcal;
+import com.demo.dto.NaverSpellingApi;
 import com.demo.persistence.FoodcalRepository;
 import com.google.gson.Gson;
 
@@ -86,4 +87,8 @@ public class ChatService {
 
         return "죄송합니다. 이해하지 못했습니다.";
     }
+    
+    
+    
+    
 }
