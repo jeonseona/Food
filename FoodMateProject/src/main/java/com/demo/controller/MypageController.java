@@ -99,7 +99,7 @@ public class MypageController {
 	
 	// 개인정보 수정
 	@PostMapping("/update_info")
-	public String infoUpdateAction(HttpSession session, MemberData vo) {
+	public String infoUpdateAction(HttpSession session, MemberData vo, Model model) {
 	    MemberData loginUser = (MemberData) session.getAttribute("loginUser");
 	    
 	    if(loginUser == null) {
@@ -107,6 +107,8 @@ public class MypageController {
 		} else {
 			// 로그인한 회원수정
 			memberService.changeInfo(vo);
+			MemberData loginUser_new = memberService.getMember(loginUser.getId());
+			session.setAttribute("loginUser", loginUser_new);
 			return "redirect:/mypage/infoView";
 		}
 	}

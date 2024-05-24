@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>My Recipe List</title>
+    <script type="text/javascript" th:src="@{js/BoardList.js}"></script>
     <link rel="stylesheet" th:href="@{/css/mypage.css}">
     <style>
     /* 챗봇 아이콘 스타일 */
@@ -62,11 +63,13 @@ function openInPopup(url) {
 							</tr>
 						</thead>
 						<tbody th:if="${#lists.size(recipeList) != 0}">
-							<tr th:each="myRecipe : ${recipeList}">
+							<tr th:each="myRecipe : ${recipeList}" th:onclick="'window.location.href=\'/com_board_detail?seq=' + ${myRecipe.seq} + '\''">
+								
 								<td th:text="${myRecipe.seq}"></td>
 								<td th:text="${myRecipe.com_recipe.rcp_nm}"></td>
 								<td
 									th:text="${#dates.format(myRecipe.d_regdate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+								
 							</tr>
 						</tbody>
 					</table>
