@@ -14,14 +14,12 @@ public class WebConfig implements WebMvcConfigurer {
 
 	    @Override
 	    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-	        // Ensuring the path ends with a forward slash
 	        String uploadDirectory = Paths.get(uploadPath).toUri().toString();
 	        if (!uploadDirectory.endsWith("/")) {
 	            uploadDirectory += "/";
 	        }
 
-	        // Expose the upload path as a resource path
 	        registry.addResourceHandler("/uploads/**").addResourceLocations("file:uploads/");
 	    }
-	 
+
 }

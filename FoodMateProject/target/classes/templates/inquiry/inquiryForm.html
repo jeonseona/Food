@@ -144,10 +144,15 @@ button[type="submit"]:hover {
 }
 
 </style>
+<script>
+function openInPopup(url) {
+    window.open(url, '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
+}
+</script>
 </head>
 <body>
-<a id="chatbot-icon" href="/chat"><i class="fas fa-robot"></i></a>
-<a id="chatbot-icon" href="/cal"><i class="fas fa-calculator"></i></a>
+<a id="chatbot-icon" href="javascript:void(0);" onclick="openInPopup('/chat')"><i class="fas fa-robot"></i></a><br>
+<a id="calorie-icon" href="javascript:void(0);" onclick="openInPopup('/cal')"><i class="fas fa-calculator"></i></a>
 	<h2>1:1 문의 접수</h2>
     <form action="/saveInquiry" method="post">
         <!-- 제목 입력 칸 -->

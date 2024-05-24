@@ -37,4 +37,9 @@ public interface CommunityBoardRepository extends JpaRepository<CommunityBoard, 
     // 회원별 작성한 게시글(레시피)조회
     @Query("SELECT b FROM CommunityBoard b JOIN b.member_data m WHERE m.id=:id")
     public List<CommunityBoard> getMyRecipeListById(@Param("id")String id);
+    
+    //pdf
+    @Query(value="SELECT * FROM Community_Board WHERE community_seq = ?1 ", nativeQuery=true)
+    public CommunityBoard findCommunityBoardByCommunity_seq(String community_seq);
+    
 }

@@ -143,18 +143,15 @@
         
         
     </style>
+<script>
+function openInPopup(url) {
+    window.open(url, '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
+}
+</script>
 </head>
 <body>
-    <!-- 챗봇 아이콘 -->
-    <div id="chatbot-icon" onclick="toggleChatbotPopup()">
-        <i class="fas fa-robot"></i>
-    </div>
-        
-    <!-- 칼로리 계산기 아이콘 -->
-    <div id="calorie-icon" onclick="toggleCaloriePopup()">
-        <i class="fas fa-calculator"></i>
-    </div>
-    
+<a id="chatbot-icon" href="javascript:void(0);" onclick="openInPopup('/chat')"><i class="fas fa-robot"></i></a><br>
+<a id="calorie-icon" href="javascript:void(0);" onclick="openInPopup('/cal')"><i class="fas fa-calculator"></i></a>
     <div class="header1">
     <br>
         <h1 id="h1_1">FOOD MATE에 오신 것을 환영합니다</h1> <!-- h1 가운데 정렬 -->
