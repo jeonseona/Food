@@ -62,7 +62,12 @@ function openInPopup(url) {
                         <label>닉네임 : </label>
                         <input type="text" name="nickname" id="nickname" th:value="${loginUser.nickname}">
                         <input type="hidden" name="renickname" id="renickname" th:value="${renickname}">
+                        <th:block th:if="${loginUser.nickname == null}">
                         <input type="button" value="중복 체크" class="dup btn" onclick="nickcheck()"><br>
+                        </th:block>
+                        <th:block th:if="${loginUser.nickname != null}">
+                        <input type="button" value="닉네임 수정" class="dup btn" onclick="window.open('nickname_check_form', '_blank', 'toolbar=no, menubar=no, scrollbars=no, resizable=yes, width=600, height=400');"><br>
+                        </th:block>
                         <label>이메일 : </label>
                         <input type="email" name="email" id="email" th:value="${loginUser.email}" readonly><br>
                         <div>

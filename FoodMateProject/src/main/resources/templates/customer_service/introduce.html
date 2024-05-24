@@ -139,8 +139,10 @@
     padding: 20px; /* 제목 주위의 여백 */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
     border-radius: 10px; /* 제목의 모서리를 둥글게 만듦 */
-}     
-</style>
+}
+        
+        
+    </style>
 <script>
 function openInPopup(url) {
     window.open(url, '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
@@ -148,15 +150,8 @@ function openInPopup(url) {
 </script>
 </head>
 <body>
-    <!-- 챗봇 아이콘 -->
-    <div id="chatbot-icon" onclick="toggleChatbotPopup()">
-        <i class="fas fa-robot"></i>
-    </div>
-        
-    <!-- 칼로리 계산기 아이콘 -->
-    <div id="calorie-icon" onclick="toggleCaloriePopup()">
-        <i class="fas fa-calculator"></i>
-    </div>
+<a id="chatbot-icon" href="javascript:void(0);" onclick="openInPopup('/chat')"><i class="fas fa-robot"></i></a><br>
+<a id="calorie-icon" href="javascript:void(0);" onclick="openInPopup('/cal')"><i class="fas fa-calculator"></i></a>
     
     <div class="header1">
     <br>
