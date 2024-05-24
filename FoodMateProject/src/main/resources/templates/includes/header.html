@@ -19,9 +19,9 @@
 	});
 	// 테마
     function toggleTheme() {
-        document.body.classList.toggle('dark-theme');
-        const isDarkTheme = document.body.classList.contains('dark-theme');
-        localStorage.setItem('darkTheme', isDarkTheme);
+	    document.body.classList.toggle('dark-theme');
+	    const isDarkTheme = document.body.classList.contains('dark-theme');
+	    localStorage.setItem('darkTheme', isDarkTheme);
 
         // 아이콘 토글
         document.getElementById('themeToggleButtonLight').style.display = isDarkTheme ? 'none' : 'inline';
@@ -62,14 +62,14 @@
 							<li><a th:href="@{/community_list}"><i
 									class="fas fa-handshake"></i>&nbsp;자유 게시판</a></li>
 						</ul></li>
-                <li><a th:href="@{/mypage/mypage}">MyPage&nbsp;&nbsp;<i class="fas fa-chevron-down"></i></a>
+                <li><a th:href="@{/mypage}">MyPage&nbsp;&nbsp;<i class="fas fa-chevron-down"></i></a>
                 	<ul>
-                		<li><a th:href="@{/mypage/infoView}"><i class="fas fa-user"></i>&nbsp;내 정보</a></li>
-				        <li><a th:href="@{/mypage/infoUpdate}"><i class="fas fa-pen"></i>&nbsp;내 정보 수정</a></li>
-				        <li><a th:href="@{/mypage/bodyUpdate}"><i class="fas fa-check"></i>&nbsp;바디데이터 수정</a></li>
-				        <li><a th:href="@{/mypage/myWeightChart}"><i class="fas fa-chart-line"></i>&nbsp;체중 변화 기록</a></li>
-				        <li><a th:href="@{/mypage/myRecipeList}"><i class="fas fa-utensils"></i>&nbsp;나의 레시피</a></li>
-				        <li><a th:href="@{/mypage/foodRecommend}"><i class="fas fa-history"></i>&nbsp;받은 추천 기록</a></li>
+                		<li><a th:href="@{/infoView}"><i class="fas fa-user"></i>&nbsp;내 정보</a></li>
+				        <li><a th:href="@{/infoUpdate}"><i class="fas fa-pen"></i>&nbsp;내 정보 수정</a></li>
+				        <li><a th:href="@{/bodyUpdate}"><i class="fas fa-check"></i>&nbsp;바디데이터 수정</a></li>
+				        <li><a th:href="@{/myWeightChart}"><i class="fas fa-chart-line"></i>&nbsp;체중 변화 기록</a></li>
+				        <li><a th:href="@{/myRecipeList}"><i class="fas fa-utensils"></i>&nbsp;나의 레시피</a></li>
+				        <li><a th:href="@{/foodRecommend}"><i class="fas fa-history"></i>&nbsp;받은 추천 기록</a></li>
                 	</ul></li>
                 <li><a th:href="@{/customer_service}">Customer Service&nbsp;&nbsp;<i class="fas fa-chevron-down"></i></a>
                 	<ul>
@@ -100,14 +100,14 @@
 							<li><a th:href="@{/community_list}"><i
 									class="fas fa-handshake"></i>&nbsp;자유 게시판</a></li>
 						</ul></li>
-		    <li><a th:href="@{/mypage/mypage}">MyPage&nbsp;&nbsp;<i class="fas fa-chevron-down"></i></a>
+		    <li><a th:href="@{/mypage}">MyPage&nbsp;&nbsp;<i class="fas fa-chevron-down"></i></a>
 		        <ul>
-		            <li><a th:href="@{/mypage/infoView}"><i class="fas fa-user"></i>&nbsp;내 정보</a></li>
-			        <li><a th:href="@{/mypage/infoUpdate}"><i class="fas fa-pen"></i>&nbsp;내 정보 수정</a></li>
-			        <li><a th:href="@{/mypage/bodyUpdate}"><i class="fas fa-check"></i>&nbsp;바디데이터 수정</a></li>
-			        <li><a th:href="@{/mypage/myWeightChart}"><i class="fas fa-chart-line"></i>&nbsp;체중 변화 기록</a></li>
-			        <li><a th:href="@{/mypage/myRecipeList}"><i class="fas fa-utensils"></i>&nbsp;나의 레시피</a></li>
-			        <li><a th:href="@{/mypage/foodRecommend}"><i class="fas fa-history"></i>&nbsp;받은 추천 기록</a></li>
+		            <li><a th:href="@{/infoView}"><i class="fas fa-user"></i>&nbsp;내 정보</a></li>
+			        <li><a th:href="@{/infoUpdate}"><i class="fas fa-pen"></i>&nbsp;내 정보 수정</a></li>
+			        <li><a th:href="@{/bodyUpdate}"><i class="fas fa-check"></i>&nbsp;바디데이터 수정</a></li>
+			        <li><a th:href="@{/myWeightChart}"><i class="fas fa-chart-line"></i>&nbsp;체중 변화 기록</a></li>
+			        <li><a th:href="@{/myRecipeList}"><i class="fas fa-utensils"></i>&nbsp;나의 레시피</a></li>
+			        <li><a th:href="@{/foodRecommend}"><i class="fas fa-history"></i>&nbsp;받은 추천 기록</a></li>
 		        </ul>
 		    </li>
 		    <li><a th:href="@{/customer_service}">Customer Service&nbsp;&nbsp;<i class="fas fa-chevron-down"></i></a>
