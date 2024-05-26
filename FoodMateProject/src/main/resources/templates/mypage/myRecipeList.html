@@ -41,9 +41,11 @@ function openInPopup(url) {
 						<tbody th:if="${#lists.size(recipeList) != 0}">
 							<tr th:each="myRecipe : ${recipeList}">
 								<td th:text="${myRecipe.seq}"></td>
-								<td th:text="${myRecipe.com_recipe.rcp_nm}"></td>
-								<td
-									th:text="${#dates.format(myRecipe.d_regdate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+								<td>
+									<a th:text="${myRecipe.com_recipe.rcp_nm}"
+									th:href="'/com_board_detail?seq=' + ${myRecipe.seq}"></a>
+								</td>
+								<td th:text="${#dates.format(myRecipe.d_regdate, 'yyyy-MM-dd HH:mm:ss')}"></td>
 							</tr>
 						</tbody>
 					</table>
