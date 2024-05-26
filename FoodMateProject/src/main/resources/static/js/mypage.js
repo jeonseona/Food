@@ -2,10 +2,6 @@
  * 마이페이지 스크립트
 */
 
-// 닉네임 중복 체크 상태 변수
-let isNicknameChecked = false;
-let originalNickname = $("#nickname").val();
-
 /**
  * 개인정보 수정 (닉네임, 비밀번호, 이메일) 
  */
@@ -249,11 +245,6 @@ $(document).ready(function() {
 
    
         
-$(document).ready(function() {
-	$(".date-header").click(function() {
-		$(this).next(".date-group").toggle();
-	});
-});
 
 function delHistory() {
 	var checkboxes = document

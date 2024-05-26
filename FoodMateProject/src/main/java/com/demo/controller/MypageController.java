@@ -259,6 +259,7 @@ public class MypageController {
                 .collect(Collectors.groupingBy(history -> sdf.format(history.getRecommendDate())));
 
             model.addAttribute("groupedByDate", groupedByDate);
+            model.addAttribute("recommend", recommend);
 
         }
         return "mypage/recommendHistory";
