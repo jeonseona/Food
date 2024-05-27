@@ -63,59 +63,14 @@
     
     <th:block th:insert="~{includes/footer.html}"></th:block>
 
-    <script>
-document.getElementById('dateSearchForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // 기본 동작인 폼 제출을 막습니다.
-
-    var startDate = document.getElementById('startDate').value;
-    var endDate = document.getElementById('endDate').value;
-
-    if (new Date(startDate) > new Date(endDate)) {
-        alert('시작일은 종료일보다 이전이어야 합니다.');
-        return;
-    }
-
-    // fetch를 사용하여 서버에 데이터를 전송합니다.
-    fetch("/inquiry/search?startDate=" + startDate + "&endDate=" + endDate)
-        .then(response => response.json()) // 서버로부터 응답을 받아 JSON 형식으로 변환합니다.
-        .then(data => {
-            // 서버로부터 받은 데이터를 처리합니다.
-            displaySearchResults(data);
-        })
-        .catch(error => {
-            console.error('Error fetching inquiries:', error);
-        });
-});
-
-// 조회 결과를 화면에 표시하는 함수
-function displaySearchResults(data) {
-    var tableBody = document.querySelector('.inquiry-list tbody');
-    tableBody.innerHTML = ''; // 이전 결과를 지웁니다.
-
-    if (data.length === 0) {
-        // 조회 결과가 없는 경우 메시지를 표시합니다.
-        tableBody.innerHTML = '<tr><td colspan="5" class="empty-message">해당 기간 문의 내역이 없습니다.</td></tr>';
-    } else {
-        // 조회 결과가 있는 경우 각각의 데이터를 테이블에 추가합니다.
-        data.forEach(function(item, index) {
-            var row = '<tr>' +
-                '<td>' + (index + 1) + '</td>' +
-                '<td>' + item.name + '</td>' +
-                '<td class="subject">' +
-                '<a href="/inquiry/inquiry_detail/' + item.inquiry_id + '" class="subject-text">' + item.subject + '</a>' +
-                '</td>' +
-                '<td>' + item.status + '</td>' +
-                '<td>' + formatDate(item.regdate) + '</td>' +
-                '</tr>';
-            tableBody.innerHTML += row;
-        });
-    }
-}
-
+<script>
 // 날짜 형식을 변환하는 함수
 function formatDate(dateString) {
     var date = new Date(dateString);
     return date.toLocaleString('ko-KR');
+}
+function openInPopup(url) {
+    window.open(url, '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
 }
 </script>
 </body>
