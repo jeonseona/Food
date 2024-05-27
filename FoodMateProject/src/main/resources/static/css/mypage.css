@@ -590,7 +590,7 @@ main h3 {
 
 /* 테마 */
 body.dark-theme {
-    background-color: black;
+    background-color: #1e1e1e;
     color: silver;
 }
 

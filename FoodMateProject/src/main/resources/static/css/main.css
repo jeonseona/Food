@@ -720,7 +720,7 @@ ul.style li span {
 	top: 0;
 	left: 0;
 	width: 100%;
-	background: black; /* 배경색 변경 */
+	background: #1e1e1e; /* 배경색 변경 */
 	box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
 	z-index: 1000;
 	display: none;
@@ -788,7 +788,7 @@ ul.style li span {
     color: gold;
 }
 body.dark-theme {
-    background-color: black;
+    background-color: #1e1e1e;
     color: silver;
 }
 
