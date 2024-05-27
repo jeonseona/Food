@@ -339,27 +339,23 @@ body {
 }
 
 /* Major Section 스타일 */
-.style1 .major h2 {
+.style1 h2 {
     font-size: 2.5em;
     color: #333;
-    margin-bottom: 1.5em;
+    margin-bottom: 5px;
     background-color: rgba(255, 255, 255, 0.7); /* 반투명 밝은 배경색 */
-    padding: 0.5em; /* 패딩 추가 */
+    padding: 8px; /* 패딩 추가 */
     display: block; /* 블록 요소로 설정하여 줄바꿈 */
-    width: fit-content; /* 텍스트 너비에 맞춤 */
-    border-radius: 5px; /* 둥근 모서리 */
     margin: 0 auto; /* 수평 가운데 정렬 */
 }
 
-.style1 .major h3 {
+.style1 h3 {
     font-size: 1.5em;
     color: #333;
-    margin-bottom: 1.5em;
+    margin-bottom: 5px;
     background-color: rgba(255, 255, 255, 0.7); /*반투명 밝은 배경색*/
-    padding: 0.5em; /*패딩 추가*/
+    padding: 8px; /*패딩 추가*/
     display: block; /*블록 요소로 설정하여 줄바꿈*/
-    width: fit-content; /*텍스트 너비에 맞춤*/
-    border-radius: 5px; /*둥근 모서리*/
     margin: 0 auto; /*수평 가운데 정렬*/
 }
 
@@ -375,16 +371,19 @@ body {
 /* Button 스타일 */
 .btn {
 	display: inline-block;
-	padding: 0.75em 1.5em;
-	background-color: #3ac984;
-	color: #fff;
 	text-decoration: none;
-	border-radius: 5px;
 	transition: background-color 0.3s;
+	background-color: white; /* 기본 배경 색상을 흰색으로 설정 */
+    color: black; /* 기본 글자색을 검은색으로 설정 */
+    padding: 10px 20px;
+    border: 1px solid #4CAF50; /* 테두리 추가 및 색상 지정 */
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 .btn:hover {
-	background-color: #339a6d;
+	background-color: #4CAF50; /* 호버 시 배경색 변경 */
+    color: white; /* 호버 시 글자색 변경 */
 }
 
 /* Major Section Styles */
@@ -392,6 +391,7 @@ body {
 #style1, .style1 {
 	background: url("../images/mainPage-image3.jpg") no-repeat center center;
 	background-size: cover;
+	background-color: rgba(16, 32, 48, 0.25);
 	padding: 3em 2em;
 	border-radius: 8px;
 	margin-bottom: 2em;
@@ -418,6 +418,9 @@ body {
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.mu h3 {
+	text-decoration: none;
+}
 
 .mu .style {
 	list-style: none;
@@ -445,6 +448,8 @@ body {
 	font-size: 1.3em;
 	color: #333;
 	margin: 0.5em 0;
+	
+	text-decoration: none;
 }
 
 .mu .style span {

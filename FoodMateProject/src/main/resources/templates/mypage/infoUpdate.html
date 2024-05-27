@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="icon" href="/images/favicon (1).ico" type="image/x-icon">
+	<link rel="shortcut icon" href="/images/favicon (1).ico" type="image/x-icon">
     <meta charset="UTF-8">
     <title>Info Update</title>
     <link rel="stylesheet" th:href="@{/css/mypage.css}">
-    <link rel="icon" href="/images/favicon (1).ico" type="image/x-icon">
-	<link rel="shortcut icon" href="/images/favicon (1).ico" type="image/x-icon">
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script th:src="@{/js/mypage.js}" defer></script>
 <script type="text/javascript">
@@ -17,6 +17,11 @@ $("#nickname").on('input', function() {
     isNicknameChecked = false;
     $("#renickname").val('');
 });
+//중복 체크 완료 후 닉네임을 설정하는 함수
+function setNicknameChecked() {
+	isNicknameChecked = true;
+	$("#renickname").val($("#nickname").val());
+}
 </script>  
 </head>
 <body>

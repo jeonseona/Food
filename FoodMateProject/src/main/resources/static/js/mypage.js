@@ -2,62 +2,63 @@
  * 마이페이지 스크립트
 */
 
+// 기존 닉네임을 저장할 변수를 선언합니다.
+var originalNickname = $("#nickname").val();
+
 /**
  * 개인정보 수정 (닉네임, 비밀번호, 이메일) 
  */
 function change_info() {
-	if ($("#password").val() == "") {
-		alert("변경할 비밀번호를 입력하세요.");
-		$("#password").focus();
-		return false;
-	} else if ($("#password").val() != $("#pwdcheck").val()) {
-		alert("비밀번호가 일치하지 않습니다.");
-		$("#password").focus();
-		return false;
-	} else if ($("#nickname").val() == "") {
-		alert("변경할 닉네임을 입력하세요.");
-		$("#nickname").focus();
-		return false;
-	} else if ($("#nickname").val() != originalNickname && !isNicknameChecked) {
-		alert("닉네임 중복 체크를 해주세요.");
-		$("#nickname").focus();
-		return false;
-	} else if ($("#email").val() == "") {
-		alert("변경할 이메일을 입력하세요.");
-		$("#email").focus();
-		return false;
-	} else {
-		$("#update_info").attr("action", "update_info").submit();
-	}
+    if ($("#password").val() == "") {
+        alert("변경할 비밀번호를 입력하세요.");
+        $("#password").focus();
+        return false;
+    } else if ($("#password").val() != $("#pwdcheck").val()) {
+        alert("비밀번호가 일치하지 않습니다.");
+        $("#password").focus();
+        return false;
+    } else if ($("#nickname").val() == "") {
+        alert("변경할 닉네임을 입력하세요.");
+        $("#nickname").focus();
+        return false;
+    } else if ($("#email").val() == "") {
+        alert("변경할 이메일을 입력하세요.");
+        $("#email").focus();
+        return false;
+    } else {
+        // 기존 닉네임이 없는 경우에만 중복 확인
+        if (originalNickname == "") {
+            // 닉네임 중복 확인이 필요한 경우
+            if (!isNicknameChecked) {
+                alert("닉네임 중복 체크를 해주세요.");
+                $("#nickname").focus();
+                return false;
+            }
+        }
+
+        // 폼 제출
+        $("#update_info").attr("action", "update_info").submit();
+    }
 }
 
 /**
- * 닉네임 중복확인 화면 출력요청
+ * 닉네임 중복확인 팝업 열기
  */
 function nickcheck() {
-	if ($("#nickname").val() == "") {
-		alert("닉네임을 입력해 주세요!");
-		$("#nickname").focus();
-		return false;
-	}
+    if ($("#nickname").val() == "") {
+        alert("닉네임을 입력해 주세요!");
+        $("#nickname").focus();
+        return false;
+    }
 
-	// 닉네임 중복확인 창 오픈
-	var url = "nickname_check_form?nickname=" + $("#nickname").val();
-	window.open(url, "_blank_", "toolbar=no, menubar=no, scrollbars=no, " +
-		"resizable=yes, width=600, height=400");
+    // 닉네임 중복 확인 팝업 열기
+    var url = "nickname_check_form?nickname=" + $("#nickname").val();
+    window.open(url, "_blank_", "toolbar=no, menubar=no, scrollbars=no, " +
+        "resizable=yes, width=600, height=400");
 }
 
-// 닉네임 입력 필드의 값이 변경될 때 중복 체크 상태를 초기화합니다.
-$("#nickname").on('input', function() {
-	isNicknameChecked = false;
-	$("#renickname").val('');
-});
 
-// 중복 체크 완료 후 닉네임을 설정하는 함수
-function setNicknameChecked() {
-	isNicknameChecked = true;
-	$("#renickname").val($("#nickname").val());
-}
+
 /**
  * 바디데이터 수정
  */
@@ -119,27 +120,42 @@ function my_bmi() {
 
 // 체중변화 입력값 받기
 function weight_record() {
-    if ($("#re_date").val() === "") {
-        alert("날짜를 제대로 입력해 주세요.");
+    // 오늘 날짜 가져오기
+    var today = new Date().toISOString().split('T')[0];
+
+    // 입력된 날짜 가져오기
+    var inputDate = $("#re_date").val();
+
+    // 오늘 날짜와 입력된 날짜가 같은지 확인
+    if (inputDate !== today) {
+        alert("오늘 날짜만 입력할 수 있습니다.");
         $("#re_date").focus();
         return false;
-    } else if ($("#re_weight").val() === "") {
-        alert("몸무게를 제대로 입력해 주세요.");
+    }
+
+    // 입력된 체중 가져오기
+    var weight = parseFloat($("#re_weight").val());
+
+    // 체중이 0 또는 0.0이면 입력하지 않도록 검증
+    if (weight === 0 || weight === 0.0) {
+        alert("체중은 0이나 0.0을 입력할 수 없습니다.");
         $("#re_weight").focus();
         return false;
-    } else {
-        // 폼 데이터를 직렬화하여 전송
-        $.post("/weight_record", $("#weight_chart").serialize())
-            .done(function(response) {
-                alert("저장 성공!!");
-                // 그래프 업데이트
-                updateCharts();
-            })
-            .fail(function() {
-                alert("저장 실패. 다시 시도해 주세요.");
-            });
     }
-    window.location.reload();
+
+    // 폼 데이터를 직렬화하여 전송
+    $.post("/weight_record", $("#weight_chart").serialize())
+        .done(function(response) {
+            alert("저장 성공!!");
+            // 그래프 업데이트
+            window.location.reload();
+        })
+        .fail(function() {
+            alert("저장 실패. 다시 시도해 주세요.");
+            // 페이지 새로고침 방지
+    		return false;
+        });
+
 }
 // 체중변화 차트 그리기
 $(document).ready(function() {

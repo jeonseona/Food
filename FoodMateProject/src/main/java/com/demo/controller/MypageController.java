@@ -88,7 +88,10 @@ public class MypageController {
 		if(loginUser == null) {
 			return "redirect:/login";
 		} else {
-			model.addAttribute("loginUser", loginUser);
+			// 최신 사용자 정보를 데이터베이스에서 가져오기
+	        MemberData userInfo = memberService.getMember(loginUser.getId());
+	        
+			model.addAttribute("loginUser", userInfo);
 			
 		}
 		return "mypage/infoUpdate";
@@ -129,7 +132,10 @@ public class MypageController {
 		if(loginUser == null) {
 			return "redirect:/login";
 		} else {
-			model.addAttribute("loginUser", loginUser);
+			// 최신 사용자 정보를 데이터베이스에서 가져오기
+	        MemberData userInfo = memberService.getMember(loginUser.getId());
+	        
+			model.addAttribute("loginUser", userInfo);
 			
 		}
 		return "mypage/bodyUpdate";
@@ -153,80 +159,80 @@ public class MypageController {
 	}
 	
 	// 나의 체중 변화 그래프 화면
-		@GetMapping("/myWeightChart")
-		public String myWeightChartView(HttpSession session, Model model) {
-			MemberData loginUser = (MemberData)session.getAttribute("loginUser");
-			
-			if(loginUser == null) {
-				return "redirect:/login";
-			} else {
-				// 최신 사용자 정보를 데이터베이스에서 가져오기
-		        MemberData userInfo = memberService.getMember(loginUser.getId());
-		        
-		        // 최근 7일과 30일의 체중 기록을 가져옴
-	            List<WeightRecord> recentWeekRecords = recordService.getRecentWeekRecords(loginUser.getId());
-	            List<WeightRecord> recentMonthRecords = recordService.getRecentMonthRecords(loginUser.getId());
-
-		        // 주간 변화 평균값 계산
-	            double weeklyAvg = recordService.calculateAverageWeight(recentWeekRecords);
-
-	            // 월간 변화 평균값 계산
-	            double monthlyAvg = recordService.calculateAverageWeight(recentMonthRecords);
-
-	            // DecimalFormat을 사용하여 소수점 2자리까지 형식화
-	            DecimalFormat df = new DecimalFormat("#.##");
-	            weeklyAvg = Double.parseDouble(df.format(weeklyAvg));
-	            monthlyAvg = Double.parseDouble(df.format(monthlyAvg));
-	            
-		        model.addAttribute("goal", userInfo.getGoal());
-		        model.addAttribute("weekly", weeklyAvg);
-		        model.addAttribute("monthly", monthlyAvg);
-		        
-			}
-			return "mypage/myWeightChart";
-		}
-	
-		// 체중변화 값 저장하기
-		@PostMapping("/weight_record")
-		@ResponseBody
-		public String changeWeight(HttpSession session, @RequestParam("re_date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date reDate, 
-		                           @RequestParam("re_weight") Double reWeight) {
-		    MemberData loginUser = (MemberData) session.getAttribute("loginUser");
-		    
-		    if (loginUser == null) {
-		        return "redirect:/login";
-		    } else {
-		        WeightRecord weightRecord = new WeightRecord();
-		        weightRecord.setRe_date(reDate);
-		        weightRecord.setRe_weight(reWeight);
-		        weightRecord.setMember(loginUser);
-		        recordService.saveWeightRecord(weightRecord);
-		        return "체중 기록이 저장되었습니다.";
-		    }
-		}
+	@GetMapping("/myWeightChart")
+	public String myWeightChartView(HttpSession session, Model model) {
+		MemberData loginUser = (MemberData)session.getAttribute("loginUser");
 		
-		// 저장된 값들로 체중변화 차트 그리기
-		@GetMapping("/getRecordChart")
-		@ResponseBody
-		public Map<String, Object> myWeightRecordChart(HttpSession session) {
-		    Map<String, Object> response = new HashMap<>();
-		    MemberData loginUser = (MemberData) session.getAttribute("loginUser");
+		if(loginUser == null) {
+			return "redirect:/login";
+		} else {
+			// 최신 사용자 정보를 데이터베이스에서 가져오기
+	        MemberData userInfo = memberService.getMember(loginUser.getId());
+	        
+	        // 최근 7일과 30일의 체중 기록을 가져옴
+            List<WeightRecord> recentWeekRecords = recordService.getRecentWeekRecords(loginUser.getId());
+            List<WeightRecord> recentMonthRecords = recordService.getRecentMonthRecords(loginUser.getId());
 
-		    if (loginUser == null) {
-		        response.put("redirect", "/login");
-		        return response;
-		    } else {
-		        // 조회한 값들 중 최근 일주일의 데이터를 전송
-		        List<WeightRecord> recentWeekRecords = recordService.getRecentWeekRecords(loginUser.getId());
-		        // 조회한 값들 중 최근 한달의 데이터를 전송
-		        List<WeightRecord> recentMonthRecords = recordService.getRecentMonthRecords(loginUser.getId());
+	        // 주간 변화 평균값 계산
+            double weeklyAvg = recordService.calculateAverageWeight(recentWeekRecords);
 
-		        // 최근 일주일과 한달의 체중 기록을 Map에 담아 반환
-		        response.put("weeklyData", recentWeekRecords);
-		        response.put("monthlyData", recentMonthRecords);
-		        return response;
-		    }
+            // 월간 변화 평균값 계산
+            double monthlyAvg = recordService.calculateAverageWeight(recentMonthRecords);
+
+            // DecimalFormat을 사용하여 소수점 2자리까지 형식화
+            DecimalFormat df = new DecimalFormat("#.##");
+            weeklyAvg = Double.parseDouble(df.format(weeklyAvg));
+            monthlyAvg = Double.parseDouble(df.format(monthlyAvg));
+            
+	        model.addAttribute("goal", userInfo.getGoal());
+	        model.addAttribute("weekly", weeklyAvg);
+	        model.addAttribute("monthly", monthlyAvg);
+	        
 		}
+		return "mypage/myWeightChart";
+	}
+	
+	// 체중변화 값 저장하기
+	@PostMapping("/weight_record")
+	@ResponseBody
+	public String changeWeight(HttpSession session, @RequestParam("re_date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date reDate, 
+	                           @RequestParam("re_weight") Double reWeight) {
+	    MemberData loginUser = (MemberData) session.getAttribute("loginUser");
+	    
+	    if (loginUser == null) {
+	        return "redirect:/login";
+	    } else {
+	        WeightRecord weightRecord = new WeightRecord();
+	        weightRecord.setRe_date(reDate);
+	        weightRecord.setRe_weight(reWeight);
+	        weightRecord.setMember(loginUser);
+	        recordService.saveWeightRecord(weightRecord);
+	        return "체중 기록이 저장되었습니다.";
+	    }
+	}
+	
+	// 저장된 값들로 체중변화 차트 그리기
+	@GetMapping("/getRecordChart")
+	@ResponseBody
+	public Map<String, Object> myWeightRecordChart(HttpSession session) {
+	    Map<String, Object> response = new HashMap<>();
+	    MemberData loginUser = (MemberData) session.getAttribute("loginUser");
+
+	    if (loginUser == null) {
+	        response.put("redirect", "/login");
+	        return response;
+	    } else {
+	        // 조회한 값들 중 최근 일주일의 데이터를 전송
+	        List<WeightRecord> recentWeekRecords = recordService.getRecentWeekRecords(loginUser.getId());
+	        // 조회한 값들 중 최근 한달의 데이터를 전송
+	        List<WeightRecord> recentMonthRecords = recordService.getRecentMonthRecords(loginUser.getId());
+
+	        // 최근 일주일과 한달의 체중 기록을 Map에 담아 반환
+	        response.put("weeklyData", recentWeekRecords);
+	        response.put("monthlyData", recentMonthRecords);
+	        return response;
+	    }
+	}
 		
 	// 나의 레시피 화면
 	@GetMapping("/myRecipeList")
