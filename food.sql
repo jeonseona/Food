@@ -85,17 +85,7 @@ CREATE TABLE reply (
 
 -- 고객센터 페이지 / 기존의 QnA 테이블은 관리자에서 필요로 하기 때문에 삭제하였습니다 !
 
--- 1:1 문의 테이블 생성
-CREATE TABLE inquiries (
-    inquiry_id NUMBER(5) PRIMARY KEY,
-    subject VARCHAR(100),
-    message VARCHAR(100),
-    created_at TIMESTAMP DEFAULT current_timestamp,
-    comments VARCHAR(200),
-    CONSTRAINT fk_inquiry_id FOREIGN KEY (inquiry_id) REFERENCES Member_data(no_data)
-);
-
-create sequence inq_SEQ start with 1 increment by 1;
+-- 1:1 문의 테이블 
 
 -- 마이페이지(삭제) : 외래키로 받아오는 정보뿐이라 삭제했어요.
 
@@ -150,13 +140,6 @@ CREATE TABLE com_board_detail(
     CONSTRAINT fk_idx2 FOREIGN KEY(RECIPE_NUM) REFERENCES COM_RECIPE(IDX)
 );
 
--- 5/8 1:1 문의 테이블 수정 (이름, 이메일, 답변 상태 컬럼추가)
-ALTER TABLE inquiries
-ADD name VARCHAR(100)
-ADD email VARCHAR(100);
-
-ALTER TABLE inquiries
-ADD status VARCHAR(100);
 
 
 -- 작성자 중복가능 5/13
@@ -250,4 +233,91 @@ INSERT INTO "COMMUNITY_BOARD" (COMMUNITY_SEQ, COMMUNITY_CNT, COMMUNITY_CONTENT, 
 INSERT INTO "COMMUNITY_BOARD" (COMMUNITY_SEQ, COMMUNITY_CNT, COMMUNITY_CONTENT, COMMUNITY_D_REGDATE, COMMUNITY_GOODPOINT, COMMUNITY_TITLE, NO_DATA) VALUES
 (30, 38, '집 근처에 새로 생긴 레스토랑에 다녀왔어요. 분위기가 좋고 음식도 맛있어서 자주 가게 될 것 같아요. 여러분도 가보세요.', TO_TIMESTAMP('2023-09-14 23:26:38.000', 'YYYY-MM-DD HH24:MI:SS.FF'), 10, '새로운 레스토랑 방문기', 1);
 
+ALTER TABLE member_data ADD CONSTRAINT pk_member_id unique (id);
+
+- 커뮤니티 페이지
+-- 커뮤니티 레시피 데이터 테이블 수정
+ALTER TABLE com_recipe ADD (idx NUMBER); -- 인덱스 컬럼 생성
+UPDATE com_recipe SET idx = ROWNUM; -- 인덱스컬럼에 값 부여
+ALTER TABLE com_recipe ADD CONSTRAINT pk_com_recipe PRIMARY KEY (idx); -- 인덱스 컬럼을 커뮤니티 레시피 데이터의 primary키로 합니다.
+
+
+--게시글과 댓글 번호 시퀀스
+CREATE SEQUENCE boardseq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE replyseq START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE community_SEQ_sec START WITH 1 INCREMENT BY 1;
+drop sequence community_seq;
+
+// MEMBER_DATA 직접 추가 (사용자 1개, 관리자 1개)
+INSERT INTO MEMBER_DATA (
+    no_data, age, bmi, email, gender, goal, height, id, name, nickname, password, usercode, weight
+) VALUES (
+    MEMBER_SEQ.nextval, 25, 22.9, 'jeonsa0314@naver.com', 'Female', 100, 200, 'seona2', '전선아', 'seona2', '0314', 0, 100);
+
+
+// Q&A 게시판 
+INSERT INTO "ADMIN_QNA_BOARD" (QNA_BOARDNUM, QUESTION, ANSWER, REGDATE)
+VALUES (1, 'Q . 시작 페이지 설정 방법 (Chrome)', '크롬 브라우저의 '설정'에서 시작 페이지를 푸드메이트로 지정할 수 있습니다.', SYSDATE);
+
+INSERT INTO "ADMIN_QNA_BOARD" (QNA_BOARDNUM, QUESTION, ANSWER, REGDATE)
+VALUES (2, 'Q . 고객센터 이용 방법을 알고 싶어요.', 'FOOD MATE 고객센터는 항상 열려있습니다.
+모든 문의 사항은 1:1문의하시면 보다 빠른 답변을 받을 수 있습니다.', SYSDATE);
+
+INSERT INTO "ADMIN_QNA_BOARD" (QNA_BOARDNUM, QUESTION, ANSWER, REGDATE)
+VALUES (3, 'Q . 개인정보 관련안내', '개인정보 이용내역 통지제도
+정보통신망 이용촉진 및 정보보호 등에 관한 법률 제 30조의 1, 동법 시행령 제 17조에 의거
+서비스 제공을 위해 이용한 고객의 개인정보 내역을 연 1회 안내하는 제도
+* 1년 간 로그인 이력이 없는 경우 개인정보 유효기간 종료', SYSDATE);
+
+INSERT INTO "ADMIN_QNA_BOARD" (QNA_BOARDNUM, QUESTION, ANSWER, REGDATE)
+VALUES (4, 'Q . 아이디를 여러 개 사용할 수 있나요?', '여러 개의 ID로 가입이 가능합니다.
+단, 실명인증은 1개의 ID에만 가능합니다.', SYSDATE);
+
+INSERT INTO "ADMIN_QNA_BOARD" (QNA_BOARDNUM, QUESTION, ANSWER, REGDATE)
+VALUES (5, 'Q . 아이디를 여러 개 사용할 수 있나요?', 'Q . 계정에 대한 문의는 어디로 하나요 ?
+서비스 이용을 위한 회원가입/로그인 등 계정 관련 문의는 ☎ xxxx-xxxx으로 문의하시기 바랍니다.', SYSDATE);
+
+// 1:1 문의 (여러개 직접 추가)
+INSERT INTO ASK_BOARD (
+    inquiry_id, comments, email, message, name, regdate, status, subject, 
+) VALUES (
+    default, 'These are comments.', 'jeonsa0314@naver.com', 'This is a message.', '선아', sysdate, '답변 대기', '기타문의사항'
+);
+
+INSERT INTO ASK_BOARD (
+    inquiry_id, comments, email, message, name, regdate, status, subject, 
+) VALUES (
+    default, 'These are comments.', 'jeonsa0314@naver.com', 'This is a message.', '선아', sysdate, '답변 대기', '문의'
+);
+
+INSERT INTO ASK_BOARD (
+    inquiry_id, comments, email, message, name, regdate, status, subject, 
+) VALUES (
+    default, 'These are comments.', 'jeonsa0314@naver.com', 'This is a message.', '선아', sysdate, '답변 대기', '회원가입'
+);
+
+INSERT INTO ASK_BOARD (
+    inquiry_id, comments, email, message, name, regdate, status, subject, 
+) VALUES (
+    default, 'These are comments.', 'jeonsa0314@naver.com', 'This is a message.', '선아', sysdate, '답변 대기', '안녕하세요 문의드립니다'
+);
+
+INSERT INTO ASK_BOARD (
+    inquiry_id, comments, email, message, name, regdate, status, subject, 
+) VALUES (
+    default, 'These are comments.', 'jeonsa0314@naver.com', 'This is a message.', '선아', sysdate, '답변 대기', '게시글 누락 문의'
+);
+
+
+// COM_RECIPE 테이블에 sortrecipe.xlsx 데이터 import 
+
+// application.properties에 추가
+#네이버 설정
+naver.client.id=sB3DKlkU1TcDO0kNF9hh
+naver.client.secret=E_7Ik1vTvB
+
+# HuggingFace 설정
+huggingface.api.token=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
+ALTER TABLE community_Board DROP CONSTRAINT UK_TAOXC3UGGLPH7P7ROWV0H3S9A;
 
