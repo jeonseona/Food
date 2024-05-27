@@ -31,6 +31,24 @@
     100% { transform: translateX(0); }
 }
 
+@keyframes moveTitle {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0); }
+}
+
+#h1_1 {
+    text-align: center;
+    color: #333;
+    font-family: Arial, sans-serif;
+    font-size: 36px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    animation: moveTitle 2s ease infinite; /* 애니메이션 적용 */
+}
+
 /* introduce.html */
 /* 헤더 */
 .header1 {
