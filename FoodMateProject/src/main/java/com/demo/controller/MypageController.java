@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -88,7 +90,10 @@ public class MypageController {
 		if(loginUser == null) {
 			return "redirect:/login";
 		} else {
-			model.addAttribute("loginUser", loginUser);
+			// 최신 사용자 정보를 데이터베이스에서 가져오기
+	        MemberData userInfo = memberService.getMember(loginUser.getId());
+	        
+			model.addAttribute("loginUser", userInfo);
 			
 		}
 		return "mypage/infoUpdate";
@@ -129,7 +134,10 @@ public class MypageController {
 		if(loginUser == null) {
 			return "redirect:/login";
 		} else {
-			model.addAttribute("loginUser", loginUser);
+			// 최신 사용자 정보를 데이터베이스에서 가져오기
+	        MemberData userInfo = memberService.getMember(loginUser.getId());
+	        
+			model.addAttribute("loginUser", userInfo);
 			
 		}
 		return "mypage/bodyUpdate";
@@ -189,19 +197,22 @@ public class MypageController {
 		// 체중변화 값 저장하기
 		@PostMapping("/weight_record")
 		@ResponseBody
-		public String changeWeight(HttpSession session, @RequestParam("re_date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date reDate, 
+		public ResponseEntity<String> changeWeight(HttpSession session, @RequestParam("re_date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date reDate, 
 		                           @RequestParam("re_weight") Double reWeight) {
 		    MemberData loginUser = (MemberData) session.getAttribute("loginUser");
 		    
 		    if (loginUser == null) {
-		        return "redirect:/login";
+		        // 로그인되지 않은 경우 리다이렉트
+		        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
 		    } else {
 		        WeightRecord weightRecord = new WeightRecord();
 		        weightRecord.setRe_date(reDate);
 		        weightRecord.setRe_weight(reWeight);
 		        weightRecord.setMember(loginUser);
 		        recordService.saveWeightRecord(weightRecord);
-		        return "체중 기록이 저장되었습니다.";
+		        
+		        // 마이페이지 내 몸무게 차트로 리다이렉트
+		        return ResponseEntity.ok("/mypage/myWeightChart");
 		    }
 		}
 		

@@ -5,46 +5,55 @@
 /**
  * 개인정보 수정 (닉네임, 비밀번호, 이메일) 
  */
+var originalNickname = $("#nickname").val();
+
 function change_info() {
-	if ($("#password").val() == "") {
-		alert("변경할 비밀번호를 입력하세요.");
-		$("#password").focus();
-		return false;
-	} else if ($("#password").val() != $("#pwdcheck").val()) {
-		alert("비밀번호가 일치하지 않습니다.");
-		$("#password").focus();
-		return false;
-	} else if ($("#nickname").val() == "") {
-		alert("변경할 닉네임을 입력하세요.");
-		$("#nickname").focus();
-		return false;
-	} else if ($("#nickname").val() != originalNickname && !isNicknameChecked) {
-		alert("닉네임 중복 체크를 해주세요.");
-		$("#nickname").focus();
-		return false;
-	} else if ($("#email").val() == "") {
-		alert("변경할 이메일을 입력하세요.");
-		$("#email").focus();
-		return false;
-	} else {
-		$("#update_info").attr("action", "update_info").submit();
-	}
+    if ($("#password").val() == "") {
+        alert("변경할 비밀번호를 입력하세요.");
+        $("#password").focus();
+        return false;
+    } else if ($("#password").val() != $("#pwdcheck").val()) {
+        alert("비밀번호가 일치하지 않습니다.");
+        $("#password").focus();
+        return false;
+    } else if ($("#nickname").val() == "") {
+        alert("변경할 닉네임을 입력하세요.");
+        $("#nickname").focus();
+        return false;
+    } else if ($("#email").val() == "") {
+        alert("변경할 이메일을 입력하세요.");
+        $("#email").focus();
+        return false;
+    } else {
+        // 기존 닉네임이 없는 경우에만 중복 확인
+        if (originalNickname == "") {
+            // 닉네임 중복 확인이 필요한 경우
+            if (!isNicknameChecked) {
+                alert("닉네임 중복 체크를 해주세요.");
+                $("#nickname").focus();
+                return false;
+            }
+        }
+
+        // 폼 제출
+        $("#update_info").attr("action", "update_info").submit();
+    }
 }
 
 /**
  * 닉네임 중복확인 화면 출력요청
  */
 function nickcheck() {
-	if ($("#nickname").val() == "") {
-		alert("닉네임을 입력해 주세요!");
-		$("#nickname").focus();
-		return false;
-	}
+    if ($("#nickname").val() == "") {
+        alert("닉네임을 입력해 주세요!");
+        $("#nickname").focus();
+        return false;
+    }
 
-	// 닉네임 중복확인 창 오픈
-	var url = "nickname_check_form?nickname=" + $("#nickname").val();
-	window.open(url, "_blank_", "toolbar=no, menubar=no, scrollbars=no, " +
-		"resizable=yes, width=600, height=400");
+    // 닉네임 중복 확인 팝업 열기
+    var url = "nickname_check_form?nickname=" + $("#nickname").val();
+    window.open(url, "_blank_", "toolbar=no, menubar=no, scrollbars=no, " +
+        "resizable=yes, width=600, height=400");
 }
 
 // 닉네임 입력 필드의 값이 변경될 때 중복 체크 상태를 초기화합니다.
