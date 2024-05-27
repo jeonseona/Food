@@ -1,298 +1,324 @@
-/* main �뿤�뜑 */
-.logo {
-    display: inline-block; /* �씤�씪�씤 釉붾줉 �슂�냼濡� �꽕�젙 */
-    border-radius: 50%; /* �뫁洹� 紐⑥꽌由� */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 洹몃┝�옄 �슚怨� */
-    width: 150px; /* �꼫鍮� �꽕�젙 */
-    height: 150px; /* �넂�씠 �꽕�젙 */
-    object-fit: cover; /* �씠誘몄�媛� �슂�냼瑜� 梨꾩슦�룄濡� �꽕�젙 */
-    vertical-align: middle; /* �뀓�뒪�듃�� �닔吏� �젙�젹 */
-}
-.logo2 {
-    display: inline-block; /* �씤�씪�씤 釉붾줉 �슂�냼濡� �꽕�젙 */
-    border-radius: 50%; /* �뫁洹� 紐⑥꽌由� */
-    box-shadow: 0; /* 洹몃┝�옄 �슚怨� */
-    width: 52px; /* �꼫鍮� �꽕�젙 */
-    height: 52px; /* �넂�씠 �꽕�젙 */
-    object-fit: cover; /* �씠誘몄�媛� �슂�냼瑜� 梨꾩슦�룄濡� �꽕�젙 */
-    vertical-align: middle; /* �뀓�뒪�듃�� �닔吏� �젙�젹 */
+/* 챗봇 아이콘 스타일 */
+#chatbot-icon,
+#calorie-icon {
+    position: fixed;
+    bottom: 30px;
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
 }
 
-/* �뿤�뜑 �뒪���씪 */
+#chatbot-icon {
+    left: 10px;
+}
+
+#calorie-icon {
+    left: 90px; /* 챗봇 아이콘 오른쪽에 위치 */
+	width: 40px;
+	text-align: center;
+}
+
+
+/* main 헤더 */
+.logo {
+    display: inline-block; /* 인라인 블록 요소로 설정 */
+    border-radius: 50%; /* 둥근 모서리 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    width: 150px; /* 너비 설정 */
+    height: 150px; /* 높이 설정 */
+    object-fit: cover; /* 이미지가 요소를 채우도록 설정 */
+    vertical-align: middle; /* 텍스트와 수직 정렬 */
+}
+.logo2 {
+    display: inline-block; /* 인라인 블록 요소로 설정 */
+    border-radius: 50%; /* 둥근 모서리 */
+    box-shadow: 0; /* 그림자 효과 */
+    width: 52px; /* 너비 설정 */
+    height: 52px; /* 높이 설정 */
+    object-fit: cover; /* 이미지가 요소를 채우도록 설정 */
+    vertical-align: middle; /* 텍스트와 수직 정렬 */
+}
+
+/* 헤더 스타일 */
 #header {
-    background: #333 url("../images/header.png") no-repeat center 65%; /* 諛곌꼍 �씠誘몄� 諛� �깋�긽 �꽕�젙 */
-    background-size: cover; /* 諛곌꼍 �씠誘몄� �겕湲� �꽕�젙 */
-    color: #fff; /* �뀓�뒪�듃 �깋�긽 */
-    padding: 4em 0; /* �긽�븯 �뿬諛� �꽕�젙 */
-    text-align: center; /* �뀓�뒪�듃 以묒븰 �젙�젹 */
-    position: relative; /* �긽�� �쐞移� �꽕�젙 */
+    background: #333 url("../images/header.png") no-repeat center 65%; /* 배경 이미지 및 색상 설정 */
+    background-size: cover; /* 배경 이미지 크기 설정 */
+    color: #fff; /* 텍스트 색상 */
+    padding: 4em 0; /* 상하 여백 설정 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    position: relative; /* 상대 위치 설정 */
 }
 
 #header:before {
-    content: ''; /* �궡�슜 �뾾�쓬 */
-    position: absolute; /* �젅�� �쐞移� �꽕�젙 */
-    left: 0; /* �쇊履� 0 */
-    top: 0; /* �쐞履� 0 */
-    width: 100%; /* �쟾泥� �꼫鍮� */
-    height: 100%; /* �쟾泥� �넂�씠 */
-    background: rgba(16, 32, 48, 0.25); /* 諛섑닾紐� 諛곌꼍 �깋�긽 */
+    content: ''; /* 내용 없음 */
+    position: absolute; /* 절대 위치 설정 */
+    left: 0; /* 왼쪽 0 */
+    top: 0; /* 위쪽 0 */
+    width: 100%; /* 전체 너비 */
+    height: 100%; /* 전체 높이 */
+    background: rgba(16, 32, 48, 0.25); /* 반투명 배경 색상 */
 }
 
 #header>* {
-    position: relative; /* �긽�� �쐞移� �꽕�젙 */
-    z-index: 1; /* �뙎�엫 �닚�꽌 �꽕�젙 */
+    position: relative; /* 상대 위치 설정 */
+    z-index: 1; /* 쌓임 순서 설정 */
 }
 
 
-.fixed-header {	/* 怨좎젙�릺�뒗 �뿤�뜑 */
+.fixed-header {	/* 고정되는 헤더 */
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
-	background: white; /* 諛곌꼍�깋 蹂�寃� */
+	background: white; /* 배경색 변경 */
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 	z-index: 1000;
 	display: none;
 }
 
 #header .h_container {
-    display: flex; /* �뵆�젆�뒪諛뺤뒪 �궗�슜 */
-    flex-direction: column; /* �뿴 諛⑺뼢�쑝濡� �젙�젹 */
-    align-items: center; /* �닔�룊 以묒븰 �젙�젹 */
+    display: flex; /* 플렉스박스 사용 */
+    flex-direction: column; /* 열 방향으로 정렬 */
+    align-items: center; /* 수평 중앙 정렬 */
 }
 
 #header #logo {
-    position: absolute; /* �젅�� �쐞移� �꽕�젙 */
-    top: 0; /* �쐞履� �뿬諛� */
-    left: 0; /* �쇊履� �뿬諛� */
+    position: absolute; /* 절대 위치 설정 */
+    top: 0; /* 위쪽 여백 */
+    left: 0; /* 왼쪽 여백 */
 }
 
 #header h1 {
-    font-size: 3em; /* �룿�듃 �겕湲� �꽕�젙 */
-    margin: 0; /* 湲곕낯 留덉쭊 �젣嫄� */
-    color: #fff; /* �뀓�뒪�듃 �깋�긽 */
-    margin-bottom: 1em; /* �븘�옒履� �뿬諛� */
+    font-size: 3em; /* 폰트 크기 설정 */
+    margin: 0; /* 기본 마진 제거 */
+    color: #fff; /* 텍스트 색상 */
+    margin-bottom: 1em; /* 아래쪽 여백 */
 }
 
 #header #nav {
 	position: sticky;
     top: 0;
-    z-index: 1000; /* �떎瑜� 肄섑뀗痢� �쐞�뿉 �몴�떆�릺�룄濡� */
-    text-align: center; /* �뀓�뒪�듃 以묒븰 �젙�젹 */
+    z-index: 1000; /* 다른 콘텐츠 위에 표시되도록 */
+    text-align: center; /* 텍스트 중앙 정렬 */
 }
 #nav2 {
 	position: sticky;
     top: 0;
-    z-index: 1000; /* �떎瑜� 肄섑뀗痢� �쐞�뿉 �몴�떆�릺�룄濡� */
-    text-align: center; /* �뀓�뒪�듃 以묒븰 �젙�젹 */
+    z-index: 1000; /* 다른 콘텐츠 위에 표시되도록 */
+    text-align: center; /* 텍스트 중앙 정렬 */
 }
 
 #header #nav > ul {
-    margin: 0; /* 湲곕낯 留덉쭊 �젣嫄� */
-    padding: 0; /* 湲곕낯 �뙣�뵫 �젣嫄� */
-    list-style: none; /* 紐⑸줉 �뒪���씪 �젣嫄� */
-    display: inline-block; /* �씤�씪�씤 釉붾줉 �슂�냼濡� �꽕�젙 */
+    margin: 0; /* 기본 마진 제거 */
+    padding: 0; /* 기본 패딩 제거 */
+    list-style: none; /* 목록 스타일 제거 */
+    display: inline-block; /* 인라인 블록 요소로 설정 */
 }
 #nav2 > ul {
-    margin: 0; /* 湲곕낯 留덉쭊 �젣嫄� */
-    padding: 0; /* 湲곕낯 �뙣�뵫 �젣嫄� */
-    list-style: none; /* 紐⑸줉 �뒪���씪 �젣嫄� */
-    display: inline-block; /* �씤�씪�씤 釉붾줉 �슂�냼濡� �꽕�젙 */
+    margin: 0; /* 기본 마진 제거 */
+    padding: 0; /* 기본 패딩 제거 */
+    list-style: none; /* 목록 스타일 제거 */
+    display: inline-block; /* 인라인 블록 요소로 설정 */
 }
 
 #header #nav > ul > li {
-    display: inline; /* �씤�씪�씤 �슂�냼濡� �꽕�젙 */
-    margin-left: 1em; /* �쇊履� �뿬諛� �꽕�젙 */
-    position: relative; /* �긽�� �쐞移� �꽕�젙 */
+    display: inline; /* 인라인 요소로 설정 */
+    margin-left: 1em; /* 왼쪽 여백 설정 */
+    position: relative; /* 상대 위치 설정 */
 }
 #nav2 > ul > li {
-    display: inline; /* �씤�씪�씤 �슂�냼濡� �꽕�젙 */
-    margin-left: 1em; /* �쇊履� �뿬諛� �꽕�젙 */
-    position: relative; /* �긽�� �쐞移� �꽕�젙 */
+    display: inline; /* 인라인 요소로 설정 */
+    margin-left: 1em; /* 왼쪽 여백 설정 */
+    position: relative; /* 상대 위치 설정 */
 }
 
 #header #nav > ul > li:first-child {
-    margin-left: 0; /* 泥� 踰덉㎏ �빆紐⑹쓽 �쇊履� �뿬諛� �젣嫄� */
+    margin-left: 0; /* 첫 번째 항목의 왼쪽 여백 제거 */
 }
 #nav2 > ul > li:first-child {
-    margin-left: 0; /* 泥� 踰덉㎏ �빆紐⑹쓽 �쇊履� �뿬諛� �젣嫄� */
+    margin-left: 0; /* 첫 번째 항목의 왼쪽 여백 제거 */
 }
 
 #header #nav > ul > li a {
-    color: #FFF; /* 留곹겕 �뀓�뒪�듃 �깋�긽 */
-    text-decoration: none; /* 諛묒쨪 �젣嫄� */
-    font-size: 1.2em; /* �룿�듃 �겕湲� �꽕�젙 */
-    padding: 0.5em 1em; /* �궡遺� �뿬諛� �꽕�젙 */
-    border-radius: 5px; /* 紐⑥꽌由� �뫁湲�寃� �꽕�젙 */
-    transition: background-color 0.3s ease; /* 諛곌꼍�깋 �쟾�솚 �슚怨� �꽕�젙 */
+    color: #FFF; /* 링크 텍스트 색상 */
+    text-decoration: none; /* 밑줄 제거 */
+    font-size: 1.2em; /* 폰트 크기 설정 */
+    padding: 0.5em 1em; /* 내부 여백 설정 */
+    border-radius: 5px; /* 모서리 둥글게 설정 */
+    transition: background-color 0.3s ease; /* 배경색 전환 효과 설정 */
 }
 #nav2 > ul > li a {
-    color: black; /* 留곹겕 �뀓�뒪�듃 �깋�긽 */
-    text-decoration: none; /* 諛묒쨪 �젣嫄� */
-    font-size: 1.2em; /* �룿�듃 �겕湲� �꽕�젙 */
-    padding: 0.5em 1em; /* �궡遺� �뿬諛� �꽕�젙 */
-    border-radius: 5px; /* 紐⑥꽌由� �뫁湲�寃� �꽕�젙 */
-    transition: background-color 0.3s ease; /* 諛곌꼍�깋 �쟾�솚 �슚怨� �꽕�젙 */
+    color: black; /* 링크 텍스트 색상 */
+    text-decoration: none; /* 밑줄 제거 */
+    font-size: 1.2em; /* 폰트 크기 설정 */
+    padding: 0.5em 1em; /* 내부 여백 설정 */
+    border-radius: 5px; /* 모서리 둥글게 설정 */
+    transition: background-color 0.3s ease; /* 배경색 전환 효과 설정 */
 }
 
 #header #nav > ul > li a:hover {
-    background-color: rgba(255, 255, 255, 0.2); /* 留덉슦�뒪 �삤踰� �떆 諛곌꼍�깋 */
+    background-color: rgba(255, 255, 255, 0.2); /* 마우스 오버 시 배경색 */
 }
 #nav2 > ul > li a:hover {
-    background-color: rgba(255, 255, 255, 0.2); /* 留덉슦�뒪 �삤踰� �떆 諛곌꼍�깋 */
+    background-color: rgba(255, 255, 255, 0.2); /* 마우스 오버 시 배경색 */
 }
 
-/* �꽌釉뚮찓�돱 (湲곕낯�쟻�쑝濡� �닲源�) */
+/* 서브메뉴 (기본적으로 숨김) */
 #header #nav > ul > li > ul {
-    display: none; /* �꽌釉뚮찓�돱 �닲源� */
-    position: absolute; /* 遺�紐� �슂�냼瑜� 湲곗��쑝濡� �쐞移� �꽕�젙 */
-    top: 100%; /* 遺�紐� �슂�냼 諛붾줈 �븘�옒�뿉 �쐞移� */
-    left: 0; /* �쇊履� �젙�젹 */
-    background: rgba(255, 255, 255, 0.7); /* �닾紐낅룄 */
-    padding: 10px 0; /* �쐞�븘�옒 �뙣�뵫 異붽� */
-    width: 100%; /* 遺�紐� �슂�냼�쓽 媛�濡� 湲몄씠�� 媛숈� �겕湲곕줈 �꽕�젙 */
-    list-style: none; /* 由ъ뒪�듃 �뒪���씪 �젣嫄� (遺덈┸ �뾾�쓬) */
-    z-index: 1000; /* �떎瑜� 肄섑뀗痢� �쐞�뿉 �몴�떆�릺�룄濡� �꽕�젙 */
-    margin-top: 5px; /* 遺�紐� �슂�냼���쓽 媛꾧꺽 �꽕�젙 */
+    display: none; /* 서브메뉴 숨김 */
+    position: absolute; /* 부모 요소를 기준으로 위치 설정 */
+    top: 100%; /* 부모 요소 바로 아래에 위치 */
+    left: 0; /* 왼쪽 정렬 */
+    background: rgba(255, 255, 255, 0.7); /* 투명도 */
+    padding: 10px 0; /* 위아래 패딩 추가 */
+    width: 100%; /* 부모 요소의 가로 길이와 같은 크기로 설정 */
+    list-style: none; /* 리스트 스타일 제거 (불릿 없음) */
+    z-index: 1000; /* 다른 콘텐츠 위에 표시되도록 설정 */
+    margin-top: 5px; /* 부모 요소와의 간격 설정 */
 }
 #nav2 > ul > li > ul {
-    display: none; /* �꽌釉뚮찓�돱 �닲源� */
-    position: absolute; /* 遺�紐� �슂�냼瑜� 湲곗��쑝濡� �쐞移� �꽕�젙 */
-    top: 100%; /* 遺�紐� �슂�냼 諛붾줈 �븘�옒�뿉 �쐞移� */
-    left: 0; /* �쇊履� �젙�젹 */
-    background: rgba(255, 255, 255, 0.7); /* �닾紐낅룄 */
-    padding: 10px 0; /* �쐞�븘�옒 �뙣�뵫 異붽� */
-    width: 100%; /* 遺�紐� �슂�냼�쓽 媛�濡� 湲몄씠�� 媛숈� �겕湲곕줈 �꽕�젙 */
-    list-style: none; /* 由ъ뒪�듃 �뒪���씪 �젣嫄� (遺덈┸ �뾾�쓬) */
-    z-index: 1000; /* �떎瑜� 肄섑뀗痢� �쐞�뿉 �몴�떆�릺�룄濡� �꽕�젙 */
-    margin-top: 5px; /* 遺�紐� �슂�냼���쓽 媛꾧꺽 �꽕�젙 */
+    display: none; /* 서브메뉴 숨김 */
+    position: absolute; /* 부모 요소를 기준으로 위치 설정 */
+    top: 100%; /* 부모 요소 바로 아래에 위치 */
+    left: 0; /* 왼쪽 정렬 */
+    background: rgba(255, 255, 255, 0.7); /* 투명도 */
+    padding: 10px 0; /* 위아래 패딩 추가 */
+    width: 100%; /* 부모 요소의 가로 길이와 같은 크기로 설정 */
+    list-style: none; /* 리스트 스타일 제거 (불릿 없음) */
+    z-index: 1000; /* 다른 콘텐츠 위에 표시되도록 설정 */
+    margin-top: 5px; /* 부모 요소와의 간격 설정 */
 }
 
-/* �샇踰� �떆 �꽌釉뚮찓�돱 蹂댁씠湲� */
+/* 호버 시 서브메뉴 보이기 */
 #header #nav > ul > li:hover > ul {
-    display: block; /* �샇踰� �떆 �꽌釉뚮찓�돱 �몴�떆 */
+    display: block; /* 호버 시 서브메뉴 표시 */
 }
 #nav2 > ul > li:hover > ul {
-    display: block; /* �샇踰� �떆 �꽌釉뚮찓�돱 �몴�떆 */
+    display: block; /* 호버 시 서브메뉴 표시 */
 }
 
-/* �꽌釉뚮찓�돱 由ъ뒪�듃 �븘�씠�뀥 */
+/* 서브메뉴 리스트 아이템 */
 #header #nav > ul > li > ul > li {
-    display: block; /* �꽌釉뚮찓�돱 �븘�씠�뀥�쓣 �닔吏곸쑝濡� �뙎湲� */
-    position: relative; /* �긽�� �쐞移� �꽕�젙 */
+    display: block; /* 서브메뉴 아이템을 수직으로 쌓기 */
+    position: relative; /* 상대 위치 설정 */
 }
 #nav2 > ul > li > ul > li {
-    display: block; /* �꽌釉뚮찓�돱 �븘�씠�뀥�쓣 �닔吏곸쑝濡� �뙎湲� */
-    position: relative; /* �긽�� �쐞移� �꽕�젙 */
+    display: block; /* 서브메뉴 아이템을 수직으로 쌓기 */
+    position: relative; /* 상대 위치 설정 */
 }
 
-/* �꽌釉뚮찓�돱 留곹겕 */
+/* 서브메뉴 링크 */
 #header #nav > ul > li > ul > li > a {
-    color: #333; /* �뀓�뒪�듃 �깋�긽�쓣 �씛�깋�쑝濡� �꽕�젙 */
-    text-decoration: none; /* 諛묒쨪 �젣嫄� */
-    font-size: 0.8em; /* �꽌釉뚮찓�돱�쓽 湲��옄 �겕湲� */
-    padding: 0.5em 0.5em; /* �겢由� 媛��뒫�븳 �쁺�뿭�뿉 �뙣�뵫 異붽� */
-    white-space: nowrap; /* �뀓�뒪�듃 以꾨컮轅� 諛⑹� */
-    display: block; /* �씤�씪�씤 �슂�냼瑜� 釉붾줉 �슂�냼濡� 蹂��솚 */
+    color: #333; /* 텍스트 색상을 흰색으로 설정 */
+    text-decoration: none; /* 밑줄 제거 */
+    font-size: 0.8em; /* 서브메뉴의 글자 크기 */
+    padding: 0.5em 0.5em; /* 클릭 가능한 영역에 패딩 추가 */
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+    display: block; /* 인라인 요소를 블록 요소로 변환 */
 }
 #nav2 > ul > li > ul > li > a {
-    color: black; /* �뀓�뒪�듃 �깋�긽�쓣 �씛�깋�쑝濡� �꽕�젙 */
-    text-decoration: none; /* 諛묒쨪 �젣嫄� */
-    font-size: 0.8em; /* �꽌釉뚮찓�돱�쓽 湲��옄 �겕湲� */
-    padding: 0.5em 0.5em; /* �겢由� 媛��뒫�븳 �쁺�뿭�뿉 �뙣�뵫 異붽� */
-    white-space: nowrap; /* �뀓�뒪�듃 以꾨컮轅� 諛⑹� */
-    display: block; /* �씤�씪�씤 �슂�냼瑜� 釉붾줉 �슂�냼濡� 蹂��솚 */
+    color: black; /* 텍스트 색상을 흰색으로 설정 */
+    text-decoration: none; /* 밑줄 제거 */
+    font-size: 0.8em; /* 서브메뉴의 글자 크기 */
+    padding: 0.5em 0.5em; /* 클릭 가능한 영역에 패딩 추가 */
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+    display: block; /* 인라인 요소를 블록 요소로 변환 */
 }
-/* �꽌釉뚮찓�돱 留곹겕 �샇踰� �슚怨� */
+/* 서브메뉴 링크 호버 효과 */
 #header #nav > ul > li > ul > li:nth-child(1) > a:hover {
-    background-image: linear-gradient(to right, red, white); /* 鍮④컙�깋�뿉�꽌 二쇳솴�깋�쑝濡� 洹몃씪�뜲�씠�뀡 �슚怨� */
+    background-image: linear-gradient(to right, red, white); /* 빨간색에서 주황색으로 그라데이션 효과 */
 }
 #header #nav > ul > li > ul > li:nth-child(2) > a:hover {
-    background-image: linear-gradient(to right, orange, white); /* 二쇳솴�깋�뿉�꽌 �끂���깋�쑝濡� 洹몃씪�뜲�씠�뀡 �슚怨� */
+    background-image: linear-gradient(to right, orange, white); /* 주황색에서 노란색으로 그라데이션 효과 */
 }
 #header #nav > ul > li > ul > li:nth-child(3) > a:hover {
-    background-image: linear-gradient(to right, yellow, white); /* �끂���깋�뿉�꽌 珥덈줉�깋�쑝濡� 洹몃씪�뜲�씠�뀡 �슚怨� */
+    background-image: linear-gradient(to right, yellow, white); /* 노란색에서 초록색으로 그라데이션 효과 */
 }
 #header #nav > ul > li > ul > li:nth-child(4) > a:hover {
-    background-image: linear-gradient(to right, green, white); /* 珥덈줉�깋�뿉�꽌 �뙆���깋�쑝濡� 洹몃씪�뜲�씠�뀡 �슚怨� */
+    background-image: linear-gradient(to right, green, white); /* 초록색에서 파란색으로 그라데이션 효과 */
 }
 #header #nav > ul > li > ul > li:nth-child(5) > a:hover {
-    background-image: linear-gradient(to right, blue, white); /* �뙆���깋�뿉�꽌 �궓�깋�쑝濡� 洹몃씪�뜲�씠�뀡 �슚怨� */
+    background-image: linear-gradient(to right, blue, white); /* 파란색에서 남색으로 그라데이션 효과 */
 }
 #header #nav > ul > li > ul > li:nth-child(6) > a:hover {
-    background-image: linear-gradient(to right, indigo, white); /* �궓�깋�뿉�꽌 蹂대씪�깋�쑝濡� 洹몃씪�뜲�씠�뀡 �슚怨� */
+    background-image: linear-gradient(to right, indigo, white); /* 남색에서 보라색으로 그라데이션 효과 */
 }
 #header #nav > ul > li > ul > li:nth-child(7) > a:hover {
-    background-image: linear-gradient(to right, violet, white); /* 蹂대씪�깋�뿉�꽌 鍮④컙�깋�쑝濡� 洹몃씪�뜲�씠�뀡 �슚怨� */
+    background-image: linear-gradient(to right, violet, white); /* 보라색에서 빨간색으로 그라데이션 효과 */
 }
 #header #nav > ul > li > ul > li:nth-child(1) > a:hover {
-    background-image: linear-gradient(to right, red, white); /* 鍮④컙�깋�뿉�꽌 二쇳솴�깋�쑝濡� 洹몃씪�뜲�씠�뀡 �슚怨� */
+    background-image: linear-gradient(to right, red, white); /* 빨간색에서 주황색으로 그라데이션 효과 */
 }
 #header #nav > ul > li > ul > li:nth-child(2) > a:hover {
-    background-image: linear-gradient(to right, orange, white); /* 二쇳솴�깋�뿉�꽌 �끂���깋�쑝濡� 洹몃씪�뜲�씠�뀡 �슚怨� */
+    background-image: linear-gradient(to right, orange, white); /* 주황색에서 노란색으로 그라데이션 효과 */
 }
 #header #nav > ul > li > ul > li:nth-child(3) > a:hover {
-    background-image: linear-gradient(to right, yellow, white); /* �끂���깋�뿉�꽌 珥덈줉�깋�쑝濡� 洹몃씪�뜲�씠�뀡 �슚怨� */
+    background-image: linear-gradient(to right, yellow, white); /* 노란색에서 초록색으로 그라데이션 효과 */
 }
 #header #nav > ul > li > ul > li:nth-child(4) > a:hover {
-    background-image: linear-gradient(to right, green, white); /* 珥덈줉�깋�뿉�꽌 �뙆���깋�쑝濡� 洹몃씪�뜲�씠�뀡 �슚怨� */
+    background-image: linear-gradient(to right, green, white); /* 초록색에서 파란색으로 그라데이션 효과 */
 }
 #header #nav > ul > li > ul > li:nth-child(5) > a:hover {
-    background-image: linear-gradient(to right, blue, white); /* �뙆���깋�뿉�꽌 �궓�깋�쑝濡� 洹몃씪�뜲�씠�뀡 �슚怨� */
+    background-image: linear-gradient(to right, blue, white); /* 파란색에서 남색으로 그라데이션 효과 */
 }
 #header #nav > ul > li > ul > li:nth-child(6) > a:hover {
-    background-image: linear-gradient(to right, indigo, white); /* �궓�깋�뿉�꽌 蹂대씪�깋�쑝濡� 洹몃씪�뜲�씠�뀡 �슚怨� */
+    background-image: linear-gradient(to right, indigo, white); /* 남색에서 보라색으로 그라데이션 효과 */
 }
 #header #nav > ul > li > ul > li:nth-child(7) > a:hover {
-    background-image: linear-gradient(to right, violet, white); /* 蹂대씪�깋�뿉�꽌 鍮④컙�깋�쑝濡� 洹몃씪�뜲�씠�뀡 �슚怨� */
+    background-image: linear-gradient(to right, violet, white); /* 보라색에서 빨간색으로 그라데이션 효과 */
 }
 
-/* �꽌釉뚮찓�돱 留곹겕 �샇踰� �슚怨� */
+/* 서브메뉴 링크 호버 효과 */
 #nav2 > ul > li > ul > li:nth-child(1) > a:hover {
-    background-image: linear-gradient(to right, red, white); /* 鍮④컙�깋�뿉�꽌 二쇳솴�깋�쑝濡� 洹몃씪�뜲�씠�뀡 �슚怨� */
+    background-image: linear-gradient(to right, red, white); /* 빨간색에서 주황색으로 그라데이션 효과 */
 }
 #nav2 > ul > li > ul > li:nth-child(2) > a:hover {
-    background-image: linear-gradient(to right, orange, white); /* 二쇳솴�깋�뿉�꽌 �끂���깋�쑝濡� 洹몃씪�뜲�씠�뀡 �슚怨� */
+    background-image: linear-gradient(to right, orange, white); /* 주황색에서 노란색으로 그라데이션 효과 */
 }
 #nav2 > ul > li > ul > li:nth-child(3) > a:hover {
-    background-image: linear-gradient(to right, yellow, white); /* �끂���깋�뿉�꽌 珥덈줉�깋�쑝濡� 洹몃씪�뜲�씠�뀡 �슚怨� */
+    background-image: linear-gradient(to right, yellow, white); /* 노란색에서 초록색으로 그라데이션 효과 */
 }
 #nav2 > ul > li > ul > li:nth-child(4) > a:hover {
-    background-image: linear-gradient(to right, green, white); /* 珥덈줉�깋�뿉�꽌 �뙆���깋�쑝濡� 洹몃씪�뜲�씠�뀡 �슚怨� */
+    background-image: linear-gradient(to right, green, white); /* 초록색에서 파란색으로 그라데이션 효과 */
 }
 #nav2 > ul > li > ul > li:nth-child(5) > a:hover {
-    background-image: linear-gradient(to right, blue, white); /* �뙆���깋�뿉�꽌 �궓�깋�쑝濡� 洹몃씪�뜲�씠�뀡 �슚怨� */
+    background-image: linear-gradient(to right, blue, white); /* 파란색에서 남색으로 그라데이션 효과 */
 }
 #nav2 > ul > li > ul > li:nth-child(6) > a:hover {
-    background-image: linear-gradient(to right, indigo, white); /* �궓�깋�뿉�꽌 蹂대씪�깋�쑝濡� 洹몃씪�뜲�씠�뀡 �슚怨� */
+    background-image: linear-gradient(to right, indigo, white); /* 남색에서 보라색으로 그라데이션 효과 */
 }
 #nav2 > ul > li > ul > li:nth-child(7) > a:hover {
-    background-image: linear-gradient(to right, violet, white); /* 蹂대씪�깋�뿉�꽌 鍮④컙�깋�쑝濡� 洹몃씪�뜲�씠�뀡 �슚怨� */
+    background-image: linear-gradient(to right, violet, white); /* 보라색에서 빨간색으로 그라데이션 효과 */
 }
 #nav2 > ul > li > ul > li:nth-child(1) > a:hover {
-    background-image: linear-gradient(to right, red, white); /* 鍮④컙�깋�뿉�꽌 二쇳솴�깋�쑝濡� 洹몃씪�뜲�씠�뀡 �슚怨� */
+    background-image: linear-gradient(to right, red, white); /* 빨간색에서 주황색으로 그라데이션 효과 */
 }
 #nav2 > ul > li > ul > li:nth-child(2) > a:hover {
-    background-image: linear-gradient(to right, orange, white); /* 二쇳솴�깋�뿉�꽌 �끂���깋�쑝濡� 洹몃씪�뜲�씠�뀡 �슚怨� */
+    background-image: linear-gradient(to right, orange, white); /* 주황색에서 노란색으로 그라데이션 효과 */
 }
 #nav2 > ul > li > ul > li:nth-child(3) > a:hover {
-    background-image: linear-gradient(to right, yellow, white); /* �끂���깋�뿉�꽌 珥덈줉�깋�쑝濡� 洹몃씪�뜲�씠�뀡 �슚怨� */
+    background-image: linear-gradient(to right, yellow, white); /* 노란색에서 초록색으로 그라데이션 효과 */
 }
 #nav2 > ul > li > ul > li:nth-child(4) > a:hover {
-    background-image: linear-gradient(to right, green, white); /* 珥덈줉�깋�뿉�꽌 �뙆���깋�쑝濡� 洹몃씪�뜲�씠�뀡 �슚怨� */
+    background-image: linear-gradient(to right, green, white); /* 초록색에서 파란색으로 그라데이션 효과 */
 }
 #nav2 > ul > li > ul > li:nth-child(5) > a:hover {
-    background-image: linear-gradient(to right, blue, white); /* �뙆���깋�뿉�꽌 �궓�깋�쑝濡� 洹몃씪�뜲�씠�뀡 �슚怨� */
+    background-image: linear-gradient(to right, blue, white); /* 파란색에서 남색으로 그라데이션 효과 */
 }
 #nav2 > ul > li > ul > li:nth-child(6) > a:hover {
-    background-image: linear-gradient(to right, indigo, white); /* �궓�깋�뿉�꽌 蹂대씪�깋�쑝濡� 洹몃씪�뜲�씠�뀡 �슚怨� */
+    background-image: linear-gradient(to right, indigo, white); /* 남색에서 보라색으로 그라데이션 효과 */
 }
 #nav2 > ul > li > ul > li:nth-child(7) > a:hover {
-    background-image: linear-gradient(to right, violet, white); /* 蹂대씪�깋�뿉�꽌 鍮④컙�깋�쑝濡� 洹몃씪�뜲�씠�뀡 �슚怨� */
+    background-image: linear-gradient(to right, violet, white); /* 보라색에서 빨간색으로 그라데이션 효과 */
 }
 
 
-/* Body and Container �뒪���씪 */
+/* Body and Container 스타일 */
 body {
 	font-family: 'Arial', sans-serif;
 	line-height: 1.6;
@@ -312,41 +338,41 @@ body {
 	text-align: center;
 }
 
-/* Major Section �뒪���씪 */
+/* Major Section 스타일 */
 .style1 .major h2 {
     font-size: 2.5em;
     color: #333;
     margin-bottom: 1.5em;
-    background-color: rgba(255, 255, 255, 0.7); /* 諛섑닾紐� 諛앹� 諛곌꼍�깋 */
-    padding: 0.5em; /* �뙣�뵫 異붽� */
-    display: block; /* 釉붾줉 �슂�냼濡� �꽕�젙�븯�뿬 以꾨컮轅� */
-    width: fit-content; /* �뀓�뒪�듃 �꼫鍮꾩뿉 留욎땄 */
-    border-radius: 5px; /* �뫁洹� 紐⑥꽌由� */
-    margin: 0 auto; /* �닔�룊 媛��슫�뜲 �젙�젹 */
+    background-color: rgba(255, 255, 255, 0.7); /* 반투명 밝은 배경색 */
+    padding: 0.5em; /* 패딩 추가 */
+    display: block; /* 블록 요소로 설정하여 줄바꿈 */
+    width: fit-content; /* 텍스트 너비에 맞춤 */
+    border-radius: 5px; /* 둥근 모서리 */
+    margin: 0 auto; /* 수평 가운데 정렬 */
 }
 
 .style1 .major h3 {
     font-size: 1.5em;
     color: #333;
     margin-bottom: 1.5em;
-    background-color: rgba(255, 255, 255, 0.7); /*諛섑닾紐� 諛앹� 諛곌꼍�깋*/
-    padding: 0.5em; /*�뙣�뵫 異붽�*/
-    display: block; /*釉붾줉 �슂�냼濡� �꽕�젙�븯�뿬 以꾨컮轅�*/
-    width: fit-content; /*�뀓�뒪�듃 �꼫鍮꾩뿉 留욎땄*/
-    border-radius: 5px; /*�뫁洹� 紐⑥꽌由�*/
-    margin: 0 auto; /*�닔�룊 媛��슫�뜲 �젙�젹*/
+    background-color: rgba(255, 255, 255, 0.7); /*반투명 밝은 배경색*/
+    padding: 0.5em; /*패딩 추가*/
+    display: block; /*블록 요소로 설정하여 줄바꿈*/
+    width: fit-content; /*텍스트 너비에 맞춤*/
+    border-radius: 5px; /*둥근 모서리*/
+    margin: 0 auto; /*수평 가운데 정렬*/
 }
 
 .major .byline {
     font-size: 1.2em;
     color: #666;
     margin-bottom: 1.5em;
-    display: block; /* 釉붾줉 �슂�냼濡� �꽕�젙�븯�뿬 以꾨컮轅� */
-    width: fit-content; /* �뀓�뒪�듃 �꼫鍮꾩뿉 留욎땄 */
-    margin: 0 auto; /* �닔�룊 媛��슫�뜲 �젙�젹 */
+    display: block; /* 블록 요소로 설정하여 줄바꿈 */
+    width: fit-content; /* 텍스트 너비에 맞춤 */
+    margin: 0 auto; /* 수평 가운데 정렬 */
 }
 
-/* Button �뒪���씪 */
+/* Button 스타일 */
 .btn {
 	display: inline-block;
 	padding: 0.75em 1.5em;
@@ -370,7 +396,7 @@ body {
 	border-radius: 8px;
 	margin-bottom: 2em;
 	text-align: center;
-	min-height: 400px; /* �씠誘몄��쓽 理쒖냼 �넂�씠 �꽕�젙 */
+	min-height: 400px; /* 이미지의 최소 높이 설정 */
 }
 
 /* Flexbox Container for Menu Items */
@@ -378,18 +404,20 @@ body {
 	display: flex;
 	gap: 2em;
 	justify-content: center;
+    padding: 0 1em; /* 섹션 내부 여백 추가 */
 }
 
 /* Flexbox Item Styles */
 .mu {
 	flex: 0 0 48%;
-	max-width: 48%;
+	max-width: 40%;
 	padding: 1em;
 	background: #fff;
 	border: 1px solid #ddd;
 	border-radius: 8px;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 
 .mu .style {
 	list-style: none;
@@ -450,7 +478,7 @@ ul.style li span {
 	color: #666;
 }
 
-/* �뫖�꽣 �뒪���씪 */
+/* 푸터 스타일 */
 #footer {
     background: #333;
     color: #fff;
@@ -459,17 +487,17 @@ ul.style li span {
 
 #footer .f_container {
     display: flex;
-    justify-content: space-between; /* �쇊履쎄낵 �삤瑜몄そ�쑝濡� �젙�젹 */
+    justify-content: space-between; /* 왼쪽과 오른쪽으로 정렬 */
     align-items: flex-start;
 }
 
 #footer .fu1 {
-    flex: 0 0 calc(50% - 1em); /* �쇊履쎌뿉 諛곗튂 */
+    flex: 0 0 calc(50% - 1em); /* 왼쪽에 배치 */
     padding: 1em;
 }
 
 #footer .fu2 {
-    flex: 0 0 calc(50% - 1em); /* �삤瑜몄そ�뿉 諛곗튂 */
+    flex: 0 0 calc(50% - 1em); /* 오른쪽에 배치 */
     padding: 1em;
 }
 
@@ -572,7 +600,7 @@ ul.style li span {
     text-decoration: underline;
 }
 
-/* 諛섏쓳�삎 �뵒�옄�씤 */
+/* 반응형 디자인 */
 @media (max-width: 768px) {
     #header #nav>ul>li {
         display: block;
@@ -612,7 +640,7 @@ ul.style li span {
 }
 
 
-/* �뀒留� */
+/* 테마 */
 #themeToggleButtonLight {
     font-size: 1.5em;
     color: gold;
@@ -624,45 +652,45 @@ ul.style li span {
 }
 
 
-/* �꽕鍮꾧쾶�씠�뀡 �뒪���씪 */
+/* 네비게이션 스타일 */
 .dark-theme #nav2 > ul > li a {
-    color: gold; /* 留곹겕 �뀓�뒪�듃 �깋�긽 */
-    text-decoration: none; /* 諛묒쨪 �젣嫄� */
-    font-size: 1.2em; /* �룿�듃 �겕湲� �꽕�젙 */
-    padding: 0.5em 1em; /* �궡遺� �뿬諛� �꽕�젙 */
-    border-radius: 5px; /* 紐⑥꽌由� �뫁湲�寃� �꽕�젙 */
-    transition: background-color 0.3s ease; /* 諛곌꼍�깋 �쟾�솚 �슚怨� �꽕�젙 */
+    color: gold; /* 링크 텍스트 색상 */
+    text-decoration: none; /* 밑줄 제거 */
+    font-size: 1.2em; /* 폰트 크기 설정 */
+    padding: 0.5em 1em; /* 내부 여백 설정 */
+    border-radius: 5px; /* 모서리 둥글게 설정 */
+    transition: background-color 0.3s ease; /* 배경색 전환 효과 설정 */
 }
 
 .dark-theme #nav2 > ul > li > ul {
-    display: none; /* �꽌釉뚮찓�돱 �닲源� */
-    position: absolute; /* 遺�紐� �슂�냼瑜� 湲곗��쑝濡� �쐞移� �꽕�젙 */
-    top: 100%; /* 遺�紐� �슂�냼 諛붾줈 �븘�옒�뿉 �쐞移� */
-    left: 0; /* �쇊履� �젙�젹 */
-    background: rgba(0, 0, 0, 0.8); /* 釉붾옓 �닾紐낅룄 */
-    padding: 10px 0; /* �쐞�븘�옒 �뙣�뵫 異붽� */
-    width: 100%; /* 遺�紐� �슂�냼�쓽 媛�濡� 湲몄씠�� 媛숈� �겕湲곕줈 �꽕�젙 */
-    list-style: none; /* 由ъ뒪�듃 �뒪���씪 �젣嫄� (遺덈┸ �뾾�쓬) */
-    z-index: 1000; /* �떎瑜� 肄섑뀗痢� �쐞�뿉 �몴�떆�릺�룄濡� �꽕�젙 */
-    margin-top: 5px; /* 遺�紐� �슂�냼���쓽 媛꾧꺽 �꽕�젙 */
+    display: none; /* 서브메뉴 숨김 */
+    position: absolute; /* 부모 요소를 기준으로 위치 설정 */
+    top: 100%; /* 부모 요소 바로 아래에 위치 */
+    left: 0; /* 왼쪽 정렬 */
+    background: rgba(0, 0, 0, 0.8); /* 블랙 투명도 */
+    padding: 10px 0; /* 위아래 패딩 추가 */
+    width: 100%; /* 부모 요소의 가로 길이와 같은 크기로 설정 */
+    list-style: none; /* 리스트 스타일 제거 (불릿 없음) */
+    z-index: 1000; /* 다른 콘텐츠 위에 표시되도록 설정 */
+    margin-top: 5px; /* 부모 요소와의 간격 설정 */
 }
 
 .dark-theme #nav2 > ul > li:hover > ul {
-    display: block; /* �샇踰� �떆 �꽌釉뚮찓�돱 �몴�떆 */
+    display: block; /* 호버 시 서브메뉴 표시 */
 }
 
 .dark-theme #nav2 > ul > li > ul > li {
-    display: block; /* �꽌釉뚮찓�돱 �븘�씠�뀥�쓣 �닔吏곸쑝濡� �뙎湲� */
-    position: relative; /* �긽�� �쐞移� �꽕�젙 */
+    display: block; /* 서브메뉴 아이템을 수직으로 쌓기 */
+    position: relative; /* 상대 위치 설정 */
 }
 
 .dark-theme #nav2 > ul > li > ul > li > a {
-    color: silver; /* �뀓�뒪�듃 �깋�긽�쓣 �떎踰꾨줈 �꽕�젙 */
-    text-decoration: none; /* 諛묒쨪 �젣嫄� */
-    font-size: 0.8em; /* �꽌釉뚮찓�돱�쓽 湲��옄 �겕湲� */
-    padding: 0.5em 0.5em; /* �겢由� 媛��뒫�븳 �쁺�뿭�뿉 �뙣�뵫 異붽� */
-    white-space: nowrap; /* �뀓�뒪�듃 以꾨컮轅� 諛⑹� */
-    display: block; /* �씤�씪�씤 �슂�냼瑜� 釉붾줉 �슂�냼濡� 蹂��솚 */
+    color: silver; /* 텍스트 색상을 실버로 설정 */
+    text-decoration: none; /* 밑줄 제거 */
+    font-size: 0.8em; /* 서브메뉴의 글자 크기 */
+    padding: 0.5em 0.5em; /* 클릭 가능한 영역에 패딩 추가 */
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+    display: block; /* 인라인 요소를 블록 요소로 변환 */
 }
 
 .dark-theme #nav2 > ul > li > ul > li:nth-child(1) > a:hover {
@@ -687,4 +715,93 @@ ul.style li span {
     background-image: linear-gradient(to right, silver, white); 
 }
 
+.dark-theme .fixed-header {	/* 고정되는 헤더 */
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: black; /* 배경색 변경 */
+	box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+	z-index: 1000;
+	display: none;
+}
+.dark-theme #header h1 {
+    font-size: 3em; /* 폰트 크기 설정 */
+    margin: 0; /* 기본 마진 제거 */
+    color: gold; /* 텍스트 색상 */
+    margin-bottom: 1em; /* 아래쪽 여백 */
+}
 
+/* 주요 섹션 스타일 */
+.dark-theme .style1 .major h2,
+.dark-theme .style1 .major h3 {
+    font-size: 2.5em;
+    color: #fff; /* 흰색 텍스트 */
+    margin-bottom: 1.5em;
+    background-color: rgba(255, 215, 0, 0.7); /* 반투명 골드 배경 */
+    padding: 0.5em; /* 패딩 추가 */
+    display: block; /* 줄바꿈을 위한 블록 요소 */
+    width: fit-content; /* 텍스트 너비에 맞춤 */
+    border-radius: 5px; /* 둥근 모서리 */
+    margin: 0 auto; /* 수평 가운데 정렬 */
+}
+
+.dark-theme .major .byline {
+    font-size: 1.2em;
+    color: #c0c0c0; /* 은색 텍스트 */
+    margin-bottom: 1.5em;
+    display: block; /* 줄바꿈을 위한 블록 요소 */
+    width: fit-content; /* 텍스트 너비에 맞춤 */
+    margin: 0 auto; /* 수평 가운데 정렬 */
+}
+
+.dark-theme .mu {
+    flex: 0 0 48%;
+    max-width: 40%;
+    padding: 1em;
+    background: #333; /* 검은색 배경 */
+    border: 1px solid #c0c0c0; /* 은색 테두리 */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5); /* 흰색 그림자 */
+}
+
+/* 버튼 스타일 */
+.dark-theme .btn {
+    background-color: black;
+    color: gold;
+    border: 1px solid gold;
+}
+
+.dark-theme .btn:hover {
+    background-color: gold;
+    color: black;
+}
+
+.dark-theme .mu .style h3 {
+    font-size: 1.3em;
+    color: gold;
+    margin: 0.5em 0;
+}
+
+.dark-theme .mu .style span {
+    font-size: 1em;
+    color: gold;
+}
+body.dark-theme {
+    background-color: black;
+    color: silver;
+}
+
+.dark-theme .m_container {
+    background-color: #1e1e1e;
+    color: silver;
+}
+
+.dark-theme a {
+	color: gold;
+}
+
+.dark-theme .m_container h2,
+.dark-theme .m_container h3 {
+	color: gold;
+}

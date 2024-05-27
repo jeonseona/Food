@@ -4,35 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" th:href="@{/css/member.css}">
-<style>
-/* 챗봇 아이콘 스타일 */
-#chatbot-icon,
-#calorie-icon {
-    position: fixed;
-    bottom: 30px;
-    background-color: #28a745;
-    color: #fff;
-    border-radius: 50%;
-    padding: 15px;
-    font-size: 30px;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    z-index: 1000;
-}
-
-#chatbot-icon {
-    left: 10px;
-}
-
-#calorie-icon {
-    left: 90px; /* 챗봇 아이콘 오른쪽에 위치 */
-    width: 40px;
-    text-align:center;
-    
-}</style>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script th:src="@{/js/member.js}" defer></script>
 <title>Login</title>
+<link rel="icon" href="/images/favicon (1).ico" type="image/x-icon">
+<link rel="shortcut icon" href="/images/favicon (1).ico" type="image/x-icon">
 <script>
     function openFindIdWindow() {
         window.open("findId", "_blank", "width=600,height=400");

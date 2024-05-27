@@ -4,10 +4,14 @@
 <meta charset="UTF-8">
 <title>Food Recommend History</title>
 <link rel="stylesheet" th:href="@{/css/mypage.css}">
-<link rel="stylesheet" th:href="@{/css/RecommendedFood.css}">
+<link rel="icon" href="/images/favicon (1).ico" type="image/x-icon">
+<link rel="shortcut icon" href="/images/favicon (1).ico" type="image/x-icon">
 <script th:src="@{/js/mypage.js}" defer></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+	integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+	crossorigin="anonymous"></script>
 <script>
 	$(document).ready(function() {
 		$(".date-header").click(function() {
@@ -15,46 +19,18 @@
 		});
 	});
 
-	function delHistory() {
-		var checkboxes = document
-				.querySelectorAll('input[name="delete"]:checked');
-		if (checkboxes.length === 0) {
-			alert("삭제할 항목을 선택하세요.");
-			return;
-		}
-
-		var confirmation = confirm("정말로 삭제하시겠습니까?");
-		if (confirmation) {
-			var deleteIdxArray = [];
-			checkboxes.forEach(function(checkbox) {
-				deleteIdxArray.push(Number(checkbox.value));
-			});
-
-			$.ajax({
-				type : "POST",
-				url : "/mypage/deleteHistory",
-				data : JSON.stringify(deleteIdxArray),
-				contentType : "application/json; charset=utf-8",
-				success : function(response) {
-					if (response === "success") {
-						location.reload();
-					} else {
-						console.error("로그인이 필요합니다.");
-					}
-				},
-				error : function(xhr, status, error) {
-					console.error("오류가 발생했습니다:", error);
-				}
-			});
-		}
-	}
-	
-	 function openChart(idx) {
-	        window.open('chart.html?idx=' + idx, '_blank', 'width=600, height=800, resizable=no');
-	    }
 </script>
 </head>
 <body>
+	<!-- 챗봇 아이콘 -->
+	<div id="chatbot-icon" onclick="toggleChatbotPopup()">
+		<i class="fas fa-robot"></i>
+	</div>
+
+	<!-- 칼로리 계산기 아이콘 -->
+	<div id="calorie-icon" onclick="toggleCaloriePopup()">
+		<i class="fas fa-calculator"></i>
+	</div>
 	<!-- 헤더 -->
 	<th:block th:insert="~{/includes/header}"></th:block>
 
@@ -62,9 +38,12 @@
 	<th:block th:insert="~{mypage/menu}"></th:block>
 
 	<!-- 내가 추천받은 음식기록 내용 -->
-	<main class="container">
+	<div class="r_container">
 		<article id="recommend">
-			<h3>내가 추천받은 음식기록</h3>
+			<div style="display: flex; justify-content: space-between; align-items: center;">
+				<h3>내가 추천받은 음식기록</h3>
+				<input type="button" value="추천받기" class="btn" onclick="location.href='/UserChoice'">
+			</div>
 			<form name="formm" id="theform" method="post">
 
 				<div class="tbl-content">
@@ -101,12 +80,13 @@
 													<span th:text="${history.recommendFood.calories}"></span>
 													<span th:text="${#dates.format(history.recommendDate, 'yyyy-MM-dd HH:mm')}"></span>
 													<span><input type="checkbox" name="delete" id="recommend-box"
-														th:value="${history.historyId}" /></span><br />
+														th:value="${history.historyId}" /><br>
+														<button type="button" id="del-button" onclick="delHistory()">삭제</button>
+													</span>
+														
 												</div>
 											</th:block>
-											<div class="del-button-container">
-        										<input type="button" value="삭제" id="del-button" onclick="delHistory()" style="width:50px; height:35px;">
-    										</div>
+        										
 										</div>
 									</td>
 									
@@ -115,19 +95,14 @@
 						</tbody>
 					</table>
 				</div>
-				<th:block th:if="${#lists.isEmpty(groupedByDate)}">
-					<h3 style="color: red; text-align: center;">추천받은 기록이 없습니다.</h3>
-					<button onclick="location.href='/'">추천받으러 가기</button>
-				</th:block>
+				
 			</form>
 			
 		</article>
-	</main>
+	</div>
 
 	<!-- 푸터 -->
 	<th:block th:insert="~{/includes/footer}"></th:block>
-	<script src="https://code.jquery.com/jquery-3.7.1.min.js"
-		integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-		crossorigin="anonymous"></script>
+
 </body>
 </html>

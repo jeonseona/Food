@@ -15,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -30,7 +29,6 @@ import com.demo.service.WeightRecordService;
 
 import jakarta.servlet.http.HttpSession;
 
-@RequestMapping("/mypage")
 @Controller
 public class MypageController {
 
@@ -51,10 +49,8 @@ public class MypageController {
 		
 		if(loginUser == null) {
 			return "redirect:/login";
-		} else {
-			
+		} 
 			return "mypage/mypageMain";
-		}
 	}
 	
 	// 내 정보 화면
@@ -93,13 +89,14 @@ public class MypageController {
 			return "redirect:/login";
 		} else {
 			model.addAttribute("loginUser", loginUser);
-			return "mypage/infoUpdate";
+			
 		}
+		return "mypage/infoUpdate";
 	}
 	
 	// 개인정보 수정
 	@PostMapping("/update_info")
-	public String infoUpdateAction(HttpSession session, MemberData vo, Model model) {
+	public String infoUpdateAction(HttpSession session, MemberData vo) {
 	    MemberData loginUser = (MemberData) session.getAttribute("loginUser");
 	    
 	    if(loginUser == null) {
@@ -107,10 +104,9 @@ public class MypageController {
 		} else {
 			// 로그인한 회원수정
 			memberService.changeInfo(vo);
-			MemberData loginUser_new = memberService.getMember(loginUser.getId());
-			session.setAttribute("loginUser", loginUser_new);
-			return "redirect:/mypage/infoView";
+			
 		}
+	    return "redirect:/infoView";
 	}
 
 	
@@ -133,9 +129,10 @@ public class MypageController {
 		if(loginUser == null) {
 			return "redirect:/login";
 		} else {
-			model.addAttribute("member", loginUser);
-			return "mypage/bodyUpdate";
+			model.addAttribute("loginUser", loginUser);
+			
 		}
+		return "mypage/bodyUpdate";
 	}
 	
 	// 바디데이터 수정
@@ -149,9 +146,9 @@ public class MypageController {
 			// 로그인한 회원 바디데이터 수정
 			vo.setId(loginUser.getId());
 			memberService.changeBodyData(vo);
-			return "redirect:/mypage/infoView";
 			
 		}
+		return "redirect:/infoView";
 		
 	}
 	
@@ -185,8 +182,8 @@ public class MypageController {
 		        model.addAttribute("weekly", weeklyAvg);
 		        model.addAttribute("monthly", monthlyAvg);
 		        
-				return "mypage/myWeightChart";
 			}
+			return "mypage/myWeightChart";
 		}
 	
 		// 체중변화 값 저장하기
@@ -243,8 +240,8 @@ public class MypageController {
 			
 			model.addAttribute("recipeList", recipeList);
 			
-			return "mypage/myRecipeList";
 		}
+		return "mypage/myRecipeList";
 	}
 	
 	@GetMapping("/foodRecommend")
@@ -262,9 +259,10 @@ public class MypageController {
                 .collect(Collectors.groupingBy(history -> sdf.format(history.getRecommendDate())));
 
             model.addAttribute("groupedByDate", groupedByDate);
+            model.addAttribute("recommend", recommend);
 
-            return "mypage/recommendHistory";
         }
+        return "mypage/recommendHistory";
     }
 	
 

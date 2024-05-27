@@ -51,7 +51,9 @@ public interface Com_Board_DetailRepository extends JpaRepository<Com_Board_Deta
     @Query("SELECT b FROM Com_Board_Detail b JOIN b.member_data m WHERE m.id=:id")
     public List<Com_Board_Detail> getMyRecipeListById(@Param("id")String id);
 
-
+    // 총 레시피 수
+    @Query(value="SELECT count(*) FROM Com_Board_Detail", nativeQuery=true)
+    int getRecipeCount();
 	
                                             
 }
