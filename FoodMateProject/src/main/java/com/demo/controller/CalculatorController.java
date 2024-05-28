@@ -17,6 +17,7 @@ import com.demo.domain.MemberData;
 import com.demo.domain.foodRecipe;
 import com.demo.dto.CalculationResult;
 import com.demo.persistence.AdminRecipeDBRepository;
+import com.demo.persistence.Com_Board_DetailRepository;
 import com.demo.persistence.MemberRepository;
 import com.demo.service.CalculatorServiceImpl;
 
@@ -30,20 +31,29 @@ public class CalculatorController {
     private final CalculatorServiceImpl calculatorServiceImpl;
     private final MemberRepository memberRepository;
     private final AdminRecipeDBRepository adminRecipeDBRepository;
-
+    private final Com_Board_DetailRepository comBoardDetailRepository;
+    
     @Autowired
-    public CalculatorController(CalculatorServiceImpl calculatorServiceImpl, MemberRepository memberRepository, AdminRecipeDBRepository adminRecipeDBRepository) {
+    public CalculatorController(CalculatorServiceImpl calculatorServiceImpl, MemberRepository memberRepository, AdminRecipeDBRepository adminRecipeDBRepository, Com_Board_DetailRepository comBoardDetailRepository) {
         this.calculatorServiceImpl = calculatorServiceImpl;
         this.memberRepository = memberRepository;
         this.adminRecipeDBRepository = adminRecipeDBRepository;
+        this.comBoardDetailRepository = comBoardDetailRepository;
     }
     
     @GetMapping("/")
     public String homePage(Model model) {
         // 홈페이지에 필요한 데이터를 모델에 추가하고, 뷰 이름을 반환합니다.
     	model.addAttribute("welcomeMessage", "건강한 식단을 추천해드릴게요!");
+    	// 회원 수 표시
+    	int memberCount = memberRepository.getMemberCount();
+    	model.addAttribute("member", memberCount);
+    	// 총 레시피 표시
+    	int recipeCount = comBoardDetailRepository.getRecipeCount();
+    	model.addAttribute("recipe", recipeCount);
         return "main"; // 여기서 "main"는 타임리프 템플릿 파일의 이름입니다.
     }
+
 
     @GetMapping("/UserChoice")
     public String showUserChoicePage(Model model, HttpSession session) {
@@ -54,7 +64,7 @@ public class CalculatorController {
             // 사용자 정보가 존재할 경우
         	MemberData member = memberRepository.findByLoginId(loggedInUser.getId());
         	if(member.getGender() == null || member.getGender().isEmpty() || member.getAge() == 0 || member.getWeight() == 0 || member.getHeight() == 0) {
-        		return "redirect:/mypage/bodyUpdate";
+        		return "redirect:/bodyUpdate";
         	} else {
         	
         	CalculationResult result = calculatorServiceImpl.calculate(member);

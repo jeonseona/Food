@@ -128,6 +128,17 @@ function my_bmi() {
 
 // 체중변화 입력값 받기
 function weight_record() {
+	
+	 var weight = parseFloat($("#re_weight").val());
+
+    // 체중이 0 또는 0.0이면 입력하지 않도록 검증
+    if (weight === 0 || weight === 0.0) {
+        alert("체중은 0이나 0.0을 입력할 수 없습니다.");
+        $("#re_weight").focus();
+        return false;
+    }
+
+	
     if ($("#re_date").val() === "") {
         alert("날짜를 제대로 입력해 주세요.");
         $("#re_date").focus();
