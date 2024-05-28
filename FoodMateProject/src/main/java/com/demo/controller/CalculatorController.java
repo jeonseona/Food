@@ -32,9 +32,11 @@ public class CalculatorController {
     private final MemberRepository memberRepository;
     private final AdminRecipeDBRepository adminRecipeDBRepository;
     private final Com_Board_DetailRepository comBoardDetailRepository;
-
+    
     @Autowired
-    public CalculatorController(CalculatorServiceImpl calculatorServiceImpl, MemberRepository memberRepository, AdminRecipeDBRepository adminRecipeDBRepository, Com_Board_DetailRepository comBoardDetailRepository) {
+    public CalculatorController(CalculatorServiceImpl calculatorServiceImpl, MemberRepository memberRepository, AdminRecipeDBRepository adminRecipeDBRepository,
+    		Com_Board_DetailRepository comBoardDetailRepository) {
+    	
         this.calculatorServiceImpl = calculatorServiceImpl;
         this.memberRepository = memberRepository;
         this.adminRecipeDBRepository = adminRecipeDBRepository;
@@ -51,6 +53,7 @@ public class CalculatorController {
     	// 총 레시피 표시
     	int recipeCount = comBoardDetailRepository.getRecipeCount();
     	model.addAttribute("recipe", recipeCount);
+    	// 방문자 수 표시
         return "main"; // 여기서 "main"는 타임리프 템플릿 파일의 이름입니다.
     }
 
@@ -63,7 +66,7 @@ public class CalculatorController {
             // 사용자 정보가 존재할 경우
         	MemberData member = memberRepository.findByLoginId(loggedInUser.getId());
         	if(member.getGender() == null || member.getGender().isEmpty() || member.getAge() == 0 || member.getWeight() == 0 || member.getHeight() == 0) {
-        		return "redirect:/mypage/bodyUpdate";
+        		return "redirect:/bodyUpdate";
         	} else {
         	
         	CalculationResult result = calculatorServiceImpl.calculate(member);
