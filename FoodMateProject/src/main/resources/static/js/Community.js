@@ -36,11 +36,6 @@ $(document).ready(function() {
 		theForm.submit();
 	}
 
-	
-	function submitSearch() {
-	    document.getElementById('searchForm').submit();
-	}
-	
     
 /**
  * 
@@ -144,3 +139,16 @@ function go_save() {
 	}
 		}
       
+   //검색
+    	function submitSearch() {	
+	if ($("#searchKeyword").val() == "") {
+		alert("검색어를 입력하세요");
+		$("#searchKeyword").focus();
+		return false;
+	}  else{
+		var theform = $("#searchForm");
+		theform.attr("method", "get");
+		theform.attr("action", "/communityboard_search");
+		theform.submit();
+	}
+		}      
