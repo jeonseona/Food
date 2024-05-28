@@ -28,7 +28,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class CalculatorController {
 
-    private final CalculatorServiceImpl calculatorServiceImpl;
+	private final CalculatorServiceImpl calculatorServiceImpl;
     private final MemberRepository memberRepository;
     private final AdminRecipeDBRepository adminRecipeDBRepository;
     private final Com_Board_DetailRepository comBoardDetailRepository;

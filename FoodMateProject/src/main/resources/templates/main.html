@@ -12,7 +12,13 @@
 function openInPopup(url) {
     window.open(url, '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
 }
+//방문자 수를 추적하는 스크립트
+var counter = 0; // 초기 카운터 값
+var counterElement = document.getElementById('hitCounter'); // 카운터를 표시할 요소
 
+// 페이지가 로드될 때마다 카운터를 증가시킴
+counter++;
+counterElement.textContent = counter; // 카운터를 표시
 </script>  
 </head>
 <body>
@@ -42,13 +48,14 @@ function openInPopup(url) {
                 <div class="mu">
                     <article>
                         <ul class="style">
-                            <li><i class="fas fa-users"></i>
-                                <h3><a href="#">회원 수 : <span th:text="${member}"></span>명</a></h3>
-                                <span>href : 회원가입 페이지 url</span></li>
-                            <li><i class="fas fa-user-clock"></i>
+                            <li>
+                                <h3>회원 수</h3>
+                                <i class="fas fa-users"></i> :
+                                <span th:text="${member}"></span>명</li>
+                            <li>
                                 <h3>방문자 수</h3>
-                                <i class="fas fa-user-plus"></i> : 
-                                <span></span>명
+                                <i class="fas fa-user-clock"></i> : 
+                                <span id="hitCounter"></span>명
                             </li>
                         </ul>
                     </article>
@@ -56,10 +63,11 @@ function openInPopup(url) {
                 <div class="mu">
                     <article>
                         <ul class="style">
-                            <li><i class="fas fa-file-image"></i>
-                                <h3><a href="#">공유한 레시피 : <span th:text="${recipe}"></span>개</a></h3>
-                                <span>href : 공유 레시피 url</span></li>
-                            <li><span class="fa fa-leaf"></span>
+                            <li>
+                                <h3><a th:href="@{/board_list_main}">공유 레시피</a></h3>
+                                <i class="fas fa-file-image"></i> : 
+                                <span th:text="${recipe}"></span>개
+                            <li>
                                 <h3>ㅁㄴㅇ</h3>
                                 <span>ㅁㄴㅇ</span></li>
                         </ul>

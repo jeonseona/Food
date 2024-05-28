@@ -76,6 +76,11 @@
 #login-form a:hover{
 	background-color: #3c3c3c;
 }
+#naver_id_login {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
 
 /* 회원가입 페이지 */
 #join-container {

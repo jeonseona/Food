@@ -157,6 +157,14 @@ function weight_record() {
         });
 
 }
+// Enter 키 입력 시 weight_record 함수 호출
+$(document).ready(function() {
+    $("#weight_chart").on("keypress", function(event) {
+        if (event.keyCode === 13) {
+            weight_record(event);
+        }
+    });
+});
 // 체중변화 차트 그리기
 $(document).ready(function() {
             // input 요소 참조
