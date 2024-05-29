@@ -196,26 +196,31 @@ public class MypageController {
 		}
 	
 		// 체중변화 값 저장하기
-		@PostMapping("/weight_record")
-		@ResponseBody
-		public ResponseEntity<String> changeWeight(HttpSession session, @RequestParam("re_date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date reDate, 
-		                           @RequestParam("re_weight") Double reWeight) {
-		    MemberData loginUser = (MemberData) session.getAttribute("loginUser");
-		    
-		    if (loginUser == null) {
-		        // 로그인되지 않은 경우 리다이렉트
-		        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
-		    } else {
-		        WeightRecord weightRecord = new WeightRecord();
-		        weightRecord.setRe_date(reDate);
-		        weightRecord.setRe_weight(reWeight);
-		        weightRecord.setMember(loginUser);
-		        recordService.saveWeightRecord(weightRecord);
-		        
-		        // 마이페이지 내 몸무게 차트로 리다이렉트
-		        return ResponseEntity.ok("/mypage/myWeightChart");
-		    }
-		}
+				@PostMapping("/weight_record")
+				@ResponseBody
+				public ResponseEntity<String> changeWeight(HttpSession session, @RequestParam("re_date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date reDate, 
+				                           @RequestParam("re_weight") Double reWeight) {
+				    MemberData loginUser = (MemberData) session.getAttribute("loginUser");
+				    Long weightLong = reWeight.longValue();
+				    
+				    if (loginUser == null) {
+				        // 로그인되지 않은 경우 리다이렉트
+				        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+				    } else {
+				        WeightRecord weightRecord = new WeightRecord();
+				        weightRecord.setRe_date(reDate);
+				        weightRecord.setRe_weight(reWeight);
+				        weightRecord.setMember(loginUser);
+				        
+				        recordService.saveWeightRecord(weightRecord);
+				        
+				        loginUser.setWeight(weightLong);
+				        memberService.changeBodyData(loginUser);
+				        
+				        // 마이페이지 내 몸무게 차트로 리다이렉트
+				        return ResponseEntity.ok("/mypage/myWeightChart");
+				    }
+				}
 		
 		// 저장된 값들로 체중변화 차트 그리기
 		@GetMapping("/getRecordChart")

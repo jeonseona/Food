@@ -87,7 +87,12 @@
                                             <tr>
                                                 <td>[[${member.no_data}]]</td>
                                                 <td>[[${member.name}]]</td>
-                                                <td>[[${member.id}]]</td>
+                                                 <td th:if="${member.id.length() > 15}">
+                                                네이버 가입 계정 : [[${#strings.substringBefore(member.email, '@')}]]
+                                                </td>
+                                                <td th:if="${member.id.length() < 15}">
+                                                [[${member.id}]]
+                                                </td>
                                             </tr>
                                         </th:block>
                                     </th:block>
