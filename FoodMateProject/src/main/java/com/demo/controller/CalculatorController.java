@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.demo.domain.MemberData;
 import com.demo.domain.foodRecipe;
 import com.demo.dto.CalculationResult;
+import com.demo.dto.VisitorCounter;
 import com.demo.persistence.AdminRecipeDBRepository;
 import com.demo.persistence.Com_Board_DetailRepository;
 import com.demo.persistence.MemberRepository;
@@ -32,19 +35,22 @@ public class CalculatorController {
     private final MemberRepository memberRepository;
     private final AdminRecipeDBRepository adminRecipeDBRepository;
     private final Com_Board_DetailRepository comBoardDetailRepository;
+    private final VisitorCounter visitorCounter;
+    private static final Logger logger = LoggerFactory.getLogger(CalculatorController.class);
     
     @Autowired
     public CalculatorController(CalculatorServiceImpl calculatorServiceImpl, MemberRepository memberRepository, AdminRecipeDBRepository adminRecipeDBRepository,
-    		Com_Board_DetailRepository comBoardDetailRepository) {
+    		Com_Board_DetailRepository comBoardDetailRepository, VisitorCounter visitorCounter) {
     	
         this.calculatorServiceImpl = calculatorServiceImpl;
         this.memberRepository = memberRepository;
         this.adminRecipeDBRepository = adminRecipeDBRepository;
         this.comBoardDetailRepository = comBoardDetailRepository;
+        this.visitorCounter = visitorCounter;
     }
     
     @GetMapping("/")
-    public String homePage(Model model) {
+    public String homePage(Model model, HttpSession session) {
         // 홈페이지에 필요한 데이터를 모델에 추가하고, 뷰 이름을 반환합니다.
     	model.addAttribute("welcomeMessage", "건강한 식단을 추천해드릴게요!");
     	// 회원 수 표시
@@ -54,6 +60,16 @@ public class CalculatorController {
     	int recipeCount = comBoardDetailRepository.getRecipeCount();
     	model.addAttribute("recipe", recipeCount);
     	// 방문자 수 표시
+    	// 방문자 수 표시
+        if (session.isNew() || session.getAttribute("visited") == null) { // 세션이 새로 생성되었거나 방문한 적이 없는 경우
+            int visitorCount = visitorCounter.incrementAndGet();
+            logger.info("Current visitor count: {}", visitorCount); // 방문자 수 로그 추가
+            model.addAttribute("visitorCount", visitorCount);
+            session.setAttribute("visited", true); // 세션에 방문 표시를 남깁니다.
+        } else {
+            int visitorCount = visitorCounter.getCount();
+            model.addAttribute("visitorCount", visitorCount);
+        }
         return "main"; // 여기서 "main"는 타임리프 템플릿 파일의 이름입니다.
     }
 

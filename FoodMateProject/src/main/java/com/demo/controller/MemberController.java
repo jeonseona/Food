@@ -12,6 +12,8 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.demo.domain.MemberData;
 import com.demo.service.MemberService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @SessionAttributes("loginUser")
 public class MemberController {
@@ -120,7 +122,8 @@ public class MemberController {
 
     // 로그아웃 처리
     @GetMapping("/logout")
-    public String logout(SessionStatus status) {
+    public String logout(SessionStatus status, HttpSession session) {
+    	session.invalidate(); // 세션 무효화
         status.setComplete(); // 세션 완료 상태로 설정
         return "member/login"; // 로그아웃 후 로그인 화면으로 리다이렉트
     }
