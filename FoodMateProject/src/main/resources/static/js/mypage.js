@@ -226,6 +226,12 @@ $(document).ready(function() {
             // 데이터 레이블(날짜)과 데이터 값(체중) 추출
             var labels = data.map(record => new Date(record.re_date).toLocaleDateString('ko-KR'));
             var values = data.map(record => record.re_weight);
+            
+            // values 배열의 최소값을 찾음
+   			var minValue = Math.min(...values);
+
+    		// 최소값을 10의 배수로 조정
+    		var yAxisMin = Math.floor(minValue / 10) * 10;
 
             // 차트 데이터 및 옵션 설정
             var chartData = {
@@ -246,7 +252,8 @@ $(document).ready(function() {
                         beginAtZero: true
                     },
                     y: {
-                        beginAtZero: true
+                        beginAtZero: false,
+                        min: yAxisMin  // Y축 최소값
                     }
                 },
                 plugins: {
