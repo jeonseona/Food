@@ -48,6 +48,10 @@ function nickcheck() {
         alert("닉네임을 입력해 주세요!");
         $("#nickname").focus();
         return false;
+    } else if ($("#nickname").val() == " ") {
+        alert("닉네임을 입력해 주세요!");
+        $("#nickname").focus();
+        return false;
     }
 
     // 닉네임 중복 확인 팝업 열기

@@ -13,15 +13,8 @@
 </head>
 
 <body>
-    <!-- 챗봇 아이콘 -->
-    <div id="chatbot-icon" onclick="toggleChatbotPopup()">
-        <i class="fas fa-robot"></i>
-    </div>
-
-    <!-- 칼로리 계산기 아이콘 -->
-    <div id="calorie-icon" onclick="toggleCaloriePopup()">
-        <i class="fas fa-calculator"></i>
-    </div>
+    <a id="chatbot-icon" href="javascript:void(0);" onclick="openInPopup('/chat')"><i class="fas fa-robot"></i></a><br>
+<a id="calorie-icon" href="javascript:void(0);" onclick="openInPopup('/cal')"><i class="fas fa-calculator"></i></a>
 
     <th:block th:insert="~{includes/header.html}"></th:block>
 
@@ -69,6 +62,10 @@
     <th:block th:insert="~{includes/footer.html}"></th:block>
 
     <script>
+    
+    function openInPopup(url) {
+        window.open(url, '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
+    }
         const rowsPerPage = 10;
         let currentPage = 1;
         const inquiryTable = document.getElementById('inquiryTable');

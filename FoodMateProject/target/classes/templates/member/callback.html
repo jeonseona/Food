@@ -84,9 +84,8 @@ function openInPopup(url) {
 			<h2>회원가입</h2><br>
 			
 			<input type="hidden" id="id" class="text id_input" name="id">
-			<p>사용자명</p>
+			<p>사용자명(*필수입력)</p>
 			<input type="text" name="name" id="name" class="text" placeholder="사용자 이름을 입력해주세요">
-			<input type="hidden" id="password" class="text" name="password">
 			<p>이메일(네이버)</p>
 			<input type="text" id="email" class="email" name="email" placeholder="Email" readonly="readonly">
 			<p>닉네임</p>
@@ -123,7 +122,6 @@ function openInPopup(url) {
                      document.getElementById('email').value = email;
                      document.getElementById('nickname').value = nickname;
                      document.getElementById('id').value = id;
-                     document.getElementById('password').value = 'chncjs＠#521das2$@';
                 }
             }
         });

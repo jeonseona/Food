@@ -11,15 +11,8 @@
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <body>
-        <!-- 챗봇 아이콘 -->
-        <div id="chatbot-icon" onclick="toggleChatbotPopup()">
-            <i class="fas fa-robot"></i>
-        </div>
-        
-        <!-- 칼로리 계산기 아이콘 -->
-        <div id="calorie-icon" onclick="toggleCaloriePopup()">
-            <i class="fas fa-calculator"></i>
-        </div>
+        <a id="chatbot-icon" href="javascript:void(0);" onclick="openInPopup('/chat')"><i class="fas fa-robot"></i></a><br>
+<a id="calorie-icon" href="javascript:void(0);" onclick="openInPopup('/cal')"><i class="fas fa-calculator"></i></a>
 
 
     <div class="q_container">
@@ -92,6 +85,10 @@
     
     <!-- JavaScript -->
     <script>
+    function openInPopup(url) {
+        window.open(url, '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
+    }
+    
         function searchQuestion() {
             var input, filter, table, tr, td, i, txtValue;
             input = document.getElementById("searchInput");
@@ -199,22 +196,7 @@
 
         
 
-        function incrementCount(satisfaction) {
-            fetch('/submitSatisfaction', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ satisfaction: satisfaction })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-        }
+        
 
 // 페이지네이션 설정
         const rowsPerPage = 10;

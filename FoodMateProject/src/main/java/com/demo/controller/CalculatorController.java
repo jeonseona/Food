@@ -19,6 +19,7 @@ import com.demo.dto.CalculationResult;
 import com.demo.persistence.AdminRecipeDBRepository;
 import com.demo.persistence.Com_Board_DetailRepository;
 import com.demo.persistence.MemberRepository;
+import com.demo.persistence.SatisfactionRepository;
 import com.demo.service.CalculatorServiceImpl;
 
 import jakarta.servlet.http.HttpSession;
@@ -32,13 +33,15 @@ public class CalculatorController {
     private final MemberRepository memberRepository;
     private final AdminRecipeDBRepository adminRecipeDBRepository;
     private final Com_Board_DetailRepository comBoardDetailRepository;
+    private final SatisfactionRepository satisfactionRepository;
     
     @Autowired
-    public CalculatorController(CalculatorServiceImpl calculatorServiceImpl, MemberRepository memberRepository, AdminRecipeDBRepository adminRecipeDBRepository, Com_Board_DetailRepository comBoardDetailRepository) {
+    public CalculatorController(CalculatorServiceImpl calculatorServiceImpl, MemberRepository memberRepository, AdminRecipeDBRepository adminRecipeDBRepository, Com_Board_DetailRepository comBoardDetailRepository, SatisfactionRepository satisfactionRepository) {
         this.calculatorServiceImpl = calculatorServiceImpl;
         this.memberRepository = memberRepository;
         this.adminRecipeDBRepository = adminRecipeDBRepository;
         this.comBoardDetailRepository = comBoardDetailRepository;
+        this.satisfactionRepository = satisfactionRepository;
     }
     
     @GetMapping("/")
@@ -51,6 +54,16 @@ public class CalculatorController {
     	// 총 레시피 표시
     	int recipeCount = comBoardDetailRepository.getRecipeCount();
     	model.addAttribute("recipe", recipeCount);
+        
+        int dbRecipeCount = adminRecipeDBRepository.getRecipeCount();
+        model.addAttribute("dbrecipe", dbRecipeCount);
+        
+        int satisfiedCount = satisfactionRepository.getSatisFiedCount();
+        int allCount = satisfactionRepository.getAllCount();
+        
+        int satisfiedPercentage = (int) Math.floor((double) satisfiedCount / allCount * 100);
+        model.addAttribute("satisfiedPercentage", satisfiedPercentage);
+        
         return "main"; // 여기서 "main"는 타임리프 템플릿 파일의 이름입니다.
     }
 
