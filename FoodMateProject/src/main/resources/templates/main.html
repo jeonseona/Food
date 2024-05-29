@@ -50,12 +50,8 @@ counterElement.textContent = counter; // 카운터를 표시
                         <ul class="style">
                             <li>
                                 <h3>회원 수</h3>
-                                <i class="fas fa-users"></i> :
-                                <span th:text="${member}"></span>명</li>
-                            <li>
-                                <h3>방문자 수</h3>
-                                <i class="fas fa-user-clock"></i> : 
-                                <span ><!-- th:text="${visitorCount}" --></span>명
+                                <i class="fas fa-address-card"></i> :
+                                <span th:text="${member}"></span>명
                             </li>
                         </ul>
                     </article>
@@ -65,11 +61,9 @@ counterElement.textContent = counter; // 카운터를 표시
                         <ul class="style">
                             <li>
                                 <h3><a th:href="@{/board_list_main}">공유 레시피</a></h3>
-                                <i class="fas fa-file-image"></i> : 
+                                <i class="fas fa-utensils"></i> : 
                                 <span th:text="${recipe}"></span>개
-                            <li>
-                                <h3>ㅁㄴㅇ</h3>
-                                <span>ㅁㄴㅇ</span></li>
+                            </li>
                         </ul>
                     </article>
                 </div>
