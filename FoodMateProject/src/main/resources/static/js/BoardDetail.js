@@ -32,10 +32,16 @@
 
 	//댓글등록	
 	function reply_save() {
+		if ($("#reply_content").val() == "") {
+		alert("댓글 내용을 입력하세요.");
+		$("#reply_content").focus();
+		return false;
+	}{
 		var theForm = document.replyfrm;
 		theForm.method = "post";
 		theForm.action = "reply_save";
 		theForm.submit();
+		}
 	}
 
 //댓글출력
@@ -84,7 +90,12 @@ function reply_list() {
 		theForm.method = "post";
 		theForm.action = "goodpoint";
 		theForm.submit();
-
+		
+		 if (element.classList.contains('red')) {
+            element.classList.remove('red');
+        } else {
+            element.classList.add('red');
+        }
 	}
 
 	
@@ -156,8 +167,13 @@ function toggleEditMode(button, event) {
 //***** 댓글 내용 저장 *****
 function saveChanges(button, event) {
     event.preventDefault(); // 기본 이벤트 방지
-
-    // 댓글 번호를 가져옵니다.
+    
+    if ($("#reply_content").val() == "") {
+		alert("댓글 내용을 입력하세요.");
+		$("#reply_content").focus();
+		return false;
+	}else{
+    // 댓글 번호
     const replynum = button.getAttribute('data-replynum');
     const replyElement = button.closest(`tr[data-replynum='${replynum}']`);
     if (!replyElement) {
@@ -166,19 +182,13 @@ function saveChanges(button, event) {
     }
     const content = replyElement.querySelector(`textarea[data-content-edit='${replynum}']`).value;
 
-    // 디버깅: replynum과 content를 출력합니다.
-    console.log('Reply Number:', replynum);
-    console.log('Content:', content);
-
-    // AJAX 요청을 통해 댓글 내용을 업데이트합니다.
+    // AJAX 댓글 내용을 업데이트
     fetch('/reply_update', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ replynum: replynum, content: content })
     })
     .then(response => {
-        // 디버깅: 응답 상태 코드를 출력합니다.
-        console.log('Response Status:', response.status);
         return response.json();
     })
     .then(data => {
@@ -186,7 +196,7 @@ function saveChanges(button, event) {
             alert('댓글이 수정되었습니다.');
             replyElement.querySelector(`span[data-content-view='${replynum}']`).textContent = content;
 
-            // 저장 후 수정 버튼과 저장 버튼의 상태를 조정합니다.
+            // 저장 후 
             const editButton = replyElement.querySelector(`button[data-replynum='${replynum}']`);
             editButton.style.display = 'inline'; // 수정 버튼 표시
             button.style.display = 'none'; // 저장 버튼 숨김
@@ -203,6 +213,7 @@ function saveChanges(button, event) {
         console.error('Error:', error);
         alert('댓글 수정 중 오류가 발생했습니다: ' + error.message);
     });
+    }
 }
 
 //Boardupdate

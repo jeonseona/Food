@@ -2,11 +2,12 @@ package com.demo.controller;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -251,25 +252,30 @@ public class MypageController {
 	}
 	
 	@GetMapping("/foodRecommend")
-    public String foodRecommendView(HttpSession session, Model model) {
-        MemberData loginUser = (MemberData) session.getAttribute("loginUser");
+	public String foodRecommendView(HttpSession session, Model model) {
+	    MemberData loginUser = (MemberData) session.getAttribute("loginUser");
 
-        if (loginUser == null) {
-            return "redirect:/login";
-        } else {
-            List<Recommend_History> recommend = recommendService.getMyRecommendHistory(loginUser);
+	    if (loginUser == null) {
+	        return "redirect:/login";
+	    } else {
+	        List<Recommend_History> recommend = recommendService.getMyRecommendHistory(loginUser);
 
-         // Date 타입을 문자열로 변환하여 날짜별로 그룹화
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Map<String, List<Recommend_History>> groupedByDate = recommend.stream()
-                .collect(Collectors.groupingBy(history -> sdf.format(history.getRecommendDate())));
+	        // Date 타입을 문자열로 변환하여 날짜별로 그룹화
+	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	        
+	        // TreeMap을 사용하여 날짜순으로 그룹화
+	        Map<String, List<Recommend_History>> groupedByDate = new TreeMap<>();
+	        for (Recommend_History history : recommend) {
+	            String dateKey = sdf.format(history.getRecommendDate());
+	            groupedByDate.computeIfAbsent(dateKey, k -> new ArrayList<>()).add(history);
+	        }
 
-            model.addAttribute("groupedByDate", groupedByDate);
-            model.addAttribute("recommend", recommend);
+	        model.addAttribute("groupedByDate", groupedByDate);
+	        model.addAttribute("recommend", recommend);
 
-        }
-        return "mypage/recommendHistory";
-    }
+	    }
+	    return "mypage/recommendHistory";
+	}
 	
 
 	

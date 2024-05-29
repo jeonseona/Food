@@ -44,6 +44,7 @@
                             </div>
                              <a class="sb-sidenav-menu-heading" href="dataManager.do">DB관리</a>
                              <a class="sb-sidenav-menu-heading" href="logout">로그아웃</a>
+                        	 <a class="sb-sidenav-menu-heading" href="/">사용자 페이지로 이동</a>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
@@ -62,7 +63,7 @@
                                 회원조회
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple" style="width:400px;">
+                                <table id="datatablesSimple" style="width:700px;">
                                     <thead>
                                         <tr>
                                             <th>회원번호</th>
@@ -80,13 +81,18 @@
                                     		<th:block th:each="member, status : ${memberList}">
                                     	<!-- 해당 페이지로 액션할떄 모든 회원 정보를 memberList에 담아서 -->
                                     	<!-- memberList에 들어있는 값으로 아래 인자(이름) 수정 -->
-                                    		<div>
-                                        	<tr>
+                                    		<tr>
                                             	<td>[[${member.no_data}]]</td>
-                                            	<td>[[${member.name}]]</td>
-                                            	<td>[[${member.id}]]</td>
+    											<td>[[${member.name}]]</td>
+    											<td th:if="${member.id.length() > 15}">
+       											 <!-- 이메일 주소에서 사용자 이름 부분만 추출 -->
+       											 네이버계정 : [[${#strings.substringBefore(member.email, '@')}]]
+    											</td>
+    											<td th:if="${member.id.length() < 15}">
+        											[[${member.id}]]
+   												 </td>
                                        		</tr>
-                                        	</div>
+                                        	
                                         	</th:block>
                                         </th:block>
                                     </tbody>
