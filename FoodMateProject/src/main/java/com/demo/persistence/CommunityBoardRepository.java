@@ -21,7 +21,7 @@ public interface CommunityBoardRepository extends JpaRepository<CommunityBoard, 
 	public List<CommunityBoard> getBoard_List();
 	
 	// 제목으로 검색
-	@Query(value="SELECT b.* FROM Community_Board b WHERE community_title LIKE %?1% ", nativeQuery=true)
+	@Query(value="SELECT b.seq , b.idx, b.no_data , b.d_regdate, b.cnt, b.goodpoint FROM Com_Board_Detail b JOIN Com_Recipe m ON b.idx = m.idx WHERE r.rcp_nm LIKE %?1% ", nativeQuery=true)
 	public Page<CommunityBoard> findCommunityBoardByTitleContainingOrderByTitle(String title, int community_seq, Pageable pageable);
 	
 	// 글쓴이 아이디로 검색

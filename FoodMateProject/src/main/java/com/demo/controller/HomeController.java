@@ -67,8 +67,8 @@ public class HomeController {
 
 	private static String runningProcess(String selectedKeywords, String excludeIngredients, String dietCalory, String nutrientChoice) {
 	    Process process = null;
-	    File workingDirectory = new File("E:/Student/MachineLearning");
-	    String cmd = "python E:/Student/MachineLearning/recommend_food.py \"" + selectedKeywords + "\" \"" + excludeIngredients + "\" " + dietCalory + " \"" + nutrientChoice + "\"";
+	    File workingDirectory = new File("E:/Student/SpringBootWorkspace/Food/FoodMateProject");
+	    String cmd = "python E:/Student/SpringBootWorkspace/Food/FoodMateProject/recommend_food.py \"" + selectedKeywords + "\" \"" + excludeIngredients + "\" " + dietCalory + " \"" + nutrientChoice + "\"";
 	    ProcessStream processInStream = null;
 	    ProcessStream processErrStream = null;
 	    String result = "";
