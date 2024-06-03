@@ -312,7 +312,7 @@ function delHistory() {
 }
 
 function openChart(idx) {
-	window.open('chart.html?idx=' + idx, '_blank', 'width=400, height=600');
+	window.open('mypage/chart.html?idx=' + idx, '_blank', 'width=400, height=600');
 }
 
 
