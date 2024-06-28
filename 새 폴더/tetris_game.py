@@ -113,6 +113,11 @@ def run_game():
         screen.fill((0, 0, 0))
         draw_grid(screen, grid)
         draw_tetromino(screen, current_tetromino)
+
+        # Draw score
+        score_text = font.render(f"Score: {score}", True, (255, 255, 255))
+        screen.blit(score_text, (10, 10))
+
         pygame.display.flip()
 
         fall_speed = 0.3
@@ -160,10 +165,6 @@ def run_game():
                     game_over = False
                     current_tetromino = Tetromino(random.choice(shapes))
                     next_tetromino = Tetromino(random.choice(shapes))
-
-        # Draw score
-        score_text = font.render(f"Score: {score}", True, (255, 255, 255))
-        screen.blit(score_text, (10, 10))
 
         if game_over:
             game_over_text = font.render("Game Over! Press R to Restart", True, (255, 255, 255))
